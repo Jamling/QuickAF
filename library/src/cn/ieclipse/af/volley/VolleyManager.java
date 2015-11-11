@@ -1,0 +1,55 @@
+/*
+ * Copyright 2014-2015 ieclipse.cn.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package cn.ieclipse.af.volley;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+
+import android.content.Context;
+
+/**
+ * 类/接口描述
+ * 
+ * @author Jamling
+ * @date 2015年11月10日
+ *       
+ */
+public final class VolleyManager {
+    private RequestQueue mQueue;
+    private Context mContext;
+    private VolleyConfig mConfig;
+    private static VolleyManager mInstance;
+    
+    private VolleyManager(Context context, VolleyConfig config) {
+        if (config == null) {
+            config = new VolleyConfig.Builder().build();
+        }
+        mQueue = Volley.newRequestQueue(context, config.getHttpStack(), config.getMaxDiskCacheBytes());
+    }
+    
+    public static VolleyManager getInstance() {
+        return mInstance;
+    }
+    
+    public static void init(Context context) {
+        init(context, new VolleyConfig.Builder().build());
+    }
+    
+    public static void init(Context context, VolleyConfig config) {
+        mInstance = new VolleyManager(context, config);
+    }
+    
+}

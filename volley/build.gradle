@@ -1,0 +1,51 @@
+apply plugin: 'com.android.library'
+
+dependencies {
+    //    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.0'
+    //    androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
+    //    testCompile 'junit:junit:4.12'
+    //    testCompile "org.mockito:mockito-core:1.9.5"
+    //    testCompile 'org.robolectric:robolectric:2.4'
+    //comiple 'org.'
+}
+
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion '22.0.1'
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+        }
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+    }
+
+    lintOptions {
+        quiet true
+        abortOnError false
+    }
+    defaultConfig {
+        minSdkVersion 8
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+}
