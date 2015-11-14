@@ -17,6 +17,9 @@ package cn.ieclipse.af.util;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.os.Build;
 import android.util.DisplayMetrics;
@@ -111,4 +114,35 @@ public final class AppUtils {
             e.printStackTrace();
         }
     }
+    
+    public static String getModel() {
+        return Build.MODEL;
+    }
+
+    public static String getSDKVersion() {
+        return Build.VERSION.RELEASE;
+    }
+
+    /**
+     * Get app version info.
+     * 
+     * @param context
+     * @return
+     */
+    public static String getAppVersion(Context context) {
+        String version = null;
+        // Get packagemanager
+        PackageManager packageManager = context.getPackageManager();
+        // 0 means get version info
+        PackageInfo packInfo;
+        try {
+            packInfo = packageManager.getPackageInfo(context.getPackageName(),
+                    0);
+            version = packInfo.versionName;
+        } catch (NameNotFoundException e) {
+            // mLogger.w("get version failed");
+        }
+        return version;
+    }
+    
 }

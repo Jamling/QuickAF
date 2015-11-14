@@ -2,9 +2,14 @@ package cn.ieclipse.af.util;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
+import java.math.RoundingMode;
 import java.net.URLEncoder;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.List;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.text.TextUtils;
 
 public class StringUtil {
@@ -108,5 +113,35 @@ public class StringUtil {
         else
             return mobiles.matches(telRegex);
     }
-    
+    /**
+     * Get scaled number
+     * 
+     * @param <T>
+     *            number
+     * @param value
+     *            number valued before scaled
+     * @param fraction
+     *            fraction
+     * @return scaled number
+     */
+    public static <T extends Number> Number scale(T value, int fraction) {
+        return scale(value, fraction, RoundingMode.DOWN);
+    }
+
+    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
+    public static <T extends Number> Number scale(T value, int fraction,
+            RoundingMode mode) {
+        Number ret;
+        NumberFormat nf = NumberFormat.getNumberInstance();
+        nf.setMaximumFractionDigits(fraction);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+            nf.setRoundingMode(mode);
+        }
+        try {
+            ret = nf.parse(nf.format(value));
+        } catch (ParseException e) {
+            ret = value;
+        }
+        return ret;
+    }
 }
