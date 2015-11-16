@@ -18,13 +18,14 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Scroller;
+import cn.ieclipse.af.R;
 
 /**
  * 仿Launcher中的WorkSapce，可以左右滑动切换屏幕的类
  * 
  * @author jamling, Yao.GUET blog: http://blog.csdn.net/Yao_GUET date:
  *         2011-05-04
- * 
+ *         
  */
 public class ScrollLayout extends ViewGroup {
     
@@ -73,10 +74,10 @@ public class ScrollLayout extends ViewGroup {
         if (attrs != null) {
             TypedArray a = context.obtainStyledAttributes(attrs,
                     R.styleable.ScrollLayout);
-            debug = a.getBoolean(R.styleable.CScrollLayout_debug, false);
-            mSnapVelocity = a.getInt(R.styleable.CScrollLayout_snapVelocity,
+            debug = a.getBoolean(R.styleable.ScrollLayout_debug, false);
+            mSnapVelocity = a.getInt(R.styleable.ScrollLayout_snapVelocity,
                     SNAP_VELOCITY);
-            
+                    
             a.recycle();
         }
         
@@ -218,14 +219,14 @@ public class ScrollLayout extends ViewGroup {
                 }
                 mLastMotionX = x;
                 break;
-            
+                
             case MotionEvent.ACTION_MOVE:
                 int deltaX = (int) (mLastMotionX - x);
                 mLastMotionX = x;
                 
                 scrollBy(deltaX, 0);
                 break;
-            
+                
             case MotionEvent.ACTION_UP:
                 if (debug) {
                     Log.v(TAG, "event : up");
@@ -308,14 +309,14 @@ public class ScrollLayout extends ViewGroup {
                     
                 }
                 break;
-            
+                
             case MotionEvent.ACTION_DOWN:
                 mLastMotionX = x;
                 mLastMotionY = y;
                 mTouchState = mScroller.isFinished() ? TOUCH_STATE_REST
                         : TOUCH_STATE_SCROLLING;
                 break;
-            
+                
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
                 mTouchState = TOUCH_STATE_REST;

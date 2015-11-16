@@ -15,6 +15,8 @@
  */
 package cn.ieclipse.af.demo.recyclerview;
 
+import java.util.List;
+
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,15 +25,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import java.util.List;
-
 import cn.ieclipse.af.adapter.AfRecyclerAdapter;
 import cn.ieclipse.af.adapter.AfViewHolder;
-import cn.ieclipse.af.app.BaseActivity;
+import cn.ieclipse.af.demo.BaseActivity;
 import cn.ieclipse.af.demo.R;
-import cn.ieclipse.af.util.RandomUtils;
 import cn.ieclipse.af.util.DialogUtils;
+import cn.ieclipse.af.util.RandomUtils;
 
 /**
  * 类/接口描述

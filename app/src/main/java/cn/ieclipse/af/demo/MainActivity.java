@@ -11,10 +11,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import cn.ieclipse.af.demo.cview.CustomViewFragment;
 import cn.ieclipse.af.demo.recyclerview.RecyclerViewFragment;
 
-public class MainActivity extends Activity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-    
+public class MainActivity extends Activity
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        
     /**
      * Fragment managing the behaviors, interactions and presentation of the
      * navigation drawer.
@@ -37,7 +39,8 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
         mTitle = getTitle();
         
         // Set up the drawer.
-        mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
+        mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
+                (DrawerLayout) findViewById(R.id.drawer_layout));
     }
     
     @Override
@@ -47,6 +50,9 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
         Fragment f = null;
         if (position == 0) {
             f = new RecyclerViewFragment();
+        }
+        else if (position == 1) {
+            f = new CustomViewFragment();
         }
         if (f == null) {
             f = PlaceholderFragment.newInstance(position + 1);
@@ -128,15 +134,18 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
         }
         
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_main, container,
+                    false);
             return rootView;
         }
         
         @Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
-            ((MainActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));
+            ((MainActivity) activity).onSectionAttached(
+                    getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
 }

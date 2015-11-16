@@ -13,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import cn.ieclipse.af.R;
 
 public class ViewPagerV4 extends ViewPager {
     
@@ -31,9 +32,9 @@ public class ViewPagerV4 extends ViewPager {
         if (attrs != null) {
             TypedArray a = context.obtainStyledAttributes(attrs,
                     R.styleable.ViewPagerV4);
-            disableWipe = a.getBoolean(R.styleable.CViewPagerV4_disableWipe,
+            disableWipe = a.getBoolean(R.styleable.ViewPagerV4_disableWipe,
                     false);
-            
+                    
             a.recycle();
         }
         

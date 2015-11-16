@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="FlowLayout">
+        <attr name="fl_gridRatio" format="float" />
+        <attr name="fl_columns" format="integer" />
+        <attr name="fl_hSpacing" format="reference|dimension" />
+        <attr name="fl_vSpacing" format="reference|dimension" />
+
+        <!-- horizontal divider -->
+        <attr name="fl_hDivider" format="reference|color" />
+        <attr name="fl_hDividerWidth" format="reference|dimension" />
+        <attr name="fl_hDividerPadding" format="dimension" />
+        <attr name="fl_hDividerShow" format="integer">
+            <flag name="none" value="0" />
+            <flag name="beginning" value="1" />
+            <flag name="middle" value="2" />
+            <flag name="end" value="4" />
+        </attr>
+        <!-- vertical divider -->
+        <attr name="fl_vDivider" format="reference|color" />
+        <attr name="fl_vDividerHeight" format="reference|dimension" />
+        <attr name="fl_vDividerPadding" format="dimension" />
+        <attr name="fl_vDividerShow" format="integer">
+            <flag name="none" value="0" />
+            <flag name="beginning" value="1" />
+            <flag name="middle" value="2" />
+            <flag name="end" value="4" />
+        </attr>
+        <attr name="fl_choiceMode" format="integer">
+            <flag name="none" value="0" />
+            <flag name="single" value="1" />
+            <flag name="multipe" value="2" />
+        </attr>
+        <attr name="android:gravity" />
+        <attr name="android:numColumns" />
+        <attr name="android:horizontalSpacing" />
+        <attr name="android:verticalSpacing" />
+        <attr name="android:divider" />
+        <attr name="android:dividerHeight" />
+        <attr name="android:dividerPadding" />
+        <attr name="android:showDividers" />
+        <attr name="android:choiceMode" />
+    </declare-styleable>
+    <declare-styleable name="ScrollLayout">
+        <attr name="debug" format="boolean" />
+        <attr name="snapVelocity" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="ViewPagerV4">
+        <attr name="disableWipe" format="boolean" />
+    </declare-styleable>
+
+</resources>

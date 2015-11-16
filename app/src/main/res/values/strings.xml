@@ -1,14 +1,34 @@
 <resources>
-    <string name="app_name">Android Demo</string>
 
+    <string name="app_name">Android Demo</string>
     <string name="title_section1">RecyclerViewDemo</string>
     <string name="title_section2">CustomViewDemo</string>
     <string name="title_section3">Section 3</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_example">Example action</string>
-
     <string name="action_settings">Settings</string>
+
+    <string-array name="horizontal_gravity">
+        <item>LEFT</item>
+        <item>CENTER</item>
+        <item>RIGHT</item>
+    </string-array>
+    <string-array name="vertical_gravity">
+        <item>TOP</item>
+        <item>CENTER</item>
+        <item>BOTTOM</item>
+    </string-array>
+    <string-array name="choice_mode">
+        <item>NONE</item>
+        <item>Single</item>
+        <item>Multi</item>
+    </string-array>
+    <string-array name="show_divider">
+        <item>none</item>
+        <item>beginning</item>
+        <item>middle</item>
+        <item>end</item>
+    </string-array>
+
 </resources>
