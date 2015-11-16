@@ -13,16 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.ieclipse.af.volley;
+package cn.ieclipse.af.demo.volley;
+
+import com.google.gson.Gson;
+
+import android.os.IInterface;
+import cn.ieclipse.af.volley.IBaseResponse;
 
 /**
  * 类/接口描述
- * 
+ *
  * @author Jamling
- * @date 2015年11月7日
- *       
+ * @date 2015年11月10日
  */
-public interface IBaseResponse {
+public class AppBaseResponse implements IBaseResponse {
     
-    String getData();
+    public int errNum;
+    public String errMsg;
+    public Object retData;
+    
+    @Override
+    public String getData() {
+        if (retData instanceof String) {
+            return (String) retData;
+        }
+        return new Gson().toJson(retData);
+    }
 }

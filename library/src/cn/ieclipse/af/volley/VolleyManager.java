@@ -22,10 +22,9 @@ import android.content.Context;
 
 /**
  * 类/接口描述
- * 
+ *
  * @author Jamling
  * @date 2015年11月10日
- *       
  */
 public final class VolleyManager {
     private RequestQueue mQueue;
@@ -35,21 +34,35 @@ public final class VolleyManager {
     
     private VolleyManager(Context context, VolleyConfig config) {
         if (config == null) {
-            config = new VolleyConfig.Builder().build();
+            throw new NullPointerException("Null volley config, did you forget initialize the VolleyManager?");
         }
+        if (config.getBaseResponseClass() == null) {
+            throw new IllegalArgumentException("Base response class is null, please set from VolleyConfig.Builder ");
+        }
+        if (config.getBaseResponseClass().isInterface()) {
+            throw new IllegalArgumentException("Base response class must be a concrete class");
+        }
+        mConfig = config;
         mQueue = Volley.newRequestQueue(context, config.getHttpStack(), config.getMaxDiskCacheBytes());
     }
     
-    public static VolleyManager getInstance() {
+    static VolleyManager getInstance() {
         return mInstance;
     }
     
-    public static void init(Context context) {
-        init(context, new VolleyConfig.Builder().build());
+    public static void init(Context context, Class<? extends IBaseResponse> baseResponseClass) {
+        init(context, new VolleyConfig.Builder().setBaseResponseClass(baseResponseClass).build());
     }
     
     public static void init(Context context, VolleyConfig config) {
         mInstance = new VolleyManager(context, config);
     }
     
+    public RequestQueue getQueue() {
+        return mQueue;
+    }
+    
+    public static VolleyConfig getConfig() {
+        return getInstance().mConfig;
+    }
 }

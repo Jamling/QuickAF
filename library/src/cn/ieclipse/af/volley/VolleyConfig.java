@@ -27,6 +27,7 @@ import com.android.volley.toolbox.HttpStack;
 public final class VolleyConfig {
     private HttpStack mHttpStack;
     private int mMaxDiskCacheBytes;
+    private Class<? extends IBaseResponse> mBaseResponseClass;
     
     private VolleyConfig(Builder builder) {
         if (builder.mHttpStack == null) {
@@ -34,6 +35,7 @@ public final class VolleyConfig {
             mHttpStack = null;
         }
         mMaxDiskCacheBytes = builder.mMaxDiskCacheBytes;
+        mBaseResponseClass = builder.mBaseResponseClass;
     }
     
     public HttpStack getHttpStack() {
@@ -44,9 +46,14 @@ public final class VolleyConfig {
         return mMaxDiskCacheBytes;
     }
     
+    public Class<? extends IBaseResponse> getBaseResponseClass() {
+        return mBaseResponseClass;
+    }
+    
     public static final class Builder {
         private HttpStack mHttpStack;
         private int mMaxDiskCacheBytes;
+        private Class<? extends IBaseResponse> mBaseResponseClass;
         
         public Builder setHttpStack(HttpStack httpStack) {
             this.mHttpStack = httpStack;
@@ -55,6 +62,12 @@ public final class VolleyConfig {
         
         public Builder setMaxDiskCacheBytes(int maxDiskCacheBytes) {
             this.mMaxDiskCacheBytes = maxDiskCacheBytes;
+            return this;
+        }
+        
+        public Builder setBaseResponseClass(
+                Class<? extends IBaseResponse> baseResponseClass) {
+            this.mBaseResponseClass = baseResponseClass;
             return this;
         }
         

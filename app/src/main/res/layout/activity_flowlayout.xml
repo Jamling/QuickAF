@@ -132,7 +132,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:gravity="center" >
+            android:gravity="center"
+            app:fl_gridRatio="1"
+            android:numColumns="3">
 
             <CheckBox
                 android:layout_width="wrap_content"

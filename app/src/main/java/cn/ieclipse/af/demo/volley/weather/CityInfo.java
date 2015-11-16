@@ -13,16 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.ieclipse.af.volley;
+package cn.ieclipse.af.demo.volley.weather;
+
+import java.io.Serializable;
 
 /**
  * 类/接口描述
- * 
+ *
  * @author Jamling
- * @date 2015年11月7日
- *       
+ * @date 2015年11月16日
  */
-public interface IBaseResponse {
-    
-    String getData();
+public class CityInfo implements Serializable {
+
+    /**
+     * province_cn : 江苏
+     * district_cn : 南京
+     * name_cn : 南京
+     * name_en : nanjing
+     * area_id : 101190101
+     */
+
+    public String province_cn;
+    public String district_cn;
+    public String name_cn;
+    public String name_en;
+    public String area_id;
 }

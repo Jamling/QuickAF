@@ -13,35 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.ieclipse.af.demo.volley;
-
-import cn.ieclipse.af.volley.IBaseResponse;
-
 /**
  * 类/接口描述
  * 
  * @author Jamling
- * @date 2015年11月10日
- *      
+ * @date 2015年11月16日
+ *
  */
-public class BaseResponse implements IBaseResponse {
-
-    @Override
-    public String getData() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void setFromCache(boolean fromCache) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public boolean isFromCache() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-}
+package cn.ieclipse.af.demo.volley.weather;

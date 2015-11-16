@@ -1,9 +1,12 @@
 <resources>
 
     <string name="app_name">Android Demo</string>
-    <string name="title_section1">RecyclerViewDemo</string>
-    <string name="title_section2">CustomViewDemo</string>
-    <string name="title_section3">Section 3</string>
+    <array name="left_menu">
+        <item>RecyclerViewDemo</item>
+        <item>CustomViewDemo</item>
+        <item>VolleyDemo</item>
+        <item>FrescoDemo</item>
+    </array>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>

@@ -17,6 +17,7 @@ package cn.ieclipse.af.volley;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.ParameterizedType;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.android.volley.AuthFailureError;
@@ -38,14 +39,17 @@ public class GsonRequest extends JsonRequest<IBaseResponse> {
     protected boolean intermediate;
     protected long ttl = 365 * 24 * 60 * 60 * 1000;
     protected Map<String, String> mHeaders;
+    protected Response<IBaseResponse> response;
     
     public GsonRequest(int method, String url, String body, Listener<IBaseResponse> responseListener,
-            ErrorListener listener) {
+                       ErrorListener listener) {
         super(method, url, body, responseListener, listener);
     }
     
     @Override
     protected void deliverResponse(IBaseResponse response) {
+        this.intermediate = this.response.intermediate;
+        this.response = null;
         super.deliverResponse(response);
     }
     
@@ -53,9 +57,9 @@ public class GsonRequest extends JsonRequest<IBaseResponse> {
     protected Response<IBaseResponse> parseNetworkResponse(NetworkResponse response) {
         try {
             String json = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
-            Response<IBaseResponse> ret = Response.success(getData(json.trim(), response),
-                    parseCacheHeaders(response, ttl));
-            this.intermediate = ret.intermediate;
+            Response<IBaseResponse> ret = Response.success(getData(json.trim(), response), parseCacheHeaders(response,
+                ttl));
+            this.response = ret;
             return ret;
         } catch (UnsupportedEncodingException e) {
             return Response.error(new ParseError(e));
@@ -103,7 +107,11 @@ public class GsonRequest extends JsonRequest<IBaseResponse> {
     }
     
     public void addHeader(String key, String value) {
+
         try {
+            if (getHeaders().isEmpty()) {
+                setHeaders(new HashMap<String, String>());
+            }
             getHeaders().put(key, value);
         } catch (AuthFailureError e) {
             // e.printStackTrace();
@@ -113,12 +121,11 @@ public class GsonRequest extends JsonRequest<IBaseResponse> {
     /**
      * Extracts a {@link Cache.Entry} from a {@link NetworkResponse}.
      *
-     * @param response
-     *            The network response to parse headers from
-     * @param ttl
-     *            the cache expired time
+     * @param response The network response to parse headers from
+     * @param ttl      the cache expired time
+     *
      * @return a cache entry for the given response, or null if the response is
-     *         not cacheable.
+     * not cacheable.
      */
     public static Cache.Entry parseCacheHeaders(NetworkResponse response, long ttl) {
         long now = System.currentTimeMillis();

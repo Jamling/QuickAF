@@ -15,12 +15,6 @@
  */
 package cn.ieclipse.af.volley;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Request.Method;
@@ -31,18 +25,22 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
-import android.content.Context;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import cn.ieclipse.af.legcy.Log;
 import cn.ieclipse.af.util.StringUtil;
 
 /**
  * 类/接口描述
- * 
+ *
  * @author Jamling
  * @date 2015年11月7日
- *       
  */
 public class Controller<Listener> {
-    protected Context mContext;
     protected RequestQueue mQueue;
     private List<String> mTaskTags;
     protected Listener mListener;
@@ -51,26 +49,32 @@ public class Controller<Listener> {
     public static long CACHE_AMONTH = 30 * 24 * 3600000;
     
     public static void log(String msg) {
-        VolleyLog.v(msg);
+        if (DEBUG) {
+            Log.v(VolleyLog.TAG, msg);
+        }
     }
     
     public static void log(String msg, Throwable t) {
-        VolleyLog.e(t, msg);
+        if (DEBUG) {
+            Log.v(VolleyLog.TAG, msg, t);
+        }
     }
     
-    public Controller(Context context) {
-        this.mContext = context;
+    public Controller() {
+        if (VolleyManager.getInstance() == null) {
+            throw new NullPointerException("did you forget initialize the VolleyManager?");
+        }
         mTaskTags = new ArrayList<>();
-        mQueue = Volley.newRequestQueue(context);
+        mQueue = VolleyManager.getInstance().getQueue();
     }
     
     public void setListener(Listener l) {
         this.mListener = l;
     }
     
-    public abstract class RequestObjectTask<Input, Output>
-            implements Response.ErrorListener, Response.Listener<IBaseResponse> {
-        private Class<? extends IBaseResponse> mConcreteBaseResponseClass;
+    public abstract class RequestObjectTask<Input, Output> implements Response.ErrorListener,
+        Response.Listener<IBaseResponse> {
+        // private Class<? extends IBaseResponse> mConcreteBaseResponseClass;
         private Class<Output> mDataClazz;
         private Class<?> mDataItemClass;
         private Gson mGson = new Gson();
@@ -80,8 +84,6 @@ public class Controller<Listener> {
         private GsonRequest request;
         
         /**
-         * 
-         *
          * @param cacheTime
          */
         public void setCacheTime(long cacheTime) {
@@ -100,7 +102,7 @@ public class Controller<Listener> {
             }
             Controller.log("request url: " + url.getUrl());
             request = new GsonRequest(url.getMethod(), url.getUrl(), body, this, this);
-            request.setOutputClass(mConcreteBaseResponseClass);
+            request.setOutputClass(getBaseResponseClass());
             request.setShouldCache(needCache);
             request.setCacheTime(cacheTime);
             if (mTaskTags != null) {
@@ -117,7 +119,12 @@ public class Controller<Listener> {
         }
         
         protected void customRequest(final GsonRequest request) {
-        
+
+        }
+
+        public String getParamsEncoding() {
+            //return request.getParamsEncoding();
+            return "UTF-8";
         }
         
         protected String getBody(Input input) {
@@ -135,7 +142,7 @@ public class Controller<Listener> {
                 for (Object key : map.keySet()) {
                     sb.append(key);
                     sb.append('=');
-                    sb.append(StringUtil.getRequestParamValue(map.get(key), request.getParamsEncoding()));
+                    sb.append(StringUtil.getRequestParamValue(map.get(key), getParamsEncoding()));
                     sb.append('&');
                 }
                 if (sb.length() > 1) {
@@ -144,7 +151,7 @@ public class Controller<Listener> {
                 body = sb.toString();
             }
             else {
-                body = StringUtil.getRequestParam(input, request.getParamsEncoding());
+                body = StringUtil.getRequestParam(input, getParamsEncoding());
             }
             Controller.log("request body: " + body);
             return body;
@@ -154,19 +161,28 @@ public class Controller<Listener> {
         public final void onResponse(IBaseResponse response) {
             Output out = null;
             try {
-                out = convertData(response, mDataClazz, mDataItemClass);
                 Controller.log("from cache : " + request.intermediate);
-                onSuccess(out, request.intermediate);
+                out = convertData(response, mDataClazz, mDataItemClass);
             } catch (Exception e) {
                 Controller.log("error onResponse", e);
-                onError(new RestError(new ParseError(e)));
+                onError((e instanceof RestError) ? (RestError) e : new RestError(new ParseError(e)));
+                return;
+            }
+            try {
+                onSuccess(out, request.intermediate);
+            } catch (Exception e) {
+                onError((e instanceof RestError) ? (RestError) e : new RestError(new ClientError(e)));
             }
         }
         
-        public boolean onInterceptor(IBaseResponse response) {
+        protected boolean onInterceptor(IBaseResponse response) throws Exception {
             return false;
         }
-        
+
+        public Class<? extends IBaseResponse> getBaseResponseClass() {
+            return VolleyManager.getConfig().getBaseResponseClass();
+        }
+
         @Override
         public void onErrorResponse(VolleyError error) {
             onError(new RestError(error));
@@ -188,7 +204,7 @@ public class Controller<Listener> {
             if (!onInterceptor(response)) {
                 String data = response.getData();
                 if (listOutput) {
-                    out = mGson.fromJson(data, type(clazz, itemClazz));
+                    out = mGson.fromJson(data, type(List.class, itemClazz));
                     if (out == null) {
                         out = (Output) new ArrayList<>(0);
                     }

@@ -15,14 +15,17 @@
  */
 package cn.ieclipse.af.volley;
 
+import com.android.volley.VolleyError;
+
 /**
  * 类/接口描述
  * 
  * @author Jamling
- * @date 2015年11月7日
+ * @date 2015年11月9日
  *       
  */
-public interface IBaseResponse {
-    
-    String getData();
+public class ClientError extends VolleyError {
+    public ClientError(Throwable t) {
+        super(t);
+    }
 }

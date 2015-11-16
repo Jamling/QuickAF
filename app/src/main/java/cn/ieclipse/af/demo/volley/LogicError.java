@@ -13,16 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.ieclipse.af.volley;
+package cn.ieclipse.af.demo.volley;
+
+import com.android.volley.VolleyError;
 
 /**
  * 类/接口描述
  * 
  * @author Jamling
- * @date 2015年11月7日
+ * @date 2015年11月16日
  *       
  */
-public interface IBaseResponse {
+public class LogicError extends VolleyError {
     
-    String getData();
+    private int code;
+    private String message;
+    
+    public LogicError(AppBaseResponse resp) {
+        this(resp.errMsg, resp.errNum);
+    }
+    
+    public LogicError(String exceptionMessage, int code) {
+        super(exceptionMessage);
+        this.code = code;
+        this.message = exceptionMessage;
+    }
+    
 }
