@@ -12,7 +12,7 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.text.TextUtils;
 
-public class StringUtil {
+public class StringUtils {
     
     public static boolean isBlank(CharSequence cs) {
         int strLen;

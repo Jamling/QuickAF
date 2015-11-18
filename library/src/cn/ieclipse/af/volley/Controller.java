@@ -15,6 +15,12 @@
  */
 package cn.ieclipse.af.volley;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Request.Method;
@@ -22,17 +28,10 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import cn.ieclipse.af.legcy.Log;
-import cn.ieclipse.af.util.StringUtil;
+import cn.ieclipse.af.util.StringUtils;
 
 /**
  * 类/接口描述
@@ -142,7 +141,7 @@ public class Controller<Listener> {
                 for (Object key : map.keySet()) {
                     sb.append(key);
                     sb.append('=');
-                    sb.append(StringUtil.getRequestParamValue(map.get(key), getParamsEncoding()));
+                    sb.append(StringUtils.getRequestParamValue(map.get(key), getParamsEncoding()));
                     sb.append('&');
                 }
                 if (sb.length() > 1) {
@@ -151,7 +150,7 @@ public class Controller<Listener> {
                 body = sb.toString();
             }
             else {
-                body = StringUtil.getRequestParam(input, getParamsEncoding());
+                body = StringUtils.getRequestParam(input, getParamsEncoding());
             }
             Controller.log("request body: " + body);
             return body;

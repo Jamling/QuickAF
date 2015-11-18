@@ -69,11 +69,13 @@ public class NavigationDrawerFragment extends Fragment {
         // Read in the flag indicating whether or not the user has demonstrated
         // awareness of the
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences sp = PreferenceManager
+                .getDefaultSharedPreferences(getActivity());
         mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
         
         if (savedInstanceState != null) {
-            mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
+            mCurrentSelectedPosition = savedInstanceState
+                    .getInt(STATE_SELECTED_POSITION);
             mFromSavedInstanceState = true;
         }
         
@@ -90,23 +92,29 @@ public class NavigationDrawerFragment extends Fragment {
     }
     
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mDrawerListView = (ListView) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
-        mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectItem(position);
-            }
-        });
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(getActionBar().getThemedContext(),
-                android.R.layout.simple_list_item_activated_1, android.R.id.text1,
-                getResources().getStringArray(R.array.left_menu)));
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        mDrawerListView = (ListView) inflater
+                .inflate(R.layout.fragment_navigation_drawer, container, false);
+        mDrawerListView
+                .setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view,
+                            int position, long id) {
+                        selectItem(position);
+                    }
+                });
+        mDrawerListView.setAdapter(new ArrayAdapter<String>(
+                getActionBar().getThemedContext(),
+                android.R.layout.simple_list_item_activated_1,
+                android.R.id.text1, LeftMenuConfig.getInstance().getLabels()));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
     }
     
     public boolean isDrawerOpen() {
-        return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
+        return mDrawerLayout != null
+                && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
     }
     
     /**
@@ -124,7 +132,8 @@ public class NavigationDrawerFragment extends Fragment {
         
         // set a custom shadow that overlays the main content when the drawer
         // opens
-        mDrawerLayout.setDrawerShadow(R.mipmap.drawer_shadow, GravityCompat.START);
+        mDrawerLayout.setDrawerShadow(R.mipmap.drawer_shadow,
+                GravityCompat.START);
         // set up the drawer's list view with items and click listener
         
         ActionBar actionBar = getActionBar();
@@ -153,7 +162,7 @@ public class NavigationDrawerFragment extends Fragment {
                 }
                 
                 getActivity().invalidateOptionsMenu(); // calls
-                                                              // onPrepareOptionsMenu()
+                                                       // onPrepareOptionsMenu()
             }
             
             @Override
@@ -168,12 +177,14 @@ public class NavigationDrawerFragment extends Fragment {
                     // prevent auto-showing
                     // the navigation drawer automatically in the future.
                     mUserLearnedDrawer = true;
-                    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                    sp.edit().putBoolean(PREF_USER_LEARNED_DRAWER, true).commit();
+                    SharedPreferences sp = PreferenceManager
+                            .getDefaultSharedPreferences(getActivity());
+                    sp.edit().putBoolean(PREF_USER_LEARNED_DRAWER, true)
+                            .commit();
                 }
                 
                 getActivity().invalidateOptionsMenu(); // calls
-                                                              // onPrepareOptionsMenu()
+                                                       // onPrepareOptionsMenu()
             }
         };
         
@@ -214,7 +225,8 @@ public class NavigationDrawerFragment extends Fragment {
         try {
             mCallbacks = (NavigationDrawerCallbacks) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException("Activity must implement NavigationDrawerCallbacks.");
+            throw new ClassCastException(
+                    "Activity must implement NavigationDrawerCallbacks.");
         }
     }
     
@@ -257,7 +269,8 @@ public class NavigationDrawerFragment extends Fragment {
         }
         
         if (item.getItemId() == R.id.action_example) {
-            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT)
+                    .show();
             return true;
         }
         

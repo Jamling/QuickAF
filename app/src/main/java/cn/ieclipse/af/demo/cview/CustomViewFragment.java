@@ -15,7 +15,11 @@
  */
 package cn.ieclipse.af.demo.cview;
 
+import android.content.Intent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import cn.ieclipse.af.demo.BaseFragment;
 import cn.ieclipse.af.demo.R;
 
@@ -28,7 +32,7 @@ import cn.ieclipse.af.demo.R;
  */
 public class CustomViewFragment extends BaseFragment {
     
-    View flowLayout;
+    ListView mListView;
     
     @Override
     protected int getContentLayout() {
@@ -38,15 +42,45 @@ public class CustomViewFragment extends BaseFragment {
     @Override
     protected void initContentView(View view) {
         super.initContentView(view);
-        flowLayout = view.findViewById(R.id.btn_flowlayout);
-        setOnClickListener(flowLayout);
+        mListView = (ListView) view.findViewById(R.id.listView);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                    int position, long id) {
+                selectItem(position);
+            }
+        });
+        
+        mListView.setAdapter(new ArrayAdapter<String>(view.getContext(),
+                android.R.layout.simple_list_item_activated_1,
+                android.R.id.text1, getItems()));
+    }
+    
+    private String[] getItems() {
+        String[] items = new String[activitys.length];
+        for (int i = 0; i < activitys.length; i++) {
+            String cname = activitys[i].getSimpleName();
+            items[i] = cname.replace("Activity", "");
+        }
+        return items;
+    }
+    
+    private Class[] activitys = { FlowLayoutActivity.class,
+            TitleBarActivity.class };
+            
+    private void selectItem(int position) {
+        if (mListView != null) {
+            mListView.setItemChecked(position, true);
+        }
+        
+        Class cls = activitys[position];
+        Intent intent = new Intent(getActivity(), cls);
+        startActivity(intent);
     }
     
     @Override
     public void onClick(View v) {
-        if (v == flowLayout) {
-            FlowLayoutActivity.forward(getActivity());
-        }
+        
         super.onClick(v);
     }
 }

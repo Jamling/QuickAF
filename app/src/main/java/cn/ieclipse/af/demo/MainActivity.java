@@ -16,8 +16,9 @@ import cn.ieclipse.af.demo.cview.CustomViewFragment;
 import cn.ieclipse.af.demo.recyclerview.RecyclerViewFragment;
 import cn.ieclipse.af.demo.volley.VolleyFragment;
 
-public class MainActivity extends Activity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-
+public class MainActivity extends Activity
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        
     /**
      * Fragment managing the behaviors, interactions and presentation of the
      * navigation drawer.
@@ -35,28 +36,20 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager().findFragmentById(
-            R.id.navigation_drawer);
+        mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager()
+                .findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
         
         // Set up the drawer.
-        mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
+        mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
+                (DrawerLayout) findViewById(R.id.drawer_layout));
     }
     
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getFragmentManager();
-        Fragment f = null;
-        if (position == 0) {
-            f = new RecyclerViewFragment();
-        }
-        else if (position == 1) {
-            f = new CustomViewFragment();
-        }
-        else if (position == 2) {
-            f = new VolleyFragment();
-        }
+        Fragment f = LeftMenuConfig.getInstance().getFragment(position);
         if (f == null) {
             f = PlaceholderFragment.newInstance(position + 1);
         }
@@ -64,7 +57,7 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
     }
     
     public void onSectionAttached(int number) {
-        mTitle = getResources().getStringArray(R.array.left_menu)[number];
+        mTitle = LeftMenuConfig.getInstance().getLabel(number);
     }
     
     public void restoreActionBar() {
@@ -127,15 +120,18 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
         }
         
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_main, container,
+                    false);
             return rootView;
         }
         
         @Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
-            ((MainActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));
+            ((MainActivity) activity).onSectionAttached(
+                    getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
 }

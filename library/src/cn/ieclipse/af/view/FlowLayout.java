@@ -97,6 +97,8 @@ public class FlowLayout extends ViewGroup {
     
     private void init(Context context, AttributeSet attrs) {
         mChildOnCheckedChangeListener = new CheckedStateTracker();
+        mPassThroughListener = new PassThroughHierarchyChangeListener();
+        super.setOnHierarchyChangeListener(mPassThroughListener);
         if (attrs == null) {
             return;
         }
@@ -408,8 +410,14 @@ public class FlowLayout extends ViewGroup {
      */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        assert(MeasureSpec
-                .getMode(widthMeasureSpec) != MeasureSpec.UNSPECIFIED);
+        if (mNumColumns > 0) {
+            assert(MeasureSpec
+                    .getMode(widthMeasureSpec) != MeasureSpec.UNSPECIFIED);
+        }
+        
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        
         int width = MeasureSpec.getSize(widthMeasureSpec) - getPaddingLeft()
                 - getPaddingRight();
         int height = MeasureSpec.getSize(heightMeasureSpec) - getPaddingTop()
@@ -450,6 +458,9 @@ public class FlowLayout extends ViewGroup {
         if (mNumColumns > 0) {
             mMaxChildWidth = (width
                     - getHorizontalSpacing() * (mNumColumns - 1)) / mNumColumns;
+            if (mGridRatio > 0) {
+                mMaxChildHeight = (int) (mMaxChildWidth * mGridRatio + .5f);
+            }
         }
         for (int i = 0; i < count; i++) {
             final View child = getChildAt(i);
@@ -458,6 +469,7 @@ public class FlowLayout extends ViewGroup {
                 
                 child.measure(getChildWidthMeasureSpec(child, width),
                         getChildHeightMeasureSpec(child, height));
+                
                 int cw = child.getMeasuredWidth();
                 int ch = child.getMeasuredHeight();
                 
@@ -691,8 +703,7 @@ public class FlowLayout extends ViewGroup {
         for (Rect p : mDividersPos) {
             drawVerticalDivider(canvas, p);
         }
-        if (mHasVisibleChild
-                && (getShowDividers() & SHOW_DIVIDER_END) != 0) {
+        if (mHasVisibleChild && (getShowDividers() & SHOW_DIVIDER_END) != 0) {
             Drawable d = getDividerDrawable();
             d.setBounds(getWidth() - getPaddingBottom() - getDividerWidth(),
                     getPaddingTop(), getWidth() - getPaddingBottom(),
@@ -992,7 +1003,21 @@ public class FlowLayout extends ViewGroup {
      */
     
     public void setChoiceMode(int choiceMode) {
-        mSelectionMode = choiceMode;
+        if (mSelectionMode != choiceMode) {
+            if (mSelectionMode == ListView.CHOICE_MODE_SINGLE) {
+                clearCheck();
+            }
+            else {
+                int size = getChildCount();
+                for (int i = 0; i < size; i++) {
+                    View c = getChildAt(i);
+                    if (c instanceof CompoundButton) {
+                        ((CompoundButton) c).setChecked(false);
+                    }
+                }
+            }
+            mSelectionMode = choiceMode;
+        }
     }
     
     public List<View> getCheckedViews() {
