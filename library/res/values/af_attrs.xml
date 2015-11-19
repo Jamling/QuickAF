@@ -42,6 +42,14 @@
         <attr name="android:showDividers" />
         <attr name="android:choiceMode" />
     </declare-styleable>
+    
+    <declare-styleable name="RoundButton">
+        <attr name="android:radius"/>
+        <attr name="borderWidth" format="reference|dimension" />
+        <attr name="borderColor" format="reference|color" />
+        
+    </declare-styleable>
+    
     <declare-styleable name="ScrollLayout">
         <attr name="debug" format="boolean" />
         <attr name="snapVelocity" format="integer" />

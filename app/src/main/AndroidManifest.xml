@@ -28,6 +28,7 @@
         <!-- custom view -->
         <activity android:name=".cview.FlowLayoutActivity" />
         <activity android:name=".cview.TitleBarActivity" />
+        <activity android:name=".cview.RoundButtonActivity" />
 
         <!-- volley -->
         <activity android:name=".volley.weather.WeatherActivity" />

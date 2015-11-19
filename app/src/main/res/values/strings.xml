@@ -1,12 +1,14 @@
 <resources>
 
     <string name="app_name">Android Demo</string>
+
     <array name="left_menu">
         <item>RecyclerViewDemo</item>
         <item>CustomViewDemo</item>
         <item>VolleyDemo</item>
         <item>FrescoDemo</item>
     </array>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
@@ -32,6 +34,18 @@
         <item>beginning</item>
         <item>middle</item>
         <item>end</item>
+    </string-array>
+    <string-array name="colors">
+        <item>red</item>
+        <item>blue</item>
+        <item>green</item>
+        <item>yellow</item>
+    </string-array>
+    <string-array name="round_radius">
+        <item>2</item>
+        <item>4</item>
+        <item>6</item>
+        <item>8</item>
     </string-array>
 
 </resources>

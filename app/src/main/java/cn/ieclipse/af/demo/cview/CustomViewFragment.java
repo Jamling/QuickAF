@@ -66,7 +66,7 @@ public class CustomViewFragment extends BaseFragment {
     }
     
     private Class[] activitys = { FlowLayoutActivity.class,
-            TitleBarActivity.class };
+            TitleBarActivity.class, RoundButtonActivity.class };
             
     private void selectItem(int position) {
         if (mListView != null) {
