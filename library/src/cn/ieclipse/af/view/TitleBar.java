@@ -97,11 +97,11 @@ public class TitleBar extends LinearLayout {
         mRightContainer.setBackgroundColor(0xffcecece);
         
         addView(mLeftContainer, new LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.MATCH_PARENT));
+                LayoutParams.WRAP_CONTENT));
         addView(mMiddleContainer, new LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.MATCH_PARENT));
+                LayoutParams.WRAP_CONTENT));
         addView(mRightContainer, new LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.MATCH_PARENT));
+                LayoutParams.WRAP_CONTENT));
                 
         if (config == null) {
             config = new Config();

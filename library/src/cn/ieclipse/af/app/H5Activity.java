@@ -14,7 +14,7 @@ import android.webkit.WebViewClient;
  * @author whc
  * @date 2015年8月19日
  */
-public class H5Activity extends BaseActivity {
+public class H5Activity extends AfActivity {
 
     public static final String EXTRA_URL = "url";
     public static final String EXTRA_TITLE = "title";

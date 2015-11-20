@@ -17,9 +17,12 @@ package cn.ieclipse.af.demo.cview;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -39,6 +42,7 @@ public class FlowLayoutActivity extends BaseActivity
         implements OnItemSelectedListener {
     FlowLayout fl1;
     FlowLayout fl2;
+    FlowLayout fl3;
     
     Spinner hspn;
     Spinner vspn;
@@ -56,6 +60,8 @@ public class FlowLayoutActivity extends BaseActivity
     int[] divs = { LinearLayout.SHOW_DIVIDER_NONE,
             LinearLayout.SHOW_DIVIDER_BEGINNING,
             LinearLayout.SHOW_DIVIDER_MIDDLE, LinearLayout.SHOW_DIVIDER_END };
+    
+    EditText etRatio;
             
     @Override
     protected int getContentLayout() {
@@ -67,11 +73,39 @@ public class FlowLayoutActivity extends BaseActivity
         super.initContentView();
         fl1 = (FlowLayout) findViewById(R.id.flowlayout1);
         fl2 = (FlowLayout) findViewById(R.id.flowlayout2);
+        fl3 = (FlowLayout) findViewById(R.id.flowlayout3);
         hspn = (Spinner) findViewById(R.id.spn1);
         vspn = (Spinner) findViewById(R.id.spn2);
         choice = (Spinner) findViewById(R.id.spn3);
         hdivShow = (Spinner) findViewById(R.id.spn4);
         vdivShow = (Spinner) findViewById(R.id.spn5);
+        etRatio = (EditText) findViewById(R.id.et_ratio);
+        etRatio.addTextChangedListener(new TextWatcher() {
+            
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                    int count) {
+                // TODO Auto-generated method stub
+                
+            }
+            
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                    int after) {
+                // TODO Auto-generated method stub
+                
+            }
+            
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    float r = Float.parseFloat(etRatio.getText().toString());
+                    fl3.setGridRatio(r);
+                } catch (Exception e){
+                    
+                }
+            }
+        });
         
         setListener(hspn, vspn, choice, hdivShow, vdivShow);
     }
@@ -114,8 +148,8 @@ public class FlowLayoutActivity extends BaseActivity
                 fl2.setShowVerticalDividers(f);
             }
             else {
-                fl1.setShowVerticalDividers(fl1.getShowDividers() | f);
-                fl2.setShowVerticalDividers(fl2.getShowDividers() | f);
+                fl1.setShowVerticalDividers(fl1.getShowVerticalDividers() | f);
+                fl2.setShowVerticalDividers(fl2.getShowVerticalDividers() | f);
             }
         }
         

@@ -15,6 +15,9 @@
  */
 package cn.ieclipse.af.demo;
 
+import android.os.Bundle;
+import cn.ieclipse.af.app.AfActivity;
+
 /**
  * 类/接口描述
  * 
@@ -22,11 +25,12 @@ package cn.ieclipse.af.demo;
  * @date 2015年11月12日
  *
  */
-public class BaseActivity extends cn.ieclipse.af.app.BaseActivity {
+public abstract class BaseActivity extends AfActivity {
 
     @Override
-    protected int getContentLayout() {
-        return 0;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
+    
 
 }

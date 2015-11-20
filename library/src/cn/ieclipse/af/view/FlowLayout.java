@@ -113,8 +113,9 @@ public class FlowLayout extends ViewGroup {
         System.arraycopy(app, 0, attr, 0, app.length);
         System.arraycopy(and, 0, attr, app.length, and.length);
         
-        TypedArray a = context.obtainStyledAttributes(attrs, attr);
-        
+        TypedArray a = context.obtainStyledAttributes(attrs,
+                R.styleable.FlowLayout);
+                
         try {
             mGridRatio = a.getFloat(R.styleable.FlowLayout_fl_gridRatio,
                     mGridRatio);
@@ -136,18 +137,19 @@ public class FlowLayout extends ViewGroup {
                     R.styleable.FlowLayout_fl_vDividerPadding,
                     mVerticalDividerPadding);
             setVerticalSpacing(a.getDimensionPixelOffset(
-                    R.styleable.FlowLayout_fl_vSpacing, 0));
+                    R.styleable.FlowLayout_fl_vSpacing,
+                    mVerticalDividerPadding));
             // horizontal
             setDividerDrawable(
                     a.getDrawable(R.styleable.FlowLayout_fl_hDivider));
             mDividerWidth = a.getDimensionPixelOffset(
-                    R.styleable.FlowLayout_fl_hDividerWidth, 0);
+                    R.styleable.FlowLayout_fl_hDividerWidth, mDividerWidth);
             mShowDividers = a.getInt(R.styleable.FlowLayout_fl_hDividerShow,
                     mShowDividers);
             mDividerPadding = a.getDimensionPixelOffset(
                     R.styleable.FlowLayout_fl_hDividerPadding, mDividerPadding);
             setHorizontalSpacing(a.getDimensionPixelOffset(
-                    R.styleable.FlowLayout_fl_hSpacing, 0));
+                    R.styleable.FlowLayout_fl_hSpacing, mHorizontalSpacing));
                     
             // int offset = app.length;
             //
@@ -194,6 +196,16 @@ public class FlowLayout extends ViewGroup {
                         R.styleable.FlowLayout_android_dividerPadding,
                         mDividerPadding);
             }
+            if (a.hasValue(R.styleable.FlowLayout_android_horizontalSpacing)) {
+                setHorizontalSpacing(a.getDimensionPixelOffset(
+                        R.styleable.FlowLayout_android_horizontalSpacing,
+                        mHorizontalSpacing));
+            }
+            if (a.hasValue(R.styleable.FlowLayout_android_verticalSpacing)) {
+                setVerticalSpacing(a.getDimensionPixelOffset(
+                        R.styleable.FlowLayout_android_verticalSpacing,
+                        mVerticalSpacing));
+            }
         } finally {
             a.recycle();
         }
@@ -220,6 +232,13 @@ public class FlowLayout extends ViewGroup {
      */
     public void setNumColumns(int numColumns) {
         this.mNumColumns = numColumns;
+    }
+    
+    public void setGridRatio(float gridRatio) {
+        if (this.mGridRatio != gridRatio) {
+            this.mGridRatio = gridRatio;
+            requestLayout();
+        }
     }
     
     /**
@@ -249,7 +268,7 @@ public class FlowLayout extends ViewGroup {
         return Math.max(mVerticalSpacing, getVerticalDividerHeight());
     }
     
-    public int getShowVerticalDivider() {
+    public int getShowVerticalDividers() {
         return mShowVerticalDivider;
     }
     
@@ -449,7 +468,7 @@ public class FlowLayout extends ViewGroup {
         }
         // vertical beginning divider
         if (mHasVisibleChild
-                && (getShowVerticalDivider() & SHOW_DIVIDER_BEGINNING) != 0) {
+                && (getShowVerticalDividers() & SHOW_DIVIDER_BEGINNING) != 0) {
             top += getVerticalDividerHeight();
         }
         
@@ -469,7 +488,7 @@ public class FlowLayout extends ViewGroup {
                 
                 child.measure(getChildWidthMeasureSpec(child, width),
                         getChildHeightMeasureSpec(child, height));
-                
+                        
                 int cw = child.getMeasuredWidth();
                 int ch = child.getMeasuredHeight();
                 
@@ -501,7 +520,7 @@ public class FlowLayout extends ViewGroup {
         }
         // vertical end divider
         if (mHasVisibleChild
-                && (getShowVerticalDivider() & SHOW_DIVIDER_END) != 0) {
+                && (getShowVerticalDividers() & SHOW_DIVIDER_END) != 0) {
             y += getVerticalDividerHeight();
         }
         y += getPaddingBottom();
@@ -577,7 +596,7 @@ public class FlowLayout extends ViewGroup {
             left += getDividerWidth();
         }
         if (mHasVisibleChild
-                && (getShowVerticalDivider() & SHOW_DIVIDER_BEGINNING) != 0) {
+                && (getShowVerticalDividers() & SHOW_DIVIDER_BEGINNING) != 0) {
             top += getVerticalDividerHeight();
         }
         
