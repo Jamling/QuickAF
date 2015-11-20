@@ -66,7 +66,6 @@ public class RoundButtonActivity extends BaseActivity
     @Override
     protected void initContentView() {
         super.initContentView();
-        bar = (TitleBar) findViewById(R.id.titleBar);
         
         btn = (RoundButton) findViewById(R.id.btn1);
         

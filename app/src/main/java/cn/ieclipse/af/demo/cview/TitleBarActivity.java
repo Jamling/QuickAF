@@ -58,9 +58,9 @@ public class TitleBarActivity extends BaseActivity
     protected void initContentView() {
         super.initContentView();
         bar = (TitleBar) findViewById(R.id.titleBar);
-        bar.setBackgroundColor(0xffff9966);
         
         bar2 = (TitleBar) findViewById(R.id.titleBar2);
+        bar2.setBackgroundColor(0xffff9966);
         TextView tv = new TextView(this);
         tv.setText("返回");
         bar.addLeft(tv);
@@ -103,6 +103,7 @@ public class TitleBarActivity extends BaseActivity
     
     @Override
     public void onClick(View v) {
+        String s = RandomUtils.genGBK(1, 3);
         if (v.getId() == R.id.check1) {
             CheckBox chk = (CheckBox) v;
             int color = chk.isChecked() ? 0xff0000ff : 0x000000;
@@ -110,39 +111,39 @@ public class TitleBarActivity extends BaseActivity
             bar2.setBottomDrawable(color);
         }
         else if (v.getId() == R.id.button1) {
-            Button btn = new Button(this);
-            btn.setText(RandomUtils.genGBK(1, 3));
+            TextView btn = new Button(this);
+            btn.setText(s);
             bar.addLeft(btn);
             
             btn = new Button(this);
-            btn.setText(RandomUtils.genGBK(1, 3));
+            btn.setText(s);
             bar2.addLeft(btn);
         }
         else if (v.getId() == R.id.button2) {
-            Button btn = new Button(this);
-            btn.setText(RandomUtils.genGBK(1, 3));
+            TextView btn = new Button(this);
+            btn.setText(s);
             bar.setLeft(btn);
             
             btn = new Button(this);
-            btn.setText(RandomUtils.genGBK(1, 3));
+            btn.setText(s);
             bar2.setLeft(btn);
         }
         else if (v.getId() == R.id.button3) {
             TextView btn = new TextView(this);
-            btn.setText(RandomUtils.genGBK(1, 3));
+            btn.setText(s);
             bar.addRight(btn);
             
             btn = new Button(this);
-            btn.setText(RandomUtils.genGBK(1, 3));
+            btn.setText(s);
             bar2.addRight(btn);
         }
         else if (v.getId() == R.id.button4) {
-            Button btn = new Button(this);
-            btn.setText(RandomUtils.genGBK(1, 3));
+            TextView btn = new Button(this);
+            btn.setText(s);
             bar.setMiddle(btn);
             
-            btn = new Button(this);
-            btn.setText(RandomUtils.genGBK(1, 3));
+            btn = new TextView(this);
+            btn.setText(s);
             bar2.setMiddle(btn);
         }
         super.onClick(v);

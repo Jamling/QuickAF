@@ -48,9 +48,9 @@ public abstract class AfActivity extends Activity implements OnClickListener {
     protected SystemBarTintManager mTintManager;
     private boolean overlay;
     private RelativeLayout mRootView;
-    private TitleBar mTitleBar;
+    protected TitleBar mTitleBar;
     private FrameLayout mContentView;
-    private FrameLayout mBottomView;
+    protected FrameLayout mBottomView;
     
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
@@ -188,10 +188,8 @@ public abstract class AfActivity extends Activity implements OnClickListener {
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         lpTitle.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
         lpTitle.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
-        mTitleBar.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT));
-        mRootView.addView(mTitleBar, lpTitle);
+        mTitleBar.setLayoutParams(lpTitle);
+        mRootView.addView(mTitleBar);
         
         RelativeLayout.LayoutParams lpBottom = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
@@ -199,7 +197,8 @@ public abstract class AfActivity extends Activity implements OnClickListener {
         lpBottom.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM,
                 RelativeLayout.TRUE);
         lpBottom.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
-        mRootView.addView(mBottomView, lpBottom);
+        mBottomView.setLayoutParams(lpBottom);
+        mRootView.addView(mBottomView);
         
         RelativeLayout.LayoutParams lpContent = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
@@ -214,7 +213,8 @@ public abstract class AfActivity extends Activity implements OnClickListener {
             lpContent.addRule(RelativeLayout.BELOW, mTitleBar.getId());
         }
         lpContent.addRule(RelativeLayout.ABOVE, mBottomView.getId());
-        mRootView.addView(mContentView, lpContent);
+        mContentView.setLayoutParams(lpContent);
+        mRootView.addView(mContentView);
         
         int rootLayoutId = getContentLayout();
         if (rootLayoutId > 0) {

@@ -32,5 +32,11 @@ public abstract class BaseActivity extends AfActivity {
         super.onCreate(savedInstanceState);
     }
     
+    @Override
+    protected void initHeaderView() {
+        super.initHeaderView();
+        mTitleBar.setBackgroundColor(0xff9966);
+        // mTitleBar.setLayoutGravity(Gravity.CENTER);
+    }
 
 }

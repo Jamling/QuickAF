@@ -10,13 +10,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <cn.ieclipse.af.view.TitleBar
-            android:id="@+id/titleBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp" >
-        </cn.ieclipse.af.view.TitleBar>
-
         <cn.ieclipse.af.view.FlowLayout
             android:id="@+id/flowlayout1"
             android:layout_width="wrap_content"
@@ -86,8 +79,8 @@
             android:id="@+id/titleBar2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:background="#f0f0f0" >
+            android:background="#f0f0f0"
+            android:minHeight="48dp" >
         </cn.ieclipse.af.view.TitleBar>
     </LinearLayout>
 
