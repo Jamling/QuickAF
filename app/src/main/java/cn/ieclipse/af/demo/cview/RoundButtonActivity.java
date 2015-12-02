@@ -17,6 +17,7 @@ package cn.ieclipse.af.demo.cview;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
@@ -68,6 +69,9 @@ public class RoundButtonActivity extends BaseActivity
         super.initContentView();
         
         btn = (RoundButton) findViewById(R.id.btn1);
+        ColorStateList csl = new ColorStateList(new int[][]{{android.R.attr.state_enabled},{}}, new int[]{0xff000000, 0xffcccccc});
+        btn.setTextColor(csl);
+        
         
         hspn = (Spinner) findViewById(R.id.spn1);
         vspn = (Spinner) findViewById(R.id.spn2);
@@ -116,6 +120,7 @@ public class RoundButtonActivity extends BaseActivity
             } catch (Exception e) {
             
             }
+            btn.setEnabled(!btn.isEnabled());
         }
         super.onClick(v);
     }

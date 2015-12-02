@@ -7,6 +7,8 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="23" />
+    
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -32,6 +34,9 @@
 
         <!-- volley -->
         <activity android:name=".volley.weather.WeatherActivity" />
+        
+        <!-- common ui -->
+        <activity android:name=".ui.DialogsActivity"/>
     </application>
 
 </manifest>

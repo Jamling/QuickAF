@@ -20,6 +20,7 @@ import java.util.List;
 
 import cn.ieclipse.af.demo.cview.CustomViewFragment;
 import cn.ieclipse.af.demo.recyclerview.RecyclerViewFragment;
+import cn.ieclipse.af.demo.ui.UIFragment;
 import cn.ieclipse.af.demo.volley.VolleyFragment;
 
 /**
@@ -36,6 +37,7 @@ public class LeftMenuConfig {
     
     private LeftMenuConfig() {
         menus = new ArrayList<>();
+        add("Commom UI", UIFragment.class);
         add("CustomViewDemo", CustomViewFragment.class);
         add("VolleyDemo", VolleyFragment.class);
         // add("FrescoDemo", Fres)

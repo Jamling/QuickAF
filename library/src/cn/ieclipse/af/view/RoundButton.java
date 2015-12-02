@@ -85,16 +85,25 @@ public class RoundButton extends Button {
     
     private void init(Context context, AttributeSet attrs) {
         Drawable bg = getBackground();
-        if (bg != null && (bg instanceof StateListDrawable)) {
+        if (bg == null){
+            bg = new ColorDrawable(getContext().getResources().getColor(android.R.color.transparent));
+        }
+
+        if (bg instanceof StateListDrawable) {
+            // TODO support StateListDrawable
             // mRoundBg = new RoundedColorDrawable(radius, color);
-            StateListDrawable out = new StateListDrawable();
-            StateListDrawable sld = (StateListDrawable) bg;
-            int[] st = sld.getState();
-            for (int i = 0; i < st.length; i++) {
-                sld.selectDrawable(i);
-                sld.getCurrent();
-                
-            }
+//            StateListDrawable out = new StateListDrawable();
+//            StateListDrawable sld = (StateListDrawable) bg;
+//            int[] st = sld.getState();
+//            for (int i = 0; i < st.length; i++) {
+//                sld.selectDrawable(i);
+//                sld.getCurrent();
+//                
+//            }
+        }
+        else if (bg instanceof ColorDrawable) {
+            mRoundBg = RoundedColorDrawable
+                    .fromColorDrawable((ColorDrawable) bg);
         }
         if (attrs != null) {
             int[] attr = R.styleable.RoundButton;
@@ -108,12 +117,6 @@ public class RoundButton extends Button {
             setRadius(mRadius);
             setBorder(borderColor, borderWidth);
             a.recycle();
-        }
-        
-        else if (bg != null && (bg instanceof ColorDrawable)) {
-            mRoundBg = RoundedColorDrawable
-                    .fromColorDrawable((ColorDrawable) bg);
-            mRoundBg.setRadius(mRadius);
         }
         
         ViewUtils.setBackground(this, mRoundBg);

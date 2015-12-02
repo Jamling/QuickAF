@@ -9,14 +9,8 @@ local.properties
 gen-external-apklibs
 target
 classes
-project.properties
 *.iml
 .DS_Store
 out
-.gradle
 build
 .settings
-target
-*.iml
-.idea
-local.properties

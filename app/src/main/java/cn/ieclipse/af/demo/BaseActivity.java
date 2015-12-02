@@ -15,7 +15,11 @@
  */
 package cn.ieclipse.af.demo;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.TextView;
 import cn.ieclipse.af.app.AfActivity;
 
 /**
@@ -23,10 +27,12 @@ import cn.ieclipse.af.app.AfActivity;
  * 
  * @author Jamling
  * @date 2015年11月12日
- *
+ *       
  */
 public abstract class BaseActivity extends AfActivity {
-
+    
+    private TextView mLeft;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +42,22 @@ public abstract class BaseActivity extends AfActivity {
     protected void initHeaderView() {
         super.initHeaderView();
         mTitleBar.setBackgroundColor(0xff9966);
+        mLeft = new TextView(this);
+        mLeft.setText("关闭");
+        Drawable d = getResources().getDrawable(android.R.drawable.ic_menu_close_clear_cancel);
+        mLeft.setCompoundDrawablesWithIntrinsicBounds(d, null, null, null);
+        mLeft.setGravity(Gravity.CENTER_VERTICAL);
+        mTitleBar.setLeft(mLeft);
+        setOnClickListener(mLeft);
         // mTitleBar.setLayoutGravity(Gravity.CENTER);
     }
-
+    
+    @Override
+    public void onClick(View v) {
+        if (v == mLeft) {
+            finish();
+        }
+        super.onClick(v);
+    }
+    
 }

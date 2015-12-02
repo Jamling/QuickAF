@@ -15,8 +15,6 @@
  */
 package cn.ieclipse.af.view;
 
-import java.util.List;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -29,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import cn.ieclipse.af.R;
+import cn.ieclipse.af.util.AppUtils;
 
 /**
  * 类/接口描述
@@ -88,6 +87,10 @@ public class TitleBar extends LinearLayout {
             a.recycle();
         }
         
+        if (minHeight <= 0) {
+            minHeight = AppUtils.dp2px(context, 48);
+        }
+        
         if (config == null) {
             config = new Config();
             config.padding = 8;
@@ -95,6 +98,7 @@ public class TitleBar extends LinearLayout {
             config.leftWeight = 1;
             config.middleWeight = 2;
             config.rightWeight = 1;
+            config.minHeight = minHeight;
         }
         
         mLeftContainer = new LinearLayout(context);
@@ -192,6 +196,7 @@ public class TitleBar extends LinearLayout {
     }
     
     private static class Config {
+        private int minHeight;
         private float leftWeight;
         private float middleWeight;
         private float rightWeight;
@@ -218,8 +223,8 @@ public class TitleBar extends LinearLayout {
         int width = MeasureSpec.getSize(widthMeasureSpec) - getPaddingLeft()
                 - getPaddingRight();
         int height = 0 - getPaddingTop() - getPaddingBottom();
-        if (minHeight > 0) {
-            height = minHeight - getPaddingTop() - getPaddingBottom();
+        if (config.minHeight > 0) {
+            height = config.minHeight - getPaddingTop() - getPaddingBottom();
         }
         measureLeft(width, height);
         measureRight(width, height);
