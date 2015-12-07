@@ -16,12 +16,16 @@
 package cn.ieclipse.af.util;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.widget.Toast;
 import cn.ieclipse.af.app.AlertDialogFragment;
+import cn.ieclipse.af.app.ProgressDialogFragment;
+import cn.ieclipse.af.app.ProgressDialogFragment.ProgressInterceptor;
 
 /**
  * 类/接口描述
@@ -35,6 +39,23 @@ public final class DialogUtils {
     
     public static void showToast(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+    }
+    
+    private static void attachDialog(Activity context,
+            DialogFragment fragment) {
+        FragmentTransaction ft = context.getFragmentManager()
+                .beginTransaction();
+        Fragment prev = context.getFragmentManager()
+                .findFragmentByTag("dialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+        
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragment.show(ft, "dialog");
+        // ft.commitAllowingStateLoss();
+        
     }
     
     /**
@@ -51,20 +72,10 @@ public final class DialogUtils {
             String title, String message,
             AlertDialogFragment.AlertInterceptor interceptor,
             DialogInterface.OnClickListener... listeners) {
-        FragmentTransaction ft = context.getFragmentManager()
-                .beginTransaction();
-        Fragment prev = context.getFragmentManager()
-                .findFragmentByTag("dialog");
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
         AlertDialogFragment fragment = AlertDialogFragment.newInstance(icon,
                 title, message, interceptor, listeners);
                 
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        fragment.show(ft, "dialog");
-        // ft.commitAllowingStateLoss();
+        attachDialog(context, fragment);
         return fragment;
     }
     
@@ -94,5 +105,22 @@ public final class DialogUtils {
             
             }
         };
+    }
+    
+    public static ProgressDialogFragment showProgress(Activity context,
+            int style, ProgressInterceptor interceptor,
+            OnCancelListener listener) {
+        ProgressDialogFragment fragment = ProgressDialogFragment
+                .newInstance(style, interceptor, listener);
+        attachDialog(context, fragment);
+        return fragment;
+    }
+    
+    public static ProgressDialogFragment showProgress(Activity context,
+            int style, OnCancelListener listener) {
+        ProgressDialogFragment fragment = ProgressDialogFragment
+                .newInstance(style, null, listener);
+        attachDialog(context, fragment);
+        return fragment;
     }
 }

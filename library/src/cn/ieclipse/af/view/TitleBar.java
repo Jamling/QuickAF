@@ -68,6 +68,7 @@ public class TitleBar extends LinearLayout {
     private LinearLayout mRightContainer;
     
     private TextView mTitleTv;
+    private TextView mLeftTv;
     
     private int bottomDrawableHeight = 1;
     private Drawable bottomDrawable;
@@ -174,6 +175,24 @@ public class TitleBar extends LinearLayout {
         }
         mRightContainer.addView(view, p);
         requestLayout();
+    }
+    
+    public View addRightView(int id){
+        View v = View.inflate(getContext(), id, null);
+        addRight(v);
+        return v;
+    }
+    
+    public void setRight(View view) {
+        mRightContainer.removeAllViews();
+        addRight(view);
+    }
+    
+    public View getLeftView() {
+        if (mLeftContainer.getChildCount() > 0) {
+            return mLeftContainer.getChildAt(0);
+        }
+        return null;
     }
     
     public void setBottomDrawable(Drawable drawable) {
