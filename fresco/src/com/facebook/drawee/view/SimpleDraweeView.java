@@ -76,9 +76,7 @@ public class SimpleDraweeView extends GenericDraweeView {
     if (isInEditMode()) {
       return;
     }
-    Preconditions.checkNotNull(
-        sDraweeControllerBuilderSupplier,
-        "SimpleDraweeView was not initialized!");
+    Preconditions.checkNotNull(sDraweeControllerBuilderSupplier, "SimpleDraweeView was not initialized!");
     mSimpleDraweeControllerBuilder = sDraweeControllerBuilderSupplier.get();
   }
 
@@ -110,5 +108,16 @@ public class SimpleDraweeView extends GenericDraweeView {
         .setOldController(getController())
         .build();
     setController(controller);
+  }
+
+  /**
+   * Displays an image given by the url
+   *
+   * @param url url of the image
+   */
+  public void setImageURL(String url) {
+    if (url == null)
+      return;
+    setImageURI(Uri.parse(url));
   }
 }

@@ -371,4 +371,25 @@ public class TitleBar extends LinearLayout {
             bottomDrawable.draw(canvas);
         }
     }
+
+    // ---> adapter
+    public void setTitleText(int resId){
+        if (getLeftView() instanceof TextView){
+            ((TextView) getLeftView()).setText(resId);
+        }
+    }
+
+    public void setTitleTextForegroundColor(int color){
+        if (getLeftView() instanceof TextView){
+            ((TextView) getLeftView()).setTextColor(color);
+        }
+    }
+
+    public void setTitleBarBackground(int color){
+        setBackgroundColor(color);
+    }
+
+    public void setTitleBarGravity(int g, int x){
+
+    }
 }
