@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <cn.ieclipse.af.view.FlowLayout
+        android:id="@+id/fl1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="badge style:" />
+
+        <Spinner
+            android:id="@+id/spn1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/sample_badge_style" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="badge padding:" />
+
+        <Spinner
+            android:id="@+id/spn2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/sample_round_radius" />
+
+        <Button
+            android:id="@+id/btn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Increase" />
+
+        <Button
+            android:id="@+id/btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Decrease" />
+    </cn.ieclipse.af.view.FlowLayout>
+
+    <RadioGroup
+        android:id="@+id/radioGroup2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#ffeeeeaa"
+        android:gravity="center_vertical"
+        android:minHeight="55dp"
+        android:orientation="horizontal" >
+
+        <cn.ieclipse.af.view.RadioBadgeView
+            android:id="@+id/radio_badge1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@android:drawable/ic_menu_camera"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="Shape bg" />
+
+        <cn.ieclipse.af.view.RadioBadgeView
+            android:id="@+id/radio_badge2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@android:drawable/ic_menu_save"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="9png bg" />
+
+        <cn.ieclipse.af.view.RadioBadgeView
+            android:id="@+id/radio_badge3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@android:drawable/ic_menu_manage"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="png bg" />
+    </RadioGroup>
+
+</LinearLayout>

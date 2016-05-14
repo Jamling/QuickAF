@@ -24,7 +24,16 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 /**
- * 类/接口描述
+ /**
+ * Left drawable and text or hint center horizontal TextText.
+ * <pre>
+ *     <em>Sample:</em>
+ *     android:drawableLeft=""
+ *     android:gravity="left"
+ * </pre>
+ * <p>
+ *     <em>Note:</em> to align your drawable and text center, the gravity must be left horizontal
+ * </p>
  *
  * @author Jamling
  * @date 2015/7/18.
@@ -63,6 +72,9 @@ public class DrawableCenterTextView extends TextView {
                 drawableWidth = drawableLeft.getIntrinsicWidth();
                 float bodyWidth = textWidth + drawableWidth + drawablePadding;
                 float middle = (getMeasuredWidth() - bodyWidth) / 2;
+//                if ((getGravity() & Gravity.HORIZONTAL_GRAVITY_MASK) == Gravity.CENTER_HORIZONTAL){
+//                    middle =
+//                }
                 if (middle > 0) {
                     canvas.translate(middle, 0);
                 }

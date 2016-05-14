@@ -15,160 +15,90 @@
  */
 package cn.ieclipse.af.adapter;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import cn.ieclipse.af.common.Logger;
+
 /**
- * 类/接口描述
+ * BaseAdapter with {@link java.util.List} for {@link android.widget.AdapterView}
  *
  * @author Jamling
- * @date 2015年7月7日
  */
 public abstract class AfBaseAdapter<T> extends BaseAdapter {
-    public static final int CHECK_NONE = 0x00;
-    public static final int CHECK_TOP = 0x01;
-    public static final int CHECK_TAIL = 0x02;
-    public static final int CHECK_BOTH = 0x03;
-    //    protected Context mContext;
-    protected List<T> mDataList;
-    protected int mDataCheck = CHECK_NONE;
-
-//    public AbBaseAdapter(Context context) {
-//        this.mContext = context;
-//    }
+    protected Logger mLogger = Logger.getLogger(getClass());
+    private AfDataHolder<T> mDataHolder = new AfDataHolder<>();
 
     public abstract int getLayout();
 
     public abstract void onUpdateView(View convertView, int position);
 
     public void setDataCheck(int checkMode) {
-        this.mDataCheck = checkMode;
+        mDataHolder.setDataCheck(checkMode);
     }
 
     public int getDataCheck() {
-        return mDataCheck;
+        return mDataHolder.getDataCheck();
     }
 
     public void clear() {
-        if (mDataList != null) {
-            mDataList.clear();
-        } else {
-            checkDataList();
-        }
+        mDataHolder.clear();
     }
 
     public void addAll(List<T> list) {
-        checkDataList();
-        if (list != null) {
-            if ((mDataCheck & CHECK_TAIL) == CHECK_TAIL) {
-                int size = list.size();
-                for (int i = 0; i < size; i++) {
-                    T t = list.get(i);
-                    int idx = mDataList.indexOf(t);
-                    if (idx >= 0) {
-                        mDataList.set(idx, t);
-                    } else {
-                        mDataList.add(t);
-                    }
-                }
-            } else {
-                mDataList.addAll(list);
-            }
-        }
+        mDataHolder.addAll(list);
     }
 
     public void addAll2Top(List<T> list) {
-        checkDataList();
-        if (list != null) {
-            if ((mDataCheck & CHECK_TOP) == CHECK_TOP) {
-                int size = list.size();
-                for (int i = size - 1; i > 0; i--) {
-                    T t = list.get(i);
-                    int idx = mDataList.indexOf(t);
-                    if (idx >= 0) {
-                        mDataList.set(idx, t);
-                    } else {
-                        mDataList.add(0, t);
-                    }
-                }
-            } else {
-                mDataList.addAll(0, list);
-            }
-        }
+        mDataHolder.addAll2Top(list);
     }
 
     public void add2Top(T t) {
-        checkDataList();
-        if (t != null) {
-            if ((mDataCheck & CHECK_TOP) == CHECK_TOP) {
-                int idx = mDataList.indexOf(t);
-                if (idx >= 0) {
-                    mDataList.set(idx, t);
-                    return;
-                }
-            }
-            mDataList.add(0, t);
-        }
+        mDataHolder.add2Top(t);
     }
 
     public void add(T t) {
-        checkDataList();
-        if (t != null) {
-            if ((mDataCheck & CHECK_TAIL) == CHECK_TAIL) {
-                int idx = mDataList.indexOf(t);
-                if (idx >= 0) {
-                    mDataList.set(idx, t);
-                    return;
-                }
-            }
-            mDataList.add(t);
-        }
+        mDataHolder.add(t);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            convertView = View.inflate(parent.getContext(), getLayout(), null);
+        if (convertView == null && getLayout() > 0) {
+            // convertView = View.inflate(parent.getContext(), getLayout(), parent);
+            convertView = LayoutInflater.from(parent.getContext()).inflate(getLayout(), parent, false);
         }
-        onUpdateView(convertView, position);
+        try {
+            onUpdateView(convertView, position);
+        } catch (Exception e) {
+            mLogger.e("exception onUpdateView", e);
+        }
         return convertView;
     }
 
     @Override
-    public long getItemId(int pos) {
-        return pos;
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
-    public T getItem(int pos) {
-        if (pos >= 0 && pos < mDataList.size()) {
-            return mDataList.get(pos);
-        }
-        return null;
+    public T getItem(int position) {
+        return mDataHolder.getItem(position);
     }
 
     @Override
     public int getCount() {
-        return mDataList != null ? mDataList.size() : 0;
+        return mDataHolder.getCount();
     }
 
     public List<T> getDataList() {
-        checkDataList();
-        return mDataList;
+        return mDataHolder.getDataList();
     }
 
     public void setDataList(List<T> list) {
-        this.mDataList = list;
-        checkDataList();
-    }
-
-    private void checkDataList() {
-        if (mDataList == null) {
-            mDataList = new ArrayList<>(0);
-        }
+        mDataHolder.setDataList(list);
     }
 }

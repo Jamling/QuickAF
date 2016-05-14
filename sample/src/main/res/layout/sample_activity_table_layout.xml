@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<ScrollView-->
+<!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent">-->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fix columns: "/>
+
+        <EditText
+            android:id="@+id/et1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"/>
+    </LinearLayout>
+
+
+    <cn.ieclipse.af.view.TableLayout
+        android:id="@+id/tl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:horizontalSpacing="0dp"
+        android:verticalSpacing="0dp"
+        app:fl_hDivider="@color/colorPrimary"
+        app:fl_hDividerShow="beginning|middle|end"
+        app:fl_hDividerWidth="1dp"
+        app:fl_vDivider="@color/colorPrimaryDark"
+        app:fl_vDividerHeight="1dp"
+        app:fl_vDividerShow="middle|end|beginning">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dd22222222222222222"/>
+    </cn.ieclipse.af.view.TableLayout>
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="40dp"/>
+
+    <cn.ieclipse.af.view.TableContainer
+        android:id="@+id/table_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fadingEdgeLength="6dp"
+        app:edgeColor="#ffff00"
+        app:fl_hDivider="@color/colorPrimaryDark"
+        app:fl_hDividerShow="beginning|middle|end"
+        app:fl_hDividerWidth="1dp"
+        app:fl_vDivider="@color/colorAccent"
+        app:fl_vDividerHeight="1dp"
+        app:fl_vDividerShow="beginning|middle|end">
+
+    </cn.ieclipse.af.view.TableContainer>
+</LinearLayout>
+    <!--</ScrollView>-->

@@ -19,23 +19,32 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.text.TextUtils;
+import android.util.Base64;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.io.StreamCorruptedException;
 
 public final class SharedPrefsUtils {
     private SharedPrefsUtils() {
-    
+
     }
     
     private static String FILE_NAME = null;
     private static SharedPreferences sharedPreferences;
     
-    private static void init(Context context, String name) {
+    public static void init(Context context, String name) {
         if (!TextUtils.isEmpty(name)) {
             FILE_NAME = name;
         }
-        sharedPreferences = getSharedPreferences();
+        sharedPreferences = getSharedPreferences(context);
     }
     
-    private static SharedPreferences getDefaultSharedPreferences(Context context) {
+    private static SharedPreferences getSharedPreferences(Context context) {
         if (sharedPreferences == null) {
             sharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
         }
@@ -104,5 +113,64 @@ public final class SharedPrefsUtils {
         edit.remove(key);
         edit.commit();
     }
-    
+
+    /**
+     * save object to SharedPreferences and the object must implement Serializable
+     *
+     * @param saveKey
+     * @param object
+     * @return
+     */
+    public static boolean putObject(String saveKey ,Object object) {
+        if (object != null && object instanceof Serializable) {
+            SharedPreferences sharedPreferences = getSharedPreferences();
+            // 创建字节输出流
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            try {
+                // 创建对象输出流，并封装字节流
+                ObjectOutputStream oos = new ObjectOutputStream(baos);
+                // 将对象写入字节流
+                oos.writeObject(object);
+                // 将字节流编码成base64的字符窜
+                String base64String = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(saveKey, base64String);
+
+                editor.commit();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public static Object getObject(String saveKey) {
+        Object object = null;
+        SharedPreferences sharedPreferences = getSharedPreferences();
+        String base64String = sharedPreferences.getString(saveKey, "");
+        // 读取字节
+        byte[] base64 = Base64.decode(base64String.getBytes(), Base64.DEFAULT);
+        // 封装到字节流
+        ByteArrayInputStream bais = new ByteArrayInputStream(base64);
+        try {
+            // 再次封装
+            ObjectInputStream bis = new ObjectInputStream(bais);
+            try {
+                // 读取对象
+                object = bis.readObject();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        } catch (StreamCorruptedException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return object;
+    }
+
 }

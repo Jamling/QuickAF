@@ -20,23 +20,25 @@ import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface.OnCancelListener;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 /**
- * 类/接口描述
- * 
+ * /**
+ * Fragment used to show progress dialog, it's suggested to use {@link android.app.DialogFragment} to show dialogs
+ *
  * @author Jamling
- * @date 2015年11月26日
- *       
+ * @see cn.ieclipse.af.util.DialogUtils
  */
 public class ProgressDialogFragment extends DialogFragment {
     private ProgressInterceptor interceptor;
     private OnCancelListener onCancelListener;
     
-    public static ProgressDialogFragment newInstance(int style,
-            ProgressInterceptor interceptor, OnCancelListener listener) {
+    public static ProgressDialogFragment newInstance(int style, String msg, ProgressInterceptor interceptor,
+                                                     OnCancelListener listener) {
         ProgressDialogFragment frag = new ProgressDialogFragment();
         Bundle args = new Bundle();
         args.putInt("style", style);
+        args.putString("msg", msg);
         frag.setArguments(args);
         frag.setInterceptor(interceptor);
         frag.setOnCancelListener(listener);
@@ -47,8 +49,12 @@ public class ProgressDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         ProgressDialog dialog = new ProgressDialog(getActivity());
         int style = getArguments().getInt("style");
+        String msg = getArguments().getString("msg");
         if (style > 0) {
             dialog.setProgressStyle(style);
+        }
+        if (!TextUtils.isEmpty(msg)) {
+            dialog.setMessage(msg);
         }
         if (onCancelListener != null) {
             dialog.setOnCancelListener(onCancelListener);

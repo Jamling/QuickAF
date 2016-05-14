@@ -15,6 +15,7 @@
  */
 package cn.ieclipse.af.volley;
 
+import com.android.volley.RetryPolicy;
 import com.android.volley.toolbox.HttpStack;
 
 /**
@@ -28,6 +29,7 @@ public final class VolleyConfig {
     private HttpStack mHttpStack;
     private int mMaxDiskCacheBytes;
     private Class<? extends IBaseResponse> mBaseResponseClass;
+    private RetryPolicy mRetryPolicy;
     
     private VolleyConfig(Builder builder) {
         if (builder.mHttpStack == null) {
@@ -36,6 +38,7 @@ public final class VolleyConfig {
         }
         mMaxDiskCacheBytes = builder.mMaxDiskCacheBytes;
         mBaseResponseClass = builder.mBaseResponseClass;
+        mRetryPolicy = builder.mRetryPolicy;
     }
     
     public HttpStack getHttpStack() {
@@ -49,11 +52,16 @@ public final class VolleyConfig {
     public Class<? extends IBaseResponse> getBaseResponseClass() {
         return mBaseResponseClass;
     }
+
+    public RetryPolicy getRetryPolicy(){
+        return mRetryPolicy;
+    }
     
     public static final class Builder {
         private HttpStack mHttpStack;
         private int mMaxDiskCacheBytes;
         private Class<? extends IBaseResponse> mBaseResponseClass;
+        private RetryPolicy mRetryPolicy;
         
         public Builder setHttpStack(HttpStack httpStack) {
             this.mHttpStack = httpStack;
@@ -68,6 +76,11 @@ public final class VolleyConfig {
         public Builder setBaseResponseClass(
                 Class<? extends IBaseResponse> baseResponseClass) {
             this.mBaseResponseClass = baseResponseClass;
+            return this;
+        }
+
+        public Builder setRetryPolicy(RetryPolicy retryPolicy){
+            this.mRetryPolicy = retryPolicy;
             return this;
         }
         

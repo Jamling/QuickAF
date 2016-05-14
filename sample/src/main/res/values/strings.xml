@@ -1,0 +1,72 @@
+<resources>
+    <string name="app_name">QuickAF</string>
+
+    <!-- 通用 -->
+    <string name="common_submit">提交</string>
+    <string name="common_back">返回</string>
+    <string name="common_edit">编辑</string>
+    <string name="common_delete">删除</string>
+    <string name="common_cancel">取消</string>
+    <string name="common_ok">确定</string>
+    <string name="common_retry">重试</string>
+    <string name="common_select">选择</string>
+    <string name="common_loading">正在加载, 请稍候...</string>
+    <string name="common_no_data">暂无数据, 请下拉重试</string>
+    <string name="common_save">保存</string>
+    <string name="common_add">添加</string>
+    <string name="common_save_success">保存成功</string>
+    <string name="common_exit">退出</string>
+    <string name="common_finish">完成</string>
+    <string name="common_about">关于</string>
+    <string name="common_tip">提示</string>
+    <string name="common_yes">是</string>
+    <string name="common_no">否</string>
+
+    <!--error -->
+    <string name="error_type_auth">身份验证失败</string>
+    <string name="error_type_no_network">网络未连接</string>
+    <string name="error_type_network">网络错误</string>
+    <string name="error_type_timeout">连接超时</string>
+    <string name="error_type_parse">数据解析错误</string>
+    <string name="error_type_server">服务暂时不可用, 请稍后再试</string>
+    <string name="error_type_logic">服务暂时不可用, 请稍后再试</string>
+    <string name="error_type_unknown">操作失败</string>
+    <string name="error_loading">网络不给力</string>
+    <string name="error_loading_retry">请点击重新加载</string>
+    <string name="error_loading_with_retry">加载失败, 请点击重试</string>
+
+    <!-- 全局 -->
+
+    <!-- 注册和登录 -->
+    <string name="login_title">登录</string>
+    <string name="login_type_code">手机登录</string>
+    <string name="login_type_pwd">密码登录</string>
+    <string name="login_hint_name">请输入手机号</string>
+    <string name="login_hint_pwd">请输入密码</string>
+    <string name="login_hint_code">请输入短信验证码</string>
+    <string name="login_forgot">忘记密码</string>
+    <string name="login_btn_code">获取验证码</string>
+    <string name="login_ok">登录成功</string>
+
+    <string name="reg_title">注册</string>
+    <string name="reg_label_name">真实姓名</string>
+    <string name="reg_label_sex">性别</string>
+    <string name="reg_label_phone">手机号</string>
+    <string name="reg_label_code">验证码</string>
+    <string name="reg_label_pwd">设置密码</string>
+    <string name="reg_hint_name">请输入真实姓名</string>
+    <string name="reg_hint_phone">请输入您的手机号码</string>
+    <string name="reg_hint_code">请输入短信验证码</string>
+    <string name="reg_hint_pwd">请输入密码</string>
+    <string name="reg_hint_pwd_rule">密码（6-16个字符,区分大小写）</string>
+    <string name="reg_btn_next">下一步</string>
+    <string name="reg_code_sent">验证码已发送到您的手机</string>
+    <string name="reg_ok">注册成功</string>
+
+    <string name="change_pwd_hint_old">请输入旧密码</string>
+    <string name="change_pwd_hint_new">请输入新密码</string>
+    <string name="change_pwd_hint_repeat">请再次输入新密码</string>
+    <string name="change_pwd_error_repeat">您两次输入的密码不一致</string>
+    <string name="change_pwd_btn">确认修改</string>
+    <string name="change_pwd_title">修改密码</string>
+</resources>

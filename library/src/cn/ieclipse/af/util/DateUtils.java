@@ -16,20 +16,24 @@
 package cn.ieclipse.af.util;
 
 /**
- * @author sven 
- * 
+ * @author sven
  */
+
+import android.util.Log;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class DateUtils {
     public static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
     public static final String DATE_FORMAT_SHORT = "HH:mm:ss";
+    public static final String DATE_FORMAT_HM = "HH:mm";
     
     /**
      * Returns the current date in the default format.
-     * 
+     *
      * @return the current formatted date/time
      */
     public static String now() {
@@ -42,9 +46,8 @@ public class DateUtils {
      * Returns the current date in a given format.
      * DateUtils.now("dd MMMMM yyyy") DateUtils.now("yyyyMMdd")
      * DateUtils.now("dd.MM.yy") DateUtils.now("MM/dd/yy")
-     * 
-     * @param dateFormat
-     *            a date format (See examples)
+     *
+     * @param dateFormat a date format (See examples)
      * @return the current formatted date/time
      */
     public static String now(String dateFormat) {
@@ -85,7 +88,7 @@ public class DateUtils {
     
     /**
      * Formats milliseconds to a friendly form
-     * 
+     *
      * @param millis
      * @return the formated string
      */
@@ -131,8 +134,8 @@ public class DateUtils {
     
     /**
      * Formats milliseconds to a friendly form. Short means that seconds are
-     * truncated if value > 1 Day
-     * 
+     * truncated if value &gt; 1 Day
+     *
      * @param millis
      * @return the formated string
      */
@@ -180,9 +183,8 @@ public class DateUtils {
     /**
      * Returns String i.e. hh:mm:ss representing the duration specified
      * (positive values only)
-     * 
-     * @param period
-     *            - time in seconds
+     *
+     * @param period - time in seconds
      * @return String on format mm:ss or hh:mm:ss if more than one hour.
      */
     public static String formatSecond(int period) {
@@ -221,11 +223,9 @@ public class DateUtils {
     
     /**
      * Get a friendly string format time over, such as a year ago etc.
-     * 
-     * @param serverTime
-     *            the server time
-     * @param current
-     *            client current time
+     *
+     * @param serverTime the server time
+     * @param current    client current time
      * @return friendly string
      */
     public static String getTimeOver(long serverTime, long current) {
@@ -246,8 +246,7 @@ public class DateUtils {
         if (t > 0) {
             return t + " months ago";
         }
-        t = time02.get(Calendar.DAY_OF_MONTH)
-                - time01.get(Calendar.DAY_OF_MONTH);
+        t = time02.get(Calendar.DAY_OF_MONTH) - time01.get(Calendar.DAY_OF_MONTH);
         if (t > 1) {
             return t + " days ago";
         }
@@ -268,4 +267,153 @@ public class DateUtils {
         }
         return "?????";
     }
+
+    /**
+     * 根据不同时间段，显示不同时间
+     *
+     * @param date
+     * @return
+     */
+    public static String getTodayTimeBucket(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        SimpleDateFormat timeformatter0to11 = new SimpleDateFormat("KK:mm", Locale.getDefault());
+        SimpleDateFormat timeformatter1to12 = new SimpleDateFormat("hh:mm", Locale.getDefault());
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        if (hour >= 0 && hour < 5) {
+            return "凌晨 " + timeformatter0to11.format(date);
+        }
+        else if (hour >= 5 && hour < 12) {
+            return "上午 " + timeformatter0to11.format(date);
+        }
+        else if (hour >= 12 && hour < 18) {
+            return "下午 " + timeformatter1to12.format(date);
+        }
+        else if (hour >= 18 && hour < 24) {
+            return "晚上 " + timeformatter1to12.format(date);
+        }
+        return "";
+    }
+
+    /**
+     * 根据日期获得星期
+     *
+     * @param date
+     * @return
+     */
+    public static String getWeekOfDate(Date date) {
+        String[] weekDaysName = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
+        // String[] weekDaysCode = { "0", "1", "2", "3", "4", "5", "6" };
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int intWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+        return weekDaysName[intWeek];
+    }
+
+    /**
+     * 日期变量转成对应的星期字符串
+     *
+     * @param milliseconds data
+     * @return 日期变量转成对应的星期字符串
+     */
+    public static String getWeekOfMillis(long milliseconds) {
+        int WEEKDAYS = 7;
+        String[] WEEK = {"周日", "周一", "周二", "周三", "周四", "周五", "周六"};
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(milliseconds);
+        int dayIndex = calendar.get(Calendar.DAY_OF_WEEK);
+        if (dayIndex < 1 || dayIndex > WEEKDAYS) {
+            return null;
+        }
+        return WEEK[dayIndex - 1];
+    }
+
+    public static boolean isSameDay(long time1, long time2) {
+        return isSameDay(new Date(time1), new Date(time2));
+    }
+
+    public static boolean isSameDay(Date date1, Date date2) {
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        cal1.setTime(date1);
+        cal2.setTime(date2);
+
+        boolean sameDay = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) && cal1.get(Calendar.DAY_OF_YEAR) == cal2
+            .get(Calendar.DAY_OF_YEAR);
+        return sameDay;
+    }
+
+    /**
+     * UTM转换成日期描述，如三周前，上午，昨天等
+     *
+     * @param milliseconds milliseconds
+     * @param isShowWeek   是否采用周的形式显示  true 显示为3周前，false 则显示为时间格式mm-dd
+     * @return 如三周前，上午，昨天等
+     */
+
+    public static String getTimeDesc(long milliseconds, boolean isShowWeek) {
+        StringBuffer sb = new StringBuffer();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(milliseconds);
+        long hour = calendar.get(Calendar.HOUR_OF_DAY);
+
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        long hourNow = calendar.get(Calendar.HOUR_OF_DAY);
+
+        Log.v("---------->---", System.currentTimeMillis() + "----------" + milliseconds);
+        long datetime = System.currentTimeMillis() - (milliseconds);
+        long day = (long) Math.floor(datetime / 24 / 60 / 60 / 1000.0f) + (hourNow < hour ? 1 : 0);// 天前
+
+        if (day <= 7) {// 一周内
+            if (day == 0) {// 今天
+                if (hour <= 4) {
+                    sb.append(" 凌晨 ");
+                }
+                else if (hour > 4 && hour <= 6) {
+                    sb.append(" 早上 ");
+                }
+                else if (hour > 6 && hour <= 11) {
+                    sb.append(" 上午 ");
+                }
+                else if (hour > 11 && hour <= 13) {
+                    sb.append(" 中午 ");
+                }
+                else if (hour > 13 && hour <= 18) {
+                    sb.append(" 下午 ");
+                }
+                else if (hour > 18 && hour <= 19) {
+                    sb.append(" 傍晚 ");
+                }
+                else if (hour > 19 && hour <= 24) {
+                    sb.append(" 晚上 ");
+                }
+                else {
+                    sb.append("今天 ");
+                }
+            }
+            else if (day == 1) {// 昨天
+                sb.append(" 昨天 ");
+            }
+            else if (day == 2) {// 前天
+                sb.append(" 前天 ");
+            }
+            else {
+                sb.append(" " + getWeekOfMillis(milliseconds) + " ");
+            }
+        }
+        else {// 一周之前
+            if (isShowWeek) {
+                sb.append((day % 7 == 0 ? (day / 7) : (day / 7 + 1)) + "周前");
+            }
+            else {
+                SimpleDateFormat formatBuilder = new SimpleDateFormat("MM-dd");
+                String time = formatBuilder.format(milliseconds);
+                sb.append(time);
+            }
+        }
+        Log.v("sb---", sb.toString() + "");
+        return sb.toString();
+
+    }
+
 }

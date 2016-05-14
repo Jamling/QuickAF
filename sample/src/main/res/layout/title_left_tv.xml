@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:drawableLeft="@mipmap/title_back"
+    android:gravity="center"
+    android:text="@string/common_back"
+    android:textColor="@android:color/white"
+    android:textSize="17sp">
+
+</TextView>

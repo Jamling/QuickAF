@@ -1,8 +1,8 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '23.0.2'
+    compileSdkVersion Integer.parseInt(SDK_COMPILE)
+    buildToolsVersion SDK_BUILD
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -13,13 +13,14 @@ android {
             res.srcDirs = ['res']
             assets.srcDirs = ['assets']
         }
+        test {
+            java.srcDirs = ['test']
+        }
     }
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion Integer.parseInt(SDK_MIN)
+        targetSdkVersion Integer.parseInt(SDK_TARGET)
     }
     buildTypes {
         release {
@@ -31,6 +32,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
     }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -38,6 +42,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.1.0'
     compile 'com.google.code.gson:gson:2.3'
     compile 'com.android.support:support-v4:23.1.0'
-    compile project(':af-volley')
-    compile project(':af-fresco')
+    compile 'com.android.support:percent:23.1.0'
+    // compile 'com.tubb.smrv:swipemenu-recyclerview:3.0.5'
+    compile 'com.mcxiaoke.volley:library:1.0.19'
 }

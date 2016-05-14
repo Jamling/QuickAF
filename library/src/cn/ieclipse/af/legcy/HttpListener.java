@@ -21,18 +21,20 @@ import java.io.InputStream;
  */
 public interface HttpListener {
     /**
-     * Callback when HttpThread get a correct response(200 <= code < 400).
-     * <ul>
+     * Callback when HttpThread get a correct response(200 &lt;= code &lt; 400).
+     * <p>
      * Some common code:
+     * </p>
+     * <ul>
      * <li>200: http OK</li>
      * <li>302: http redirect</li>
      * <li>206: http part</li>
      * <li>400: http request error</li>
      * <li>403: http forbidden</li>
      * <li>500: http server error</li>
-     * More http response code, please see {@link java.net.HttpURLConnection}
      * </ul>
-     * 
+     *
+     * More http response code, please see {@link java.net.HttpURLConnection}
      * @param code
      *            Http response code
      * @param is

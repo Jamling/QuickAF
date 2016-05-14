@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="
+        cn.ieclipse.af.view.ah.AutoHeightViewPager\n
+        cn.ieclipse.af.view.ah.AutoHeightListView\n
+        cn.ieclipse.af.view.ah.AutoHeightGridView\n
+        Here just show AutoHeightViewPager" />
+
+    <cn.ieclipse.af.view.ah.AutoHeightViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#eecccccc" >
+    </cn.ieclipse.af.view.ah.AutoHeightViewPager>
+
+</LinearLayout>

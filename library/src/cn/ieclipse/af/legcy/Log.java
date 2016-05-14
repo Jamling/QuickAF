@@ -12,9 +12,9 @@ package cn.ieclipse.af.legcy;
  * 
  * @author melord
  * @version 1.0
- * 
+ * @deprecated
  */
-public final class Log {
+final class Log {
     
     private Log() {
         

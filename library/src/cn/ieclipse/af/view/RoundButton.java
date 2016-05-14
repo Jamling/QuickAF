@@ -25,6 +25,7 @@ import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.Button;
+
 import cn.ieclipse.af.R;
 import cn.ieclipse.af.graphics.RoundedColorDrawable;
 import cn.ieclipse.af.util.ViewUtils;
@@ -116,6 +117,18 @@ public class RoundButton extends Button {
                     R.styleable.RoundButton_borderWidth, borderWidth);
             setRadius(mRadius);
             setBorder(borderColor, borderWidth);
+//            if (a.hasValue(R.styleable.RoundButton_pressedBgColor)) {
+//                setStateBgColor(new int[]{android.R.attr.state_pressed},
+//                    a.getColor(R.styleable.RoundButton_pressedBgColor, Color.TRANSPARENT), borderColor);
+//            }
+//            if (a.hasValue(R.styleable.RoundButton_checkedBgColor)) {
+//                setStateBgColor(new int[]{android.R.attr.state_checked},
+//                    a.getColor(R.styleable.RoundButton_checkedBgColor, Color.TRANSPARENT), borderColor);
+//            }
+//            if (a.hasValue(R.styleable.RoundButton_selectedBgColor)) {
+//                setStateBgColor(new int[]{android.R.attr.state_selected},
+//                    a.getColor(R.styleable.RoundButton_selectedBgColor, Color.TRANSPARENT), borderColor);
+//            }
             a.recycle();
         }
         
@@ -149,6 +162,36 @@ public class RoundButton extends Button {
         }
         else {
             setRoundBackground(new ColorDrawable(color));
+        }
+    }
+
+    public void addStateBgColor(int[] stateSet, int color) {
+        if (mRoundBg != null) {
+            mRoundBg.addStateColor(stateSet, color);
+        }
+    }
+
+    public void setPressedBgColor(int color) {
+        if (mRoundBg != null) {
+            mRoundBg.addStateColor(android.R.attr.state_pressed, color);
+        }
+    }
+
+    public void setCheckedBgColor(int color) {
+        if (mRoundBg != null) {
+            mRoundBg.addStateColor(android.R.attr.state_checked, color);
+        }
+    }
+
+    public void setSelectedBgColor(int color) {
+        if (mRoundBg != null) {
+            mRoundBg.addStateColor(android.R.attr.state_selected, color);
+        }
+    }
+
+    public void apply() {
+        if (mRoundBg != null) {
+            mRoundBg.applyTo(this);
         }
     }
 }

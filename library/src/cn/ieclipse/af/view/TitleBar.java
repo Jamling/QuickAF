@@ -25,7 +25,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import cn.ieclipse.af.R;
 import cn.ieclipse.af.util.AppUtils;
 
@@ -42,7 +41,7 @@ public class TitleBar extends LinearLayout {
      * @param context
      */
     public TitleBar(Context context) {
-        this(context, null);
+        this(context, (AttributeSet) null);
     }
     
     /**
@@ -63,16 +62,23 @@ public class TitleBar extends LinearLayout {
         init(context, attrs);
     }
     
+    /**
+     * @param context
+     */
+    public TitleBar(Context context, Config config) {
+        super(context);
+        this.config = config;
+        init(context, null);
+    }
+    
     private LinearLayout mLeftContainer;
     private LinearLayout mMiddleContainer;
     private LinearLayout mRightContainer;
     
-    private TextView mTitleTv;
-    private TextView mLeftTv;
-    
     private int bottomDrawableHeight = 1;
     private Drawable bottomDrawable;
-    private int minHeight;
+    private Config config;
+    private int mGravity = 0;
     
     private void init(Context context, AttributeSet attrs) {
         setOrientation(HORIZONTAL);
@@ -81,46 +87,39 @@ public class TitleBar extends LinearLayout {
             setId(R.id.titleBar);
         }
         
+        if (config == null) {
+            config = generateDefaultConfig(getContext());
+        }
+        
         if (attrs != null) {
             int[] and = { android.R.attr.minHeight };
             TypedArray a = context.obtainStyledAttributes(attrs, and);
-            minHeight = a.getDimensionPixelOffset(0, 0);
+            config.minHeight = a.getDimensionPixelOffset(0, config.minHeight);
             a.recycle();
-        }
-        
-        if (minHeight <= 0) {
-            minHeight = AppUtils.dp2px(context, 48);
-        }
-        
-        if (config == null) {
-            config = new Config();
-            config.padding = 8;
-            config.rightItemPadding = 16;
-            config.leftWeight = 1;
-            config.middleWeight = 2;
-            config.rightWeight = 1;
-            config.minHeight = minHeight;
         }
         
         mLeftContainer = new LinearLayout(context);
         mLeftContainer.setGravity(Gravity.START | Gravity.CENTER_VERTICAL);
+        mLeftContainer.setOrientation(HORIZONTAL);
         
         mMiddleContainer = new LinearLayout(context);
         mMiddleContainer.setGravity(Gravity.CENTER);
+        mMiddleContainer.setOrientation(HORIZONTAL);
         
         mRightContainer = new LinearLayout(context);
         mRightContainer.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+        mRightContainer.setOrientation(HORIZONTAL);
         
-        mLeftContainer.setBackgroundColor(0xffcecece);
-        mMiddleContainer.setBackgroundColor(0xffff9966);
-        mRightContainer.setBackgroundColor(0xffcecece);
+        // mLeftContainer.setBackgroundColor(0xffcecece);
+        // mMiddleContainer.setBackgroundColor(0xffff9966);
+        // mRightContainer.setBackgroundColor(0xffcecece);
         
-        addView(mLeftContainer, new LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT));
-        addView(mMiddleContainer, new LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT));
-        addView(mRightContainer, new LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT));
+        addView(mLeftContainer, new LinearLayout.LayoutParams(
+                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+        addView(mMiddleContainer, new LinearLayout.LayoutParams(
+                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+        addView(mRightContainer, new LinearLayout.LayoutParams(
+                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
                 
     }
     
@@ -137,14 +136,20 @@ public class TitleBar extends LinearLayout {
         }
     }
     
+    public void setConfig(Config config) {
+        if (config != null) {
+            this.config = config;
+            requestLayout();
+        }
+    }
+    
     public void addLeft(View view) {
-        LayoutParams p = new LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
+                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         if (mLeftContainer.getChildCount() > 0) {
             p.leftMargin = config.leftItemPadding;
         }
         mLeftContainer.addView(view, p);
-        requestLayout();
     }
     
     public void setLeft(View view) {
@@ -158,8 +163,8 @@ public class TitleBar extends LinearLayout {
         if (mMiddleContainer.getChildCount() > 0) {
             p.leftMargin = config.middleItemPadding;
         }
-        mMiddleContainer.addView(view, p);
-        requestLayout();
+        view.setLayoutParams(p);
+        mMiddleContainer.addView(view);
     }
     
     public void setMiddle(View view) {
@@ -168,16 +173,22 @@ public class TitleBar extends LinearLayout {
     }
     
     public void addRight(View view) {
-        LayoutParams p = new LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
+                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         if (mRightContainer.getChildCount() > 0) {
             p.leftMargin = config.rightItemPadding;
         }
         mRightContainer.addView(view, p);
-        requestLayout();
     }
     
-    public View addRightView(int id){
+    public View addRight(int id) {
+        View v = View.inflate(getContext(), id, null);
+        addRight(v);
+        return v;
+    }
+    
+    @Deprecated
+    public View addRightView(int id) {
         View v = View.inflate(getContext(), id, null);
         addRight(v);
         return v;
@@ -195,6 +206,13 @@ public class TitleBar extends LinearLayout {
         return null;
     }
     
+    public View getMiddleView() {
+        if (mMiddleContainer.getChildCount() > 0) {
+            return mMiddleContainer.getChildAt(0);
+        }
+        return null;
+    }
+    
     public void setBottomDrawable(Drawable drawable) {
         if (this.bottomDrawable == drawable) {
             return;
@@ -205,8 +223,10 @@ public class TitleBar extends LinearLayout {
             }
         }
         this.bottomDrawable = drawable;
-        setWillNotDraw(getBackground() == null || this.bottomDrawable == null);
-        this.bottomDrawable.invalidateSelf();
+        setWillNotDraw(getBackground() == null && this.bottomDrawable == null);
+        if (this.bottomDrawable != null) {
+            this.invalidateDrawable(this.bottomDrawable);
+        }
     }
     
     public void setBottomDrawable(int color) {
@@ -214,56 +234,51 @@ public class TitleBar extends LinearLayout {
         setBottomDrawable(drawable);
     }
     
-    private static class Config {
-        private int minHeight;
-        private float leftWeight;
-        private float middleWeight;
-        private float rightWeight;
-        
-        private int leftItemPadding;
-        private int middleItemPadding;
-        private int rightItemPadding;
-        private int padding;
-        
-        float getSumWeight() {
-            return leftWeight + middleWeight + rightWeight;
-        }
-    }
-    
-    private Config config;
-    private int mGravity = 0;
-    
     public int getGravity() {
         return mGravity;
     }
     
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int width = MeasureSpec.getSize(widthMeasureSpec) - getPaddingLeft()
-                - getPaddingRight();
-        int height = 0 - getPaddingTop() - getPaddingBottom();
-        if (config.minHeight > 0) {
-            height = config.minHeight - getPaddingTop() - getPaddingBottom();
-        }
+        int parentWidth = MeasureSpec.getSize(widthMeasureSpec);
+        int width = parentWidth - getPaddingLeft() - getPaddingRight();
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        int parentHeight = MeasureSpec.getSize(heightMeasureSpec);
+        // if (parentHeight < config.minHeight) {
+        // parentHeight = config.minHeight;
+        // }
+        int height = parentHeight - getPaddingBottom() - getPaddingTop();
+        int maxHeight = 0;
+        
         measureLeft(width, height);
         measureRight(width, height);
         measureMiddle(width, height);
-        height = Math.max(height, leftHeight);
-        height = Math.max(height, middleHeight);
-        height = Math.max(height, rightHeight);
-        setMeasuredDimension(width + getPaddingLeft() + getPaddingRight(),
-                height + getPaddingTop() + getPaddingRight());
+        maxHeight = Math.max(maxHeight, leftHeight);
+        maxHeight = Math.max(maxHeight, middleHeight);
+        maxHeight = Math.max(maxHeight, rightHeight);
+        maxHeight += getPaddingBottom() + getPaddingTop();
+        if (maxHeight < config.minHeight) {
+            maxHeight = config.minHeight;
+        }
+        // System.out.println(String.format("%d-%d %d-%d %d-%d -> %d",
+        // leftWidth,
+        // leftHeight, middleWidth, middleHeight, rightWidth, rightHeight,
+        // maxHeight));
+        setMeasuredDimension(parentWidth, maxHeight);
     }
     
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        // layoutLeft(l, t, l + leftWidth, b);
-        mLeftContainer.layout(l, t, l + leftWidth, b);
-        int x = leftWidth + config.padding;
-        mMiddleContainer.layout(x, t, x + middleWidth, b);
-        mRightContainer.layout(r - rightWidth, t, r, b);
-        // layoutMiddle(l + leftWidth + config.padding, t,
-        // l + leftWidth + config.padding + middleWidth, b);
+        int x = getPaddingLeft();
+        int y = getPaddingTop();
+        int h = getMeasuredHeight() - getPaddingBottom();
+        
+        mLeftContainer.layout(x, y, x + leftWidth, h);
+        x += leftWidth + config.padding;
+        mMiddleContainer.layout(x, y, x + middleWidth, h);
+        x += middleWidth + config.padding;
+        mRightContainer.layout(x, y, x + rightWidth, h);
+        // super.onLayout(changed, l, t, r, b);
     }
     
     private int leftWidth;
@@ -277,7 +292,7 @@ public class TitleBar extends LinearLayout {
                 
         mLeftContainer.measure(
                 MeasureSpec.makeMeasureSpec(maxWidth, MeasureSpec.AT_MOST),
-                MeasureSpec.makeMeasureSpec(height, MeasureSpec.UNSPECIFIED));
+                MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
         leftHeight = Math.max(mLeftContainer.getMeasuredHeight(), leftHeight);
         leftWidth = Math.min(mLeftContainer.getMeasuredWidth(), maxWidth);
     }
@@ -292,7 +307,7 @@ public class TitleBar extends LinearLayout {
                 / config.getSumWeight());
         mRightContainer.measure(
                 MeasureSpec.makeMeasureSpec(maxWidth, MeasureSpec.AT_MOST),
-                MeasureSpec.makeMeasureSpec(height, MeasureSpec.UNSPECIFIED));
+                MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
         rightHeight = Math.max(rightHeight,
                 mRightContainer.getMeasuredHeight());
         rightWidth = Math.min(mRightContainer.getMeasuredWidth(), maxWidth);
@@ -316,7 +331,7 @@ public class TitleBar extends LinearLayout {
         
         mMiddleContainer.measure(
                 MeasureSpec.makeMeasureSpec(maxWidth, MeasureSpec.EXACTLY),
-                MeasureSpec.makeMeasureSpec(height, MeasureSpec.UNSPECIFIED));
+                MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
                 
         middleWidth = maxWidth;
     }
@@ -371,25 +386,82 @@ public class TitleBar extends LinearLayout {
             bottomDrawable.draw(canvas);
         }
     }
-
-    // ---> adapter
-    public void setTitleText(int resId){
-        if (getLeftView() instanceof TextView){
-            ((TextView) getLeftView()).setText(resId);
+    
+    @Override
+    protected boolean verifyDrawable(Drawable who) {
+        return super.verifyDrawable(who) || this.bottomDrawable == who;
+    }
+    
+    public static Config generateDefaultConfig(Context context) {
+        Config config = new Config();
+        config.padding = AppUtils.dp2px(context, 4);// 4dp
+        config.rightItemPadding = AppUtils.dp2px(context, 0);// 0dp
+        config.leftWeight = 1;
+        config.middleWeight = 2;
+        config.rightWeight = 1;
+        config.minHeight = AppUtils.dp2px(context, 48);// 48dp
+        return config;
+    }
+    
+    /**
+     * Title bar config.
+     * 
+     * @author Jamling
+     *         
+     */
+    public static class Config {
+        private int minHeight;
+        
+        private float leftWeight;
+        private float middleWeight;
+        private float rightWeight;
+        
+        private int leftItemPadding;
+        private int middleItemPadding;
+        private int rightItemPadding;
+        private int rightMaxItemCount = 3;
+        
+        private int padding;
+        
+        float getSumWeight() {
+            return leftWeight + middleWeight + rightWeight;
         }
-    }
-
-    public void setTitleTextForegroundColor(int color){
-        if (getLeftView() instanceof TextView){
-            ((TextView) getLeftView()).setTextColor(color);
+        
+        public void setMinHeight(int minHeight) {
+            this.minHeight = minHeight;
         }
-    }
-
-    public void setTitleBarBackground(int color){
-        setBackgroundColor(color);
-    }
-
-    public void setTitleBarGravity(int g, int x){
-
+        
+        public void setLeftWeight(float leftWeight) {
+            this.leftWeight = leftWeight;
+        }
+        
+        public void setMiddleWeight(float middleWeight) {
+            this.middleWeight = middleWeight;
+        }
+        
+        public void setRightWeight(float rightWeight) {
+            this.rightWeight = rightWeight;
+        }
+        
+        public void setLeftItemPadding(int leftItemPadding) {
+            this.leftItemPadding = leftItemPadding;
+        }
+        
+        public void setMiddleItemPadding(int middleItemPadding) {
+            this.middleItemPadding = middleItemPadding;
+        }
+        
+        public void setRightItemPadding(int rightItemPadding) {
+            this.rightItemPadding = rightItemPadding;
+        }
+        
+        public void setRightMaxItemCount(int rightMaxItemCount) {
+            this.rightMaxItemCount = rightMaxItemCount;
+        }
+        
+        public void setPadding(int padding) {
+            this.padding = padding;
+        }
+        
     }
 }

@@ -17,8 +17,11 @@ package cn.ieclipse.af.util;
 
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.text.Editable;
+import android.text.Selection;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 /**
  * 类/接口描述
@@ -36,15 +39,16 @@ public final class ViewUtils {
     /**
      * Set background drawable to view.
      *
-     * @param view
-     * @param d
+     * @param view view
+     * @param d    background drawable
      * @see View#setBackground(Drawable)
      */
     //--> for android sdk compatibility
     public static void setBackground(View view, Drawable d) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             view.setBackground(d);
-        } else {
+        }
+        else {
             view.setBackgroundDrawable(d);
         }
     }
@@ -61,7 +65,6 @@ public final class ViewUtils {
      * 测量这个view获取宽度和高度.
      *
      * @param view 要测量的view
-     * @return 测量过的view
      */
     public static void measureView(View view) {
         ViewGroup.LayoutParams p = view.getLayoutParams();
@@ -79,5 +82,13 @@ public final class ViewUtils {
             childHeightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         }
         view.measure(childWidthSpec, childHeightSpec);
+    }
+
+    /**
+     * 设置输入框的光标到末尾
+     */
+    public static final void setEditTextSelectionToEnd(EditText editText) {
+        Editable editable = editText.getEditableText();
+        Selection.setSelection(editable, editable.toString().length());
     }
 }

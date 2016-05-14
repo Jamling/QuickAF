@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <cn.ieclipse.af.view.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_gravity="top"
+        android:visibility="gone"/>
+
+    <cn.ieclipse.af.view.PagerSlidingTabStrip
+        android:id="@+id/top_view"
+        style="@style/tab_sliding"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:clipToPadding="false"
+        android:paddingLeft="0dip"
+        android:fadingEdge="horizontal"
+        android:paddingRight="0dip"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+</LinearLayout>

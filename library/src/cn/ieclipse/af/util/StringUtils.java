@@ -14,17 +14,6 @@ import android.text.TextUtils;
 
 public class StringUtils {
     
-    public static boolean isBlank(CharSequence cs) {
-        int strLen;
-        if (cs == null || (strLen = cs.length()) == 0)
-            return true;
-        for (int i = 0; i < strLen; i++)
-            if (!Character.isWhitespace(cs.charAt(i)))
-                return false;
-                
-        return true;
-    }
-    
     public static String getRequestParamValue(Object obj, String charset) {
         if (obj == null) {
             return "";
@@ -57,7 +46,8 @@ public class StringUtils {
             return value;
         }
     }
-    
+
+    // TODO fix class extends same fields issue
     public static String getRequestParam(Object object, String encoding) {
         StringBuilder sb = new StringBuilder();
         

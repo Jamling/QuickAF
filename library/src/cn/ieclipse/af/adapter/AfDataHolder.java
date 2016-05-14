@@ -19,38 +19,85 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Adapter data holder
+ * Adapter data holder.
+ * <p>
+ * The data holder will check your data when the check mode set, if the
+ * {@link #equals(Object)} of data object return true, the data regards as has
+ * been exists in the holder, and will not add to the holder.
+ * <ul>
+ * <li>{@link #CHECK_NONE} <b>(default)</b>: do not check</li>
+ * <li>{@link #CHECK_TOP}: check data whether exist when add data to holder top
+ * </li>
+ * <li>{@link #CHECK_TAIL}: check data whether exist when add data to holder
+ * tail</li>
+ * <li>{@link #CHECK_BOTH}: check data whether exist when add data to both top
+ * and tail</li>
+ * </ul>
+ * </p>
  *
  * @author Jamling
- * @date 2015/10/30.
  */
 public class AfDataHolder<T> {
+    /**
+     * Default mode, don't check when add data
+     */
     public static final int CHECK_NONE = 0x00;
+    /**
+     * Check when add data to top
+     */
     public static final int CHECK_TOP = 0x01;
+    /**
+     * Check when add data to tail
+     */
     public static final int CHECK_TAIL = 0x02;
+    /**
+     * Check when add data (both from top and tail)
+     */
     public static final int CHECK_BOTH = 0x03;
-
+    
     protected int mDataCheck = CHECK_NONE;
     protected List<T> mDataList;
     protected int mSize = 0;
-
+    
+    /**
+     * Set data check mode, combined value of {@link #CHECK_NONE}
+     * 
+     * @param checkMode
+     *            data check mode
+     */
     public void setDataCheck(int checkMode) {
         this.mDataCheck = checkMode;
     }
-
+    
+    /**
+     * Get data check mode
+     * 
+     * @return check mode
+     * @see #setDataCheck(int)
+     */
     public int getDataCheck() {
         return mDataCheck;
     }
-
+    
+    /**
+     * Clear the data, the holder will be empty
+     */
     public void clear() {
         if (mDataList != null) {
             mDataList.clear();
-        } else {
+        }
+        else {
             checkDataList();
         }
         mSize = 0;
     }
-
+    
+    /**
+     * Add data to tail
+     * 
+     * @param list
+     *            data collection
+     */
     public void addAll(List<T> list) {
         checkDataList();
         if (list != null) {
@@ -61,17 +108,25 @@ public class AfDataHolder<T> {
                     int idx = mDataList.indexOf(t);
                     if (idx >= 0) {
                         mDataList.set(idx, t);
-                    } else {
+                    }
+                    else {
                         mDataList.add(t);
                     }
                 }
-            } else {
+            }
+            else {
                 mDataList.addAll(list);
             }
             mSize = mDataList.size();
         }
     }
-
+    
+    /**
+     * Add data to top
+     * 
+     * @param list
+     *            data collection
+     */
     public void addAll2Top(List<T> list) {
         checkDataList();
         if (list != null) {
@@ -82,17 +137,25 @@ public class AfDataHolder<T> {
                     int idx = mDataList.indexOf(t);
                     if (idx >= 0) {
                         mDataList.set(idx, t);
-                    } else {
+                    }
+                    else {
                         mDataList.add(0, t);
                     }
                 }
-            } else {
+            }
+            else {
                 mDataList.addAll(0, list);
             }
             mSize = mDataList.size();
         }
     }
-
+    
+    /**
+     * Add to top
+     * 
+     * @param t
+     *            data object
+     */
     public void add2Top(T t) {
         checkDataList();
         if (t != null) {
@@ -107,7 +170,13 @@ public class AfDataHolder<T> {
             mSize += 1;
         }
     }
-
+    
+    /**
+     * Adds the specified object at the end of this holder
+     * 
+     * @param t
+     *            data object
+     */
     public void add(T t) {
         checkDataList();
         if (t != null) {
@@ -122,15 +191,35 @@ public class AfDataHolder<T> {
             mSize += 1;
         }
     }
-
+    
+    /**
+     * Remove specified position object data
+     * 
+     * @param position
+     *            data position of this holder
+     */
+    public void remove(int position) {
+        checkDataList();
+        if (position >= 0 && position < mSize) {
+            mDataList.remove(position);
+            mSize -= 1;
+        }
+    }
+    
+    /**
+     * Get this holder size
+     * 
+     * @return count of data
+     */
     public int getCount() {
         return mSize;
     }
-
+    
     /**
      * Return the item of position
      *
      * @param position
+     *            data position
      * @return null if position out of range
      */
     public T getItem(int position) {
@@ -139,18 +228,29 @@ public class AfDataHolder<T> {
         }
         return null;
     }
-
+    
+    /**
+     * Get the holder List
+     * 
+     * @return List
+     */
     public List<T> getDataList() {
         checkDataList();
         return mDataList;
     }
-
+    
+    /**
+     * Set List data to this holder
+     * 
+     * @param list
+     *            data list
+     */
     public void setDataList(List<T> list) {
         this.mDataList = list;
         checkDataList();
-        mSize = list.size();
+        mSize = mDataList.size();
     }
-
+    
     private void checkDataList() {
         if (mDataList == null) {
             mDataList = new ArrayList<>(0);

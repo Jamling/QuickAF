@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2014-2016 QuickAF
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <cn.ieclipse.af.view.PercentLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_purple"
+            android:text="heightPercent10%\nwidthPercent=60%"
+            app:layout_heightPercent="10%"
+            app:layout_widthPercent="60%"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tv1"
+            android:background="@android:color/holo_red_light"
+            android:text="heightPercent20%\nwidthPercent=15%"
+            app:layout_heightPercent="15%"
+            app:layout_marginLeftPercent="5%"
+            app:layout_widthPercent="35%"
+            />
+
+    </cn.ieclipse.af.view.PercentLinearLayout>
+
+    <android.support.percent.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_bright"
+            android:text="heightPercent10%\nwidthPercent=60%"
+            app:layout_heightPercent="10%"
+            app:layout_widthPercent="60%"
+            />
+
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tv1"
+            android:background="@android:color/holo_green_dark"
+            android:text="heightPercent20%\nwidthPercent=15%"
+            app:layout_heightPercent="15%"
+            app:layout_marginLeftPercent="5%"
+            app:layout_marginTopPercent="5%"
+            app:layout_widthPercent="30%"
+            />
+
+    </android.support.percent.PercentRelativeLayout>
+
+    <android.support.percent.PercentFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_orange_dark"
+            android:gravity="center"
+            android:text="heightPercent20%\nwidthPercent=15%"
+            app:layout_heightPercent="30%"
+            app:layout_marginTopPercent="5%"
+            app:layout_widthPercent="70%"
+            />
+
+    </android.support.percent.PercentFrameLayout>
+
+</LinearLayout>

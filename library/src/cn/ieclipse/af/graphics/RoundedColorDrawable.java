@@ -9,8 +9,6 @@
 
 package cn.ieclipse.af.graphics;
 
-import java.util.Arrays;
-
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -21,6 +19,12 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.StateListDrawable;
+import android.view.View;
+
+import java.util.Arrays;
+
+import cn.ieclipse.af.util.ViewUtils;
 
 public class RoundedColorDrawable extends Drawable {
     final float[] mRadii = new float[8];
@@ -147,7 +151,7 @@ public class RoundedColorDrawable extends Drawable {
     /**
      * Sets the color.
      * 
-     * @param color
+     * @param color ARGB color
      */
     public void setColor(int color) {
         if (mColor != color) {
@@ -222,4 +226,43 @@ public class RoundedColorDrawable extends Drawable {
     public int getOpacity() {
         return PixelFormat.TRANSLUCENT;        
     }
+
+    private StateListDrawable sld;
+    public RoundedColorDrawable setStateColor(int[][] stateSets, int[] colors){
+        if (stateSets != null && colors != null) {
+            int len = Math.min(stateSets.length, colors.length);
+            for (int i = 0; i < len; i++) {
+                RoundedColorDrawable self = new RoundedColorDrawable(mRadii, colors[i]);
+                self.setBorder(mBorderColor, mBorderWidth);
+                sld.addState(stateSets[i], self);
+            }
+        }
+        return this;
+    }
+
+    public RoundedColorDrawable addStateColor(int[] stateSet, int color, int borderColor){
+        if (sld == null) {
+            sld = new StateListDrawable();
+        }
+        RoundedColorDrawable self = new RoundedColorDrawable(mRadii, color);
+        self.setBorder(borderColor > 0 ? borderColor : mBorderColor, mBorderWidth);
+        sld.addState(stateSet, self);
+        return this;
+    }
+
+    public RoundedColorDrawable addStateColor(int[] stateSet, int color){
+        return addStateColor(stateSet, color, 0);
+    }
+
+    public RoundedColorDrawable addStateColor(int state, int color){
+        return addStateColor(new int[]{state}, color);
+    }
+
+    public void applyTo(View view) {
+        if (sld != null) {
+            sld.addState(new int[]{}, this);
+        }
+        ViewUtils.setBackground(view, sld == null ? this : this.sld);
+    }
+
 }

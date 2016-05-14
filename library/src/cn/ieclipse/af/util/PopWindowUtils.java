@@ -21,11 +21,21 @@ public class PopWindowUtils {
      *
      * @param context
      * @param clickView the view click to show popwidow
-     * @param showView  the layout view be shown
+     * @param contentView  the layout view be shown
+     */
+    public static PopupWindow showPopWindowBottom(Context context, View clickView, View contentView) {
+        return showPopWindow(context, clickView, contentView, 0, 0);
+    }
+
+    /**
+     * show the popwindow on view's bottom
+     *
+     * @param context
+     * @param clickView the view click to show popwidow
      * @param layoutId  the layout resid be shown
      */
-    public static void showPopWindowBottom(Context context, View clickView, View showView, int layoutId) {
-        showPopWindow(context, clickView, showView, layoutId, 0);
+    public static PopupWindow showPopWindowBottom(Context context, View clickView, int layoutId) {
+        return showPopWindow(context, clickView, null, layoutId, 0);
     }
 
     /**
@@ -33,11 +43,21 @@ public class PopWindowUtils {
      *
      * @param context
      * @param clickView the view click to show popwidow
-     * @param showView  the layout view be shown
+     * @param contentView  the layout view be shown
+     */
+    public static PopupWindow showPopWindowTop(Context context, View clickView, View contentView) {
+        return showPopWindow(context, clickView, contentView, 0, 1);
+    }
+
+    /**
+     * show the popwindow on view's top
+     *
+     * @param context
+     * @param clickView the view click to show popwidow
      * @param layoutId  the layout resid be shown
      */
-    public static void showPopWindowTop(Context context, View clickView, View showView, int layoutId) {
-        showPopWindow(context, clickView, showView, layoutId, 1);
+    public static PopupWindow showPopWindowTop(Context context, View clickView, int layoutId) {
+        return showPopWindow(context, clickView, null, layoutId, 1);
     }
 
     /**
@@ -45,11 +65,21 @@ public class PopWindowUtils {
      *
      * @param context
      * @param clickView the view click to show popwidow
-     * @param showView  the layout view be shown
+     * @param contentView  the layout view be shown
+     */
+    public static PopupWindow showPopWindowLeft(Context context, View clickView, View contentView) {
+        return showPopWindow(context, clickView, contentView, 0, 2);
+    }
+
+    /**
+     * show the popwindow on view's left
+     *
+     * @param context
+     * @param clickView the view click to show popwidow
      * @param layoutId  the layout resid be shown
      */
-    public static void showPopWindowLeft(Context context, View clickView, View showView, int layoutId) {
-        showPopWindow(context, clickView, showView, layoutId, 2);
+    public static PopupWindow showPopWindowLeft(Context context, View clickView, int layoutId) {
+        return showPopWindow(context, clickView, null, layoutId, 2);
     }
 
     /**
@@ -57,19 +87,30 @@ public class PopWindowUtils {
      *
      * @param context
      * @param clickView the view click to show popwidow
-     * @param showView  the layout view be shown
+     * @param contentView  the layout view be shown
+     */
+    public static PopupWindow showPopWindowRight(Context context, View clickView, View contentView) {
+        return showPopWindow(context, clickView, contentView, 0, 3);
+    }
+
+    /**
+     * show the popwindow on view's right
+     *
+     * @param context
+     * @param clickView the view click to show popwidow
      * @param layoutId  the layout resid be shown
      */
-    public static void showPopWindowRight(Context context, View clickView, View showView, int layoutId) {
-        showPopWindow(context, clickView, showView, layoutId, 3);
+    public static PopupWindow showPopWindowRight(Context context, View clickView, int layoutId) {
+        return showPopWindow(context, clickView, null, layoutId, 3);
     }
+
 
     /**
      * show popwindow on clickview top, bottom ,right or left
      *
      * @param context
      * @param clickView the view click to show popwidow
-     * @param showView  the layout view be shown
+     * @param contentView  the layout view be shown
      * @param layoutId  the layout resid be shown
      * @param location  0.bottom
      *                  1.top
@@ -77,18 +118,18 @@ public class PopWindowUtils {
      *                  3.right
      * @return
      */
-    private static PopupWindow showPopWindow(Context context, View clickView, View showView, int layoutId,
+    private static PopupWindow showPopWindow(Context context, View clickView, View contentView, int layoutId,
                                              int location) {
         PopupWindow mPopupWindows = new PopupWindow(context);
         View layout = null;
-        if (showView != null) {
-
+        if (contentView != null) {
+            layout = contentView;
         }
         else if (layoutId > 0) {
             layout = LayoutInflater.from(context).inflate(layoutId, null);
         }
         else {
-            throw new RuntimeException("the showView should not be null or the layoutId > 0 is request");
+            throw new RuntimeException("the contentView should not be null or the layoutId > 0 is request");
         }
         mPopupWindows.setContentView(layout);
         // 在layout中如果view是设置为WRAP_CONTENT

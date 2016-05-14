@@ -16,10 +16,9 @@
 package cn.ieclipse.af.volley;
 
 /**
- * 类/接口描述
+ * The REST response top object interface.
  * 
  * @author Jamling
- * @date 2015年11月7日
  *       
  */
 public interface IBaseResponse {

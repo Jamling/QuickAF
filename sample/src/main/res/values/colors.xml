@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Android L 标题栏背景 -->
+    <color name="colorPrimary">#3F51B5</color>
+    <!-- Android L 状态栏背景 -->
+    <color name="colorPrimaryDark">#303F9F</color>
+    <!-- Android L 控件主色系 -->
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="divider">@color/black_cccccc</color>
+    <color name="fg_title_bar">@color/white</color>
+    <color name="fg_hint">@color/black_cccccc</color>
+
+    <color name="bg_main">@color/black_f0f0f0</color>
+
+    <!-- common -->
+    <color name="black">@android:color/black</color>
+    <color name="black_alpha_60">#99000000</color>
+    <color name="black_alpha_50">#80000000</color>
+    <color name="black_alpha_20">#33000000</color>
+    <color name="black_333333">#333333</color>
+    <color name="black_666666">#666666</color>
+    <color name="black_999999">#999999</color>
+    <color name="black_cccccc">#cccccc</color>
+    <color name="black_f0f0f0">#f0f0f0</color>
+    <color name="black_f8f8f8">#f8f8f8</color>
+    <color name="white">@android:color/white</color>
+</resources>

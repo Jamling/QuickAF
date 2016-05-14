@@ -16,14 +16,31 @@
 package cn.ieclipse.af.volley;
 
 /**
- * 类/接口描述
+ * REST url interface
  * 
  * @author Jamling
- * @date 2015年11月7日
  *
  */
 public interface IUrl {
+    /**
+     * return http method, see {@link com.android.volley.Request.Method}
+     *
+     * @return http method
+     * @see com.android.volley.Request.Method
+     */
     int getMethod();
+
+    /**
+     * return the full url
+     *
+     * @return
+     */
     String getUrl();
+
+    /**
+     * set query string to url.
+     *
+     * @param query query string, it a request parameter of string format usually
+     */
     void setQuery(String query);
 }

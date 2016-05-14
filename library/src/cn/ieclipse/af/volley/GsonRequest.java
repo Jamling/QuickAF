@@ -15,27 +15,27 @@
  */
 package cn.ieclipse.af.volley;
 
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.ParameterizedType;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Cache;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
+import com.android.volley.RetryPolicy;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonRequest;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
+
 public class GsonRequest extends JsonRequest<IBaseResponse> {
-    protected ParameterizedType mTypes;
     protected Class<?> mClazz;
-    protected final Gson mGson = new Gson();
+    protected Gson mGson = new Gson();
     protected boolean intermediate;
     protected long ttl = 365 * 24 * 60 * 60 * 1000;
     protected Map<String, String> mHeaders;
@@ -67,7 +67,7 @@ public class GsonRequest extends JsonRequest<IBaseResponse> {
             return Response.error(new ParseError(e));
         }
     }
-    
+
     public void setOutputClass(Class<?> clazz) {
         this.mClazz = clazz;
     }
@@ -77,9 +77,18 @@ public class GsonRequest extends JsonRequest<IBaseResponse> {
             this.ttl = cacheTime;
         }
     }
+
+    public void setGson(Gson gson){
+        this.mGson = gson;
+    }
+
+    public Gson getGson(){
+        return mGson;
+    }
     
     protected IBaseResponse getData(String json, NetworkResponse response) {
-        return (IBaseResponse) new Gson().fromJson(json, mClazz);
+        Controller.log("response json:" + json);
+        return (IBaseResponse) mGson.fromJson(json, mClazz);
     }
     
     @Override
@@ -91,7 +100,16 @@ public class GsonRequest extends JsonRequest<IBaseResponse> {
     public String getParamsEncoding() {
         return super.getParamsEncoding();
     }
-    
+
+    @Override
+    public Request<?> setRetryPolicy(RetryPolicy retryPolicy) {
+        RetryPolicy retry = VolleyManager.getConfig().getRetryPolicy();
+        if (retry != null) {
+            retryPolicy = retry;
+        }
+        return super.setRetryPolicy(retryPolicy);
+    }
+
     @Override
     public Map<String, String> getHeaders() throws AuthFailureError {
         if (mHeaders == null) {

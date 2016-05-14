@@ -24,11 +24,9 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 
 /**
- * 类/接口描述
- * 
+ * Rest error
+ *
  * @author Jamling
- * @date 2015年11月9日
- *       
  */
 public class RestError extends Exception {
     public static final int TYPE_NO_CONNECTION = 0x01;

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="@drawable/divider_linear"
+    android:orientation="vertical"
+    android:showDividers="middle|end" >
+
+    <cn.ieclipse.af.view.Preference
+        android:id="@+id/s01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout="@layout/preference_item"
+        android:summary=""
+        android:title="普通的"/>
+
+    <cn.ieclipse.af.view.Preference
+        android:id="@+id/s02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:icon="@android:drawable/ic_menu_help"
+        android:layout="@layout/preference_item"
+        android:summary=""
+        android:title="带图标的" />
+
+    <cn.ieclipse.af.view.Preference
+        android:id="@+id/s03"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:layout="@layout/preference_item"
+        android:summary="有描述的"
+        android:title="带图标的" />
+
+    <cn.ieclipse.af.view.Preference
+        android:id="@+id/s04"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/preference_arrow"
+        android:icon="@android:drawable/ic_menu_share"
+        android:layout="@layout/preference_item"
+        android:summary="有描述的"
+        android:title="带图标, 带箭头的" />
+
+    <cn.ieclipse.af.view.Preference
+        android:id="@+id/s05"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/preference_arrow"
+        android:icon="@android:drawable/ic_menu_view"
+        android:layout="@layout/preference_chk_item"
+        android:persistent="true"
+        android:summary="有描述的"
+        android:title="带图标，带Checkbox的" />
+</LinearLayout>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_main"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:divider="@drawable/divider_linear"
+        android:orientation="vertical"
+        android:showDividers="middle|end">
+
+        <cn.ieclipse.af.view.Preference
+            android:id="@+id/layoutInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/preference_arrow"
+            android:layout="@layout/preference_item"
+            android:summary=""
+            android:title="个人信息"/>
+
+        <cn.ieclipse.af.view.Preference
+            android:id="@+id/layoutPwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/preference_arrow"
+            android:layout="@layout/preference_item"
+            android:summary=""
+            android:title="修改密码"/>
+        <cn.ieclipse.af.view.Preference
+            android:id="@+id/layoutClear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/preference_arrow"
+            android:layout="@layout/preference_item"
+            android:summary=""
+            android:title="清空缓存"/>
+
+    </LinearLayout>
+
+    <cn.ieclipse.af.view.RoundButton
+        android:id="@+id/layoutLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#CD3700"
+        android:radius="6dp"
+        android:text="退出登录"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+</LinearLayout>

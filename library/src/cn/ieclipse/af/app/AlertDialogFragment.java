@@ -22,20 +22,18 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 
 /**
- * 类/接口描述
- * 
+ * Fragment used to show alert dialog, it's suggested to use {@link android.app.DialogFragment} to show dialogs
+ *
  * @author Jamling
- * @date 2015年11月26日
- *       
+ * @see cn.ieclipse.af.util.DialogUtils
  */
 public class AlertDialogFragment extends DialogFragment {
     
     private DialogInterface.OnClickListener[] mListeners;
     private AlertInterceptor mInterceptor;
     
-    public static AlertDialogFragment newInstance(int icon, String title,
-            String msg, AlertInterceptor interceptor,
-            DialogInterface.OnClickListener... listeners) {
+    public static AlertDialogFragment newInstance(int icon, String title, String msg, AlertInterceptor interceptor,
+                                                  DialogInterface.OnClickListener... listeners) {
         AlertDialogFragment frag = new AlertDialogFragment();
         Bundle args = new Bundle();
         args.putInt("icon", icon);
@@ -78,7 +76,7 @@ public class AlertDialogFragment extends DialogFragment {
             index++;
             
             if (mListeners.length > index) {
-                l = mListeners[0];
+                l = mListeners[index];
                 if (l != null) {
                     builder.setNegativeButton(android.R.string.cancel, l);
                 }

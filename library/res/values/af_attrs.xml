@@ -1,61 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <attr name="fl_columns" format="integer"/>
+    <attr name="fl_hSpacing" format="reference|dimension"/>
+    <attr name="fl_vSpacing" format="reference|dimension"/>
+
+    <!-- horizontal divider -->
+    <attr name="fl_hDivider" format="reference|color"/>
+    <attr name="fl_hDividerWidth" format="reference|dimension"/>
+    <attr name="fl_hDividerPadding" format="dimension"/>
+    <attr name="fl_hDividerShow" format="integer">
+        <flag name="none" value="0"/>
+        <flag name="beginning" value="1"/>
+        <flag name="middle" value="2"/>
+        <flag name="end" value="4"/>
+    </attr>
+    <!-- vertical divider -->
+    <attr name="fl_vDivider" format="reference|color"/>
+    <attr name="fl_vDividerHeight" format="reference|dimension"/>
+    <attr name="fl_vDividerPadding" format="dimension"/>
+    <attr name="fl_vDividerShow" format="integer">
+        <flag name="none" value="0"/>
+        <flag name="beginning" value="1"/>
+        <flag name="middle" value="2"/>
+        <flag name="end" value="4"/>
+    </attr>
+    <attr name="fl_choiceMode" format="integer">
+        <flag name="none" value="0"/>
+        <flag name="single" value="1"/>
+        <flag name="multiple" value="2"/>
+    </attr>
+
     <declare-styleable name="FlowLayout">
-        <attr name="fl_gridRatio" format="float" />
-        <attr name="fl_columns" format="integer" />
-        <attr name="fl_hSpacing" format="reference|dimension" />
-        <attr name="fl_vSpacing" format="reference|dimension" />
+        <attr name="fl_gridRatio" format="float"/>
+        <attr name="fl_columns"/>
+        <attr name="fl_hSpacing"/>
+        <attr name="fl_vSpacing"/>
 
         <!-- horizontal divider -->
-        <attr name="fl_hDivider" format="reference|color" />
-        <attr name="fl_hDividerWidth" format="reference|dimension" />
-        <attr name="fl_hDividerPadding" format="dimension" />
-        <attr name="fl_hDividerShow" format="integer">
-            <flag name="none" value="0" />
-            <flag name="beginning" value="1" />
-            <flag name="middle" value="2" />
-            <flag name="end" value="4" />
-        </attr>
+        <attr name="fl_hDivider"/>
+        <attr name="fl_hDividerWidth"/>
+        <attr name="fl_hDividerPadding"/>
+        <attr name="fl_hDividerShow"/>
         <!-- vertical divider -->
-        <attr name="fl_vDivider" format="reference|color" />
-        <attr name="fl_vDividerHeight" format="reference|dimension" />
-        <attr name="fl_vDividerPadding" format="dimension" />
-        <attr name="fl_vDividerShow" format="integer">
-            <flag name="none" value="0" />
-            <flag name="beginning" value="1" />
-            <flag name="middle" value="2" />
-            <flag name="end" value="4" />
-        </attr>
-        <attr name="fl_choiceMode" format="integer">
-            <flag name="none" value="0" />
-            <flag name="single" value="1" />
-            <flag name="multipe" value="2" />
-        </attr>
-        <attr name="android:gravity" />
-        <attr name="android:numColumns" />
-        <attr name="android:horizontalSpacing" />
-        <attr name="android:verticalSpacing" />
-        <attr name="android:divider" />
-        <attr name="android:dividerHeight" />
-        <attr name="android:dividerPadding" />
-        <attr name="android:showDividers" />
-        <attr name="android:choiceMode" />
+        <attr name="fl_vDivider"/>
+        <attr name="fl_vDividerHeight"/>
+        <attr name="fl_vDividerPadding"/>
+        <attr name="fl_vDividerShow"/>
+        <attr name="fl_choiceMode"/>
+
+        <attr name="android:gravity"/>
+        <attr name="android:numColumns"/>
+        <attr name="android:horizontalSpacing"/>
+        <attr name="android:verticalSpacing"/>
+        <attr name="android:divider"/>
+        <attr name="android:dividerHeight"/>
+        <attr name="android:dividerPadding"/>
+        <attr name="android:showDividers"/>
+        <attr name="android:choiceMode"/>
     </declare-styleable>
-    
+
+    <declare-styleable name="TableContainer">
+        <attr name="fl_columns"/>
+        <attr name="fl_hSpacing"/>
+        <attr name="fl_vSpacing"/>
+
+        <!-- horizontal divider -->
+        <attr name="fl_hDivider"/>
+        <attr name="fl_hDividerWidth"/>
+        <attr name="fl_hDividerPadding"/>
+        <attr name="fl_hDividerShow"/>
+        <!-- vertical divider -->
+        <attr name="fl_vDivider"/>
+        <attr name="fl_vDividerHeight"/>
+        <attr name="fl_vDividerPadding"/>
+        <attr name="fl_vDividerShow"/>
+        <!-- edge -->
+        <attr name="edgeColor" format="color|reference"/>
+        <attr name="android:fadingEdgeLength"/>
+    </declare-styleable>
+
+    <declare-styleable name="TableView">
+        <attr name="android:gravity"/>
+        <attr name="android:numColumns"/>
+        <attr name="android:horizontalSpacing"/>
+        <attr name="android:verticalSpacing"/>
+    </declare-styleable>
+
     <declare-styleable name="RoundButton">
         <attr name="android:radius"/>
-        <attr name="borderWidth" format="reference|dimension" />
-        <attr name="borderColor" format="reference|color" />
-        
+        <attr name="borderWidth" format="reference|dimension"/>
+        <attr name="borderColor" format="reference|color"/>
+        <!--<attr name="pressedBgColor" format="reference|color"/>-->
+        <!--<attr name="checkedBgColor" format="reference|color"/>-->
+        <!--<attr name="selectedBgColor" format="reference|color"/>-->
     </declare-styleable>
-    
+
+    <declare-styleable name="Preference">
+        <attr name="android:key"/>
+        <attr name="android:title"/>
+        <attr name="android:summary"/>
+        <attr name="android:persistent"/>
+        <attr name="android:layout"/>
+        <attr name="android:icon"/>
+        <attr name="android:drawableRight"/>
+        <attr name="android:gravity"/>
+        <attr name="android:background"/>
+    </declare-styleable>
+
     <declare-styleable name="ScrollLayout">
-        <attr name="debug" format="boolean" />
-        <attr name="snapVelocity" format="integer" />
+        <attr name="debug" format="boolean"/>
+        <attr name="snapVelocity" format="integer"/>
     </declare-styleable>
     <declare-styleable name="ViewPagerV4">
-        <attr name="disableWipe" format="boolean" />
+        <attr name="disableWipe" format="boolean"/>
+    </declare-styleable>
+
+    <!-- AfSwipeRefreshLayout-->
+    <declare-styleable name="SwipyRefreshLayout">
+        <attr name="direction">
+            <enum name="top" value="0"/>
+            <enum name="bottom" value="1"/>
+            <enum name="both" value="2"/>
+        </attr>
+    </declare-styleable>
+    <!-- see https://github.com/TUBB/SwipeMenuRecyclerView -->
+    <declare-styleable name="SwipeMenu">
+        <attr name="anim_duration" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="RefreshRecyclerView">
+        <attr name="dividerHeight" format="reference|dimension"/>
+        <attr name="dividerColor" format="reference|color"/>
+        <attr name="recyclerView" format="reference"/>
+        <attr name="autoLoad" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="PagerSlidingTabStrip">
+        <attr name="pstsSelectedTextColor" format="color"/>
+        <attr name="pstsIndicatorColor" format="color"/>
+        <attr name="pstsUnderlineColor" format="color"/>
+        <attr name="pstsDividerColor" format="color"/>
+        <attr name="pstsIndicatorHeight" format="dimension"/>
+        <attr name="pstsUnderlineHeight" format="dimension"/>
+        <attr name="pstsDividerPadding" format="dimension"/>
+        <attr name="pstsTabPaddingLeftRight" format="dimension"/>
+        <attr name="pstsScrollOffset" format="dimension"/>
+        <attr name="pstsTabBackground" format="reference"/>
+        <attr name="pstsShouldExpand" format="boolean"/>
+        <attr name="pstsTextAllCaps" format="boolean"/>
+        <attr name="pstsOneScreenTabs" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="expandView">
+        <attr name="tabItemId" format="reference"/>
     </declare-styleable>
 
 </resources>

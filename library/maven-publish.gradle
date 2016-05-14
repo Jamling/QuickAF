@@ -1,0 +1,149 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.6'
+    }
+}
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream()) // local.properties 有 sdk 的绝对位置
+
+repositories {
+    jcenter()
+    maven {
+        url properties.getProperty("sdk.dir")+"/extras/android/m2repository"
+    }
+}
+
+// apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: com.jfrog.bintray.gradle.BintrayPlugin //'com.jfrog.bintray'
+apply plugin: 'maven-publish'
+
+project.ext {
+    group = project.property('ART_GROUP')
+    version = project.property('ART_VER')
+    archivesBaseName = ART_ARTIFACT
+}
+
+tasks.withType(Jar) {
+    baseName project.property('ART_ARTIFACT')
+    manifest {
+        attributes 'Author': DEV_NAME,
+                'Email': DEV_EMAIL,
+                'Version': ART_VER,
+                'Build-Date': new Date().dateString
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
+
+//task javadoc(type: Javadoc) {
+//    source = android.sourceSets.main.java.srcDirs
+//    classpath += project.files(configurations.compile.files, android.getBootClasspath().join(File.pathSeparator))
+//    title PRJ_NAME + " " + ART_VER + " API"
+//    options.encoding 'utf-8'
+//    options.charSet 'utf-8'
+//    options.tags 'date:t:"Date:"'
+//}
+
+//task javadocJar(type: Jar, dependsOn: generateDebugJavadoc) {
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+//}
+
+android.libraryVariants.all { variant ->
+    // println variant.javaCompile.classpath.files
+    if(variant.name == 'release') {
+        task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
+            title "${PRJ_NAME}  ${ART_VER}  API"
+            // description = ''
+            source = variant.javaCompile.source
+            classpath = files(variant.javaCompile.classpath.files, project.android.getBootClasspath(), project.file
+                    ("gen"))
+            options {
+                links "http://docs.oracle.com/javase/7/docs/api/"
+                linksOffline "http://d.android.com/reference", "${android.sdkDirectory}/docs/reference"
+                encoding 'utf-8'
+                charSet 'utf-8'
+                tags 'date:t:Date:'
+                tags 'sample:t:Sample:'
+                tags 'attr:a:Attribute:'
+            }
+            exclude '**/BuildConfig.java'
+            exclude '**/R.java'
+            exclude 'cn/ieclipse/af/view/wheelview/'
+        }
+        task("javadocJar", type: Jar, dependsOn: "generate${variant.name.capitalize()}Javadoc") {
+            classifier = 'javadoc'
+            from tasks.getByName("generate${variant.name.capitalize()}Javadoc").destinationDir
+        }
+        artifacts {
+            archives tasks.getByName("javadocJar")
+        }
+    }
+}
+
+artifacts {
+    //archives javadocJar
+    archives sourcesJar
+}
+
+publishing {
+    publications {
+        library(MavenPublication) {
+            groupId project.ext.group
+            artifactId project.ext.archivesBaseName
+            version project.ext.version
+
+            // Release AAR, Sources, and JavaDoc
+            artifact "$buildDir/outputs/aar/$artifactId" + ".aar"
+            artifact sourcesJar
+            //artifact javadocJar
+        }
+    }
+    repositories {
+        // Create an maven publication destination
+        maven {
+            name PRJ_NAME
+            url ART_LOCAL_URL
+        }
+    }
+}
+
+bintray {
+    user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+    configurations = ['archives']
+    pkg {
+        repo = 'maven' //'generic'
+        name = project.property('PRJ_NAME')
+        userOrg = user
+        licenses = ['Apache-2.0']
+        websiteUrl = project.property('PRJ_URL')
+        vcsUrl = project.property('SCM_URL')
+        publish = project.has("release")
+        version {
+            name = project.property('ART_VER')
+            desc = project.property('PKG_VER_DESC')
+            vcsTag = project.property('SCM_TAG')
+            //attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
+        }
+        /*
+        mavenCentralSync {
+            sync = true //Optional (true by default). Determines whether to sync the version to Maven Central.
+            user = 'userToken' //OSS user token
+            password = 'paasword' //OSS user password
+            close = '1' //Optional property. By default the staging repository is closed and artifacts are released to Maven Central. You can optionally turn this behaviour off (by puting 0 as value) and release the version manually.
+        }
+       */
+        // full config please visit https://github.com/bintray/gradle-bintray-plugin
+    }
+}

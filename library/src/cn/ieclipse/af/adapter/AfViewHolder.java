@@ -24,16 +24,40 @@ import android.view.View;
  * // you provide access to all the views for a data item in a view holder
  *
  * @author Jamling
- * @date 2015/10/30.
  */
-public class AfViewHolder extends RecyclerView.ViewHolder implements AfRecyclerAdapter.OnItemClickListener {
+public class AfViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+
+    private View mItemView;
+    private AfRecyclerAdapter.OnItemClickListener mOnClickListener;
+    private AfRecyclerAdapter.OnItemLongClickListener mOnLongClickListener;
 
     public AfViewHolder(View itemView) {
         super(itemView);
+        this.mItemView = itemView;
+    }
+
+    public void setOnClickListener(AfRecyclerAdapter.OnItemClickListener listener) {
+        this.mOnClickListener = listener;
+        mItemView.setOnClickListener(this);
+    }
+
+    public void setOnLongClickListener(AfRecyclerAdapter.OnItemLongClickListener listener) {
+        this.mOnLongClickListener = listener;
+        mItemView.setOnLongClickListener(this);
     }
 
     @Override
-    public void onItemClick(View itemView, int position) {
+    public void onClick(View v) {
+        if (mOnClickListener != null) {
+            mOnClickListener.onItemClick(v, getAdapterPosition());
+        }
+    }
 
+    @Override
+    public boolean onLongClick(View v) {
+        if (mOnLongClickListener != null) {
+            mOnLongClickListener.onItemLongClick(v, getAdapterPosition());
+        }
+        return true;
     }
 }

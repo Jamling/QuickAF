@@ -327,7 +327,7 @@ public class HttpThread extends Thread {
     }
     
     /**
-     * When set retry count > 1, and the request method is post, need to
+     * When set retry count &gt; 1, and the request method is post, need to
      * override this method to post data again.
      * 
      * @param connection

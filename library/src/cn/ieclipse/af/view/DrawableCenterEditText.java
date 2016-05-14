@@ -23,7 +23,15 @@ import android.util.AttributeSet;
 import android.widget.EditText;
 
 /**
- * 类/接口描述
+ * Left drawable and text or hint center horizontal EditText.
+ * <pre>
+ *     <em>Sample:</em>
+ *     android:drawableLeft=""
+ *     android:gravity="left"
+ * </pre>
+ * <p>
+ *     <em>Note:</em> to align your drawable and text center, the gravity must be left horizontal
+ * </p>
  *
  * @author Jamling
  * @date 2015/7/15.

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 页面水平方向的左右间距 -->
+    <dimen name="activity_horizontal_margin">10dp</dimen>
+    <dimen name="activity_vertical_margin">0dp</dimen>
+
+    <!-- 通用 -->
+    <dimen name="title_bar_height">48dp</dimen>
+    <!-- title bar 标题文字 -->
+    <dimen name="title_bar_text_size">18sp</dimen>
+    <!-- title bar 中除标题之外的文字（一般是在右边）大小 -->
+    <dimen name="title_bar_text_size_right">16sp</dimen>
+    <!-- title bar image icon size -->
+    <dimen name="title_bar_icon_size">40dp</dimen>
+    <!-- 页面主体内的标题性文字，如楼盘名称等使用30px -->
+    <dimen name="text_size_title">16sp</dimen>
+    <!-- 页面主体内的常规文字使用28px -->
+    <dimen name="text_size_normal">14sp</dimen>
+    <!-- 页面主体内的标贴性，提示性文字使用22px -->
+    <dimen name="text_size_hint">12sp</dimen>
+
+    <dimen name="title_bar_icon_padding">8dp</dimen>
+
+    <dimen name="preference_height">48dp</dimen>
+
+    <!-- 弹出框 -->
+    <dimen name="dialog_loading_width">120dip</dimen>
+    <dimen name="dialog_loading_height">100dip</dimen>
+
+
+</resources>

@@ -1,1 +1,4 @@
-include ':app', 'library', 'fresco', 'volley'
+include ':sample'
+include ':af-library'
+project(':af-library').projectDir = new File(rootDir, 'library')
+

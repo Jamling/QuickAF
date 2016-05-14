@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".sample.cview.TitleBarActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/ll">
+
+        <cn.ieclipse.af.view.FlowLayout
+            android:id="@+id/fl1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="h gravity:" />
+
+            <Spinner
+                style="@style/sample_spn"
+                android:id="@+id/spn1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/sample_horizontal_gravity" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="v gravity:" />
+
+            <Spinner
+                style="@style/sample_spn"
+                android:id="@+id/spn2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/sample_vertical_gravity" />
+
+            <CheckBox
+                style="@style/sample_chk"
+                android:id="@+id/chk1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onClick"
+                android:text="bottom divider" />
+
+            <Button
+                style="@style/sample_btn"
+                android:id="@+id/btn1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onClick"
+                android:text="Add Left" />
+
+            <Button
+                style="@style/sample_btn"
+                android:id="@+id/btn2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onClick"
+                android:text="Set Left" />
+
+            <Button
+                style="@style/sample_btn"
+                android:id="@+id/btn3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onClick"
+                android:text="Add right" />
+
+            <Button
+                style="@style/sample_btn"
+                android:id="@+id/btn4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onClick"
+                android:text="Set Right" />
+
+            <Button
+                style="@style/sample_btn"
+                android:id="@+id/btn5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onClick"
+                android:text="Add Middle" />
+
+            <Button
+                style="@style/sample_btn"
+                android:id="@+id/btn6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onClick"
+                android:text="Set Middle" />
+        </cn.ieclipse.af.view.FlowLayout>
+
+        <cn.ieclipse.af.view.TitleBar
+            android:id="@+id/titleBar2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f0f0f0">
+        </cn.ieclipse.af.view.TitleBar>
+    </LinearLayout>
+
+</ScrollView>

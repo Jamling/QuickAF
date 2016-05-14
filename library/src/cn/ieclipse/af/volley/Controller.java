@@ -15,11 +15,7 @@
  */
 package cn.ieclipse.af.volley;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import android.util.Log;
 
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -27,10 +23,15 @@ import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.google.gson.Gson;
 
-import cn.ieclipse.af.legcy.Log;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import cn.ieclipse.af.BuildConfig;
 import cn.ieclipse.af.util.StringUtils;
 
 /**
@@ -41,27 +42,29 @@ import cn.ieclipse.af.util.StringUtils;
  */
 public class Controller<Listener> {
     protected RequestQueue mQueue;
-    private List<String> mTaskTags;
+    protected List<String> mTaskTags;
     protected Listener mListener;
-    public static boolean DEBUG = VolleyLog.DEBUG;
+    protected static final String TAG = "QuickAF";
+    public static boolean DEBUG = Log.isLoggable(TAG, Log.VERBOSE) || BuildConfig.DEBUG;
     public static long CACHE_ADAY = 24 * 3600000;
     public static long CACHE_AMONTH = 30 * 24 * 3600000;
     
     public static void log(String msg) {
         if (DEBUG) {
-            Log.v(VolleyLog.TAG, msg);
+            Log.i(TAG, msg);
         }
     }
     
     public static void log(String msg, Throwable t) {
         if (DEBUG) {
-            Log.v(VolleyLog.TAG, msg, t);
+            Log.w(TAG, msg, t);
         }
     }
     
     public Controller() {
         if (VolleyManager.getInstance() == null) {
-            throw new NullPointerException("did you forget initialize the VolleyManager?");
+            throw new NullPointerException(
+                    "did you forget initialize the VolleyManager?");
         }
         mTaskTags = new ArrayList<>();
         mQueue = VolleyManager.getInstance().getQueue();
@@ -71,16 +74,20 @@ public class Controller<Listener> {
         this.mListener = l;
     }
     
-    public abstract class RequestObjectTask<Input, Output> implements Response.ErrorListener,
-        Response.Listener<IBaseResponse> {
-        // private Class<? extends IBaseResponse> mConcreteBaseResponseClass;
-        private Class<Output> mDataClazz;
-        private Class<?> mDataItemClass;
-        private Gson mGson = new Gson();
+    public Controller(Listener l) {
+        this();
+        setListener(l);
+    }
+    
+    protected abstract class RequestObjectTask<Input, Output> implements
+            Response.ErrorListener, Response.Listener<IBaseResponse> {
+        protected Class<Output> mDataClazz;
+        protected Class<?> mDataItemClass;
+        protected Gson mGson = new Gson();
         
         protected Input input;
         private long cacheTime;
-        private GsonRequest request;
+        protected GsonRequest request;
         
         /**
          * @param cacheTime
@@ -89,18 +96,30 @@ public class Controller<Listener> {
             this.cacheTime = cacheTime;
         }
         
+        /**
+         * Perform REST request and convert response 'data' json to an object.
+         * 
+         * @param input
+         *            request object
+         * @param clazz
+         *            response 'data' object class
+         * @param needCache
+         *            need load from cache or not
+         */
         public void load(Input input, Class<Output> clazz, boolean needCache) {
             assert mListener != null;
             this.input = input;
             this.mDataClazz = clazz;
             
+            // get body
             String body = getBody(input);
-            IUrl url = getUrl();
-            if (url.getMethod() == Method.GET) {
-                url.setQuery(body);
-            }
+            // get url
+            IUrl url = buildUrl(body);
+            
             Controller.log("request url: " + url.getUrl());
-            request = new GsonRequest(url.getMethod(), url.getUrl(), body, this, this);
+            // get request
+            request = buildRequest(url, body);
+            // set request
             request.setOutputClass(getBaseResponseClass());
             request.setShouldCache(needCache);
             request.setCacheTime(cacheTime);
@@ -108,24 +127,76 @@ public class Controller<Listener> {
                 mTaskTags.add(getClass().getName());
             }
             request.setTag(getClass().getName());
-            customRequest(request);
             mQueue.add(request);
         }
         
-        public void load2List(Input input, Class<?> itemClass, boolean needCache) {
+        /**
+         * Perform REST request and convert response 'data' json to
+         * {@linkplain java.util.List java.util.List} object.
+         * 
+         * @param input
+         *            request object
+         * @param itemClass
+         *            entity class of {@linkplain java.util.List java.util.List}
+         * @param needCache
+         *            need load from cache or not
+         */
+        public void load2List(Input input, Class<?> itemClass,
+                boolean needCache) {
             this.mDataItemClass = itemClass;
             load(input, null, needCache);
         }
         
-        protected void customRequest(final GsonRequest request) {
-
+        /**
+         * Build full URL, for HTTP GET, we append the request body to URL
+         * typically. if your HTTP GET don't is a full URL, need to override and
+         * return {@link #getUrl()}
+         * 
+         * @param body
+         * @return full URL, maybe append query to origin {@link #getUrl()}
+         */
+        protected IUrl buildUrl(String body) {
+            IUrl url = getUrl();
+            if (url.getMethod() == Method.GET) {
+                url.setQuery(body);
+            }
+            return url;
         }
-
+        
+        /**
+         * Create volley request, default is {@link GsonRequest}
+         * 
+         * @param url
+         *            full URL see {@link #buildUrl(String)}
+         * @param body
+         *            request body see {@link #getBody(Object)}
+         * @return volley request instance
+         */
+        protected GsonRequest buildRequest(IUrl url, String body) {
+            return new GsonRequest(url.getMethod(), url.getUrl(), body, this,
+                    this);
+        }
+        
+        /**
+         * Get parameter encoding
+         * 
+         * @return request parameter encoding
+         * @see com.android.volley.Request#getParamsEncoding
+         */
         public String getParamsEncoding() {
-            //return request.getParamsEncoding();
+            // fix null, request not created.
+            // return request.getParamsEncoding();
             return "UTF-8";
         }
         
+        /**
+         * Get request body.
+         * 
+         * @param input
+         *            request entity
+         * @return encoded body string
+         * @see #getParamsEncoding()
+         */
         protected String getBody(Input input) {
             // Gson gson = new Gson();
             // String json = gson.toJson(input);
@@ -141,7 +212,8 @@ public class Controller<Listener> {
                 for (Object key : map.keySet()) {
                     sb.append(key);
                     sb.append('=');
-                    sb.append(StringUtils.getRequestParamValue(map.get(key), getParamsEncoding()));
+                    sb.append(StringUtils.getRequestParamValue(map.get(key),
+                            getParamsEncoding()));
                     sb.append('&');
                 }
                 if (sb.length() > 1) {
@@ -161,46 +233,68 @@ public class Controller<Listener> {
             Output out = null;
             try {
                 Controller.log("from cache : " + request.intermediate);
+                if (response == null) {
+                    throw new NullPointerException(
+                        "base response is null, please check your http response.");
+                }
                 out = convertData(response, mDataClazz, mDataItemClass);
+            } catch (InterceptorError e) {
+                Controller.log("interceptor the response", e);
+                return;
+            } catch (VolleyError e) {
+                onError(new RestError(e));
+                return;
+            } catch (RestError e) {
+                onError(e);
+                return;
             } catch (Exception e) {
-                Controller.log("error onResponse", e);
-                onError((e instanceof RestError) ? (RestError) e : new RestError(new ParseError(e)));
+                onError(new RestError(new ParseError(e)));
                 return;
             }
             try {
                 onSuccess(out, request.intermediate);
             } catch (Exception e) {
-                onError((e instanceof RestError) ? (RestError) e : new RestError(new ClientError(e)));
+                onError((e instanceof RestError) ? (RestError) e
+                        : new RestError(new ClientError(e)));
             }
         }
         
-        protected boolean onInterceptor(IBaseResponse response) throws Exception {
-            return false;
-        }
-
-        public Class<? extends IBaseResponse> getBaseResponseClass() {
-            return VolleyManager.getConfig().getBaseResponseClass();
-        }
-
         @Override
         public void onErrorResponse(VolleyError error) {
             onError(new RestError(error));
         }
         
-        public Output convertData(IBaseResponse response, Class<?> clazz, Class<?> itemClazz) throws Exception {
+        /**
+         * Intercept 'data' json parser
+         * 
+         * @param response
+         *            the whole response object ({@link IBaseResponse} instance)
+         * @return true if you want to skip convert 'data' json to object.
+         * @throws Exception
+         */
+        protected boolean onInterceptor(IBaseResponse response)
+                throws Exception {
+            return false;
+        }
+        
+        public Class<? extends IBaseResponse> getBaseResponseClass() {
+            return VolleyManager.getConfig().getBaseResponseClass();
+        }
+        
+        protected Output convertData(IBaseResponse response, Class<?> clazz,
+                Class<?> itemClazz) throws Exception {
             Output out = null;
-            boolean baseOutput = false;
-            boolean listOutput = false;
-            if (clazz != null) {
-                baseOutput = isIBaseResponse(clazz);
-            }
-            listOutput = clazz == null && itemClazz != null;
-            if (baseOutput) {
-                out = ((Output) response);
-                return out;
-            }
-            
             if (!onInterceptor(response)) {
+                boolean baseOutput = false;
+                boolean listOutput = false;
+                if (clazz != null) {
+                    baseOutput = isIBaseResponse(clazz);
+                }
+                listOutput = clazz == null && itemClazz != null;
+                if (baseOutput) {
+                    out = ((Output) response);
+                    return out;
+                }
                 String data = response.getData();
                 if (listOutput) {
                     out = mGson.fromJson(data, type(List.class, itemClazz));

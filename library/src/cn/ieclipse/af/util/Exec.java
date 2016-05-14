@@ -73,10 +73,10 @@ public class Exec {
      * 
      * @param command
      *            The <B>full</B> pathname of the command to be executed. No
-     *            shell built-ins (e.g., "cd") or shell meta-chars (e.g. ">")
+     *            shell built-ins (e.g., "cd") or shell meta-chars (e.g. "&gt;")
      *            are allowed.
      * @return false if a problem is known to occur, but since this returns
-     *         immediately, problems arent usually found in time. Returns true
+     *         immediately, problems arnt usually found in time. Returns true
      *         otherwise.
      */
     

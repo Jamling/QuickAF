@@ -1,0 +1,98 @@
+<manifest
+    package="cn.ieclipse.af.demo"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/logo"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:name=".MyApplication">
+
+        <!-- 主页面 -->
+        <activity
+            android:name=".SplashActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".my.LoginActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible"/>
+
+        <activity
+            android:name=".my.UserInfoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".my.ChangePwdActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
+
+        <!-- Samples -->
+        <activity
+            android:name=".sample.appui.AfDemoActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".sample.appui.AfImmersiveDemoActivity"
+            android:windowSoftInputMode="stateHidden"/>
+
+        <!-- custom view -->
+        <activity android:name=".sample.cview.FlowLayoutActivity" android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".sample.cview.TableLayoutActivity" android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".sample.cview.TitleBarActivity" />
+        <activity android:name=".sample.cview.RoundButtonActivity" />
+        <activity android:name=".sample.cview.ColumnLayoutActivity" />
+        <activity android:name=".sample.cview.PreferenceActivity" />
+        <activity android:name=".sample.cview.StaggeredGridViewActivity" />
+        <activity android:name=".sample.cview.RadioButtonBadgeViewActivity" />
+        <activity android:name=".sample.cview.AutoHeightViewPagerActivity" />
+        <activity android:name=".sample.cview.CheckableLayoutActivity" />
+        <activity android:name=".sample.cview.AutoPlayViewActivity" />
+        <activity android:name=".sample.cview.PercentLayoutActivity" />
+        <activity android:name=".sample.cview.WheelViewActivity"
+                  android:windowSoftInputMode="stateHidden"/>
+
+        <!-- list view -->
+        <activity android:name=".sample.recycler.SimpleRecyclerActivity" />
+        <activity android:name=".sample.recycler.RefreshRecyclerViewActivity" />
+        <activity android:name=".sample.recycler.SwipeMenuRecyclerActivity" />
+        <activity android:name=".sample.recycler.GridRecyclerActivity" />
+        <activity android:name=".sample.cview.expendview.ExpendViewActivity" />
+        <activity android:name=".sample.recycler.sort.SortRecyclerActivity" />
+        <activity android:name=".sample.recycler.sort.SortListViewActivity" />
+
+        <!-- volley -->
+        <activity android:name=".sample.volley.weather.WeatherActivity" />
+        <activity android:name=".sample.volley.upload.UploadActivity" />
+        <activity android:name=".sample.volley.upload.UploadActivity2" />
+
+        <!-- utils -->
+        <activity android:name=".sample.utils.DialogsActivity" />
+    </application>
+
+</manifest>
