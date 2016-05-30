@@ -63,6 +63,7 @@
 
         <!-- custom view -->
         <activity android:name=".sample.cview.FlowLayoutActivity" android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".sample.cview.FlexboxLayoutActivity" android:windowSoftInputMode="stateHidden" />
         <activity android:name=".sample.cview.TableLayoutActivity" android:windowSoftInputMode="stateHidden" />
         <activity android:name=".sample.cview.TitleBarActivity" />
         <activity android:name=".sample.cview.RoundButtonActivity" />

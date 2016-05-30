@@ -55,7 +55,39 @@
         <item>STYLE_TEXT</item>
         <item>STYLE_BACKGROUND</item>
     </string-array>
-
+    <string-array name="sample_direction">
+        <item>ROW</item>
+        <item>ROW_REVERSE</item>
+        <item>COLUMN</item>
+        <item>COLUMN_REVERSE</item>
+    </string-array>
+    <string-array name="sample_wrap">
+        <item>nowrap</item>
+        <item>wrap</item>
+        <item>wrap_reverse</item>
+    </string-array>
+    <string-array name="sample_justifyContent">
+        <item>flex-start</item>
+        <item>flex-end</item>
+        <item>center</item>
+        <item>space-between</item>
+        <item>space-around</item>
+    </string-array>
+    <string-array name="sample_alignItems">
+        <item>flex-start</item>
+        <item>flex-end</item>
+        <item>center</item>
+        <item>baseline</item>
+        <item>stretch</item>
+    </string-array>
+    <string-array name="sample_alignContent">
+        <item>flex-start</item>
+        <item>flex-end</item>
+        <item>center</item>
+        <item>space-between</item>
+        <item>space-around</item>
+        <item>stretch</item>
+    </string-array>
     <!-- from aorm example -->
     <string name="label_index">No.</string>
     <string name="label_name">Name</string>

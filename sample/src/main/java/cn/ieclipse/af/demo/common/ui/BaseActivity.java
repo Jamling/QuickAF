@@ -141,7 +141,7 @@ public abstract class BaseActivity extends AfActivity implements View.OnClickLis
 
     public void hideLoadingDialog() {
         if (mLoadingDialog != null) {
-            mLoadingDialog.dismiss();
+            mLoadingDialog.dismissAllowingStateLoss();
         }
     }
 

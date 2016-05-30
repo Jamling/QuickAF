@@ -38,6 +38,7 @@ public class CustomViewFragment extends ButtonListFragment {
             RoundButtonActivity.class, ColumnLayoutActivity.class, PreferenceActivity.class,
             StaggeredGridViewActivity.class, AutoPlayViewActivity.class, RadioButtonBadgeViewActivity.class,
             AutoHeightViewPagerActivity.class, CheckableLayoutActivity.class, ExpendViewActivity.class,
-            WheelViewActivity.class, PercentLayoutActivity.class ,SortListViewActivity.class};
+            WheelViewActivity.class, PercentLayoutActivity.class, SortListViewActivity.class, FlexboxLayoutActivity
+            .class};
     }
 }

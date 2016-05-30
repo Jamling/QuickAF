@@ -86,7 +86,7 @@ public abstract class BaseFragment extends AfFragment implements View.OnClickLis
 
     public void hideLoadingDialog() {
         if (mLoadingDialog != null) {
-            mLoadingDialog.dismiss();
+            mLoadingDialog.dismissAllowingStateLoss();
         }
     }
 

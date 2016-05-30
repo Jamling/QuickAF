@@ -918,6 +918,18 @@ public class FlowLayout extends ViewGroup {
     
     private void setCheckedStateForView(int viewId, boolean checked) {
         View checkedView = findViewById(viewId);
+        // fix api issue
+//        if (checkedView == null && Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1){
+//            int size = getChildCount();
+//            for(int i = 0; i < size; i++) {
+//                View c = getChildAt(i);
+//                if (c.getId() == viewId){
+//                    checkedView = c;
+//                    break;
+//                }
+//            }
+//        }
+        // end fix api issue
         if (checkedView != null && checkedView instanceof CompoundButton) {
             ((CompoundButton) checkedView).setChecked(checked);
         }
