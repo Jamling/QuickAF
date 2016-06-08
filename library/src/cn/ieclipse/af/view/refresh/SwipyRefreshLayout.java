@@ -17,6 +17,7 @@
 package cn.ieclipse.af.view.refresh;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -60,6 +61,7 @@ import cn.ieclipse.af.R;
  *
  *see <a href="https://github.com/OrangeGangsters/SwipyRefreshLayout">https://github.com/OrangeGangsters/SwipyRefreshLayout</a>
  */
+@SuppressLint("NewApi")
 public class SwipyRefreshLayout extends ViewGroup {
 
     public static final String TAG = "SwipyRefreshLayout";

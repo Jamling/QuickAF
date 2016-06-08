@@ -45,9 +45,10 @@ import cn.ieclipse.af.R;
 
 /**
  * An interactive indicator to navigate between the different pages of a ViewPager
- * <p/>
+ * <p>
  * See <a href="https://github.com/astuetz/PagerSlidingTabStrip">
  * https://github.com/astuetz/PagerSlidingTabStrip</a>
+ * </p>
  */
 public class PagerSlidingTabStrip extends HorizontalScrollView {
 

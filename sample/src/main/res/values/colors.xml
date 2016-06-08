@@ -7,9 +7,7 @@
     <!-- Android L 控件主色系 -->
     <color name="colorAccent">#FF4081</color>
 
-
-    <!-- Android L 标题栏左右按钮点击背景 -->
-    <color name="colorPrimary_press">@color/black_alpha_30</color>
+    <color name="fg_title_bar_press">@android:color/darker_gray</color>
     <color name="divider">@color/black_cccccc</color>
     <color name="fg_title_bar">@color/white</color>
     <color name="fg_hint">@color/black_cccccc</color>

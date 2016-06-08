@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright 2014-2016 QuickAF
+  ~ Copyright (C) 2015-2016 QuickAF
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -16,10 +16,10 @@
   -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@color/colorPrimary_press" android:state_focused="true"/>
-    <item android:drawable="@color/colorPrimary_press" android:state_pressed="true"/>
-    <item android:drawable="@color/colorPrimary_press" android:state_hovered="true"/>
-    <item android:drawable="@color/colorPrimary_press" android:state_checked="true"/>
-    <item android:drawable="@color/colorPrimary_press" android:state_selected="true"/>
-    <item android:drawable="@android:color/transparent"/>
+    <item android:color="@color/fg_title_bar_press" android:state_focused="true"/>
+    <item android:color="@color/fg_title_bar_press" android:state_pressed="true"/>
+    <item android:color="@color/fg_title_bar_press" android:state_hovered="true"/>
+    <item android:color="@color/fg_title_bar_press" android:state_checked="true"/>
+    <item android:color="@color/fg_title_bar_press" android:state_selected="true"/>
+    <item android:color="@color/fg_title_bar"/>
 </selector>

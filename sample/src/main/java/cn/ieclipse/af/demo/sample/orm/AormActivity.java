@@ -13,18 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.ieclipse.af.demo.sample.appui;
+package cn.ieclipse.af.demo.sample.orm;
 
-import cn.ieclipse.af.demo.common.ui.LoadingActivity;
+import android.os.Bundle;
+import android.view.View;
+
+import cn.ieclipse.af.demo.R;
+import cn.ieclipse.af.demo.common.ui.BaseActivity;
 
 /**
  * Description
  *
  * @author Jamling
  */
-public class MyLoadingActivity extends LoadingActivity {
+public class AormActivity extends BaseActivity {
+
     @Override
     protected int getContentLayout() {
-        return 0;
+        return R.layout.main_content;
+    }
+
+    @Override
+    protected void initContentView(View view) {
+        super.initContentView(view);
+        setTitle("Android ORM");
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState == null){
+            AormFragment f = new AormFragment();
+            pushFragments(f, true, false, f.getClass().getName());
+        }
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
@@ -34,4 +34,22 @@
             android:padding="10dp" />
     </cn.ieclipse.af.view.AutoPlayView>
 
-</RelativeLayout>
+
+    <cn.ieclipse.af.demo.common.view.PercentLinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:clipChildren="false"
+        android:layout_marginTop="20dp"
+        android:gravity="center">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_widthPercent="70%"
+            android:clipChildren="false"/>
+    </cn.ieclipse.af.demo.common.view.PercentLinearLayout>
+
+
+</LinearLayout>

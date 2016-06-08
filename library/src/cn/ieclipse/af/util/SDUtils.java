@@ -72,13 +72,13 @@ public class SDUtils {
      * 获得ExternalFilesDir，在app卸载时文件也会被删除
      *
      * @param context
-     * @param fileType <br/>{@link android.os.Environment#DIRECTORY_MUSIC}<br/>
-     *                 {@link android.os.Environment#DIRECTORY_PODCASTS}<br/>
-     *                 {@link android.os.Environment#DIRECTORY_RINGTONES}<br/>
-     *                 {@link android.os.Environment#DIRECTORY_ALARMS}<br/>
-     *                 {@link android.os.Environment#DIRECTORY_NOTIFICATIONS}<br/>
-     *                 {@link android.os.Environment#DIRECTORY_PICTURES}<br/>
-     *                 {@link android.os.Environment#DIRECTORY_MOVIES}<br/>
+     * @param fileType {@link android.os.Environment#DIRECTORY_MUSIC}<br>
+     *                 {@link android.os.Environment#DIRECTORY_PODCASTS}<br>
+     *                 {@link android.os.Environment#DIRECTORY_RINGTONES}<br>
+     *                 {@link android.os.Environment#DIRECTORY_ALARMS}<br>
+     *                 {@link android.os.Environment#DIRECTORY_NOTIFICATIONS}<br>
+     *                 {@link android.os.Environment#DIRECTORY_PICTURES}<br>
+     *                 {@link android.os.Environment#DIRECTORY_MOVIES}<br>
      * @param filename 文件名
      * @return
      */

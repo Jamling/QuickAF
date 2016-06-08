@@ -10,6 +10,7 @@
     <string name="common_ok">确定</string>
     <string name="common_retry">重试</string>
     <string name="common_select">选择</string>
+    <string name="common_search">搜索</string>
     <string name="common_loading">正在加载, 请稍候...</string>
     <string name="common_no_data">暂无数据, 请下拉重试</string>
     <string name="common_save">保存</string>
@@ -21,7 +22,7 @@
     <string name="common_tip">提示</string>
     <string name="common_yes">是</string>
     <string name="common_no">否</string>
-
+    <string name="common_all">全部</string>
     <!--error -->
     <string name="error_type_auth">身份验证失败</string>
     <string name="error_type_no_network">网络未连接</string>

@@ -1,0 +1,56 @@
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream()) // local.properties 有 sdk 的绝对位置
+
+repositories {
+    jcenter()
+    maven {
+        url properties.getProperty("sdk.dir") + "/extras/android/m2repository"
+    }
+}
+
+def Rdir  =  new File(buildDir, "intermediates/classes/release");
+
+tasks.withType(Jar) {
+    baseName project.property('ART_ARTIFACT')
+    manifest {
+        attributes 'Author': DEV_NAME,
+                'Email': DEV_EMAIL,
+                'Version': ART_VER,
+                'Build-Date': new Date().dateTimeString
+    }
+}
+
+afterEvaluate { project ->
+    task androidJavadoc(type: Javadoc) {
+        title "${PRJ_NAME}  ${ART_VER}  API"
+        // description = ''
+        source = android.sourceSets.main.java.srcDirs
+        classpath += files(project.android.getBootClasspath(),
+                android.libraryVariants[0].javaCompile.classpath.files,
+                Rdir)
+        options {
+            links "http://docs.oracle.com/javase/7/docs/api/"
+            linksOffline "http://d.android.com/reference", "${android.sdkDirectory}/docs/reference"
+            encoding 'utf-8'
+            charSet 'utf-8'
+            tags 'date:t:Date:'
+            tags 'sample:t:Sample:'
+            tags 'attr:a:Attribute:'
+        }
+        //exclude '**/BuildConfig.java'
+        //exclude '**/R.java'
+        exclude 'cn/ieclipse/af/view/wheelview/'
+    }
+    task androidJavadocJar(type: Jar/*, dependsOn: androidJavadoc*/) {
+        classifier = 'javadoc'
+        from androidJavadoc.destinationDir
+    }
+
+    task androidSourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
+    }
+
+    artifacts.add('archives', androidJavadocJar)
+    artifacts.add('archives', androidSourcesJar)
+}

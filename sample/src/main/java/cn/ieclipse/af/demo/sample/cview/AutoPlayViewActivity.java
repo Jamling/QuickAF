@@ -3,6 +3,11 @@
  */
 package cn.ieclipse.af.demo.sample.cview;
 
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,12 +26,13 @@ import cn.ieclipse.af.view.AutoPlayView;
  * @author wangjian
  * @date 2015/12/24.
  */
-public class AutoPlayViewActivity extends BaseActivity {
+public class AutoPlayViewActivity extends BaseActivity implements View.OnTouchListener{
     TextView rightView;
     AutoPlayView autoPlayView;
     LinearLayout linearLayout;
     AutoAdapter adapter;
-    
+    ArrayList<Integer> list = new ArrayList<>();
+
     @Override
     protected int getContentLayout() {
         return R.layout.sample_activity_auto_play;
@@ -55,7 +61,7 @@ public class AutoPlayViewActivity extends BaseActivity {
         // indicator item
         autoPlayView.setIndicatorItemPadding(AppUtils.dp2px(this, 6));
         autoPlayView.setIndicatorItemLayout(android.R.layout.simple_list_item_single_choice);
-        
+
         // 设置indicator文本显示
         // autoPlayView.setIndicatorTextView(tv);
 
@@ -66,7 +72,7 @@ public class AutoPlayViewActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
-        ArrayList<Integer> list = new ArrayList<>();
+
         // list.add("http://test.mainaer.com/uploads/adv/2015-11-19/564d485f90e64.jpg");
         // list.add("http://test.mainaer.com/uploads/adv/2015-11-24/5654349b56178.jpg");
         // list.add("http://test.mainaer.com/uploads/adv/2015-11-24/5654330bbc480.jpg");
@@ -81,6 +87,9 @@ public class AutoPlayViewActivity extends BaseActivity {
         autoPlayView.initIndicatorLayout();
         autoPlayView.setInterval(1000);
         autoPlayView.start();
+
+        // 第二个autoplay view demo
+        initAnotherDemo();
     }
     
     class AutoAdapter extends AfPagerAdapter<Integer> {
@@ -95,4 +104,115 @@ public class AutoPlayViewActivity extends BaseActivity {
             convertView.setBackgroundResource(getItem(position));
         }
     }
+
+    //==============================一下实现autoplay的另一种效果=================================
+    private final static int MSG_CODE = 0x11;
+    private final static int DELAY_MILLIONS = 2000;
+    private ViewPager pager = null;
+    public int currentpositon = 0;
+    public int oldpositon = 0;
+
+    void initAnotherDemo(){
+        pager = (ViewPager) findViewById(R.id.view_pager);
+
+        AutoAdapter2 adapter = new AutoAdapter2();
+        adapter.setDataList(list);
+        pager.setAdapter(adapter);
+        startAutoChange();
+    }
+
+    /**
+     * 开启自动切换
+     */
+    private void startAutoChange() {
+        // 设置左右缓存页面
+        pager.setOffscreenPageLimit(2);
+        // 保证起始页可以左滑，防止左侧出现空白页
+        pager.setCurrentItem(list.size() * 100);
+
+        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            @Override
+            public void onPageSelected(int index) {
+                int currentP = index % list.size();
+                // 更新小点点颜色
+                //changePointView2(oldpositon, currentP);
+                oldpositon = currentP;
+            }
+
+            @Override
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int arg0) {
+            }
+        });
+
+        startPlay();
+        //addPointView();
+
+        // 按下时停止自动滑动,弹起时继续定时滑动
+        pager.setOnTouchListener(this);
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_MOVE:
+            case MotionEvent.ACTION_SCROLL:
+                stopPlay();
+                break;
+            case MotionEvent.ACTION_UP:
+                startPlay();
+                break;
+        }
+        return false;
+    }
+
+    private void stopPlay() {
+        handler.removeMessages(MSG_CODE);
+    }
+
+    private void startPlay() {
+        handler.sendEmptyMessageDelayed(MSG_CODE, DELAY_MILLIONS);
+    }
+
+    /**
+     * 设置选中item
+     */
+    Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            if (msg.what == MSG_CODE) {
+                Log.i("eeeeee", currentpositon + "");
+                currentpositon = pager.getCurrentItem();
+                currentpositon++;
+
+                pager.setCurrentItem(currentpositon, true);
+                startPlay();
+            }
+        }
+    };
+
+    class AutoAdapter2 extends AfPagerAdapter<Integer> {
+
+        @Override
+        public int getLayout() {
+            return R.layout.title_right_iv;
+        }
+
+        @Override
+        public int getCount() {
+            // 实现无限循环
+            return Integer.MAX_VALUE;
+        }
+
+        @Override
+        public void onUpdateView(View convertView, int position) {
+            int pos = position % mDataList.size();
+            convertView.setBackgroundResource(getItem(pos));
+        }
+    }
+
 }

@@ -45,10 +45,15 @@ public class AppUIFragment extends BaseFragment {
     }
 
     @Override
+    protected CharSequence getTitle() {
+        return "UI samples";
+    }
+
+    @Override
     protected void initHeaderView() {
         super.initHeaderView();
         mTitleLeftView.setVisibility(View.INVISIBLE);
-        mTitleTextView.setText("UI samples");
+        mTitleTextView.setText(getTitle());
     }
 
     @Override

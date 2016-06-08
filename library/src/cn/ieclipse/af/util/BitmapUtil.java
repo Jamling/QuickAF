@@ -71,13 +71,13 @@ public class BitmapUtil {
 
     /**
      * 图片压缩处理（使用Options的方法）
-     * <p/>
+     * <p>
      * <br>
      * <b>说明</b> 使用方法：
      * 首先你要将Options的inJustDecodeBounds属性设置为true，BitmapFactory.decode一次图片 。
      * 然后将Options连同期望的宽度和高度一起传递到到本方法中。
      * 之后再使用本方法的返回值做参数调用BitmapFactory.decode创建图片。
-     * <p/>
+     * <p>
      * <br>
      * <b>说明</b> BitmapFactory创建bitmap会尝试为已经构建的bitmap分配内存
      * ，这时就会很容易导致OOM出现。为此每一种创建方法都提供了一个可选的Options参数
@@ -553,7 +553,7 @@ public class BitmapUtil {
      * Returns a Bitmap representing the thumbnail of the specified Bitmap. The
      * size of the thumbnail is defined by the dimension
      * android.R.dimen.launcher_application_icon_size.
-     * <p/>
+     * <p>
      * This method is not thread-safe and should be invoked on the UI thread
      * only.
      *
@@ -668,7 +668,7 @@ public class BitmapUtil {
 
     /**
      * 图片压缩方法：（使用compress的方法）
-     * <p/>
+     * <p>
      * <br>
      * <b>说明</b> 如果bitmap本身的大小小于maxSize，则不作处理
      *
@@ -909,7 +909,7 @@ public class BitmapUtil {
      *
      * @param context    Application context
      * @param sentBitmap Bitmap to be converted
-     * @param radius     Desired Radius, 0 < r < 25
+     * @param radius     Desired Radius, 0 &lt; r &lt; 25
      * @return a copy of the image with a blur
      */
     @SuppressLint("InlinedApi")

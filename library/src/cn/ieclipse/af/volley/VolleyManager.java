@@ -43,7 +43,7 @@ public final class VolleyManager {
             throw new IllegalArgumentException("Base response class must be a concrete class");
         }
         mConfig = config;
-        mQueue = Volley.newRequestQueue(context, config.getHttpStack(), config.getMaxDiskCacheBytes());
+        mQueue = Volley.newRequestQueue(context, config.getHttpStack());
     }
     
     static VolleyManager getInstance() {

@@ -60,6 +60,7 @@
         <activity
             android:name=".sample.appui.AfImmersiveDemoActivity"
             android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".sample.appui.AfLoadingActivity"/>
 
         <!-- custom view -->
         <activity android:name=".sample.cview.FlowLayoutActivity" android:windowSoftInputMode="stateHidden" />
@@ -94,6 +95,13 @@
 
         <!-- utils -->
         <activity android:name=".sample.utils.DialogsActivity" />
+
+        <!-- aorm -->
+        <activity android:name=".sample.orm.AormActivity" />
+        <activity android:name=".sample.orm.StudentListActivity" />
+        <activity android:name=".sample.orm.StudentDetailActivity" />
+        <provider android:name=".sample.orm.ExampleContentProvider"
+                  android:authorities="cn.ieclipse.af.demo.sample.aorm.example.provider" />
     </application>
 
 </manifest>

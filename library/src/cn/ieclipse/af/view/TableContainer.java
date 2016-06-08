@@ -43,7 +43,6 @@ import cn.ieclipse.af.util.ViewUtils;
  *     <li>{@link #setHeaderAdapter(android.widget.ListAdapter)} (optional)</li>
  *     <li>{@link #setDataAdapter(cn.ieclipse.af.adapter.AfGridAdapter)}</li>
  * </ol>
- * </p>
  *
  * @author Jamling
  */

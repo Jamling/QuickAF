@@ -1,8 +1,5 @@
 apply plugin: 'maven'
 
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream()) // local.properties 有 sdk 的绝对位置
-
 project.ext {
     group = project.property('ART_GROUP')
     version = project.property('ART_VER')
@@ -25,40 +22,9 @@ def getPassword(String passwordName) {
     return new String(System.console().readPassword("\nProvide $passwordName:"))
 }
 
+apply from : './android-task.gradle'
+
 afterEvaluate { project ->
-    task androidJavadoc(type: Javadoc) {
-        source = android.sourceSets.main.java.srcDirs
-        classpath += files(android.bootClasspath)
-        options {
-        	links "http://docs.oracle.com/javase/7/docs/api/"
-            linksOffline "http://d.android.com/reference", "${android.sdkDirectory}/docs/reference"
-            encoding 'utf-8'
-            charSet 'utf-8'
-            tags 'date:t:Date:'
-            tags 'sample:t:Sample:'
-            tags 'attr:a:Attribute:'
-        }
-    }
-
-    task androidJavadocJar(type: Jar) {
-        classifier = 'javadoc'
-        from androidJavadoc.destinationDir
-    }
-
-    task androidSourcesJar(type: Jar) {
-        classifier = 'sources'
-        from android.sourceSets.main.java.srcDirs
-    }
-
-    android.libraryVariants.all { variant ->
-        def name = variant.name.capitalize()
-        task "jar${name}"(type: Jar, dependsOn: variant.javaCompile) {
-            from variant.javaCompile.destinationDir
-        }
-    }
-
-    artifacts.add('archives', androidJavadocJar)
-    artifacts.add('archives', androidSourcesJar)
 
 	/*
     signing {
@@ -92,8 +58,8 @@ afterEvaluate { project ->
 				
                 scm {
                     url SCM_URL
-                    connection 'scm:git:${SCM_REPO}'
-                    developerConnection 'scm:git:${SCM_DEV}'
+                    connection 'scm:git:' + SCM_REPO
+                    developerConnection 'scm:git:' + SCM_DEV
                 }
 
                 licenses {

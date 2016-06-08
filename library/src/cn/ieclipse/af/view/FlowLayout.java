@@ -1057,7 +1057,7 @@ public class FlowLayout extends ViewGroup {
     /**
      * <p>
      * Defines the choice behavior. By default, FlowLayout do not have any choice behavior ({@link
-     * android.widget.ListView#CHOICE_MODE_NONE)}. By
+     * android.widget.ListView#CHOICE_MODE_NONE}). By
      * setting the choiceMode to {@link android.widget.ListView#CHOICE_MODE_SINGLE}, the FlowLayout allows up to
      * one item to be in a chosen state (FlowLayout regarded as RadioGroup).
      * By setting the choiceMode to {@link android.widget.ListView#CHOICE_MODE_MULTIPLE}, the FlowLayout allows

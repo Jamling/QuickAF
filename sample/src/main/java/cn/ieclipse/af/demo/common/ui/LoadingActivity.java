@@ -53,4 +53,6 @@ public abstract class LoadingActivity extends BaseActivity {
             removeView(v);
         }
     }
+
+
 }

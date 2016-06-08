@@ -16,6 +16,7 @@ import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import android.util.Log;
  * @version 1.0
  * @since 1.0
  */
+@SuppressLint("all")
 public class GlsAuthorizer implements Authorizer {
     
     /**

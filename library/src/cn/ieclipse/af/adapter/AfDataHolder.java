@@ -25,15 +25,17 @@ import java.util.List;
  * {@link #equals(Object)} of data object return true, the data regards as has
  * been exists in the holder, and will not add to the holder.
  * <ul>
- * <li>{@link #CHECK_NONE} <b>(default)</b>: do not check</li>
+ * <li>{@link #CHECK_NONE} <strong>(default)</strong>: do not check
+ * </li>
  * <li>{@link #CHECK_TOP}: check data whether exist when add data to holder top
  * </li>
  * <li>{@link #CHECK_TAIL}: check data whether exist when add data to holder
- * tail</li>
+ * tail
+ * </li>
  * <li>{@link #CHECK_BOTH}: check data whether exist when add data to both top
- * and tail</li>
+ * and tail
+ * </li>
  * </ul>
- * </p>
  *
  * @author Jamling
  */

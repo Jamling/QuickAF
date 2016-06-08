@@ -88,6 +88,7 @@ public class MainActivity extends BaseActivity implements CheckUpdateController.
 
             }
         });
+        setTitle(mAdapter.getPageTitle(0));
         mViewPager.setCurrentItem(0, false);
     }
 
