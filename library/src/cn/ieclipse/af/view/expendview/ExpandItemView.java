@@ -92,6 +92,8 @@ public abstract class ExpandItemView extends FrameLayout {
         setMeasuredDimension(desireWidth, desireHeight);
     }
 
+    public abstract void clearChoice();
+
     /**
      * 自定义回调
      */

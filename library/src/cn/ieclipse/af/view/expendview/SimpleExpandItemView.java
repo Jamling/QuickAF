@@ -86,6 +86,14 @@ public class SimpleExpandItemView<T> extends ExpandItemView implements AdapterVi
         mListView.setItemChecked(position, true);
     }
 
+    @Override
+    public void clearChoice() {
+        if (mListView != null){
+            mListView.clearChoices();
+            mListView.setSelection(ListView.INVALID_POSITION);
+        }
+    }
+
     protected static class SimpleAdapter<T> extends AfBaseAdapter<T> {
 
         @Override

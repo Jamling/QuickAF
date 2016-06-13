@@ -45,6 +45,8 @@ public class ExpandableView extends LinearLayout implements View.OnClickListener
      * 筛选
      */
     private List<View> mToggleButtons = new ArrayList<>();
+
+    private List<ExpandItemView> mItemViews = new ArrayList<>();
     /**
      * 筛选项集合
      */
@@ -106,9 +108,13 @@ public class ExpandableView extends LinearLayout implements View.OnClickListener
      */
     public void initViews(List<ExpandItemView> views) {
         mPopupViews = new ArrayList<>();
+        if (!mItemViews.isEmpty()) {
+            mItemViews.clear();
+        }
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         for (int i = 0; i < views.size(); i++) {
             ExpandItemView itemView = views.get(i);
+            mItemViews.add(itemView);
 
             final RelativeLayout tabItemLayout = new RelativeLayout(getContext());
             RelativeLayout.LayoutParams rl = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
@@ -187,8 +193,7 @@ public class ExpandableView extends LinearLayout implements View.OnClickListener
             index = (int) mSelectToggleBtn.getTag();
         }
         if (null == mPopupWindow) {
-            mPopupWindow = new PopupWindow(mPopupViews.get(index), mDisplayWidth,
-                mDisplayHeight);
+            mPopupWindow = new PopupWindow(mPopupViews.get(index), mDisplayWidth, mDisplayHeight);
             /** 监听popupWindow的收缩*/
             mPopupWindow.setOnDismissListener(new OnDismissListener() {
 
@@ -221,6 +226,19 @@ public class ExpandableView extends LinearLayout implements View.OnClickListener
     public void setSelectItemText(String selectTxt) {
         if (null != mSelectToggleBtn) {
             mSelectToggleBtn.setText(selectTxt);
+        }
+    }
+
+    public void clearChoice(int index) {
+        if (index >= 0 && index < mItemViews.size()) {
+            mItemViews.get(index).clearChoice();
+        }
+    }
+
+    public void clearAllChoice() {
+        int size = mItemViews.size();
+        for (int i = 0; i < size; i++) {
+            mItemViews.get(i).clearChoice();
         }
     }
 }
