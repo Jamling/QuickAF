@@ -4,7 +4,7 @@ An Android framework library and demo to help you building your app quickly.
 ![screenshot](https://raw.githubusercontent.com/Jamling/QuickAF/master/screenshot/sample1.0.0.gif)
 
 # Sample apk
-![sample apk](http://ieclipse.cn/screenshots/qr_quickaf.png)
+![sample apk](http://dl.ieclipse.cn/screenshots/qr_quickaf.png)
 
 # Install
 
