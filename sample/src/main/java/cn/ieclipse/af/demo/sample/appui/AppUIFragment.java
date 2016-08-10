@@ -77,7 +77,7 @@ public class AppUIFragment extends BaseFragment {
 
         mAdapter = new BaseFragmentAdapter(fragmentManager);
         mAdapter.setFragments(new TabAppFragment(), new CustomViewFragment(), new RecyclerFragment(), new TabUtils(),
-            new TabTabFragment());
+            new TabTabFragment(), new SimpleMonthFragment());
         mViewPager.setAdapter(mAdapter);
         mTopView.setViewPager(mViewPager);
     }
