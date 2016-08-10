@@ -1,18 +1,23 @@
-package cn.ieclipse.af.demo.sample.appui;
+package cn.ieclipse.af.demo.sample.cview;
 
 import android.view.View;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import cn.ieclipse.af.demo.R;
-import cn.ieclipse.af.demo.common.ui.BaseFragment;
+import cn.ieclipse.af.demo.sample.SampleBaseActivity;
+import cn.ieclipse.af.util.DialogUtils;
 import cn.ieclipse.af.view.SimpleMonthView;
 
 /**
  *
  */
-public class SimpleMonthFragment extends BaseFragment {
+public class SimpleMonthPickerActivity extends SampleBaseActivity {
+
+    private TextView mOk;
+
 
     private SimpleMonthView mMonthView;
     private TextView mDayAndMonthTxt;
@@ -20,8 +25,12 @@ public class SimpleMonthFragment extends BaseFragment {
     private Calendar mCurrentBookDay, mToday;
 
     @Override
-    protected int getContentLayout() {
-        return R.layout.sample_activity_datepicker;
+    protected void initHeaderView() {
+        super.initHeaderView();
+        setTitle("Date Wheel");
+        mOk = createRightText("确定");
+        mTitleBar.addRight(mOk);
+        setOnClickListener(mOk);
     }
 
     @Override
@@ -77,7 +86,20 @@ public class SimpleMonthFragment extends BaseFragment {
         updateMonthView();
     }
 
+    @Override
+    protected int getContentLayout() {
+        return R.layout.sample_activity_datepicker;
+    }
 
+
+    @Override
+    public void onClick(View v) {
+        if (v == mOk) {
+            String d = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(mCurrentBookDay.getTime());
+            DialogUtils.showToast(this, d);
+        }
+        super.onClick(v);
+    }
 
     private void updateMonthView() {
 
