@@ -78,7 +78,6 @@
         <activity android:name=".sample.cview.PercentLayoutActivity" />
         <activity android:name=".sample.cview.WheelViewActivity"
                   android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".sample.cview.SimpleMonthPickerActivity" />
 
         <!-- list view -->
         <activity android:name=".sample.recycler.SimpleRecyclerActivity" />
