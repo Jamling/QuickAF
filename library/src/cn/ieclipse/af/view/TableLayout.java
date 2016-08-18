@@ -234,4 +234,11 @@ public class TableLayout extends FlowLayout {
     public void clear() {
         removeAllViews();
     }
+
+    public void reset() {
+        clear();
+        this.visibleColumns = 0;
+        this.hiddenColumns = 0;
+        setNumColumns(0);
+    }
 }

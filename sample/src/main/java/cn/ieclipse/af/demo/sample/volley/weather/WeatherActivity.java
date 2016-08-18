@@ -34,10 +34,10 @@ import cn.ieclipse.af.volley.VolleyConfig;
 import cn.ieclipse.af.volley.VolleyManager;
 
 /**
- * 类/接口描述
+ * 使用Volley进行网络请求示例。
+ * 本类实现的WeatherController的WeatherListener接口
  *
  * @author Jamling
- * @date 2015年11月16日
  */
 public class WeatherActivity extends BaseActivity implements WeatherController.WeatherListener {
 
@@ -82,12 +82,20 @@ public class WeatherActivity extends BaseActivity implements WeatherController.W
         loadCityList(name, true);
     }
 
+    /**
+     * 获取城市列表
+     * @param name
+     * @param needCache
+     */
     public void loadCityList(String name, boolean needCache) {
         BaseRequest req = new BaseRequest();
         req.cityname = name;
         controller.loadCityList(req, needCache);
     }
 
+    /**
+     * 获取城市天气详情
+     */
     public void loadWeather() {
         BaseRequest req = new BaseRequest();
         CityInfo city = (CityInfo)spn.getSelectedItem();
