@@ -66,7 +66,7 @@ import java.util.List;
  * <strong>Note</strong> padding top and padding bottom is not supported.
  *
  * @author Jamling
- * @date 2015年11月25日
+ * @deprecated will deleted in future
  */
 public class ColumnLayout extends View {
     
