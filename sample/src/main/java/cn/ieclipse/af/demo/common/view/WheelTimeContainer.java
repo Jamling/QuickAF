@@ -29,6 +29,7 @@ import cn.ieclipse.af.common.TimeRange;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.view.wheelview.OnWheelChangedListener;
 import cn.ieclipse.af.view.wheelview.WheelView;
+import cn.ieclipse.af.view.wheelview.adapter.AbstractWheelAdapter;
 import cn.ieclipse.af.view.wheelview.adapter.NumericWheelAdapter;
 
 /**
@@ -58,6 +59,7 @@ public class WheelTimeContainer extends LinearLayout implements OnWheelChangedLi
     public static final int SHOW_MONTH = 2;
     public static final int SHOW_DAY = 4;
     public static final int SHOW_HOUR = 8;
+    public static final int SHOW_MINUTE = 16;
     private int show = 0;
 
     private WheelView mYear;
@@ -68,6 +70,8 @@ public class WheelTimeContainer extends LinearLayout implements OnWheelChangedLi
     private NumericWheelAdapter mDayAdapter;
     private WheelView mHour;
     private NumericWheelAdapter mHourAdapter;
+    private WheelView mMinute;
+    private NumericWheelAdapter mMinuteAdapter;
 
     private TimeRange tr;
     private int textColor = 0xFF585858;
@@ -82,6 +86,7 @@ public class WheelTimeContainer extends LinearLayout implements OnWheelChangedLi
         mMonth = (WheelView) findViewById(R.id.month);
         mDay = (WheelView) findViewById(R.id.day);
         mHour = (WheelView) findViewById(R.id.hour);
+        mMinute = (WheelView) findViewById(R.id.minute);
 
         tr = new TimeRange();
     }
@@ -108,6 +113,10 @@ public class WheelTimeContainer extends LinearLayout implements OnWheelChangedLi
         else if (wheel == mHour) {
             int h = tr.getHourRange()[0] + mHour.getCurrentItem();
             tr.setCurrentTime(Calendar.HOUR_OF_DAY, h);
+        }
+        else if (wheel == mMinute) {
+            int m = 0 + mMinute.getCurrentItem();
+            tr.setCurrentTime(Calendar.MINUTE, m);
         }
     }
 
@@ -175,6 +184,18 @@ public class WheelTimeContainer extends LinearLayout implements OnWheelChangedLi
         mHour.setCurrentItem(mr[2]);
     }
 
+    private void initMinute() {
+        int[] mr = {0, 59, 0};
+        mMinuteAdapter = new NumericWheelAdapter(getContext(), mr[0], mr[1], "%02d");
+        if (labels.length >4 ) {
+            mMinuteAdapter.setLabel(labels[4]);
+        }
+        mMinuteAdapter.setTextColor(textColor);
+        mMinuteAdapter.setTextSize(textSize);
+        mMinute.setViewAdapter(mMinuteAdapter);
+        mMinute.setCurrentItem(mr[2]);
+    }
+
     public void show(int show) {
         this.show = show;
         mYear.setVisibility((show & SHOW_YEAR) != 0 ? View.VISIBLE : View.GONE);
@@ -186,6 +207,7 @@ public class WheelTimeContainer extends LinearLayout implements OnWheelChangedLi
         initMonth();
         initDay();
         initHour();
+        initMinute();
 
         mYear.addChangingListener(this);
         mMonth.addChangingListener(this);
@@ -264,5 +286,49 @@ public class WheelTimeContainer extends LinearLayout implements OnWheelChangedLi
 
     public void setTextSize(int textSize) {
         this.textSize = textSize;
+    }
+
+    public AbstractWheelAdapter getAdapter(int show) {
+        AbstractWheelAdapter adapter = null;
+        switch (show){
+            case SHOW_MINUTE:
+                adapter = mMinuteAdapter;
+                break;
+            case SHOW_HOUR:
+                adapter = mHourAdapter;
+                break;
+            case SHOW_DAY:
+                adapter = mDayAdapter;
+                break;
+            case SHOW_MONTH:
+                adapter = mMonthAdapter;
+                break;
+            case SHOW_YEAR:
+                adapter = mYearAdapter;
+                break;
+        }
+        return adapter;
+    }
+
+    public WheelView getWheelView(int show){
+        WheelView adapter = null;
+        switch (show){
+            case SHOW_MINUTE:
+                adapter = mMinute;
+                break;
+            case SHOW_HOUR:
+                adapter = mHour;
+                break;
+            case SHOW_DAY:
+                adapter = mDay;
+                break;
+            case SHOW_MONTH:
+                adapter = mMonth;
+                break;
+            case SHOW_YEAR:
+                adapter = mYear;
+                break;
+        }
+        return adapter;
     }
 }

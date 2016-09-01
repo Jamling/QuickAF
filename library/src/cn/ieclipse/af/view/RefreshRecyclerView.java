@@ -532,7 +532,8 @@ public class RefreshRecyclerView<T> extends LinearLayout implements View.OnClick
                 @Override
                 public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                     super.onScrollStateChanged(recyclerView, newState);
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE && mLastVisibleItem + 1 == mAdapter.getDataItemCount()) {
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE && mLastVisibleItem + 1 == mAdapter
+                        .getDataItemCount()) {
                         // mRecyclerView滚动到最后一条，切停止滚动 同时没有在刷新或加载
                         boolean isRefreshing = mSwipyRefreshLayout.isRefreshing();
                         if (mAutoLoadEnable && !isRefreshing) {
@@ -654,6 +655,13 @@ public class RefreshRecyclerView<T> extends LinearLayout implements View.OnClick
      */
     public int getCurrentPage() {
         return mCurrentPage;
+    }
+
+    /**
+     * 设置pagesize
+     */
+    public void setPageSize(int size) {
+        mPageSize = size;
     }
 
     /**
