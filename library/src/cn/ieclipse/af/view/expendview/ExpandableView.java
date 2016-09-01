@@ -96,7 +96,7 @@ public class ExpandableView extends LinearLayout implements View.OnClickListener
         setOrientation(LinearLayout.HORIZONTAL);
         mDisplayWidth = getResources().getDisplayMetrics().widthPixels;
         mDisplayHeight = getResources().getDisplayMetrics().heightPixels;
-        mDisplayHeight = (int) (mDisplayHeight * 0.7);
+        mDisplayHeight = (int) (mDisplayHeight * 1.0);
     }
 
     /**

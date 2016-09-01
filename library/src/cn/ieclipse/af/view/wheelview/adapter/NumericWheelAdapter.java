@@ -17,6 +17,7 @@
 package cn.ieclipse.af.view.wheelview.adapter;
 
 import android.content.Context;
+import android.text.SpannableStringBuilder;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -39,7 +40,7 @@ public class NumericWheelAdapter extends AbstractWheelTextAdapter {
     // format
     private String format;
     
-    private String label;
+    private CharSequence label;
     
     /**
      * Constructor
@@ -111,7 +112,9 @@ public class NumericWheelAdapter extends AbstractWheelTextAdapter {
                 if (text == null) {
                     text = "";
                 }
-                textView.setText(text + label);
+                SpannableStringBuilder ssb = new SpannableStringBuilder(text);
+                ssb.append(label);
+                textView.setText(ssb);
                 
                 if (itemResourceId == TEXT_VIEW_ITEM_RESOURCE) {
                     configureTextView(textView);
@@ -122,7 +125,7 @@ public class NumericWheelAdapter extends AbstractWheelTextAdapter {
         return null;
     }
     
-    public void setLabel(String label) {
+    public void setLabel(CharSequence label) {
         this.label = label;
     }
     
