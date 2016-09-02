@@ -142,6 +142,10 @@ public class TitleBar extends LinearLayout {
             requestLayout();
         }
     }
+
+    public Config getDefaultConfig(){
+        return this.config;
+    }
     
     public void addLeft(View view) {
         LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(

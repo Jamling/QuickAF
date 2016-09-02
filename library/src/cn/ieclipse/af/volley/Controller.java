@@ -42,6 +42,7 @@ import cn.ieclipse.af.util.StringUtils;
  */
 public class Controller<Listener> {
     protected RequestQueue mQueue;
+    protected Gson mGson;// = new Gson();
     protected List<String> mTaskTags;
     protected Listener mListener;
     protected static final String TAG = "QuickAF";
@@ -67,6 +68,7 @@ public class Controller<Listener> {
                     "did you forget initialize the VolleyManager?");
         }
         mTaskTags = new ArrayList<>();
+        mGson = VolleyManager.getInstance().getPaser();
         mQueue = VolleyManager.getInstance().getQueue();
     }
     
@@ -83,8 +85,7 @@ public class Controller<Listener> {
             Response.ErrorListener, Response.Listener<IBaseResponse> {
         protected Class<Output> mDataClazz;
         protected Class<?> mDataItemClass;
-        protected Gson mGson = new Gson();
-        
+
         protected Input input;
         private long cacheTime;
         protected GsonRequest request;
