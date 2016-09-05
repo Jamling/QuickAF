@@ -17,28 +17,28 @@ package cn.ieclipse.af.volley;
 
 import com.android.volley.RetryPolicy;
 import com.android.volley.toolbox.HttpStack;
+import com.google.gson.Gson;
 
 /**
  * 类/接口描述
- * 
+ *
  * @author Jamling
  * @date 2015年11月10日
- *       
  */
 public final class VolleyConfig {
     private HttpStack mHttpStack;
     private int mMaxDiskCacheBytes;
     private Class<? extends IBaseResponse> mBaseResponseClass;
     private RetryPolicy mRetryPolicy;
+    private Gson mJsonParser;
     
     private VolleyConfig(Builder builder) {
-        if (builder.mHttpStack == null) {
-            // TODO set default http stack
-            mHttpStack = null;
-        }
+        // TODO set default http stack
+        mHttpStack = builder.mHttpStack;
         mMaxDiskCacheBytes = builder.mMaxDiskCacheBytes;
         mBaseResponseClass = builder.mBaseResponseClass;
         mRetryPolicy = builder.mRetryPolicy;
+        mJsonParser = builder.mJsonParser;
     }
     
     public HttpStack getHttpStack() {
@@ -53,15 +53,20 @@ public final class VolleyConfig {
         return mBaseResponseClass;
     }
 
-    public RetryPolicy getRetryPolicy(){
+    public RetryPolicy getRetryPolicy() {
         return mRetryPolicy;
     }
-    
+
+    public Gson getJsonParser() {
+        return mJsonParser;
+    }
+
     public static final class Builder {
         private HttpStack mHttpStack;
         private int mMaxDiskCacheBytes;
         private Class<? extends IBaseResponse> mBaseResponseClass;
         private RetryPolicy mRetryPolicy;
+        private Gson mJsonParser;
         
         public Builder setHttpStack(HttpStack httpStack) {
             this.mHttpStack = httpStack;
@@ -73,14 +78,18 @@ public final class VolleyConfig {
             return this;
         }
         
-        public Builder setBaseResponseClass(
-                Class<? extends IBaseResponse> baseResponseClass) {
+        public Builder setBaseResponseClass(Class<? extends IBaseResponse> baseResponseClass) {
             this.mBaseResponseClass = baseResponseClass;
             return this;
         }
 
-        public Builder setRetryPolicy(RetryPolicy retryPolicy){
+        public Builder setRetryPolicy(RetryPolicy retryPolicy) {
             this.mRetryPolicy = retryPolicy;
+            return this;
+        }
+
+        public Builder setJsonParser(Gson jsonParser) {
+            this.mJsonParser = jsonParser;
             return this;
         }
         
