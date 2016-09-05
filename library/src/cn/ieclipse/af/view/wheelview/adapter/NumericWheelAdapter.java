@@ -128,5 +128,8 @@ public class NumericWheelAdapter extends AbstractWheelTextAdapter {
     public void setLabel(CharSequence label) {
         this.label = label;
     }
-    
+
+    public void setFormat(String format) {
+        this.format = format;
+    }
 }

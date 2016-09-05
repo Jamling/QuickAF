@@ -8,9 +8,12 @@
 package cn.ieclipse.af.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.widget.TextView;
+
+import cn.ieclipse.af.R;
 
 /**
  * Base the center point to rotate the text.
@@ -33,7 +36,7 @@ import android.widget.TextView;
  */
 public class RotateTextView extends TextView {
     
-    private int degree;
+    private float degree;
     
     /**
      * @param context
@@ -61,12 +64,11 @@ public class RotateTextView extends TextView {
     }
     
     private void init(Context context, AttributeSet attrs) {
-        // if (attrs != null) {
-        // TypedArray a = context.obtainStyledAttributes(attrs,
-        // R.styleable.CRotateTextView);
-        // degree = a.getInteger(R.styleable.CRotateTextView_degree, 0);
-        // a.recycle();
-        // }
+        if (attrs != null) {
+            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RotateTextView);
+            degree = a.getFloat(R.styleable.RotateTextView_degree, 0);
+            a.recycle();
+        }
     }
     
     @Override
