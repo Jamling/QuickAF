@@ -584,7 +584,7 @@ public class FlowLayout extends ViewGroup {
             int tmp = mMaxChildHeight > 0 ? mMaxChildHeight : height;
             /* fix soft keyboard popup measure result is 0 */
             if (tmp > 0) {
-                childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(tmp, MeasureSpec.AT_MOST);
+                childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(tmp, MeasureSpec.EXACTLY);
             }
             else {
                 childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
