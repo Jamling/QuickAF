@@ -1,4 +1,7 @@
 ## QuickAF
+
+[![Build Status](https://travis-ci.org/Jamling/QuickAF.svg?branch=master)](https://travis-ci.org/Jamling/QuickAF)
+
 An Android framework library and demo to help you building your app quickly.
 
 ![screenshot](https://raw.githubusercontent.com/Jamling/QuickAF/master/screenshot/sample1.0.0.gif)
