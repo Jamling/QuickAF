@@ -1,4 +1,8 @@
 /*
+<<<<<<< 8fb25c680ab04a67b00c7e4ea99e9cb6234d79c2
+=======
+ *
+>>>>>>> add gson parser adapter demo
  * Copyright (C) 2015-2016 QuickAF
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,6 +16,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+<<<<<<< 8fb25c680ab04a67b00c7e4ea99e9cb6234d79c2
+=======
+ *
+>>>>>>> add gson parser adapter demo
  */
 package cn.ieclipse.af.demo.sample.volley.adapter;
 
@@ -34,7 +42,7 @@ import java.util.Collection;
  * 修改CollectionsAdapter，当接口集合返回null，返回默认空数组
  *
  * @author wangjian
- * @date 2016/8/8.
+ * @date 2016-08-08.
  */
 public class CollectionsAdapter implements TypeAdapterFactory {
     

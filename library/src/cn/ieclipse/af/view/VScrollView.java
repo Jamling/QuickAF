@@ -12,6 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
 package cn.ieclipse.af.view;
 
@@ -23,7 +24,7 @@ import android.widget.ScrollView;
  * listening ScrollView vertical scroll instances
  *
  * @author wangjian
- * @date 2015年8月13日
+ * @date 2016-08-13
  */
 public class VScrollView extends ScrollView {
 

@@ -30,7 +30,7 @@ import cn.ieclipse.af.volley.VolleyManager;
  * 类/接口描述
  *
  * @author wangjian
- * @date 2016/9/2.
+ * @date 2016-08-08.
  */
 public class AdapterDemoActivity extends BaseActivity {
 
@@ -78,6 +78,7 @@ public class AdapterDemoActivity extends BaseActivity {
     }
 
     private void parseJson() {
+        // 获得jsonParser
         User user = VolleyManager.getConfig().getJsonParser().fromJson(json, User.class);
         tvParser.setText(user.toString());
     }
