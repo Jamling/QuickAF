@@ -78,7 +78,6 @@
         <activity android:name=".sample.cview.PercentLayoutActivity" />
         <activity android:name=".sample.cview.WheelViewActivity"
                   android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".sample.cview.SimpleMonthPickerActivity" />
 
         <!-- list view -->
         <activity android:name=".sample.recycler.SimpleRecyclerActivity" />
@@ -93,6 +92,7 @@
         <activity android:name=".sample.volley.weather.WeatherActivity" />
         <activity android:name=".sample.volley.upload.UploadActivity" />
         <activity android:name=".sample.volley.upload.UploadActivity2" />
+        <activity android:name=".sample.volley.AdapterDemoActivity" />
 
         <!-- utils -->
         <activity android:name=".sample.utils.DialogsActivity" />

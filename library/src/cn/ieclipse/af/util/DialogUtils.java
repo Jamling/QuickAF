@@ -22,7 +22,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
-import android.widget.Toast;
+
 import cn.ieclipse.af.app.AlertDialogFragment;
 import cn.ieclipse.af.app.ProgressDialogFragment;
 import cn.ieclipse.af.app.ProgressDialogFragment.ProgressInterceptor;
@@ -46,7 +46,7 @@ public final class DialogUtils {
      * @see android.widget.Toast#makeText(android.content.Context, CharSequence, int)
      */
     public static void showToast(Context context, CharSequence msg) {
-        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+        ToastUtils.showToast(context, msg);
     }
 
     public static void showToast(Context context, int res){
