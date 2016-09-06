@@ -27,7 +27,7 @@ import java.io.IOException;
  * 解决int型数据返回float数据的适配
  *
  * @author wangjian
- * @date 2016/8/8.
+ * @date 2016-08-08.
  */
 public class IntAdapter extends TypeAdapter<Number> {
 

@@ -34,7 +34,7 @@ import java.util.Collection;
  * 修改CollectionsAdapter，当接口集合返回null，返回默认空数组
  *
  * @author wangjian
- * @date 2016/8/8.
+ * @date 2016-08-08.
  */
 public class CollectionsAdapter implements TypeAdapterFactory {
     

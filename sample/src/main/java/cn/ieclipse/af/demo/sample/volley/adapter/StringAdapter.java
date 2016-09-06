@@ -24,7 +24,7 @@ import com.google.gson.stream.JsonWriter;
  * 当字段返回null，定义默认的string返回值为""
  *
  * @author wangjian
- * @date 2016/8/8.
+ * @date 2016-08-08.
  */
 public class StringAdapter extends TypeAdapter<String> {
 

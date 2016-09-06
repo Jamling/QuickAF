@@ -22,7 +22,7 @@ import android.widget.Toast;
  * 防止多次点击出现多个toast
  *
  * @author wangjian
- * @date 2016/9/1.
+ * @date 2016-09-01.
  */
 public class ToastUtils {
 
