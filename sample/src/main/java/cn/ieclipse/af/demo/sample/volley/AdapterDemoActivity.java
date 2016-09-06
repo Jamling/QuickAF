@@ -24,7 +24,6 @@ import java.util.List;
 
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.ui.BaseActivity;
-import cn.ieclipse.af.volley.VolleyManager;
 
 
 /**
@@ -80,8 +79,8 @@ public class AdapterDemoActivity extends BaseActivity {
 
     private void parseJson() {
         // 获得jsonParser
-        User user = VolleyManager.getInstance().getPaser().fromJson(json, User.class);
-        tvParser.setText(user.toString());
+//        User user = VolleyManager.getInstance().getPaser().fromJson(json, User.class);
+//        tvParser.setText(user.toString());
     }
 
     static class User {
