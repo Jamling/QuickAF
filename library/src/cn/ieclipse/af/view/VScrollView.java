@@ -58,8 +58,8 @@ public class VScrollView extends ScrollView {
          * {@link #scrollBy(int, int)} or {@link #scrollTo(int, int)} having been
          * called.
          *
-         * @param l    Current horizontal scroll origin.
-         * @param t    Current vertical scroll origin.
+         * @param l Current horizontal scroll origin.
+         * @param t Current vertical scroll origin.
          * @param oldl Previous horizontal scroll origin.
          * @param oldt Previous vertical scroll origin.
          */

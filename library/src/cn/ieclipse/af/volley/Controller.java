@@ -88,14 +88,7 @@ public class Controller<Listener> {
         protected Input input;
         private long cacheTime;
         protected GsonRequest request;
-
-        public RequestObjectTask() {
-            // override the default json parser
-            if (VolleyManager.getConfig().getJsonParser() != null) {
-                mGson = VolleyManager.getConfig().getJsonParser();
-            }
-        }
-
+        
         /**
          * @param cacheTime
          */

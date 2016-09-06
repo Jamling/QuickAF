@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package cn.ieclipse.af.demo.sample.volley;
 
 import android.view.View;
@@ -30,13 +31,13 @@ import cn.ieclipse.af.volley.VolleyManager;
  * 类/接口描述
  *
  * @author wangjian
- * @date 2016-08-08.
+ * @date 2016/9/2.
  */
 public class AdapterDemoActivity extends BaseActivity {
 
     private static String json = "{\n" + "\"uid\":\"280\",\n"
         + "    \"avater\":\"http://11.taoxiansheng.com/Uploads/Download/2016-08-30/57c4f81e0add1.jpeg\",\n"
-        + "    \"nickname\":\"威威\",\n" + "    \"Ip\":null,\n" + "    \"area\":\"\",\n" + "    \"join\":1.0,\n"
+        + "    \"nickname\":\"威威\",\n" + "    \"Ip\":null,\n" + "    \"area\":\"\",\n" + "    \"join\":1,\n"
         + "    \"time\":\"2016-08-31 10:39:36 064\",\n" + "    \"url\":null\n" + "}";
 
     private Button btn1;
@@ -79,7 +80,7 @@ public class AdapterDemoActivity extends BaseActivity {
 
     private void parseJson() {
         // 获得jsonParser
-        User user = VolleyManager.getConfig().getJsonParser().fromJson(json, User.class);
+        User user = VolleyManager.getInstance().getPaser().fromJson(json, User.class);
         tvParser.setText(user.toString());
     }
 
@@ -87,13 +88,11 @@ public class AdapterDemoActivity extends BaseActivity {
         private String uid;
         private String avater;
         private String nickname;
-        // 自定义转换 null-->""
+        // 自定义转换
         private String Ip;// null-->""
         private String area;
-        // 自定义转换 1.0--> 1
         private int join;//1.0--> 1
         private String time;
-        // 自定义转换 null --> new List();
         private List<String> url;//null --> new List();
 
         @Override
