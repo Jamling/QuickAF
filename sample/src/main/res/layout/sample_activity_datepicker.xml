@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center_horizontal"
+    android:orientation="vertical"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
     android:paddingTop="20dp"
@@ -13,19 +13,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="24dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
         android:background="#d20212"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         >
 
         <ImageView
             android:id="@+id/btnPrevMonth"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:scaleType="centerInside"
-            android:src="@drawable/dateselector_prev"
-            android:layout_marginLeft="5dp"
-            android:padding="3dp"
+            android:src="@android:drawable/ic_media_previous"
             />
 
         <TextView
@@ -34,18 +32,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:textColor="@android:color/white"
             android:text="2016年6月"
+            android:textColor="@android:color/white"
             />
 
         <ImageView
             android:id="@+id/btnNextMonth"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:scaleType="centerInside"
-            android:src="@drawable/dateselector_next"
-            android:layout_marginRight="5dp"
-            android:padding="3dp"
+            android:src="@android:drawable/ic_media_next"
             />
 
     </LinearLayout>
@@ -61,15 +57,8 @@
         <cn.ieclipse.af.view.SimpleMonthView
             android:id="@+id/monthView"
             android:layout_width="match_parent"
-            android:layout_height="140dp"
-            android:background="#ffffff"
-            />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:background="#ffffff"
-            />
+            android:layout_height="250dp"
+            android:background="@color/white"/>
 
     </LinearLayout>
 

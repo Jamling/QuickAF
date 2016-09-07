@@ -18,7 +18,6 @@ gen/
 .gradle/
 build/
 *.iml
-gradle/
 gradlew*
 
 # Local configuration file (sdk path, etc)

@@ -142,12 +142,18 @@ public class TitleBar extends LinearLayout {
             requestLayout();
         }
     }
+
+    public Config getDefaultConfig(){
+        return this.config;
+    }
     
     public void addLeft(View view) {
-        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
-                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        if (mLeftContainer.getChildCount() > 0) {
-            p.leftMargin = config.leftItemPadding;
+        ViewGroup.LayoutParams p = view.getLayoutParams();
+        if (p == null) {
+            p = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        }
+        if (mLeftContainer.getChildCount() > 0 && p instanceof MarginLayoutParams) {
+            ((MarginLayoutParams)p).leftMargin = config.leftItemPadding;
         }
         mLeftContainer.addView(view, p);
     }

@@ -156,4 +156,8 @@
         <attr name="tabItemId" format="reference"/>
     </declare-styleable>
 
+    <!-- from old library -->
+    <declare-styleable name="RotateTextView">
+        <attr name="degree" format="float" />
+    </declare-styleable>
 </resources>
