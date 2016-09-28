@@ -17,9 +17,11 @@ package cn.ieclipse.af.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import java.util.List;
 
@@ -33,18 +35,22 @@ import cn.ieclipse.af.common.Logger;
 public abstract class AfRecyclerAdapter<T, VH extends AfViewHolder> extends RecyclerView.Adapter {
     protected Logger mLogger = Logger.getLogger(getClass());
 
-    private static final int NORMAL_ITEM_VIEW_TYPE = 0;
-    private static final int HEADER_ITEM_VIEW_TYPE = -2;
-    private static final int FOOTER_ITEM_VIEW_TYPE = -3;
+    public static final int ITEM_VIEW_TYPE_NORMAL = 0;
+    public static final int ITEM_VIEW_TYPE_HEADER = -2;
+    public static final int ITEM_VIEW_TYPE_FOOTER = -3;
 
     private AfDataHolder<T> mDataHolder = new AfDataHolder<>();
     private LayoutInflater mInflater;
+    private RecyclerView mRecyclerView;
     private View mHeaderView;
     private View mFootView;
 
     public AfRecyclerAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
         setDataCheck(AfDataHolder.CHECK_BOTH);
+
+        // 绑定footer view
+        bindFooterView();
     }
 
     public T getItem(int position) {
@@ -129,12 +135,18 @@ public abstract class AfRecyclerAdapter<T, VH extends AfViewHolder> extends Recy
 
     public abstract void onUpdateView(VH holder, T data, int position);
 
+    public int getFootLayout() {
+        return 0;
+    }
+
     @Override
     public VH onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == HEADER_ITEM_VIEW_TYPE) {
+        if (viewType == ITEM_VIEW_TYPE_HEADER) {
+            mHeaderView.setTag(ITEM_VIEW_TYPE_HEADER);
             return (VH) new AfViewHolder(mHeaderView);
         }
-        else if (viewType == FOOTER_ITEM_VIEW_TYPE) {
+        else if (viewType == ITEM_VIEW_TYPE_FOOTER) {
+            mFootView.setTag(ITEM_VIEW_TYPE_FOOTER);
             return (VH) new AfViewHolder(mFootView);
         }
         else {
@@ -146,7 +158,7 @@ public abstract class AfRecyclerAdapter<T, VH extends AfViewHolder> extends Recy
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
         // 此处不对头部和尾部item做处理
-        if (getItemViewType(position) == NORMAL_ITEM_VIEW_TYPE) {
+        if (getItemViewType(position) == ITEM_VIEW_TYPE_NORMAL) {
             final VH holder = (VH) viewHolder;
             // 绑定数据
             try {
@@ -188,13 +200,13 @@ public abstract class AfRecyclerAdapter<T, VH extends AfViewHolder> extends Recy
     public int getItemViewType(int position) {
         // head默认0位置
         if (getHeaderCount() > 0 && position == 0) {
-            return HEADER_ITEM_VIEW_TYPE;
+            return ITEM_VIEW_TYPE_HEADER;
         }
         // footer位置list末尾
         if (getFooterCount() > 0 && position == getItemCount() - 1) {
-            return FOOTER_ITEM_VIEW_TYPE;
+            return ITEM_VIEW_TYPE_FOOTER;
         }
-        return NORMAL_ITEM_VIEW_TYPE;
+        return ITEM_VIEW_TYPE_NORMAL;
     }
 
     public View getHeaderView() {
@@ -203,6 +215,9 @@ public abstract class AfRecyclerAdapter<T, VH extends AfViewHolder> extends Recy
 
     public void setHeaderView(View headerView) {
         this.mHeaderView = headerView;
+        if(mHeaderView != null){
+            mHeaderView.setLayoutParams(getLayoutParams());
+        }
     }
 
     public View getFootView() {
@@ -211,6 +226,52 @@ public abstract class AfRecyclerAdapter<T, VH extends AfViewHolder> extends Recy
 
     public void setFootView(View footView) {
         this.mFootView = footView;
+        if(mFootView != null){
+            mFootView.setLayoutParams(getLayoutParams());
+        }
+        notifyItemChanged(getItemCount());
+    }
+
+    /**
+     * set footer view
+     */
+    private void bindFooterView() {
+        int footLayout = getFootLayout();
+        if (footLayout > 0) {
+            View layout = mInflater.inflate(footLayout, null);
+            setFootView(layout);
+        }
+    }
+
+    protected ViewGroup.LayoutParams getLayoutParams() {
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT);
+        return params;
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        mRecyclerView = recyclerView;
+    }
+
+    @Override
+    public void onViewAttachedToWindow(final RecyclerView.ViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        if (mRecyclerView != null) {
+            RecyclerView.LayoutManager manager = mRecyclerView.getLayoutManager();
+            if (manager instanceof StaggeredGridLayoutManager) {
+                ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
+                if (lp != null && lp instanceof StaggeredGridLayoutManager.LayoutParams) {
+                    int itemType = holder.getItemViewType();
+                    // itemType 是head或footer时占满一行
+                    if (itemType == ITEM_VIEW_TYPE_FOOTER || itemType == ITEM_VIEW_TYPE_HEADER) {
+                        StaggeredGridLayoutManager.LayoutParams p = (StaggeredGridLayoutManager.LayoutParams) lp;
+                        p.setFullSpan(true);
+                    }
+                }
+            }
+        }
     }
 
     //-------------------设置监听-start---------------------//

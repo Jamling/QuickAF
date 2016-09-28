@@ -61,7 +61,7 @@ public class SwipeMenuRecyclerActivity extends BaseActivity {
         // set adapter
         mAdapter = new MyAdapter(this);
         mAfRecycleView.setAdapter(mAdapter);
-        mAfRecycleView.setRefreshEnable(false);
+        mAfRecycleView.setMode(RefreshRecyclerView.REFRESH_MODE_NONE);
         // set data
         setData();
     }
