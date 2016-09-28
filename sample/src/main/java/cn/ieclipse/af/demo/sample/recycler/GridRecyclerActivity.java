@@ -18,6 +18,7 @@ package cn.ieclipse.af.demo.sample.recycler;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -34,7 +35,7 @@ import cn.ieclipse.af.view.RefreshRecyclerView;
 
 public class GridRecyclerActivity extends BaseActivity {
     
-    RefreshRecyclerView mAfRecycleView;
+    private RefreshRecyclerView mAfRecycleView;
     private MyAdapter mAdapter;
 
     @Override
@@ -53,45 +54,107 @@ public class GridRecyclerActivity extends BaseActivity {
         super.initContentView(view);
         mAfRecycleView = (RefreshRecyclerView) view.findViewById(R.id.recycler);
         mAdapter = new MyAdapter(this);
+        mAfRecycleView.setMode(RefreshRecyclerView.REFRESH_MODE_BOTTOM);
         mAfRecycleView.setAdapter(mAdapter);
+
+        // 设置header
+        TextView headView = (TextView) View.inflate(this, android.R.layout.simple_list_item_1, null);
+        headView.setGravity(Gravity.CENTER);
+        headView.setBackgroundResource(android.R.color.holo_green_dark);
+        headView.setText("i am header");
+        mAdapter.setHeaderView(headView);
 
         mAdapter.setOnItemClickListener(new AfRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                DialogUtils.showToast(GridRecyclerActivity.this, mAdapter.getItem(position));
+                boolean hashead = mAdapter.getHeaderView() != null;
+                int pos = 0;
+                if (hashead) {
+                    // 有headview时，data position需要-1
+                    pos = position - 1;
+                }
+                else {
+                    pos = position;
+                }
+                DialogUtils.showToast(GridRecyclerActivity.this,
+                    "data " + "position=" + (pos) + " \nview position=" + position +
+                        " \nitem=" + mAdapter.getItem(pos));
+
+                // mAdapter.updateItem(pos,"update item "+ (pos));
+                // 需要重写item的equals()方法
+                // mAfRecycleView.updateItem(item);
             }
         });
-
         // set data
         setData();
+        setListener();
     }
 
+    // 竖直的listview
     public void listV(View view) {
         mAfRecycleView.setLinearLayoutManager(LinearLayout.VERTICAL);
     }
 
+    // 水平的listview
     public void listH(View view) {
         mAfRecycleView.setLinearLayoutManager(LinearLayout.HORIZONTAL);
     }
 
+    // gridview
     public void grid(View view) {
         mAfRecycleView.setGridLayoutManager(2);
     }
 
+    // 竖直的staggeredGrid
     public void staggeredGridV(View view) {
         mAfRecycleView.setStaggeredGridLayoutManager(4, LinearLayout.VERTICAL);
     }
 
+    // 水平的的staggeredGrid
     public void staggeredGridH(View view) {
         mAfRecycleView.setStaggeredGridLayoutManager(4, LinearLayout.HORIZONTAL);
     }
 
+    // 设置监听
+    private void setListener() {
+        mAfRecycleView.setOnRefreshListener(new RefreshRecyclerView.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mAfRecycleView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        setData();
+                    }
+                }, 2000);
+            }
+
+            @Override
+            public void onLoadMore() {
+                mAfRecycleView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        addData();
+                    }
+                }, 2000);
+            }
+        });
+    }
+
+    private void addData() {
+        ArrayList<String> dataList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            dataList.add(RandomUtils.genGBK(5, 30));
+        }
+        mAfRecycleView.onLoadFinish(dataList);
+    }
+
     private void setData() {
         ArrayList<String> dataList = new ArrayList<>();
-        for (int i = 0; i < 60; i++) {
+        for (int i = 0; i < 5; i++) {
             dataList.add(RandomUtils.genGBK(10, 20));
         }
         mAfRecycleView.onLoadFinish(dataList);
+//        mAfRecycleView.onLoadFailure();
     }
 
     public class MyAdapter extends AfRecyclerAdapter<String, ViewHolder> {
@@ -103,6 +166,12 @@ public class GridRecyclerActivity extends BaseActivity {
         @Override
         public int getLayout() {
             return android.R.layout.simple_list_item_1;
+        }
+
+        @Override
+        public int getFootLayout() {
+            // 设置footview
+            return R.layout.sample_recyclerview_bottom_view;
         }
 
         @Override

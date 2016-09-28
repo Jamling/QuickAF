@@ -133,7 +133,6 @@
         <attr name="dividerHeight" format="reference|dimension"/>
         <attr name="dividerColor" format="reference|color"/>
         <attr name="recyclerView" format="reference"/>
-        <attr name="autoLoad" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="PagerSlidingTabStrip">

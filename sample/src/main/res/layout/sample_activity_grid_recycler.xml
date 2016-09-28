@@ -64,7 +64,7 @@
     </cn.ieclipse.af.view.FlowLayout>
 
 
-    <cn.ieclipse.af.view.RefreshRecyclerView
+    <cn.ieclipse.af.demo.sample.recycler.view.MyRefreshRecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

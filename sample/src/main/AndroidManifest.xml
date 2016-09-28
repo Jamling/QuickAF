@@ -81,7 +81,6 @@
         <activity android:name=".sample.cview.SimpleMonthPickerActivity" />
 
         <!-- list view -->
-        <activity android:name=".sample.recycler.SimpleRecyclerActivity" />
         <activity android:name=".sample.recycler.RefreshRecyclerViewActivity" />
         <activity android:name=".sample.recycler.SwipeMenuRecyclerActivity" />
         <activity android:name=".sample.recycler.GridRecyclerActivity" />
