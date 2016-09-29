@@ -98,12 +98,11 @@ public class SortRecyclerActivity extends BaseActivity {
         mSideBar.setFocusBarBackground(R.drawable.sidebar_background);
 
         recyclerView = (RefreshRecyclerView) findViewById(R.id.contact_member);
-        recyclerView.setRefreshEnable(false);
+        recyclerView.setMode(RefreshRecyclerView.REFRESH_MODE_NONE);
         adapter = new MyAdapter(this);
 
         headersDecor = new StickyRecyclerHeadersDecoration(adapter);
-        recyclerView.getRefreshView().addItemDecoration(headersDecor);
-//        recyclerView.getRefreshView().addItemDecoration(new DividerDecoration(this));
+        recyclerView.getRecyclerView().addItemDecoration(headersDecor);
 
         Gson gson = new GsonBuilder().create();
         contactModel = gson.fromJson(DataList.tempData, ContactModel.class);
@@ -116,7 +115,7 @@ public class SortRecyclerActivity extends BaseActivity {
             public void onTouchingLetterChanged(String s) {
                 int position = adapter.getPositionForSection(s.charAt(0));
                 if (position != -1) {
-                    recyclerView.getRefreshView().scrollToPosition(position);
+                    recyclerView.getRecyclerView().scrollToPosition(position);
                 }
             }
         });

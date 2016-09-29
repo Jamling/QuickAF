@@ -86,7 +86,6 @@
 
     <!-- Base RefreshRecyclerView -->
     <style name="refresh_rv">
-        <item name="autoLoad">true</item>
         <item name="recyclerView">@layout/base_rv</item>
         <item name="dividerHeight">1px</item>
         <item name="dividerColor">@color/divider</item>
