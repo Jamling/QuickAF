@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/TransparentActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="1000dp"
+    android:orientation="vertical"
+    android:background="@android:color/transparent">
+
+    <View
+        android:id="@+id/outer_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/black_alpha_50"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_choose_album"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:text="从相册中选"
+            android:textColor="@color/green_6ac31b"
+            android:textSize="16sp"/>
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F0F0F0"/>
+
+        <Button
+            android:id="@+id/btn_choose_cam"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:text="拍一张"
+            android:textColor="@color/green_6ac31b"
+            android:textSize="16sp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F0F0F0"/>
+
+        <Button
+            android:id="@+id/btn_choose_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/green_6ac31b"
+            android:text="取消"
+            android:textColor="#ffffff"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+</LinearLayout>
