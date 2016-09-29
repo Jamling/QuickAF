@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:allowBackup="true"
@@ -104,6 +105,12 @@
         <activity android:name=".sample.orm.StudentDetailActivity" />
         <provider android:name=".sample.orm.ExampleContentProvider"
                   android:authorities="cn.ieclipse.af.demo.sample.aorm.example.provider" />
+        <!--album-->
+        <activity android:name=".sample.album.AlbumActivity" />
+        <activity android:name=".sample.album.SelectPhotoActivity"
+                  android:theme="@style/TransparentActivity"
+                  android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".sample.appui.PhotoActivity" />
     </application>
 
 </manifest>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cn.ieclipse.af.demo.sample.album.CheckLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_image"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:minWidth="100dp"
+        android:scaleType="centerCrop"/>
+
+    <CheckBox
+        android:id="@+id/iv_chk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|right"
+        android:clickable="false"
+        android:focusable="false"
+        android:checked="false"/>
+
+</cn.ieclipse.af.demo.sample.album.CheckLayout>

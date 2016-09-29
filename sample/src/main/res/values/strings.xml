@@ -70,4 +70,7 @@
     <string name="change_pwd_error_repeat">您两次输入的密码不一致</string>
     <string name="change_pwd_btn">确认修改</string>
     <string name="change_pwd_title">修改密码</string>
+    <!--Album-->
+    <string name="group_album">相册</string>
+    <string name="global_all_pics">所有图片</string>
 </resources>

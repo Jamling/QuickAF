@@ -27,4 +27,5 @@
     <color name="black_f0f0f0">#f0f0f0</color>
     <color name="black_f8f8f8">#f8f8f8</color>
     <color name="white">@android:color/white</color>
+    <color name="green_6ac31b">#6ac31b</color>
 </resources>
