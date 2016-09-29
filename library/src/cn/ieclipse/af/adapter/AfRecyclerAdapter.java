@@ -16,6 +16,7 @@
 package cn.ieclipse.af.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -42,6 +43,7 @@ public abstract class AfRecyclerAdapter<T, VH extends AfViewHolder> extends Recy
     private AfDataHolder<T> mDataHolder = new AfDataHolder<>();
     private LayoutInflater mInflater;
     private RecyclerView mRecyclerView;
+    private GridLayoutManager.SpanSizeLookup mSpanSizeLookup;
     private View mHeaderView;
     private View mFootView;
 
@@ -215,8 +217,8 @@ public abstract class AfRecyclerAdapter<T, VH extends AfViewHolder> extends Recy
 
     public void setHeaderView(View headerView) {
         this.mHeaderView = headerView;
-        if(mHeaderView != null){
-            mHeaderView.setLayoutParams(getLayoutParams());
+        if (mHeaderView != null) {
+            mHeaderView.setLayoutParams(getHeaderLayoutParams());
         }
     }
 
@@ -226,8 +228,8 @@ public abstract class AfRecyclerAdapter<T, VH extends AfViewHolder> extends Recy
 
     public void setFootView(View footView) {
         this.mFootView = footView;
-        if(mFootView != null){
-            mFootView.setLayoutParams(getLayoutParams());
+        if (mFootView != null) {
+            mFootView.setLayoutParams(getFooterLayoutParams());
         }
         notifyItemChanged(getItemCount());
     }
@@ -243,7 +245,13 @@ public abstract class AfRecyclerAdapter<T, VH extends AfViewHolder> extends Recy
         }
     }
 
-    protected ViewGroup.LayoutParams getLayoutParams() {
+    protected ViewGroup.LayoutParams getHeaderLayoutParams() {
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT);
+        return params;
+    }
+
+    protected ViewGroup.LayoutParams getFooterLayoutParams() {
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT);
         return params;
@@ -253,6 +261,8 @@ public abstract class AfRecyclerAdapter<T, VH extends AfViewHolder> extends Recy
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
         mRecyclerView = recyclerView;
+        // 防止RefreshRecyclerView中setGridLayoutManager在setAdapter之前调用无效
+        setSpanSizeLookup(recyclerView.getLayoutManager());
     }
 
     @Override
@@ -260,6 +270,7 @@ public abstract class AfRecyclerAdapter<T, VH extends AfViewHolder> extends Recy
         super.onViewAttachedToWindow(holder);
         if (mRecyclerView != null) {
             RecyclerView.LayoutManager manager = mRecyclerView.getLayoutManager();
+            // 设置当StaggeredGridLayoutManager时的header和footer占满一行
             if (manager instanceof StaggeredGridLayoutManager) {
                 ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
                 if (lp != null && lp instanceof StaggeredGridLayoutManager.LayoutParams) {
@@ -273,6 +284,35 @@ public abstract class AfRecyclerAdapter<T, VH extends AfViewHolder> extends Recy
             }
         }
     }
+
+    /**
+     * 设置当GridLayoutManager时的header和footer占满一行
+     *
+     * @param manager
+     */
+    public void setSpanSizeLookup(final RecyclerView.LayoutManager manager) {
+        if (manager instanceof GridLayoutManager) {
+            final GridLayoutManager gridManager = (GridLayoutManager) manager;
+            if (gridManager.getSpanSizeLookup() instanceof GridLayoutManager.DefaultSpanSizeLookup) {
+                // 当itemType是head或footer时占满一行
+                gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        int itemType = getItemViewType(position);
+                        int spanCount = gridManager.getSpanCount();
+                        if (itemType == AfRecyclerAdapter.ITEM_VIEW_TYPE_FOOTER
+                            || itemType == AfRecyclerAdapter.ITEM_VIEW_TYPE_HEADER) {
+                            return spanCount;
+                        }
+                        else {
+                            return 1;
+                        }
+                    }
+                });
+            }
+        }
+    }
+
 
     //-------------------设置监听-start---------------------//
     public interface OnItemClickListener {

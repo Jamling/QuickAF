@@ -122,10 +122,10 @@ public class RefreshRecyclerViewActivity extends BaseActivity {
                     dataList.add(RandomUtils.genGBK(10, 20));
                 }
                 mAfRecycleView.onLoadFinish(dataList);
-                // 模拟加载空数据
+//                 模拟加载空数据
 //                mAfRecycleView.onLoadFinish(null);
                 // 模拟加载失败
-                //mAfRecycleView.onLoadFailure();
+                // mAfRecycleView.onLoadFailure();
             }
         }, 2000);
     }

@@ -36,6 +36,3 @@ task build(type: GradleBuild) {
     buildFile = 'android-maven.gradle'
     tasks = ['bintray']
 }*/
-android {
-    buildToolsVersion '24.0.2'
-}

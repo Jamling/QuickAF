@@ -1,5 +1,17 @@
 /*
- * Copyright (C) 20015 MaiNaEr All rights reserved
+ * Copyright 2014-2015 ieclipse.cn.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package cn.ieclipse.af.demo.sample.recycler.view;
 
@@ -34,8 +46,11 @@ public class MyRefreshRecyclerView extends RefreshRecyclerView {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
+        // 设置empty view
         mMyEmptyView = new MyEmptyView(getContext());
         initEmptyView(mMyEmptyView);
+        // 设置自动加载
+        setAutoLoad(true);
     }
 
     @Override
@@ -52,7 +67,7 @@ public class MyRefreshRecyclerView extends RefreshRecyclerView {
     @Override
     public void onLoadFinish(List list) {
         super.onLoadFinish(list);
-        if (isRefresh) {
+        if (getCurRefreshDirection() == CUR_NONE) {
             setBottomViewText(R.string.common_click_load_more);
         }
     }
@@ -63,6 +78,11 @@ public class MyRefreshRecyclerView extends RefreshRecyclerView {
         setBottomViewText(R.string.error_loading_with_retry);
     }
 
+    /**
+     * 控制footer view显示文字
+     *
+     * @param resStr
+     */
     private void setBottomViewText(int resStr) {
         View footView = mAdapter.getFootView();
         View progress = footView.findViewById(R.id.progressBar);

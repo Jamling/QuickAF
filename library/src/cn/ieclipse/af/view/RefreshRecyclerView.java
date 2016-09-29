@@ -1,5 +1,17 @@
 /*
- * Copyright (C) 20015 MaiNaEr All rights reserved
+ * Copyright 2014-2016 QuickAF
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package cn.ieclipse.af.view;
 
@@ -58,6 +70,22 @@ public class RefreshRecyclerView<T> extends LinearLayout implements View.OnClick
      */
     public static final int REFRESH_MODE_BOTH = 0x04;
     /**
+     * 当前刷新方向 无
+     */
+    public static final int CUR_NONE = 0;
+    /**
+     * 当前刷新方向 下拉刷新
+     */
+    public static final int CUR_REFRESH = 1;
+    /**
+     * 当前刷新方向 上拉加载
+     */
+    public static final int CUR_LOADING = 2;
+    /**
+     * 当前刷新方向
+     */
+    private int mCurRefreshDirection = CUR_NONE;
+    /**
      * 当前的ItemDecoration
      */
     private RecyclerView.ItemDecoration mItemDecoration;
@@ -83,14 +111,6 @@ public class RefreshRecyclerView<T> extends LinearLayout implements View.OnClick
      */
     protected RefreshEmptyView mEmptyView;
     /**
-     * 网络错误显示的view
-     */
-    protected View mNetworkErrorLayout;
-    /**
-     * 数据为空显示的view
-     */
-    protected View mDataEmptyLayout;
-    /**
      * 默认分隔线颜色
      */
     private int mDividerColor = Color.parseColor("#ffd8d8d8");//0x80bebebe;//0xffd8d8d8;
@@ -102,6 +122,10 @@ public class RefreshRecyclerView<T> extends LinearLayout implements View.OnClick
      * recyclerview 布局id
      */
     private int mRecyclerViewId;
+    /**
+     * 是否滚动到底部自动加载
+     */
+    private boolean mAutoLoad;
     /**
      * 分割线的宽度（网格布局有效）
      */
@@ -128,19 +152,14 @@ public class RefreshRecyclerView<T> extends LinearLayout implements View.OnClick
      * adapter中数据条目
      */
     private int mItemCount = 0;
+    /**
+     * 每页数据大小
+     */
     private int mPageSize = PAGE_SIZE;
     /**
-     * 默认刷新方向
+     * 默认刷新mode
      */
     private int mRefreshMode = REFRESH_MODE_TOP;
-    /**
-     * 当前刷新方向
-     */
-    protected boolean isRefresh = true;
-    /**
-     * 是否正在加载
-     */
-    private boolean isLoading;
 
     public RefreshRecyclerView(Context context) {
         this(context, null);
@@ -159,6 +178,7 @@ public class RefreshRecyclerView<T> extends LinearLayout implements View.OnClick
             mDividerHeight = array.getDimensionPixelOffset(R.styleable.RefreshRecyclerView_dividerHeight,
                 mDividerHeight);
             mRecyclerViewId = array.getResourceId(R.styleable.RefreshRecyclerView_recyclerView, mRecyclerViewId);
+            mAutoLoad = array.getBoolean(R.styleable.RefreshRecyclerView_autoLoad, mAutoLoad);
             array.recycle();
         }
 
@@ -223,68 +243,30 @@ public class RefreshRecyclerView<T> extends LinearLayout implements View.OnClick
             // 设置emptyview
             mEmptyView = emptyView;
             addView(mEmptyView, getLayoutCenterLyParams());
-            // 设置emptyview刷新监听
-            mEmptyView.setOnRefreshListener(emptyViewRefreshListener);
-
-            mDataEmptyLayout = mEmptyView.getDataEmptyLayout();
-            mDataEmptyLayout.setOnClickListener(this);
-            mNetworkErrorLayout = mEmptyView.getNetworkErrorLayout();
-            mNetworkErrorLayout.setOnClickListener(this);
-
+            mEmptyView.setRecyclerView(this);
             // 初始换mEmptyView隐藏refresh view，显示EmptyView
             mSwipeRefreshLayout.setVisibility(GONE);
             mEmptyView.setVisibility(VISIBLE);
         }
     }
 
-    public SwipeRefreshLayout getSwipyRefreshLayout() {
+    public RefreshEmptyView getEmptyView() {
+        return mEmptyView;
+    }
+
+    public SwipeRefreshLayout getSwipeRefreshLayout() {
         return mSwipeRefreshLayout;
     }
 
-    /**
-     * empty view 的下拉监听
-     */
-    private SwipeRefreshLayout.OnRefreshListener emptyViewRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
-        @Override
-        public void onRefresh() {
-            // empty view 刷新触发mAfRecyclerView的刷新事件
-            if (mOnRefreshListener != null) {
-                mEmptyView.setEmptyType(RefreshEmptyView.TYPE_LOADING);
-                // 触发RefreshRecyclerView的下拉刷新方法
-                RefreshRecyclerView.this.onRefresh();
-            }
-        }
-    };
-
     @Override
     public void onClick(View v) {
-        if (v == mNetworkErrorLayout) {
-            emptyRefresh();
-        }
-        else if (v == mDataEmptyLayout) {
-            if (mOnEmptyRetryListener != null) {
-                mOnEmptyRetryListener.onDataEmptyClick();
-            }
-            else {
-                emptyRefresh();
-            }
-        }
-        else if (v == mFootView) {
+        if (v == mFootView) {
             if (mOnLoadRetryListener != null) {
                 mOnLoadRetryListener.onFootViewClick();
             }
             else {
                 doAutoLoadMore();
             }
-        }
-    }
-
-    private void emptyRefresh() {
-        if (!mEmptyView.isRefreshing()) {
-            emptyViewRefreshListener.onRefresh();
-        }
-        if (mEmptyView != null) {
-            mEmptyView.setRefreshing(true);
         }
     }
 
@@ -475,22 +457,9 @@ public class RefreshRecyclerView<T> extends LinearLayout implements View.OnClick
         GridItemDecoration decoration = new GridItemDecoration(getContext());
         removeOldItemDecoration(decoration);
         mRecyclerView.setLayoutManager(gridManager);
-
-        // 当itemType是head或footer时占满一行
-        gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                int itemType = mAdapter.getItemViewType(position);
-                int spanCount = gridManager.getSpanCount();
-                if (itemType == AfRecyclerAdapter.ITEM_VIEW_TYPE_FOOTER
-                    || itemType == AfRecyclerAdapter.ITEM_VIEW_TYPE_HEADER) {
-                    return spanCount;
-                }
-                else {
-                    return 1;
-                }
-            }
-        });
+        if (mAdapter != null) {
+            mAdapter.setSpanSizeLookup(gridManager);
+        }
     }
 
     /**
@@ -562,27 +531,30 @@ public class RefreshRecyclerView<T> extends LinearLayout implements View.OnClick
                         orientation = ((LinearLayoutManager) manager).getOrientation();
                     }
 
-                    // 水平滚动加载
-                    if (orientation == HORIZONTAL) {
-                        // if (!recyclerView.canScrollHorizontally(-1)) {
-                        //    // scrolled To start
-                        // }
-                        // else
-                        if (!recyclerView.canScrollHorizontally(1)) {
-                            // scrolled To end
-                            doAutoLoadMore();
+                    // 是否允许自动加载
+                    if (mAutoLoad) {
+                        // 水平滚动加载
+                        if (orientation == HORIZONTAL) {
+                            // if (!recyclerView.canScrollHorizontally(-1)) {
+                            //    // scrolled To start
+                            // }
+                            // else
+                            if (!recyclerView.canScrollHorizontally(1)) {
+                                // scrolled To end
+                                doAutoLoadMore();
+                            }
                         }
-                    }
-                    else {
+                        else {
 
-                        // 竖直滚动加载
-                        // if (!recyclerView.canScrollVertically(-1)) {
-                        //    // Scrolled To Top
-                        // }
-                        // else
-                        if (!recyclerView.canScrollVertically(1)) {
-                            // scrolled To bottom
-                            doAutoLoadMore();
+                            // 竖直滚动加载
+                            // if (!recyclerView.canScrollVertically(-1)) {
+                            //    // Scrolled To Top
+                            // }
+                            // else
+                            if (!recyclerView.canScrollVertically(1)) {
+                                // scrolled To bottom
+                                doAutoLoadMore();
+                            }
                         }
                     }
                 }
@@ -597,7 +569,7 @@ public class RefreshRecyclerView<T> extends LinearLayout implements View.OnClick
         // mRecyclerView滚动到最后一条，切停止滚动 同时没有在刷新或加载
         boolean isRefreshing = mSwipeRefreshLayout.isRefreshing();
         if (!isRefreshing // 是否正在刷新
-            && !isLoading// 是否正在加载
+            && mCurRefreshDirection == CUR_NONE // 是否正在加载
             && (mRefreshMode == REFRESH_MODE_BOTTOM // 可以上拉加载
             || mRefreshMode == REFRESH_MODE_BOTH)) {
             mLogger.d("auto load more");
@@ -664,11 +636,11 @@ public class RefreshRecyclerView<T> extends LinearLayout implements View.OnClick
      */
     public void onLoadFinish(List<T> list) {
         if (mAdapter != null) {
-            // isRefresh == true下拉刷新或默认是刷新操作
-            if (isRefresh) {
+            // 下拉刷新或默认是刷新操作
+            if (mCurRefreshDirection == CUR_REFRESH) {
                 mAdapter.getDataList().clear();
             }
-            else {//if (!isRefresh)
+            else {
                 // do nothing
             }
             mAdapter.addAll(list);
@@ -700,7 +672,7 @@ public class RefreshRecyclerView<T> extends LinearLayout implements View.OnClick
             mEmptyView.setRefreshing(false);
         }
 
-        isLoading = false;
+        mCurRefreshDirection = CUR_NONE;
         // 上拉完成，恢复下拉可用状态
         // 防止mRefreshMode = REFRESH_MODE_NONE,恢复可刷新状态
         if (mRefreshMode != REFRESH_MODE_NONE) {
@@ -725,11 +697,47 @@ public class RefreshRecyclerView<T> extends LinearLayout implements View.OnClick
     }
 
     /**
+     * 获取当前的刷新方向
+     *
+     * @return {@link #CUR_NONE} ,{@link #CUR_REFRESH} ,{@link #CUR_LOADING}
+     */
+    public int getCurRefreshDirection() {
+        return mCurRefreshDirection;
+    }
+
+    /**
+     * 设置当前刷新方向
+     *
+     * @param direction {@link #CUR_NONE} ,{@link #CUR_REFRESH} ,{@link #CUR_LOADING}
+     */
+    public void setCurRefreshDirection(int direction) {
+        this.mCurRefreshDirection = direction;
+    }
+
+    /**
+     * 滚动到底部是否自动加载
+     *
+     * @return
+     */
+    public boolean isAutoLoad() {
+        return mAutoLoad;
+    }
+
+    /**
+     * 设置滚动到底部自动加载
+     *
+     * @param autoLoad true 是，false否
+     */
+    public void setAutoLoad(boolean autoLoad) {
+        this.mAutoLoad = autoLoad;
+    }
+
+    /**
      * 执行刷新操作
      */
     public void refresh() {
         if (mEmptyView.getVisibility() == VISIBLE) {
-            emptyRefresh();
+            mEmptyView.clickRefresh();
         }
         else {
             if (!mSwipeRefreshLayout.isRefreshing()) {
@@ -768,7 +776,8 @@ public class RefreshRecyclerView<T> extends LinearLayout implements View.OnClick
             mLogger.d("onRefresh current direction = " + mRefreshMode);
             // 下拉刷新执行的操作
             mCurrentPage = PAGE_FIRST;
-            isRefresh = true;
+            //isRefresh = true;
+            mCurRefreshDirection = CUR_REFRESH;
             mOnRefreshListener.onRefresh();
         }
     }
@@ -780,10 +789,12 @@ public class RefreshRecyclerView<T> extends LinearLayout implements View.OnClick
         // 计算当前加载页数
         mLogger.d("view onLoadMore");
         calcCurrentPage();
-        isRefresh = false;
-        isLoading = true;
+        mCurRefreshDirection = CUR_LOADING;
+//        isRefresh = false;
+//        isLoading = true;
         // 上拉时禁用下拉
         mSwipeRefreshLayout.setEnabled(false);
+        // 回调加载更多
         mOnRefreshListener.onLoadMore();
     }
 
@@ -796,7 +807,11 @@ public class RefreshRecyclerView<T> extends LinearLayout implements View.OnClick
         this.mOnEmptyRetryListener = onEmptyRetryListener;
     }
 
-    public void setOnEmptyRetryListener(OnLoadRetryListener onLoadRetryListener) {
+    public OnEmptyRetryListener getOnEmptyRetryListener() {
+        return mOnEmptyRetryListener;
+    }
+
+    public void setOnLoadRetryListener(OnLoadRetryListener onLoadRetryListener) {
         this.mOnLoadRetryListener = onLoadRetryListener;
     }
 
