@@ -22,7 +22,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
-import android.widget.Toast;
+
 import cn.ieclipse.af.app.AlertDialogFragment;
 import cn.ieclipse.af.app.ProgressDialogFragment;
 import cn.ieclipse.af.app.ProgressDialogFragment.ProgressInterceptor;
@@ -42,23 +42,19 @@ public final class DialogUtils {
      *
      * @param context {@link android.content.Context}
      * @param msg     toast text
-     *
      * @see android.widget.Toast#makeText(android.content.Context, CharSequence, int)
      */
     public static void showToast(Context context, CharSequence msg) {
-        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+        ToastUtils.showToast(context, msg);
     }
 
-    public static void showToast(Context context, int res){
-        DialogUtils.showToast(context, context.getResources().getString(res));
+    public static void showToast(Context context, int res) {
+        showToast(context, context.getResources().getString(res));
     }
     
-    private static void attachDialog(Activity context,
-            DialogFragment fragment) {
-        FragmentTransaction ft = context.getFragmentManager()
-                .beginTransaction();
-        Fragment prev = context.getFragmentManager()
-                .findFragmentByTag("dialog");
+    private static void attachDialog(Activity context, DialogFragment fragment) {
+        FragmentTransaction ft = context.getFragmentManager().beginTransaction();
+        Fragment prev = context.getFragmentManager().findFragmentByTag("dialog");
         if (prev != null) {
             ft.remove(prev);
         }
@@ -71,44 +67,40 @@ public final class DialogUtils {
     /**
      * Custom AlertDialog with full parameters.
      *
-     * @param context Activity context
-     * @param icon icon res id see {@link android.R.drawable#ic_dialog_alert}
-     * @param title dialog title
-     * @param message dialog message
+     * @param context     Activity context
+     * @param icon        icon res id see {@link android.R.drawable#ic_dialog_alert}
+     * @param title       dialog title
+     * @param message     dialog message
      * @param interceptor dialog display interceptor see {@link AlertDialogFragment.AlertInterceptor}
-     * @param listeners dialog button onclick listeners see {@link android.content.DialogInterface.OnClickListener}
+     * @param listeners   dialog button onclick listeners see {@link android.content.DialogInterface.OnClickListener}
      */
-    public static AlertDialogFragment showAlert(Activity context, int icon,
-            String title, String message,
-            AlertDialogFragment.AlertInterceptor interceptor,
-            DialogInterface.OnClickListener... listeners) {
-        AlertDialogFragment fragment = AlertDialogFragment.newInstance(icon,
-                title, message, interceptor, listeners);
-                
+    public static AlertDialogFragment showAlert(Activity context, int icon, String title, String message,
+                                                AlertDialogFragment.AlertInterceptor interceptor,
+                                                DialogInterface.OnClickListener... listeners) {
+        AlertDialogFragment fragment = AlertDialogFragment.newInstance(icon, title, message, interceptor, listeners);
+
         attachDialog(context, fragment);
         return fragment;
     }
     
-    public static AlertDialogFragment showAlert(Activity context, int icon,
-            String title, String message,
-            DialogInterface.OnClickListener... listeners) {
+    public static AlertDialogFragment showAlert(Activity context, int icon, String title, String message,
+                                                DialogInterface.OnClickListener... listeners) {
         return showAlert(context, icon, title, message, null, listeners);
     }
     
     /**
      * Custom AlertDialog with # {@link AlertDialogFragment.AlertInterceptor}.
      *
-     * @param context Activity context
+     * @param context     Activity context
      * @param interceptor dialog display interceptor see {@link AlertDialogFragment.AlertInterceptor}
      */
-    public static AlertDialogFragment showAlert(Activity context,
-            AlertDialogFragment.AlertInterceptor interceptor) {
-        return showAlert(context, 0, null, null, interceptor,
-                (DialogInterface.OnClickListener) null);
+    public static AlertDialogFragment showAlert(Activity context, AlertDialogFragment.AlertInterceptor interceptor) {
+        return showAlert(context, 0, null, null, interceptor, (DialogInterface.OnClickListener) null);
     }
     
     /**
-     * Generate a default dialog button onclick listener, it will do nothing in {@link android.content.DialogInterface.OnClickListener#onClick(DialogInterface, int)}
+     * Generate a default dialog button onclick listener, it will do nothing in
+     * {@link android.content.DialogInterface.OnClickListener#onClick(DialogInterface, int)}
      *
      * @return empty {@link android.content.DialogInterface}
      */
@@ -117,14 +109,13 @@ public final class DialogUtils {
             
             @Override
             public void onClick(DialogInterface dialog, int which) {
-            
+
             }
         };
     }
     
-    public static ProgressDialogFragment showProgress(Activity context,
-            int style, ProgressInterceptor interceptor,
-            OnCancelListener listener) {
+    public static ProgressDialogFragment showProgress(Activity context, int style, ProgressInterceptor interceptor,
+                                                      OnCancelListener listener) {
         ProgressDialogFragment fragment = ProgressDialogFragment.newInstance(style, null, interceptor, listener);
         attachDialog(context, fragment);
         return fragment;

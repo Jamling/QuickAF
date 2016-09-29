@@ -51,7 +51,7 @@
             android:layout_marginTop="6dp"
             android:background="#99000000"
             android:padding="4dp"
-            android:text="dependencies {\n\tcompile 'cn.ieclipse.aorm:aorm-core:1.0'\n}"
+            android:text="dependencies {\n\tcompile 'cn.ieclipse.aorm:aorm-core:1.1.0'\n}"
             android:textColor="#61f0"/>
 
         <Button
