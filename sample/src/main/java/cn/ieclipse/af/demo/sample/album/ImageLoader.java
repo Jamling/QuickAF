@@ -1,4 +1,4 @@
-package cn.ieclipse.af.album;
+package cn.ieclipse.af.demo.sample.album;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

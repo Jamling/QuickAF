@@ -7,10 +7,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -32,7 +30,7 @@ import cn.ieclipse.af.demo.common.ui.BaseActivity;
 import cn.ieclipse.af.util.AppUtils;
 
 @SuppressLint("HandlerLeak")
-public class AlbumActivity extends BaseActivity implements ListImageDirPopupWindow.OnImageDirSelected {
+public class AlbumActivity extends BaseActivity implements ImageDirPopupWindow.OnImageDirSelected {
     
     private List<ImageBucket> mImageList;
     private GridView mImageGv;
@@ -48,7 +46,7 @@ public class AlbumActivity extends BaseActivity implements ListImageDirPopupWind
     private int mSelectCount = 0;
     private int mScreenHeight;
     
-    private ListImageDirPopupWindow mListImageDirPopupWindow;
+    private ImageDirPopupWindow mPopupWindow;
     private TextView mConfirmTv;
     
     private static int MSG_UPDATE_ITEM;
@@ -103,10 +101,8 @@ public class AlbumActivity extends BaseActivity implements ListImageDirPopupWind
      * 初始化展示文件夹的popupWindw
      */
     private void initListDirPopupWindw() {
-        mListImageDirPopupWindow = new ListImageDirPopupWindow(LayoutParams.MATCH_PARENT, (int) (mScreenHeight * 0.7),
-            mImageList, LayoutInflater.from(getApplicationContext()).inflate(R.layout.album_list_dir, null));
-
-        mListImageDirPopupWindow.setOnDismissListener(new OnDismissListener() {
+        mPopupWindow = new ImageDirPopupWindow(this,mImageList,R.layout.album_list_dir);
+        mPopupWindow.setOnDismissListener(new OnDismissListener() {
             
             @Override
             public void onDismiss() {
@@ -117,7 +113,7 @@ public class AlbumActivity extends BaseActivity implements ListImageDirPopupWind
             }
         });
         // 设置选择文件夹的回调
-        mListImageDirPopupWindow.setOnImageDirSelected(this);
+        mPopupWindow.setOnImageDirSelected(this);
     }
     
     @Override
@@ -135,8 +131,8 @@ public class AlbumActivity extends BaseActivity implements ListImageDirPopupWind
         mBottomLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListImageDirPopupWindow.setAnimationStyle(R.style.anim_popup_dir);
-                mListImageDirPopupWindow.showAsDropDown(mBottomLayout, 0, 0);
+                mPopupWindow.setAnimationStyle(R.style.anim_popup_dir);
+                mPopupWindow.showAsDropDown(mBottomLayout, 0, 0);
 
                 // 设置背景颜色变暗
                 WindowManager.LayoutParams lp = getWindow().getAttributes();
@@ -154,7 +150,7 @@ public class AlbumActivity extends BaseActivity implements ListImageDirPopupWind
         mImageGv.clearChoices();
         mImageCountTv.setText(folder.count + "张");
         mChooseDirTv.setText(folder.bucketName);
-        mListImageDirPopupWindow.dismiss();
+        mPopupWindow.dismiss();
     }
     
     private void onSelectCompleted() {
