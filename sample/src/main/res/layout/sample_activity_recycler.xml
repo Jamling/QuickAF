@@ -45,10 +45,17 @@
             android:text="remove head"
             android:onClick="removeHead"/>
 
+        <Button
+            android:id="@+id/refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="refresh"
+            android:onClick="refresh"/>
+
     </LinearLayout>
 
 
-    <cn.ieclipse.af.view.RefreshRecyclerView
+    <cn.ieclipse.af.demo.sample.recycler.view.MyRefreshRecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
