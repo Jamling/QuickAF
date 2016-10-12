@@ -22,12 +22,13 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
+
 import cn.ieclipse.af.R;
 import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.util.SharedPrefsUtils;
@@ -122,11 +123,18 @@ public class Preference extends FrameLayout implements OnCheckedChangeListener {
     
     private TextView mTvTitle;
     private TextView mTvSummary;
+    private ImageView mIvArrow;
     private CompoundButton mChk;
     
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
+
+        mTvTitle = (TextView) findViewById(android.R.id.title);
+        mTvSummary = (TextView) findViewById(android.R.id.summary);
+        mChk = (CompoundButton) findViewById(android.R.id.checkbox);
+        mIvArrow = (ImageView) findViewById(android.R.id.icon2);
+
         if (persistent) {
             if (getId() <= 0 && TextUtils.isEmpty(key)) {
                 throw new IllegalArgumentException(
@@ -136,10 +144,6 @@ public class Preference extends FrameLayout implements OnCheckedChangeListener {
         if (TextUtils.isEmpty(key)) {
             key = getClass().getSimpleName() + getId();
         }
-
-        mTvTitle = (TextView) findViewById(android.R.id.title);
-        mTvSummary = (TextView) findViewById(android.R.id.summary);
-        mChk = (CompoundButton) findViewById(android.R.id.checkbox);
         
         if (mTvTitle != null) {
             mTvTitle.setText(title);
@@ -153,10 +157,14 @@ public class Preference extends FrameLayout implements OnCheckedChangeListener {
         }
         if (mTvSummary != null) {
             mTvSummary.setText(summary);
-            if (icon2 != null) {
+            if (icon2 != null && mIvArrow == null) {
                 mTvSummary.setCompoundDrawablesWithIntrinsicBounds(null, null,
                         icon2, null);
             }
+        }
+
+        if (mIvArrow != null && icon2 != null) {
+            mIvArrow.setImageDrawable(icon2);
         }
 
         if (mChk != null) {
