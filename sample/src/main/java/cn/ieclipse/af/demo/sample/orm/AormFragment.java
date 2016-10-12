@@ -18,8 +18,13 @@ package cn.ieclipse.af.demo.sample.orm;
 import android.view.View;
 import android.widget.Button;
 
-import cn.ieclipse.af.demo.common.ui.BaseFragment;
+import java.io.File;
+
 import cn.ieclipse.af.demo.R;
+import cn.ieclipse.af.demo.common.ui.BaseFragment;
+import cn.ieclipse.af.util.DialogUtils;
+import cn.ieclipse.af.util.FileUtil;
+import cn.ieclipse.aorm.Aorm;
 
 /**
  * 类/接口描述
@@ -29,6 +34,7 @@ import cn.ieclipse.af.demo.R;
  */
 public class AormFragment extends BaseFragment {
     private Button btn;
+    private Button btnClear;
     @Override
     protected int getContentLayout() {
         return R.layout.sample_fragment_arom;
@@ -38,13 +44,26 @@ public class AormFragment extends BaseFragment {
     protected void initContentView(View view) {
         super.initContentView(view);
         btn = (Button) view.findViewById(R.id.btn1);
-        setOnClickListener(btn);
+        btnClear = (Button) view.findViewById(R.id.btn2);
+        setOnClickListener(btn, btnClear);
+
+        // enable debug log
+        Aorm.enableDebug(true);
     }
 
     @Override
     public void onClick(View v) {
         if (v == btn) {
             getActivity().startActivity(StudentListActivity.create(getActivity()));
+        }
+        else if (v == btnClear) {
+            File f = new File(FileUtil.getInternal(getActivity()).getParentFile(), "databases/example.db");
+            if(f.delete()){
+                DialogUtils.showToast(getActivity(), "The old data is cleared successfully!");
+            }
+            else {
+                DialogUtils.showToast(getActivity(), "Clear Failed!");
+            }
         }
         super.onClick(v);
     }
