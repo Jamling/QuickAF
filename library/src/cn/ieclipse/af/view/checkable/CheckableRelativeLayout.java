@@ -16,10 +16,11 @@
 
 package cn.ieclipse.af.view.checkable;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.Checkable;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 /**
@@ -35,8 +36,21 @@ public class CheckableRelativeLayout extends RelativeLayout implements Checkable
 
     private boolean mChecked = false;
 
+    public CheckableRelativeLayout(Context context) {
+        super(context);
+    }
+
     public CheckableRelativeLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+    }
+
+    public CheckableRelativeLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public CheckableRelativeLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     public boolean isChecked() {

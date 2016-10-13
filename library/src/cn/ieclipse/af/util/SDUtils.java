@@ -7,7 +7,6 @@
  */
 package cn.ieclipse.af.util;
 
-import android.content.Context;
 import android.os.Environment;
 
 import java.io.File;
@@ -56,54 +55,5 @@ public class SDUtils {
 
     public static File getExternalStoragePublicDirectory(String type) {
         return isAvailable() ? Environment.getExternalStoragePublicDirectory(type) : null;
-    }
-
-    /**
-     * 获取SD卡的根路径
-     *
-     * @return null：不存在SD卡
-     */
-    public static String getRootPath() {
-        File rootDirectory = getRootDirectory();
-        return rootDirectory != null ? rootDirectory.getPath() : null;
-    }
-
-    /**
-     * 获得ExternalFilesDir，在app卸载时文件也会被删除
-     *
-     * @param context
-     * @param fileType {@link android.os.Environment#DIRECTORY_MUSIC}<br>
-     *                 {@link android.os.Environment#DIRECTORY_PODCASTS}<br>
-     *                 {@link android.os.Environment#DIRECTORY_RINGTONES}<br>
-     *                 {@link android.os.Environment#DIRECTORY_ALARMS}<br>
-     *                 {@link android.os.Environment#DIRECTORY_NOTIFICATIONS}<br>
-     *                 {@link android.os.Environment#DIRECTORY_PICTURES}<br>
-     *                 {@link android.os.Environment#DIRECTORY_MOVIES}<br>
-     * @param filename 文件名
-     * @return
-     */
-    public File getExternalFilesDir(Context context, String fileType, String filename) {
-        // Get the directory for the app's private directory.
-        File file = new File(context.getExternalFilesDir(fileType), filename);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-        return file;
-    }
-
-    /**
-     * 获得getExternalStoragePublicDirectory，在app卸载时文件不会被删除
-     *
-     * @param fileType
-     * @param filename
-     * @return
-     */
-    public File getExternalStoragePublicDirectory(String fileType, String filename) {
-        // Get the directory for the app's public directory.
-        File file = new File(getExternalStoragePublicDirectory(fileType), filename);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-        return file;
     }
 }

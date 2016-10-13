@@ -36,8 +36,7 @@ public class AutoHeightGridView extends GridView {
         super(context, attrs);
     }
     
-    public AutoHeightGridView(Context context, AttributeSet attrs,
-            int defStyleAttr) {
+    public AutoHeightGridView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
     

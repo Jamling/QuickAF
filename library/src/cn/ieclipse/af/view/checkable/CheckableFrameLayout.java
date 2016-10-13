@@ -16,11 +16,12 @@
 
 package cn.ieclipse.af.view.checkable;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.Checkable;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 /**
  * This is a simple wrapper for {@link android.widget.LinearLayout} that implements the {@link android.widget.Checkable}
@@ -35,8 +36,21 @@ public class CheckableFrameLayout extends FrameLayout implements Checkable {
 
     private boolean mChecked = false;
 
+    public CheckableFrameLayout(Context context) {
+        super(context);
+    }
+
     public CheckableFrameLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+    }
+
+    public CheckableFrameLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public CheckableFrameLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     public boolean isChecked() {

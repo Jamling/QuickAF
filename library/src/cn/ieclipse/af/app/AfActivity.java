@@ -71,6 +71,7 @@ public abstract class AfActivity extends Activity implements OnClickListener {
         if (bundle != null) {
             initIntent(bundle);
         }
+        initInitData();
         // 2, init widow feature
         initWindowFeature();
         
@@ -104,7 +105,11 @@ public abstract class AfActivity extends Activity implements OnClickListener {
     public void onClick(View v) {
 
     }
-    
+
+    protected void initInitData(){
+
+    }
+
     protected void initWindowFeature() {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
     }
