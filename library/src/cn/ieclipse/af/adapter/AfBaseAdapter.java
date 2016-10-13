@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.ieclipse.af.common.Logger;
@@ -32,6 +33,8 @@ import cn.ieclipse.af.common.Logger;
 public abstract class AfBaseAdapter<T> extends BaseAdapter {
     protected Logger mLogger = Logger.getLogger(getClass());
     private AfDataHolder<T> mDataHolder = new AfDataHolder<>();
+    protected List<T> mCheckedItems;
+    protected T mCheckedItem;
 
     public abstract int getLayout();
 
@@ -100,5 +103,40 @@ public abstract class AfBaseAdapter<T> extends BaseAdapter {
 
     public void setDataList(List<T> list) {
         mDataHolder.setDataList(list);
+    }
+
+    public void setItemChecked(int position, boolean value) {
+        if (mCheckedItems == null) {
+            mCheckedItems = new ArrayList<>();
+        }
+        T obj = getItem(position);
+        if (value) {
+            if (!mCheckedItems.contains(obj)) {
+                mCheckedItems.add(obj);
+            }
+        }
+        else {
+            mCheckedItems.remove(obj);
+        }
+
+        mCheckedItem = obj;
+    }
+
+    public T getCheckedItem() {
+        return mCheckedItem;
+    }
+
+    public List<T> getCheckedItems() {
+        if (mCheckedItems == null) {
+            mCheckedItems = new ArrayList<>(0);
+        }
+        return mCheckedItems;
+    }
+
+    public void clearChoices() {
+        mCheckedItem = null;
+        if (mCheckedItems != null) {
+            mCheckedItems.clear();
+        }
     }
 }

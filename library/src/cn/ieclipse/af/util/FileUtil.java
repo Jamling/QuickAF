@@ -44,7 +44,7 @@ public final class FileUtil {
     }
     
     public static String getExtension(String path) {
-        String name = getName(path);
+        String name = path;//getName(path);
         int pos = name.lastIndexOf('.');
         if (pos >= 0) {
             return name.substring(pos + 1);

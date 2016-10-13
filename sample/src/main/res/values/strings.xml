@@ -24,6 +24,7 @@
     <string name="common_yes">是</string>
     <string name="common_no">否</string>
     <string name="common_all">全部</string>
+    <string name="common_checked_num">已选%1$s</string>
 
     <!--error -->
     <string name="error_type_auth">身份验证失败</string>

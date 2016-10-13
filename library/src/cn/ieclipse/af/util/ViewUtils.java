@@ -15,8 +15,10 @@
  */
 package cn.ieclipse.af.util;
 
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.Editable;
 import android.text.Selection;
 import android.view.View;
@@ -50,6 +52,30 @@ public final class ViewUtils {
         }
         else {
             view.setBackgroundDrawable(d);
+        }
+    }
+
+    public static Drawable tintDrawable(Drawable drawable, int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            drawable.setTint(color);
+            return drawable;
+        }
+        else {
+            final Drawable wrappedDrawable = DrawableCompat.wrap(drawable);
+            DrawableCompat.setTint(wrappedDrawable, color);
+            return wrappedDrawable;
+        }
+    }
+
+    public static Drawable tintDrawable(Drawable drawable, ColorStateList colors) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            drawable.setTintList(colors);
+            return drawable;
+        }
+        else {
+            final Drawable wrappedDrawable = DrawableCompat.wrap(drawable);
+            DrawableCompat.setTintList(wrappedDrawable, colors);
+            return wrappedDrawable;
         }
     }
 
