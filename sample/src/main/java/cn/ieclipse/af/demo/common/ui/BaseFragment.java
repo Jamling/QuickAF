@@ -4,6 +4,7 @@
 package cn.ieclipse.af.demo.common.ui;
 
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -114,5 +115,13 @@ public abstract class BaseFragment extends AfFragment implements View.OnClickLis
 
     protected CharSequence getTitle(){
         return getClass().getSimpleName();
+    }
+
+    public void startFragment(String fragmentClass){
+        getBaseActivity().startFragment(fragmentClass);
+    }
+
+    public void startFragment(Intent intent){
+        getBaseActivity().startFragment(intent);
     }
 }

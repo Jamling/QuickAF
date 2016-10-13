@@ -7,6 +7,7 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -148,6 +149,15 @@ public abstract class BaseActivity extends AfActivity implements View.OnClickLis
     public void toastError(RestError error){
         hideLoadingDialog();
         VolleyUtils.toastError(this, error);
+    }
+
+    public void startFragment(String fragmentClass){
+        Intent intent = new Intent(fragmentClass);
+        startFragment(intent);
+    }
+
+    public void startFragment(Intent intent){
+        FragmentActivity.startFragment(this, intent);
     }
 
     /**

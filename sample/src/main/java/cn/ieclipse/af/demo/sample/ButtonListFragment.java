@@ -15,6 +15,8 @@
  */
 package cn.ieclipse.af.demo.sample;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,7 @@ import android.widget.TextView;
 
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.ui.BaseFragment;
+import cn.ieclipse.af.util.DialogUtils;
 
 /**
  * 类/接口描述
@@ -90,6 +93,20 @@ public class ButtonListFragment extends BaseFragment {
         }
         
         Class cls = activitys[position];
+        if (isFragment(cls)) {
+            FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+            try {
+                Fragment f = (Fragment) cls.newInstance();
+                if (getActivity() instanceof SampleBaseActivity){
+                    ((SampleBaseActivity) getActivity()).pushFragments(f, true, true, null);
+                } else {
+                    startFragment(cls.getName());
+                }
+            } catch (Exception e){
+                DialogUtils.showToast(getActivity(), "can't add fragment:" + cls);
+            }
+            return;
+        }
         Intent intent = new Intent(getActivity(), cls);
         startActivity(intent);
     }
@@ -97,5 +114,19 @@ public class ButtonListFragment extends BaseFragment {
     @Override
     public void onClick(View v) {
         super.onClick(v);
+    }
+
+    private boolean isFragment(Class cls){
+        if (cls.getSuperclass() != null){
+            if (cls.getSuperclass().equals(Fragment.class)){
+                return true;
+            }
+            else {
+                return isFragment(cls.getSuperclass());
+            }
+        }
+        else {
+            return false;
+        }
     }
 }
