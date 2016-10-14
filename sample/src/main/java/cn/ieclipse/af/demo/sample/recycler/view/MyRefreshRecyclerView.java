@@ -85,6 +85,9 @@ public class MyRefreshRecyclerView extends RefreshRecyclerView {
      */
     private void setBottomViewText(int resStr) {
         View footView = mAdapter.getFootView();
+        if (footView == null) {
+            return;
+        }
         View progress = footView.findViewById(R.id.progressBar);
         progress.setVisibility(GONE);
 
