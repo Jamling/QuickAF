@@ -61,6 +61,10 @@
             android:name=".common.ui.FileChooserActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".common.ui.H5Activity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
 
         <!-- Samples -->
         <activity
