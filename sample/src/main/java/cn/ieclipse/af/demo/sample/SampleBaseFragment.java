@@ -96,9 +96,9 @@ public abstract class SampleBaseFragment extends BaseFragment implements Adapter
         setOnClickListener(btn1, btn2, btn3, btn4, btn5, btn6);
 
         tv1 = (TextView) view.findViewById(R.id.tv1);
-//        tv2 = (TextView) view.findViewById(R.id.tv2);
-//        tv3 = (TextView) view.findViewById(R.id.tv3);
-//        tv4 = (TextView) view.findViewById(R.id.tv4);
+        tv2 = (TextView) view.findViewById(R.id.tv2);
+        tv3 = (TextView) view.findViewById(R.id.tv3);
+        tv4 = (TextView) view.findViewById(R.id.tv4);
 
         et1 = (EditText) view.findViewById(R.id.et1);
         et2 = (EditText) view.findViewById(R.id.et2);
