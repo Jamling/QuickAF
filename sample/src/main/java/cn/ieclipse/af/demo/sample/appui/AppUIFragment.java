@@ -26,6 +26,7 @@ import cn.ieclipse.af.demo.common.ui.BaseFragment;
 import cn.ieclipse.af.demo.common.ui.BaseFragmentAdapter;
 import cn.ieclipse.af.demo.sample.cview.CustomViewFragment;
 import cn.ieclipse.af.demo.sample.recycler.RecyclerFragment;
+import cn.ieclipse.af.demo.sample.utils.TabUtils;
 import cn.ieclipse.af.view.PagerSlidingTabStrip;
 
 /**
