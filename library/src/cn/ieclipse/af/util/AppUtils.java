@@ -24,12 +24,14 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Parcelable;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.view.ViewConfiguration;
@@ -105,6 +107,24 @@ public final class AppUtils {
         }
     }
 
+    /**
+     * Get color state list.
+     *
+     * @param context Context
+     * @param colorId color state list defined in colors.xml
+     *
+     * @return color state list
+     * @see android.content.res.Resources#getColorStateList(int)
+     */
+    public static ColorStateList getColorStateList(Context context, int colorId) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return context.getResources().getColorStateList(colorId, context.getTheme());
+        }
+        else {
+            return context.getResources().getColorStateList(colorId);
+        }
+    }
+
     public static Drawable getDrawable(Context context, int drawableId) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             return context.getDrawable(drawableId);
@@ -112,6 +132,42 @@ public final class AppUtils {
         else {
             return context.getResources().getDrawable(drawableId);
         }
+    }
+
+    public static Drawable tintDrawable(Drawable drawable, int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            drawable.setTint(color);
+            return drawable;
+        }
+        else {
+            final Drawable wrappedDrawable = DrawableCompat.wrap(drawable);
+            DrawableCompat.setTint(wrappedDrawable, color);
+            return wrappedDrawable;
+        }
+    }
+
+    public static Drawable tintDrawable(Drawable drawable, ColorStateList colors) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            drawable.setTintList(colors);
+            return drawable;
+        }
+        else {
+            final Drawable wrappedDrawable = DrawableCompat.wrap(drawable);
+            DrawableCompat.setTintList(wrappedDrawable, colors);
+            return wrappedDrawable;
+        }
+    }
+
+    public static Drawable tintDrawable(Context context, int drawableId, int colorId) {
+        int color = AppUtils.getColor(context, colorId);
+        Drawable d = AppUtils.getDrawable(context, drawableId);
+        return AppUtils.tintDrawable(d, color);
+    }
+
+    public static Drawable tintDrawableStateList(Context context, int drawableId, int colorStateListId) {
+        ColorStateList colorStateList = AppUtils.getColorStateList(context, colorStateListId);
+        Drawable d = AppUtils.getDrawable(context, drawableId);
+        return AppUtils.tintDrawable(d, colorStateList);
     }
     
     public static boolean hasVirtualSoftKey(Context context) {

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.ieclipse.af.demo.sample.appui;
+package cn.ieclipse.af.demo.sample.utils;
 
 import cn.ieclipse.af.demo.sample.ButtonListFragment;
 import cn.ieclipse.af.demo.sample.orm.AormActivity;

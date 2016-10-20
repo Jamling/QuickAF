@@ -17,6 +17,7 @@ package cn.ieclipse.af.demo.common.view;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.CheckBox;
@@ -30,7 +31,6 @@ import java.text.SimpleDateFormat;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.util.FileUtil;
-import cn.ieclipse.af.util.ViewUtils;
 import cn.ieclipse.af.view.checkable.CheckableLinearLayout;
 
 /**
@@ -87,7 +87,8 @@ public class FileItemLayout extends CheckableLinearLayout implements View.OnClic
         }
         else {
             size.setText(FileUtil.formatFileSize(file.length()));
-            icon.setImageDrawable(getFileDrawable(file));
+            // icon.setImageDrawable(getFileDrawable(file));
+            icon.setImageResource(R.drawable.ic_file);
         }
         content.setTag(file);
     }
@@ -128,19 +129,25 @@ public class FileItemLayout extends CheckableLinearLayout implements View.OnClic
 
     private Drawable getFolderDrawable(File f) {
         File[] fs = f.listFiles(fileFilter);
+        Drawable d = null;
         if (fs == null || fs.length == 0) {
-            return ViewUtils.tintDrawable(AppUtils.getDrawable(getContext(), R.drawable.ic_folder_empty),
-                AppUtils.getColor(getContext(), R.color.colorPrimary));
+            d = AppUtils.getDrawable(getContext(), R.drawable.ic_folder_empty);
         }
         else {
-            return ViewUtils.tintDrawable(AppUtils.getDrawable(getContext(), R.drawable.ic_folder),
-                AppUtils.getColor(getContext(), R.color.colorPrimary));
+            d = AppUtils.getDrawable(getContext(), R.drawable.ic_folder);
         }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            d = AppUtils.tintDrawable(d, AppUtils.getColor(getContext(), R.color.colorPrimary));
+        }
+        return d;
     }
 
     private Drawable getFileDrawable(File file) {
         String ext = FileUtil.getExtension(file.getName());
-        return ViewUtils.tintDrawable(AppUtils.getDrawable(getContext(), R.drawable.ic_file),
-            AppUtils.getColor(getContext(), R.color.colorAccent));
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return AppUtils.tintDrawable(getContext(), R.drawable.ic_file, R.color.colorAccent);
+        }
+
+        return AppUtils.getDrawable(getContext(), R.drawable.ic_file);
     }
 }

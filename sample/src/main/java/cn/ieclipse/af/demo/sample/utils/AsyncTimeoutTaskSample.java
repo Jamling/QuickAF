@@ -15,8 +15,13 @@
  */
 package cn.ieclipse.af.demo.sample.utils;
 
+import android.app.DialogFragment;
+import android.content.DialogInterface;
+import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
+import cn.ieclipse.af.app.AfDialogFragment;
 import cn.ieclipse.af.common.AsyncTimeoutTask;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.sample.SampleBaseFragment;
@@ -33,6 +38,8 @@ public class AsyncTimeoutTaskSample extends SampleBaseFragment {
     }
 
     AsyncTimeoutTask task;
+
+    ProgressFragment dialog;
 
     @Override
     public void onClick(View v) {
@@ -57,12 +64,31 @@ public class AsyncTimeoutTaskSample extends SampleBaseFragment {
     }
 
     private void onStartLoading() {
-        //showLoadingDialog();
+        dialog = new ProgressFragment();
+        dialog.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+        dialog.setCanceledOnTouchOutside(false);
+        Bundle bundle = new Bundle();
+        bundle.putString("title", "Loading...");
+        bundle.putString("msg", String.format("do something step %d/%d progress %d, please waiting", 0, 0, 0));
+        dialog.setArguments(bundle);
+        dialog.setDialogListener(new ProgressFragment.DialogListener(){
+            @Override
+            public void onCancel(ProgressFragment dialog) {
+                onClick(btn2);
+            }
+        });
+        dialog.show(getFragmentManager(), true);
+
     }
 
     private void updateProgress(int p, int c, int t) {
-        //hideLoadingDialog();
-        //showLoadingDialog(String.format("do something step %d/%d progress %d, please waiting", c, t, p));
+        dialog.setMessage(String.format("do something step %d/%d progress %d, please waiting", c, t, p));
+    }
+
+    @Override
+    public void hideLoadingDialog() {
+        super.hideLoadingDialog();
+        dialog.dismiss();
     }
 
     private class TestTask extends AsyncTimeoutTask<Object, Integer, String> {
@@ -125,6 +151,55 @@ public class AsyncTimeoutTaskSample extends SampleBaseFragment {
         @Override
         public String toString() {
             return "Task@" + hashCode() + " ";
+        }
+    }
+
+    public static class ProgressFragment extends AfDialogFragment<ProgressFragment.DialogListener> {
+
+        private TextView tvTitle;
+        private TextView tvMessage;
+
+        private String title;
+        private String message;
+
+        @Override
+        protected int getContentLayout() {
+            return R.layout.sample_dialog_alert;
+        }
+
+        @Override
+        protected void initContentView(View view) {
+            super.initContentView(view);
+            tvTitle = (TextView) view.findViewById(android.R.id.title);
+            tvMessage = (TextView) view.findViewById(android.R.id.message);
+            title = getArguments().getString("title");
+            message = getArguments().getString("msg");
+            setTitle(title);
+            setMessage(message);
+        }
+
+        @Override
+        public void onCancel(DialogInterface dialog) {
+            super.onCancel(dialog);
+            if (listener != null) {
+                listener.onCancel(this);
+            }
+        }
+
+        public void setTitle(String s) {
+            if (tvTitle != null) {
+                tvTitle.setText(s);
+            }
+        }
+
+        public void setMessage(String s) {
+            if (tvMessage != null) {
+                tvMessage.setText(s);
+            }
+        }
+
+        public interface DialogListener {
+            void onCancel(ProgressFragment dialog);
         }
     }
 }

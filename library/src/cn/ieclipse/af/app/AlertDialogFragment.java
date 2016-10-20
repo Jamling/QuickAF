@@ -52,7 +52,7 @@ public class AlertDialogFragment extends DialogFragment {
         int icon = args.getInt("icon");
         String msg = args.getString("msg");
         
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), getTheme());
         
         if (icon > 0) {
             builder.setIcon(icon);

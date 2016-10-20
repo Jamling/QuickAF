@@ -64,7 +64,7 @@ public abstract class BaseActivity extends AfActivity implements View.OnClickLis
         mTitleBar.setPadding(padding, 0, padding, 0);
         if(!isOverlay()){
             mTitleBar.setBackgroundColor(getStatusBarColor());
-            mTitleBar.setBottomDrawable(AppUtils.getColor(this, R.color.divider));
+            // mTitleBar.setBottomDrawable(AppUtils.getColor(this, R.color.divider));
         }
         setOnClickListener(mTitleLeftView);
 
