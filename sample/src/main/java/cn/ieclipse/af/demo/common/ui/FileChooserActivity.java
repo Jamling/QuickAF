@@ -202,6 +202,7 @@ public class FileChooserActivity extends BaseActivity implements AbsListView.OnI
     protected void onFolderChanged(File dir) {
         if (dir != null) {
             mAdapter.setCurrentDir(dir);
+            mAdapter.notifyDataSetChanged();
             mTitleTextView.setText(dir.getAbsolutePath());
         }
     }
@@ -221,7 +222,7 @@ public class FileChooserActivity extends BaseActivity implements AbsListView.OnI
 
     private void select(File f) {
         Intent data = new Intent();
-        data.putExtra(Intent.EXTRA_RETURN_RESULT, f.getAbsolutePath());
+        data.putExtra(Intent.EXTRA_RETURN_RESULT, f == null ? null : f.getAbsolutePath());
         setResult(RESULT_OK, data);
         finish();
     }
@@ -340,6 +341,7 @@ public class FileChooserActivity extends BaseActivity implements AbsListView.OnI
             if (position > 0) {
                 File file = getItem(position);
                 FileItemLayout layout = (FileItemLayout) convertView;
+                layout.setFileFilter(mFileFilter);
                 layout.setData(file);
                 if (mCheckFilter != null) {
                     boolean checkable = mCheckFilter.isCheckable(file);
