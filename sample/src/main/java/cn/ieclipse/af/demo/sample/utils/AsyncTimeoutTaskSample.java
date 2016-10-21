@@ -71,7 +71,7 @@ public class AsyncTimeoutTaskSample extends SampleBaseFragment {
         bundle.putString("title", "Loading...");
         bundle.putString("msg", String.format("do something step %d/%d progress %d, please waiting", 0, 0, 0));
         dialog.setArguments(bundle);
-        dialog.setDialogListener(new ProgressFragment.DialogListener(){
+        dialog.setDialogListener(new ProgressFragment.CancelDialogListener(){
             @Override
             public void onCancel(ProgressFragment dialog) {
                 onClick(btn2);
@@ -154,7 +154,7 @@ public class AsyncTimeoutTaskSample extends SampleBaseFragment {
         }
     }
 
-    public static class ProgressFragment extends AfDialogFragment<ProgressFragment.DialogListener> {
+    public static class ProgressFragment extends AfDialogFragment<ProgressFragment.CancelDialogListener> {
 
         private TextView tvTitle;
         private TextView tvMessage;
@@ -198,7 +198,7 @@ public class AsyncTimeoutTaskSample extends SampleBaseFragment {
             }
         }
 
-        public interface DialogListener {
+        public interface CancelDialogListener {
             void onCancel(ProgressFragment dialog);
         }
     }
