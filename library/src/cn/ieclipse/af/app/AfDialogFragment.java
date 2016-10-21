@@ -78,7 +78,8 @@ public abstract class AfDialogFragment<DialogListener> extends DialogFragment im
     }
 
     protected void onCreateAlertDialog(AlertDialog.Builder builder) {
-
+        builder.setPositiveButton(android.R.string.ok, this);
+        builder.setNegativeButton(android.R.string.cancel, this);
     }
 
     protected void initContentView(View view) {
@@ -158,5 +159,13 @@ public abstract class AfDialogFragment<DialogListener> extends DialogFragment im
                 }
             }
         }
+    }
+
+    public interface DefaultDialogListener {
+        void onDialogResult(AfDialogFragment dialogFragment, Bundle bundle);
+    }
+
+    public interface CancelDialogListner {
+        void onCancel(AfDialogFragment dialogFragment);
     }
 }
