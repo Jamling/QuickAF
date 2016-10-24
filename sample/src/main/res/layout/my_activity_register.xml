@@ -2,12 +2,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_main"
+    android:background="#ffe4ee"
     android:orientation="vertical"
     android:paddingBottom="12dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    android:paddingTop="80dp">
+    android:paddingLeft="36dp"
+    android:paddingRight="36dp"
+    android:paddingTop="30dp">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:src="@mipmap/logo"/>
 
     <RadioGroup
         android:id="@+id/rg_type"
@@ -38,36 +45,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
+        android:background="#fff"
         android:divider="@drawable/divider_linear"
         android:orientation="vertical"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
-        android:showDividers="middle">
-
-        <EditText
-            android:id="@+id/et_phone"
-            style="@style/text_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:hint="@string/login_hint_name"
-            android:inputType="textWebEmailAddress|text"
-            android:maxLength="11"
-            android:minHeight="55dp"
-            android:textColorHint="@color/black_999999"
-            android:textSize="16sp"/>
-
-        <EditText
-            android:id="@+id/et_pwd"
-            style="@style/text_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:hint="@string/login_hint_pwd"
-            android:inputType="textWebPassword"
-            android:minHeight="55dp"
-            android:textColorHint="@color/black_999999"
-            android:textSize="16sp"/>
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:showDividers="none">
 
         <LinearLayout
             android:id="@+id/ll_code"
@@ -76,31 +59,87 @@
             android:gravity="center"
             android:minHeight="55dp"
             android:orientation="horizontal"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <EditText
-                android:id="@+id/et_code"
+                android:id="@+id/et_phone"
                 style="@style/text_title"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@null"
-                android:hint="@string/login_hint_code"
-                android:inputType="number"
-                android:minHeight="40dp"
+                android:drawablePadding="16dp"
+                android:hint="@string/login_hint_name"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:minHeight="55dp"
                 android:textColorHint="@color/black_999999"
-                android:textSize="14sp"/>
+                android:textSize="16sp"/>
 
             <cn.ieclipse.af.view.CountDownButton
                 android:id="@+id/btn_get_code"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@null"
                 android:text="@string/login_btn_code"
                 android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:visibility="visible"/>
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="32dp"
+            android:background="@color/divider"/>
+
+
+        <EditText
+            android:id="@+id/et_code"
+            style="@style/text_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:background="@null"
+            android:drawablePadding="16dp"
+            android:hint="@string/login_hint_code"
+            android:inputType="number"
+            android:minHeight="40dp"
+            android:textColorHint="@color/black_999999"
+            android:textSize="16sp"
+            />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="32dp"
+            android:background="@color/divider"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:minHeight="55dp"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <EditText
+                android:id="@+id/et_pwd"
+                style="@style/text_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:drawablePadding="16dp"
+                android:hint="请设置密码(6-16)个字符"
+                android:inputType="textWebPassword"
+                android:minHeight="55dp"
+                android:textColorHint="@color/black_999999"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <cn.ieclipse.af.view.RoundButton
@@ -110,8 +149,8 @@
         android:layout_marginTop="30dp"
         android:background="@color/colorPrimary"
         android:minHeight="48dp"
-        android:radius="8dp"
-        android:text="@string/login_title"
+        android:radius="24dp"
+        android:text="@string/reg_title"
         android:textColor="@color/white"
         android:textSize="18sp"/>
 
@@ -131,7 +170,7 @@
             android:text="新用户注册"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"
-            android:visibility="visible"/>
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/btn_forgot"
@@ -142,7 +181,7 @@
             android:layout_marginTop="5dp"
             android:gravity="center_vertical"
             android:minHeight="40dp"
-            android:text="@string/login_forgot"
+            android:text="已有账号，去登录"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"
             android:visibility="visible"/>

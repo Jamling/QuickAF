@@ -19,7 +19,6 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -47,6 +46,7 @@ public class MyFragment extends BaseFragment implements LogoutController.LogoutL
     private Preference mLayoutPwd;
     private Preference mLayoutClearCache;
     private RoundButton mLayoutLogout;
+    private View mBtnLogin;
 
     private LogoutController mLogoutController;
     @Override
@@ -62,11 +62,17 @@ public class MyFragment extends BaseFragment implements LogoutController.LogoutL
     @Override
     protected void initHeaderView() {
         super.initHeaderView();
+//        mBtnLogin = createRightText("登录");
+//        mTitleBar.addRight(mBtnLogin);
+//        setOnClickListener(mBtnLogin);
     }
 
     @Override
     protected void initContentView(View view) {
         super.initContentView(view);
+
+        mBtnLogin = view.findViewById(R.id.iv_profile);
+        setOnClickListener(mBtnLogin);
 
         mLayoutInfo = (Preference) view.findViewById(R.id.layoutInfo);
         mLayoutPwd = (Preference) view.findViewById(R.id.layoutPwd);
@@ -113,6 +119,9 @@ public class MyFragment extends BaseFragment implements LogoutController.LogoutL
         }
         else if (v == mLayoutClearCache){
             clearCache();
+        }
+        else if (v == mBtnLogin) {
+            startActivity(LoginActivity.create(getActivity()));
         }
         super.onClick(v);
     }

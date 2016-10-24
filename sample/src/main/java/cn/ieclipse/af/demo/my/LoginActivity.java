@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2015-2016 QuickAF
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package cn.ieclipse.af.demo.my;
 
 import android.content.Context;
@@ -35,6 +50,7 @@ public class LoginActivity extends BaseActivity implements LoginController.Login
     private View mLayoutCode;
     private View mLayoutPwd;
     private TextView mEtPwd;
+    private TextView mBtnReg;
     private TextView mBtnForgot;
 
     private TextView mReg;
@@ -52,7 +68,7 @@ public class LoginActivity extends BaseActivity implements LoginController.Login
         mTitleTextView.setTextColor(getResources().getColor(R.color.white));
 
         mReg = createRightText(getString(R.string.reg_title));
-        // mTitleBar.addRight(mReg);
+        mTitleBar.addRight(mReg);
         setOnClickListener(mReg);
     }
 
@@ -63,6 +79,7 @@ public class LoginActivity extends BaseActivity implements LoginController.Login
         mRgType = (RadioGroup) view.findViewById(R.id.rg_type);
         mLayoutCode = view.findViewById(R.id.ll_code);
         mEtPwd = (TextView) view.findViewById(R.id.et_pwd);
+        mBtnReg = (TextView) view.findViewById(R.id.btn_reg);
         mBtnForgot = (TextView) view.findViewById(R.id.btn_forgot);
 
         mLayoutInput = view.findViewById(R.id.ll_input);
@@ -72,7 +89,7 @@ public class LoginActivity extends BaseActivity implements LoginController.Login
         mBtnLogin = (Button) view.findViewById(R.id.btn_login);
         mBtnCode = (CountDownButton) view.findViewById(R.id.btn_get_code);
 
-        setOnClickListener(mBtnCode, mBtnLogin, mBtnForgot);
+        setOnClickListener(mBtnCode, mBtnLogin, mBtnForgot, mBtnReg);
 
         mLayoutPwd = mEtPwd;
         int radius = AppUtils.dp2px(view.getContext(), 8);
@@ -105,7 +122,7 @@ public class LoginActivity extends BaseActivity implements LoginController.Login
     @Override
     public void onClick(View view) {
         super.onClick(view);
-        if (view == mReg) {
+        if (view == mReg || view == mBtnReg) {
             RegisterActivity.go(this, REQ_REGISTER);
         }
         else if (view == mBtnLogin) {

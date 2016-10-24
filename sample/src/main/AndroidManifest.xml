@@ -45,6 +45,12 @@
             android:windowSoftInputMode="stateVisible"/>
 
         <activity
+            android:name=".my.RegisterActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible"/>
+
+        <activity
             android:name=".my.UserInfoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"/>

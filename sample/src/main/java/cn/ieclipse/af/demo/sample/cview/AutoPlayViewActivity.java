@@ -1,5 +1,17 @@
 /*
- * Copyright (C) 20015 MaiNaEr All rights reserved
+ * Copyright (C) 2015-2016 QuickAF
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package cn.ieclipse.af.demo.sample.cview;
 
@@ -73,10 +85,6 @@ public class AutoPlayViewActivity extends BaseActivity implements View.OnTouchLi
     protected void initData() {
         super.initData();
 
-        // list.add("http://test.mainaer.com/uploads/adv/2015-11-19/564d485f90e64.jpg");
-        // list.add("http://test.mainaer.com/uploads/adv/2015-11-24/5654349b56178.jpg");
-        // list.add("http://test.mainaer.com/uploads/adv/2015-11-24/5654330bbc480.jpg");
-        // list.add("http://test.mainaer.com/uploads/adv/2015-11-17/564afedf2de31.jpg");
         list.add(android.R.color.holo_green_dark);
         list.add(android.R.color.holo_orange_dark);
         list.add(android.R.color.holo_red_dark);
