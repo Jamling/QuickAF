@@ -292,6 +292,9 @@ public class BitmapUtil {
     public static Bitmap getBitmapFromDrawable(Drawable drawable) {
         int width = drawable.getIntrinsicWidth();
         int height = drawable.getIntrinsicHeight();
+        if (width <=0 || height <= 0) {
+            return null;
+        }
         Bitmap bitmap = Bitmap.createBitmap(width, height,
             drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Config.RGB_565);
         Canvas canvas = new Canvas(bitmap);

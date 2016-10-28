@@ -25,6 +25,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toolbar;
+
 import cn.ieclipse.af.R;
 import cn.ieclipse.af.util.AppUtils;
 
@@ -35,7 +37,7 @@ import cn.ieclipse.af.util.AppUtils;
  * @date 2015年11月17日
  *       
  */
-public class TitleBar extends LinearLayout {
+public class TitleBar extends LinearLayout{
     
     /**
      * @param context
@@ -81,7 +83,7 @@ public class TitleBar extends LinearLayout {
     private int mGravity = 0;
     
     private void init(Context context, AttributeSet attrs) {
-        setOrientation(HORIZONTAL);
+        setOrientation(LinearLayout.HORIZONTAL);
         setGravity(Gravity.CENTER);
         if (getId() == View.NO_ID) {
             setId(R.id.titleBar);
@@ -100,15 +102,15 @@ public class TitleBar extends LinearLayout {
         
         mLeftContainer = new LinearLayout(context);
         mLeftContainer.setGravity(Gravity.START | Gravity.CENTER_VERTICAL);
-        mLeftContainer.setOrientation(HORIZONTAL);
+        mLeftContainer.setOrientation(LinearLayout.HORIZONTAL);
         
         mMiddleContainer = new LinearLayout(context);
         mMiddleContainer.setGravity(Gravity.CENTER);
-        mMiddleContainer.setOrientation(HORIZONTAL);
+        mMiddleContainer.setOrientation(LinearLayout.HORIZONTAL);
         
         mRightContainer = new LinearLayout(context);
         mRightContainer.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
-        mRightContainer.setOrientation(HORIZONTAL);
+        mRightContainer.setOrientation(LinearLayout.HORIZONTAL);
         
         // mLeftContainer.setBackgroundColor(0xffcecece);
         // mMiddleContainer.setBackgroundColor(0xffff9966);

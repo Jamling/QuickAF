@@ -55,7 +55,7 @@ public class AutoPlayViewActivity extends BaseActivity implements View.OnTouchLi
         super.initHeaderView();
 
         setTitle("AutoPlayView");
-        rightView = createRightText("清除");
+        rightView = createRightText("停止");
         mTitleBar.addRight(rightView);
         
         rightView.setOnClickListener(this);
@@ -72,7 +72,8 @@ public class AutoPlayViewActivity extends BaseActivity implements View.OnTouchLi
         // autoPlayView.setIndicatorLayout(linearLayout);
         // indicator item
         autoPlayView.setIndicatorItemPadding(AppUtils.dp2px(this, 6));
-        autoPlayView.setIndicatorItemLayout(android.R.layout.simple_list_item_single_choice);
+        //autoPlayView.setIndicatorItemLayout(android.R.layout.simple_list_item_single_choice);
+        autoPlayView.setIndicatorItemLayout(R.layout.main_page_indicator_item);
 
         // 设置indicator文本显示
         // autoPlayView.setIndicatorTextView(tv);
@@ -99,7 +100,15 @@ public class AutoPlayViewActivity extends BaseActivity implements View.OnTouchLi
         // 第二个autoplay view demo
         initAnotherDemo();
     }
-    
+
+    @Override
+    public void onClick(View v) {
+        if (v == rightView) {
+            autoPlayView.stop();
+        }
+        super.onClick(v);
+    }
+
     class AutoAdapter extends AfPagerAdapter<Integer> {
         
         @Override

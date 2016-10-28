@@ -12,7 +12,6 @@
         <cn.ieclipse.af.view.ViewPagerV4
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
         <LinearLayout
             android:id="@+id/indicator_layout"
             android:layout_width="wrap_content"
@@ -32,6 +31,7 @@
             android:layout_gravity="right|bottom"
             android:background="@color/colorPrimary"
             android:padding="10dp" />
+
     </cn.ieclipse.af.view.AutoPlayView>
 
 
