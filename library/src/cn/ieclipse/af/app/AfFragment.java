@@ -47,6 +47,9 @@ public abstract class AfFragment extends Fragment implements View.OnClickListene
         if (bundle != null) {
             initIntent(bundle);
         }
+        if (getContentLayout() <= 0) {
+            return null;
+        }
         View view = inflater.inflate(getContentLayout(), container, false);
         mTitleBar = (TitleBar)view.findViewById(R.id.titleBar);
         if (mTitleBar != null) {

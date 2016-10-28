@@ -23,6 +23,7 @@ import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -158,7 +159,15 @@ public class AutoPlayView extends FrameLayout
         }
         return false;
     }
-    
+
+    public void setAutoStart(boolean autoStart) {
+        this.mAutoStart = autoStart;
+    }
+
+    public void setLoop(boolean loop) {
+        this.mLoop = loop;
+    }
+
     /**
      * 开启循环播放
      */
@@ -314,20 +323,25 @@ public class AutoPlayView extends FrameLayout
             }
             for (int i = 0; i < getCount(); i++) {
                 View item = getIndicatorItemView(i);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams params = item.getLayoutParams();
+                if (item.getLayoutParams() == null) {
+                    params = new LinearLayout.LayoutParams(
                         ViewGroup.LayoutParams.WRAP_CONTENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT);
-                if (i > 0) {
-                    params.leftMargin = mIndicatorItemPadding;
+                }
+                if (i > 0 && params instanceof MarginLayoutParams) {
+                    ((MarginLayoutParams) params).leftMargin = mIndicatorItemPadding;
                 }
                 mIndicatorLayout.addView(item, params);
             }
+            changePointView(mPosition, getCurrent());
         }
     }
     
     protected View getIndicatorItemView(int position) {
         if (mIndicatorItemLayout > 0) {
-            View v = View.inflate(getContext(), mIndicatorItemLayout, null);
+            View v = LayoutInflater.from(getContext()).inflate(mIndicatorItemLayout, mIndicatorLayout, false);
+            // View.inflate(getContext(), mIndicatorItemLayout, null);
             return v;
         }
         return null;
@@ -349,9 +363,11 @@ public class AutoPlayView extends FrameLayout
             }
             if (old != null) {
                 old.setSelected(false);
+                old.setActivated(false);
             }
             if (current != null) {
                 current.setSelected(true);
+                current.setActivated(true);
             }
         }
     }
