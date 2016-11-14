@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <cn.ieclipse.af.view.RatioImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@color/black_333333"
+            app:ratio="5"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="cn.ieclipse.af.view.RatioImageView ratio(width/height) = 5"
+            android:textColor="@color/white"/>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <cn.ieclipse.af.view.RoundImageView
+                android:id="@+id/iv1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+
+                app:borderColor="@color/colorPrimary"
+                app:borderWidth="2dp"
+                app:isCircle="true"
+                android:radius="8dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:text="cn.ieclipse.af.view.RoundImageView circle=true"
+                android:textColor="@color/white"
+                android:shadowColor="@color/black_333333"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="5"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <cn.ieclipse.af.view.RoundImageView
+                android:id="@+id/iv2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                app:borderColor="@color/colorPrimary"
+                app:borderWidth="4dp"
+                app:ratio="2"
+                android:radius="8dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:text="cn.ieclipse.af.view.RoundImageView radius = 8dp"
+                android:textColor="@color/white"
+                android:shadowColor="@color/black_333333"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="5"/>
+        </FrameLayout>
+    </LinearLayout>
+
+</LinearLayout>
