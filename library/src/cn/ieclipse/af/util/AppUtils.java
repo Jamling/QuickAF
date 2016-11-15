@@ -169,6 +169,14 @@ public final class AppUtils {
         Drawable d = AppUtils.getDrawable(context, drawableId);
         return AppUtils.tintDrawable(d, colorStateList);
     }
+
+    public static String getRes(Context context, int resId) {
+        return String.format("android.resource://%s/%d", context.getPackageName(), resId);
+    }
+
+    public static String getRes(Context context, String type, String name) {
+        return String.format("android.resource://%s/%s/%s", context.getPackageName(), type, name);
+    }
     
     public static boolean hasVirtualSoftKey(Context context) {
         return ViewConfiguration.get(context).hasPermanentMenuKey();

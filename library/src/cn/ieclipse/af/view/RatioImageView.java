@@ -8,8 +8,11 @@
 package cn.ieclipse.af.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.widget.ImageView;
+
+import cn.ieclipse.af.R;
 
 /**
  * RatioImageView can display image as a grid base on fix ratio. If the ratio is
@@ -48,20 +51,27 @@ public class RatioImageView extends ImageView {
     }
     
     private void init(Context context, AttributeSet attrs) {
-        // if (attrs != null) {
-        // TypedArray a = context.obtainStyledAttributes(attrs,
-        // R.styleable.RatioImageView);
-        // mRatio = a.getInteger(R.styleable.RatioImageView_ratio, 0);
-        // a.recycle();
-        // }
+        if (attrs != null) {
+            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RatioImageView);
+            mRatio = a.getFloat(R.styleable.RatioImageView_ratio, 0);
+            a.recycle();
+        }
     }
-    
+
+    public void setRatio(float ratio) {
+        this.mRatio = ratio;
+    }
+
+    public float getRatio() {
+        return mRatio;
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int width = getMeasuredWidth();
         if (mRatio > 0) {
-            setMeasuredDimension(width, (int) (width * mRatio));
+            setMeasuredDimension(width, (int) (width / mRatio));
         }
     }
 }

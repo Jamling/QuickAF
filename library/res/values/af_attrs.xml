@@ -89,8 +89,8 @@
 
     <declare-styleable name="RoundButton">
         <attr name="android:radius"/>
-        <attr name="borderWidth" format="reference|dimension"/>
         <attr name="borderColor" format="reference|color"/>
+        <attr name="borderWidth" format="reference|dimension"/>
         <!--<attr name="pressedBgColor" format="reference|color"/>-->
         <!--<attr name="checkedBgColor" format="reference|color"/>-->
         <!--<attr name="selectedBgColor" format="reference|color"/>-->
@@ -159,5 +159,16 @@
     <!-- from old library -->
     <declare-styleable name="RotateTextView">
         <attr name="degree" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="RatioImageView">
+        <attr name="ratio" format="float"/>
+    </declare-styleable>
+    <declare-styleable name="RoundImageView">
+        <attr name="borderWidth" />
+        <attr name="borderColor" />
+        <attr name="pressColor" format="reference|color"/>
+        <attr name="isCircle" format="boolean"/>
+        <attr name="android:radius" />
     </declare-styleable>
 </resources>

@@ -17,7 +17,9 @@
 package cn.ieclipse.af.view;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.ScrollView;
 
 /**
@@ -33,16 +35,29 @@ public class VScrollView extends ScrollView {
     }
 
     public VScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
-
         super(context, attrs, defStyleAttr);
     }
 
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
-        if (mOnScrollChangeListener != null) {
-            mOnScrollChangeListener.onVScrollChanged(l, t, oldl, oldt);
+        if (Build.VERSION.SDK_INT < 23) {
+            if (mOnScrollChangeListener != null) {
+                mOnScrollChangeListener.onScrollChange(this, l, t, oldl, oldt);
+            }
         }
+    }
+
+    public boolean isScroll2Bottom() {
+        View view = getChildAt(0);
+        if (view.getBottom() - (getScrollY() + getHeight()) == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isScroll2Top() {
+        return getScrollY() == 0;
     }
 
     private OnScrollChangeListener mOnScrollChangeListener;
@@ -51,18 +66,27 @@ public class VScrollView extends ScrollView {
         this.mOnScrollChangeListener = onScrollChangeListener;
     }
 
+    /**
+     * Interface definition for a callback to be invoked when the scroll
+     * X or Y positions of a view change.
+     * <b>Note:</b> Some views handle scrolling independently from View and may
+     * have their own separate listeners for scroll-type events. For example,
+     * {@link android.widget.ListView ListView} allows clients to register an
+     * {@link android.widget.ListView#setOnScrollListener(android.widget.AbsListView.OnScrollListener) AbsListView.OnScrollListener}
+     * to listen for changes in list scroll position.
+     *
+     * @see #setOnScrollChangeListener(View.OnScrollChangeListener)
+     */
     public interface OnScrollChangeListener {
         /**
-         * This is called in response to an internal scroll in this view (i.e., the
-         * view scrolled its own contents). This is typically as a result of
-         * {@link #scrollBy(int, int)} or {@link #scrollTo(int, int)} having been
-         * called.
+         * Called when the scroll position of a view changes.
          *
-         * @param l Current horizontal scroll origin.
-         * @param t Current vertical scroll origin.
-         * @param oldl Previous horizontal scroll origin.
-         * @param oldt Previous vertical scroll origin.
+         * @param v The view whose scroll position has changed.
+         * @param scrollX Current horizontal scroll origin.
+         * @param scrollY Current vertical scroll origin.
+         * @param oldScrollX Previous horizontal scroll origin.
+         * @param oldScrollY Previous vertical scroll origin.
          */
-        void onVScrollChanged(int l, int t, int oldl, int oldt);
+        void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY);
     }
 }

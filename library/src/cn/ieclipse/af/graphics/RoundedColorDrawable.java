@@ -101,6 +101,8 @@ public class RoundedColorDrawable extends Drawable {
             mPaint.setColor(mBorderColor);
             mPaint.setStyle(Paint.Style.STROKE);
             mPaint.setStrokeWidth(mBorderWidth);
+            mPaint.setStrokeJoin(Paint.Join.ROUND);
+            mPaint.setStrokeCap(Paint.Cap.ROUND);
             canvas.drawPath(mPath, mPaint);
         }
     }

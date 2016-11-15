@@ -30,6 +30,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import cn.ieclipse.af.graphics.RoundedColorDrawable;
 import cn.ieclipse.af.util.AppUtils;
 
 /**
@@ -72,7 +74,8 @@ public class AutoPlayView extends FrameLayout
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs);
     }
-    
+
+    private float mRatio;
     private boolean mLoop = true;
     private boolean mSmoothScroll = true;
     private boolean mPlaying;
@@ -83,6 +86,11 @@ public class AutoPlayView extends FrameLayout
     private TextView mIndicatorTv;
     private int mIndicatorItemLayout;
     private int mIndicatorItemPadding;
+    private int mIndicatorItemSize;
+    private int mIndicatorColor;
+    private int mIndicatorSelectedColor;
+    private int mIndicatorBorderColor;
+    private int mIndicatorBorderWidth;
     private int mPosition;
     
     private Handler mHandler = new Handler() {
@@ -106,6 +114,9 @@ public class AutoPlayView extends FrameLayout
     private void init(Context context, AttributeSet attrs) {
         // mViewPager = new ViewPager(context);
         // addView(mViewPager);
+        this.mIndicatorColor = AppUtils.getColor(context, android.R.color.darker_gray);
+        this.mIndicatorSelectedColor = AppUtils.getColor(context, android.R.color.holo_blue_dark);
+        this.mIndicatorItemSize = AppUtils.dp2px(context, 8);
     }
     
     @Override
@@ -220,6 +231,16 @@ public class AutoPlayView extends FrameLayout
     public void setIndicatorItemLayout(int layoutId) {
         this.mIndicatorItemLayout = layoutId;
     }
+
+    public void setIndicatorItemColor(int normalColor, int selectedColor) {
+        this.mIndicatorColor = normalColor;
+        this.mIndicatorSelectedColor = selectedColor;
+    }
+
+    public void setIndicatorItemBorder(int color, int width) {
+        this.mIndicatorBorderColor = color;
+        this.mIndicatorBorderWidth = width;
+    }
     
     /**
      * Set page indicator layout
@@ -246,6 +267,12 @@ public class AutoPlayView extends FrameLayout
     public void setIndicatorItemPadding(int padding) {
         if (padding > 0) {
             this.mIndicatorItemPadding = padding;
+        }
+    }
+
+    public void setIndicatorItemSize(int size) {
+        if (size > 0) {
+            this.mIndicatorItemSize = size;
         }
     }
     
@@ -294,7 +321,7 @@ public class AutoPlayView extends FrameLayout
         if (mIndicatorLayout != null) {
             if (getCount() > 0) {
                 // 更新小点点颜色
-                changePointView(mPosition, getCurrent());
+                updateIndicatorItem(mPosition, getCurrent());
                 mPosition = getCurrent();
             }
             else {
@@ -325,16 +352,14 @@ public class AutoPlayView extends FrameLayout
                 View item = getIndicatorItemView(i);
                 ViewGroup.LayoutParams params = item.getLayoutParams();
                 if (item.getLayoutParams() == null) {
-                    params = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                    params = new LinearLayout.LayoutParams(mIndicatorItemSize, mIndicatorItemSize);
                 }
                 if (i > 0 && params instanceof MarginLayoutParams) {
                     ((MarginLayoutParams) params).leftMargin = mIndicatorItemPadding;
                 }
                 mIndicatorLayout.addView(item, params);
             }
-            changePointView(mPosition, getCurrent());
+            updateIndicatorItem(mPosition, getCurrent());
         }
     }
     
@@ -344,14 +369,21 @@ public class AutoPlayView extends FrameLayout
             // View.inflate(getContext(), mIndicatorItemLayout, null);
             return v;
         }
-        return null;
+        View v = new View(getContext());
+        RoundedColorDrawable bg = new RoundedColorDrawable(mIndicatorColor);
+        bg.setCircle(true);
+        bg.setBorder(mIndicatorBorderColor, mIndicatorBorderWidth);
+        bg.addStateColor(android.R.attr.state_selected, mIndicatorSelectedColor);
+        bg.addStateColor(android.R.attr.state_activated, mIndicatorSelectedColor);
+        bg.applyTo(v);
+        return v;
     }
     
     /**
      * 改变小点
      *
      */
-    private void changePointView(int oldPosition, int newPosition) {
+    private void updateIndicatorItem(int oldPosition, int newPosition) {
         if (mIndicatorLayout != null) {
             View old = null;
             View current = null;
@@ -371,5 +403,21 @@ public class AutoPlayView extends FrameLayout
             }
         }
     }
-    
+
+    public void setRatio(float ratio) {
+        this.mRatio = ratio;
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        if (mRatio > 0) {
+            int width = MeasureSpec.getSize(widthMeasureSpec);
+            int h = (int) (width * mRatio);
+            int hms = MeasureSpec.makeMeasureSpec(h, MeasureSpec.EXACTLY);
+            super.onMeasure(widthMeasureSpec, hms);
+        }
+        else {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        }
+    }
 }
