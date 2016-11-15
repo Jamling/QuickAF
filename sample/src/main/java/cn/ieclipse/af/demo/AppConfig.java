@@ -20,6 +20,7 @@ import android.text.TextUtils;
 
 import cn.ieclipse.af.demo.common.api.BaseResponse;
 import cn.ieclipse.af.demo.my.UserInfo;
+import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.util.SharedPrefsUtils;
 import cn.ieclipse.af.volley.IBaseResponse;
 
@@ -82,5 +83,15 @@ public class AppConfig {
             return getUser().userid;
         }
         return "";
+    }
+
+    public static boolean showGuide(Context context) {
+        String ver1 = AppUtils.getAppVersion(context);
+        String ver2 = SharedPrefsUtils.getString("app_version");
+        if (!ver1.equals(ver2)) {
+            SharedPrefsUtils.putString("app_version", ver1);
+            return true;
+        }
+        return false;
     }
 }

@@ -15,8 +15,18 @@
  */
 package cn.ieclipse.af.demo;
 
+import android.os.Handler;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import cn.ieclipse.af.demo.common.ui.BaseActivity;
 import cn.ieclipse.af.demo.my.LoginActivity;
+import cn.ieclipse.af.util.AppUtils;
 
 /**
  * Description
@@ -24,7 +34,8 @@ import cn.ieclipse.af.demo.my.LoginActivity;
  * @author Jamling
  */
 public class SplashActivity extends BaseActivity {
-
+    private Handler mHandler = new Handler();
+    private long mDelay = 800;
     @Override
     protected int getContentLayout() {
         return 0;
@@ -33,23 +44,63 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void initWindowFeature() {
         super.initWindowFeature();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setShowTitleBar(false);
+    }
+
+    @Override
+    protected int getStatusBarColor() {
+        return AppUtils.getColor(this, android.R.color.transparent);
+    }
+
+    @Override
+    protected void initContentView(View view) {
+        super.initContentView(view);
+        ImageView imageView = new ImageView(view.getContext());
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        ((FrameLayout) view).addView(imageView,
+            new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        imageView.setImageResource(R.color.colorPrimary);
+
+        TextView textView = new TextView(view.getContext());
+        textView.setGravity(Gravity.CENTER);
+        textView.setTextColor(AppUtils.getColor(view.getContext(), R.color.white));
+        textView.setTextSize(24);
+        textView.setText("QuickAF");
+        ((FrameLayout) view).addView(textView,
+            new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
     }
 
     @Override
     protected void initData() {
         super.initData();
 
-        if (AppConfig.isLogin()) {
-            goHome();
-            return;
+        if (AppConfig.showGuide(this)) {
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    goGuide();
+                }
+            }, mDelay);
+        }
+        else {
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    goHome();
+                }
+            }, mDelay);
         }
 
-        goHome();
     }
 
     private void goHome() {
         startActivity(MainActivity.create(this));
+        finish();
+    }
+
+    private void goGuide() {
+        startActivity(IntroActivity.create(this));
         finish();
     }
 
