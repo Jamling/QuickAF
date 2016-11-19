@@ -87,8 +87,6 @@
                 android:shadowRadius="5"/>
         </FrameLayout>
     </LinearLayout>
-<<<<<<< HEAD
-=======
     
     <cn.ieclipse.af.view.HotImageView
         android:layout_width="match_parent"
@@ -96,6 +94,5 @@
         android:id="@+id/iv3"
         android:src="@mipmap/hotimageview_test"
         android:scaleType="fitXY"/>
->>>>>>> dev
 
 </LinearLayout>
