@@ -15,10 +15,12 @@
  */
 package cn.ieclipse.af.demo.sample.cview;
 
+import android.graphics.Rect;
 import android.view.View;
 
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.sample.SampleBaseFragment;
+import cn.ieclipse.af.view.HotImageView;
 import cn.ieclipse.af.view.RoundImageView;
 
 /**
@@ -30,6 +32,7 @@ public class CustomImageViewSample extends SampleBaseFragment {
 
     private RoundImageView iv1;
     private RoundImageView iv2;
+    private HotImageView iv3;
 
     @Override
     protected int getContentLayout() {
@@ -44,6 +47,13 @@ public class CustomImageViewSample extends SampleBaseFragment {
         iv2 = (RoundImageView) view.findViewById(R.id.iv2);
         iv1.setImageResource(R.color.black_alpha_50);
         iv2.setImageResource(R.mipmap.logo);
+        iv3 = (HotImageView) view.findViewById(R.id.iv3);
+        iv3.addRegion(new Rect(100, 150, 260, 230), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.err.println("hit!");
+            }
+        });
     }
 
     @Override
