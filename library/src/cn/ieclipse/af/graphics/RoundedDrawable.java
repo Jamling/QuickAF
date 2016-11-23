@@ -106,7 +106,7 @@ public class RoundedDrawable extends Drawable {
             canvas.drawCircle(bounds.width() / 2, bounds.height() / 2, radius, strokePaint);
         }
         else {
-            canvas.drawRoundRect(new RectF(getBounds()), radius, radius, strokePaint);
+            canvas.drawRoundRect(fillRect, radius, radius, strokePaint);
         }
     }
 
