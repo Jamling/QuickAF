@@ -17,7 +17,6 @@
 package cn.ieclipse.af.view;
 
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ScrollView;
@@ -41,7 +40,9 @@ public class VScrollView extends ScrollView {
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
-        if (Build.VERSION.SDK_INT < 23) {
+        // support all platform.
+        // if (Build.VERSION.SDK_INT < 23)
+        {
             if (mOnScrollChangeListener != null) {
                 mOnScrollChangeListener.onScrollChange(this, l, t, oldl, oldt);
             }
@@ -50,8 +51,11 @@ public class VScrollView extends ScrollView {
 
     public boolean isScroll2Bottom() {
         View view = getChildAt(0);
-        if (view.getBottom() - (getScrollY() + getHeight()) == 0) {
-            return true;
+//        if (view.getBottom() - (getScrollY() + getHeight()) == 0) {
+//            return true;
+//        }
+        if (view != null) {
+            return getScrollY() >= (view.getHeight() - getHeight());
         }
         return false;
     }

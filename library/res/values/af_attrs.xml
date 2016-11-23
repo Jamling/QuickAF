@@ -117,13 +117,7 @@
     </declare-styleable>
 
     <!-- AfSwipeRefreshLayout-->
-    <declare-styleable name="SwipyRefreshLayout">
-        <attr name="direction">
-            <enum name="top" value="0"/>
-            <enum name="bottom" value="1"/>
-            <enum name="both" value="2"/>
-        </attr>
-    </declare-styleable>
+
     <!-- see https://github.com/TUBB/SwipeMenuRecyclerView -->
     <declare-styleable name="SwipeMenu">
         <attr name="anim_duration" format="integer"/>
@@ -134,6 +128,10 @@
         <attr name="dividerColor" format="reference|color"/>
         <attr name="recyclerView" format="reference"/>
         <attr name="autoLoad" format="boolean"/>
+    </declare-styleable>
+    <declare-styleable name="RefreshLayout">
+        <attr name="ptr_content" format="reference" />
+        <attr name="ptr_empty" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="PagerSlidingTabStrip">

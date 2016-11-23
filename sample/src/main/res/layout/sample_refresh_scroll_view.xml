@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cn.ieclipse.af.view.VScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="false">
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Refreshable ScrollView\n
+            1. The ScrollView is cn.ieclipse.af.view.VScrollView\n
+            2. The ScrollView must trigger onScrollChanged\n
+            3. AutoLoad attribute default true"/>
+
+        <cn.ieclipse.af.view.ah.AutoHeightListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@color/divider"
+            android:dividerHeight="1dp"/>
+    </LinearLayout>
+
+</cn.ieclipse.af.view.VScrollView>
