@@ -16,6 +16,9 @@ allprojects {
     repositories {
         jcenter()
     }
+    ext {
+        supportLibVersion = SDK_SUPPORT
+    }
 }
 
 task clean(type: Delete) {
