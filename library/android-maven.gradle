@@ -9,7 +9,6 @@ buildscript {
     }
 }
 Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream()) // local.properties 有 sdk 的绝对位置
 
 repositories {
     jcenter()
