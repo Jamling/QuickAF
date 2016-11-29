@@ -31,6 +31,7 @@ import cn.ieclipse.af.demo.R;
 public class FragmentActivity extends BaseActivity {
 
     private static final String EXTRA_FRAGMENT = "cn.ieclipse.af.fragment";
+    private static final String EXTRA_SHOW_TITLE = "showActivityTitleBar";
     //private Class<?> fragmentClass = null;
     private String fragmentName;
 
@@ -59,6 +60,7 @@ public class FragmentActivity extends BaseActivity {
     @Override
     protected void initIntent(Bundle bundle) {
         super.initIntent(bundle);
+        setShowTitleBar(bundle.getBoolean(EXTRA_SHOW_TITLE));
         //fragmentClass = (Class<?>) bundle.getSerializable(EXTRA_FRAGMENT);
         //bundle.remove(EXTRA_FRAGMENT);
         //fragmentName = getIntent().getAction();

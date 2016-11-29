@@ -29,7 +29,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import cn.ieclipse.af.R;
 import cn.ieclipse.af.common.Logger;
@@ -78,8 +77,7 @@ public abstract class AfActivity extends Activity implements OnClickListener {
         // 3, init root content layout
         initRootView();
         // 4, init title bar
-        // if (isShowTitleBar())
-        {
+        if (isShowTitleBar()) {
             // init header
             initHeaderView();
         }
@@ -128,15 +126,7 @@ public abstract class AfActivity extends Activity implements OnClickListener {
     }
     
     protected void initHeaderView() {
-        TextView tv = new TextView(this);
-        tv.setText("<");
-        int padding = AppUtils.dp2px(this, 12);
-        tv.setPadding(padding, padding, padding, padding);
-        mTitleBar.addLeft(tv);
-        
-        tv = new TextView(this);
-        tv.setText(getClass().getSimpleName());
-        mTitleBar.addMiddle(tv);
+
     }
     
     protected void initData() {

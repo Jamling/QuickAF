@@ -42,7 +42,7 @@ public class BaseFragmentAdapter extends AfFragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return fragments.size();
+        return fragments == null ? 0 : fragments.size();
     }
 
     @Override
@@ -61,5 +61,12 @@ public class BaseFragmentAdapter extends AfFragmentPagerAdapter {
                 this.fragments.add(f);
             }
         }
+    }
+
+    public void addFragment(BaseFragment fragment) {
+        if (this.fragments == null) {
+            this.fragments = new ArrayList<>();
+        }
+        this.fragments.add(fragment);
     }
 }

@@ -32,7 +32,7 @@ public class TabAppFragment extends ButtonListFragment {
     protected Class[] getActivities() {
         return new Class[]{
             AfDemoActivity.class, AfImmersiveDemoActivity.class, AfLoadingActivity.class, FileChooserSample.class,
-            H5Sample.class
+            H5Sample.class, AfDemoFragment.class
         };
     }
 }

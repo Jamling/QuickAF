@@ -4,13 +4,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <cn.ieclipse.af.view.TitleBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:layout_gravity="top"
-        android:visibility="gone"/>
 
     <cn.ieclipse.af.view.PagerSlidingTabStrip
         android:id="@+id/top_view"
