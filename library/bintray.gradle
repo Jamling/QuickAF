@@ -11,7 +11,7 @@ bintray {
         licenses = ['Apache-2.0']
         websiteUrl = project.property('PRJ_URL')
         vcsUrl = project.property('SCM_URL')
-        publish = project.has("release")
+        publish = project.hasProperty("release")
         version {
             name = project.property('ART_VER')
             desc = project.property('PKG_VER_DESC')

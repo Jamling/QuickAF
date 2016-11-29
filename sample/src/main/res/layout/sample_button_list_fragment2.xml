@@ -5,12 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <cn.ieclipse.af.view.TitleBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </cn.ieclipse.af.view.TitleBar>
-
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"

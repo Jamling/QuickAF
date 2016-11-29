@@ -16,7 +16,9 @@
 package cn.ieclipse.af.demo.common.ui;
 
 import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -43,7 +45,20 @@ public abstract class BaseFragment extends AfFragment implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-
+        if (v == mTitleLeftView) {
+            FragmentManager fm;
+            if (Build.VERSION.SDK_INT >= 17) {
+                fm = getChildFragmentManager();
+                if (fm.popBackStackImmediate()) {
+                    return;
+                }
+            }
+            fm = getFragmentManager();
+            if (fm.popBackStackImmediate()) {
+                return;
+            }
+            getActivity().finish();
+        }
     }
 
     protected void setOnClickListener(View... views) {
@@ -72,7 +87,7 @@ public abstract class BaseFragment extends AfFragment implements View.OnClickLis
 
         int padding = AppUtils.dp2px(mTitleBar.getContext(), 8);
         mTitleBar.setPadding(padding, 0, padding, 0);
-        //if(!isOverlay())
+        if (!isOverlay())
         {
             mTitleBar.setBackgroundColor(AppUtils.getColor(mTitleBar.getContext(), R.color.colorPrimary));
             mTitleBar.setBottomDrawable(AppUtils.getColor(mTitleBar.getContext(), R.color.divider));
@@ -93,7 +108,7 @@ public abstract class BaseFragment extends AfFragment implements View.OnClickLis
     }
     public void showLoadingDialog(final String message) {
         hideLoadingDialog();
-        mLoadingDialog = DialogUtils.showProgress(getAfActivity(), android.R.style.Widget_Holo_Light_ProgressBar_Large,
+        mLoadingDialog = DialogUtils.showProgress(getActivity(), android.R.style.Widget_Holo_Light_ProgressBar_Large,
             message, null);
     }
 
@@ -105,7 +120,7 @@ public abstract class BaseFragment extends AfFragment implements View.OnClickLis
 
     public void toastError(RestError error){
         hideLoadingDialog();
-        VolleyUtils.toastError(getAfActivity(), error);
+        VolleyUtils.toastError(getActivity(), error);
     }
 
     @Deprecated
