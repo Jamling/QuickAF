@@ -49,7 +49,10 @@
                 android:id="@+id/et1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="#cccccccc" />
+                android:text="#cccccccc"
+                android:hint="请输入#ARGB颜色值"
+                android:textColorHint="#f00"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -98,11 +101,12 @@
             android:hint="点击发送验证码"
             android:padding="8dp"
             android:radius="8dp"
-            android:textColor="@color/white"
             android:textSize="14sp"
             app:borderColor="@color/black_alpha_60"
             app:borderWidth="0dp"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:textColor="@color/fg_main_btn_getcode_selector"
+        />
 
         <cn.ieclipse.af.view.RoundButton
             android:id="@+id/btn3"
@@ -110,14 +114,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/colorPrimary"
-            android:text="Normal button"
+            android:text=""
             android:padding="8dp"
             android:radius="8dp"
             android:textColor="@color/white"
             android:textSize="14sp"
             app:borderColor="@color/black_alpha_60"
             app:borderWidth="1dp"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:textColorHint="#f00"
+            android:hint="Normal Button"/>
 
     </LinearLayout>
 

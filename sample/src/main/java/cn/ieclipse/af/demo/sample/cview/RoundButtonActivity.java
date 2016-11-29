@@ -52,9 +52,10 @@ public class RoundButtonActivity extends SampleBaseActivity {
         myBtn1 = (RoundButton) btn1;
         myBtn2 = (CountDownButton) btn2;
         // btn2 text: enable: white; normal: gray
-        ColorStateList csl2 = new ColorStateList(new int[][]{{android.R.attr.state_enabled}, {}},
-            new int[]{0xffffffff, 0xffcccccc});
-        myBtn2.setTextColor(csl2);
+        ColorStateList csl2 = new ColorStateList(
+            new int[][]{{android.R.attr.state_pressed}, {android.R.attr.state_enabled}, {}},
+            new int[]{Color.RED, Color.GREEN, Color.BLUE});
+        //myBtn2.setTextColor(AppUtils.getColorStateList(this, R.color.fg_main_btn_getcode_selector));
         myBtn2.setTotalTime(10000);
         // btn2 bg
         int r = AppUtils.dp2px(this, 4);

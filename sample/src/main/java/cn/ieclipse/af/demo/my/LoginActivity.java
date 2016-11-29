@@ -17,8 +17,11 @@ package cn.ieclipse.af.demo.my;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
@@ -97,6 +100,18 @@ public class LoginActivity extends BaseActivity implements LoginController.Login
         bg.setRadius(radius);
         bg.setBorder(AppUtils.getColor(view.getContext(), R.color.divider), 1);
         bg.applyTo(mLayoutInput);
+
+
+        RoundedColorDrawable normal = new RoundedColorDrawable(radius, 0xffe6e6e6);
+        normal.addStateColor(new int[]{android.R.attr.state_enabled, android.R.attr.state_window_focused}, AppUtils
+            .getColor(this, R.color.colorPrimary)).applyTo(mBtnLogin);
+
+        ColorStateList csl = new ColorStateList(new int[][]{{android.R.attr.state_enabled}, {}},
+            new int[]{0, 0});// the second color is disabled color, the enabled color
+
+        mBtnLogin.setEnabled(false);
+        mEtPhone.addTextChangedListener(textWatcher);
+        mEtPwd.addTextChangedListener(textWatcher);
     }
 
 //    @Override
@@ -168,4 +183,22 @@ public class LoginActivity extends BaseActivity implements LoginController.Login
         Intent intent = new Intent(context, LoginActivity.class);
         return intent;
     }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            boolean input = !TextUtils.isEmpty(mEtPhone.getText()) && !TextUtils.isEmpty(mEtPwd.getText());
+            mBtnLogin.setEnabled(input);
+        }
+    };
 }
