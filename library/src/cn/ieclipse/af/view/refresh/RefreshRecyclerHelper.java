@@ -100,9 +100,9 @@ public class RefreshRecyclerHelper<T> {
 
     public RefreshRecyclerHelper(RefreshLayout refreshLayout) {
         this.refreshLayout = refreshLayout;
-        setLinearLayoutManager(LinearLayoutManager.VERTICAL);
         mDividerColor = AppUtils.getColor(getContext(), android.R.color.darker_gray);
         mDividerHeight = AppUtils.dp2px(getContext(), 1);
+        setLinearLayoutManager(LinearLayoutManager.VERTICAL);
     }
 
     public RecyclerView getRecyclerView() {
@@ -322,6 +322,9 @@ public class RefreshRecyclerHelper<T> {
      * @param list 数据
      */
     public void onLoadFinish(List<T> list, int total, int pageSize) {
+        if (pageSize > 0) {
+            this.mPageSize = pageSize;
+        }
         if (mAdapter != null) {
             // 下拉刷新或默认是刷新操作
             if (refreshLayout.isRefresh()) {
@@ -335,9 +338,7 @@ public class RefreshRecyclerHelper<T> {
         else {
             refreshLayout.showEmptyView();
         }
-        if (refreshLayout.getEmptyView() != null) {
-            refreshLayout.getEmptyView().showEmptyLayout();
-        }
+
         refreshLayout.onRefreshComplete();
     }
 
@@ -382,6 +383,9 @@ public class RefreshRecyclerHelper<T> {
                 RecyclerView.Adapter adapter = getRecyclerView().getAdapter();
                 // 数据为空时
                 if (adapter.getItemCount() <= 0) {
+                    if (refreshLayout.getEmptyView() != null) {
+                        refreshLayout.getEmptyView().showEmptyLayout();
+                    }
                     refreshLayout.showEmptyView();
                 }
                 // 数据不为空时

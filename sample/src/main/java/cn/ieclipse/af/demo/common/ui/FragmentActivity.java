@@ -45,6 +45,9 @@ public class FragmentActivity extends BaseActivity {
             }
             Fragment f = Fragment.instantiate(this, fragmentName, getIntent().getExtras());
             getFragmentManager().beginTransaction().add(R.id.main_content, f).commit();
+            if (f instanceof BaseFragment) {
+                setTitle(((BaseFragment) f).getTitle());
+            }
         }
     }
 

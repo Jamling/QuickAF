@@ -24,3 +24,13 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+task zip(type: Zip){
+    from (".") {
+        exclude("**/*.iml")
+        exclude("**/*/.gradle")
+        //exclude("**/*/gradle")
+        exclude("**/*/.idea")
+        exclude("**/*/.build")
+    }
+}

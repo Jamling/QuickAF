@@ -122,7 +122,7 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
         else {
             mContentViewWrapper.setVisibility(GONE);
         }
-        registerProxy(VScrollView.class, new RefreshScrollProxy());
+        registerProxy(VScrollView.class, new RefreshVScrollProxy());
         registerProxy(RecyclerView.class, new RefreshRecyclerProxy());
     }
 
@@ -137,6 +137,8 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
             mEmptyView = (EmptyView) mLayoutInflater.inflate(emptyId, mEmptyViewWrapper, false);
             mEmptyViewWrapper.addView(mEmptyView);
         }
+
+        mAutoLoad = a.getBoolean(R.styleable.RefreshLayout_ptr_autoLoad, mAutoLoad);
     }
 
     protected void detectProxy() {

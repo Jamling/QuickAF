@@ -57,11 +57,12 @@ dependencies {
     testCompile 'junit:junit:4.12'
     // compile 'com.android.support:appcompat-v7:23.3.0'
     compile project(':af-library')
-    compile "com.timehop.stickyheadersrecyclerview:library:0.4.3"
-//    (
-//        exclude group: 'com.android.support', module: 'support-v4'
-//    )
-    compile 'com.google.android:flexbox:0.1.2'
+    compile("com.timehop.stickyheadersrecyclerview:library:0.4.3") {
+        exclude group: 'com.android.support'//, module: 'support-v4'
+    }
+    compile ('com.google.android:flexbox:0.1.2') {
+        exclude group: 'com.android.support'
+    }
     compile "com.android.support:percent:${supportLibVersion}"
     compile 'cn.ieclipse.aorm:aorm-core:1.1.1'
 }

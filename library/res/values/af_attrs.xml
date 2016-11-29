@@ -132,6 +132,7 @@
     <declare-styleable name="RefreshLayout">
         <attr name="ptr_content" format="reference" />
         <attr name="ptr_empty" format="reference" />
+        <attr name="ptr_autoLoad" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="PagerSlidingTabStrip">
