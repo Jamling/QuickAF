@@ -90,6 +90,7 @@ public abstract class BaseActivity extends AfActivity implements View.OnClickLis
 
     }
 
+    @Deprecated
     protected ImageView createRightIcon(int icon) {
         ImageView iv = (ImageView) View.inflate(this, R.layout.title_right_iv, null);
         if (icon > 0) {
@@ -98,9 +99,28 @@ public abstract class BaseActivity extends AfActivity implements View.OnClickLis
         return iv;
     }
 
+    protected ImageView createRightIcon(int icon, boolean add){
+        ImageView iv = createRightIcon(icon);
+        if (add){
+            mTitleBar.addRight(iv);
+        }
+        setOnClickListener(iv);
+        return iv;
+    }
+
+    @Deprecated
     protected TextView createRightText(String text) {
         TextView tv = (TextView) View.inflate(this, R.layout.title_right_tv, null);
         tv.setText(text);
+        return tv;
+    }
+
+    protected TextView createRightText(String text, boolean add) {
+        TextView tv = createRightText(text);
+        if (add){
+            mTitleBar.addRight(tv);
+        }
+        setOnClickListener(tv);
         return tv;
     }
 

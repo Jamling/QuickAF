@@ -108,14 +108,34 @@ public abstract class BaseFragment extends AfFragment implements View.OnClickLis
         VolleyUtils.toastError(getAfActivity(), error);
     }
 
+    @Deprecated
     protected ImageView createRightIcon(int icon) {
         BaseActivity activity = getBaseActivity();
         return activity.createRightIcon(icon);
     }
 
+    protected ImageView createRightIcon(int icon, boolean add){
+        ImageView iv = createRightIcon(icon);
+        if (add){
+            mTitleBar.addRight(iv);
+        }
+        setOnClickListener(iv);
+        return iv;
+    }
+
+    @Deprecated
     protected TextView createRightText(String text) {
         BaseActivity activity = getBaseActivity();
         return activity.createRightText(text);
+    }
+
+    protected TextView createRightText(String text, boolean add) {
+        TextView tv = createRightText(text);
+        if (add){
+            mTitleBar.addRight(tv);
+        }
+        setOnClickListener(tv);
+        return tv;
     }
 
     protected BaseActivity getBaseActivity(){
