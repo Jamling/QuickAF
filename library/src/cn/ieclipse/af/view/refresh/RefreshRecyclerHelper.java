@@ -76,6 +76,15 @@ public class RefreshRecyclerHelper<T> {
      */
     protected AfRecyclerAdapter mAdapter;
     /**
+     * adapter中数据条目
+     */
+    private int mItemCount = 0;
+
+    /**
+     * 下拉刷新时，是否保留已经加载的数据
+     */
+    private boolean mKeepLoaded = false;
+    /**
      * 分页第一页索引
      */
     private static final int PAGE_FIRST = 1;
@@ -87,10 +96,6 @@ public class RefreshRecyclerHelper<T> {
      * 分页加载当前页数 mCurrentPage
      */
     private int mCurrentPage = PAGE_FIRST;
-    /**
-     * adapter中数据条目
-     */
-    private int mItemCount = 0;
     /**
      * 每页数据大小
      */
@@ -109,7 +114,7 @@ public class RefreshRecyclerHelper<T> {
         return (RecyclerView) refreshLayout.getContentView();
     }
 
-    private Context getContext() {
+    protected Context getContext() {
         return refreshLayout.getContext();
     }
 
@@ -328,17 +333,21 @@ public class RefreshRecyclerHelper<T> {
         if (mAdapter != null) {
             // 下拉刷新或默认是刷新操作
             if (refreshLayout.isRefresh()) {
-                mAdapter.getDataList().clear();
+                if (mKeepLoaded) {
+                    mAdapter.add2Top(list);
+                }
+                else {
+                    mAdapter.setDataList(list);
+                }
             }
             else {
-                // do nothing
+                mAdapter.addAll(list);
             }
-            mAdapter.addAll(list);
         }
         else {
             refreshLayout.showEmptyView();
         }
-
+        calcCurrentPage();
         refreshLayout.onRefreshComplete();
     }
 
@@ -350,6 +359,29 @@ public class RefreshRecyclerHelper<T> {
             refreshLayout.getEmptyView().showErrorLayout(error);
         }
         refreshLayout.onRefreshComplete();
+    }
+
+    public void setKeepLoaded(boolean keep) {
+        this.mKeepLoaded = keep;
+    }
+
+    /**
+     * 获取当前需要加载的页数
+     *
+     * @return
+     */
+    public int getCurrentPage() {
+        if (refreshLayout.isRefresh()) {
+            return PAGE_FIRST;
+        }
+        return mCurrentPage;
+    }
+
+    /**
+     * 设置page size
+     */
+    public void setPageSize(int size) {
+        mPageSize = size;
     }
 
     /**

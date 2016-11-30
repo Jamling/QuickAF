@@ -20,26 +20,30 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import cn.ieclipse.af.adapter.AfRecyclerAdapter;
 import cn.ieclipse.af.adapter.AfViewHolder;
 import cn.ieclipse.af.demo.R;
+import cn.ieclipse.af.demo.common.AppRefreshRecyclerHelper;
 import cn.ieclipse.af.demo.common.ui.BaseFragment;
-import cn.ieclipse.af.util.RandomUtils;
+import cn.ieclipse.af.demo.common.ui.H5Activity;
 import cn.ieclipse.af.view.refresh.RefreshLayout;
 import cn.ieclipse.af.view.refresh.RefreshRecyclerHelper;
+import cn.ieclipse.af.volley.RestError;
 
 /**
  * Description
  *
  * @author Jamling
  */
-public class RefreshRecyclerSample extends BaseFragment implements RefreshLayout.OnRefreshListener {
+public class RefreshRecyclerSample extends BaseFragment implements NewsController.NewsListener,
+    RefreshLayout.OnRefreshListener {
     RefreshLayout refreshLayout;
-    RefreshRecyclerHelper recyclerView;
+    RefreshRecyclerHelper helper;
     RecyclerView listView;
     StringAdapter adapter;
+    NewsController controller = new NewsController(this);
 
     @Override
     protected int getContentLayout() {
@@ -53,49 +57,50 @@ public class RefreshRecyclerSample extends BaseFragment implements RefreshLayout
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setMode(RefreshLayout.REFRESH_MODE_BOTH);
 
-        recyclerView = new RefreshRecyclerHelper(refreshLayout);
+        helper = new AppRefreshRecyclerHelper(refreshLayout);
+        helper.setKeepLoaded(true);
         listView = (RecyclerView) refreshLayout.findViewById(R.id.rv);
         adapter = new StringAdapter(view.getContext());
-        recyclerView.setAdapter(adapter);
+        helper.setAdapter(adapter);
+        adapter.setOnItemClickListener(new AfRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                NewsController.NewsInfo info = adapter.getItem(position);
+                if (info != null) {
+                    startActivity(H5Activity.create(refreshLayout.getContext(), info.url, info.title));
+                }
+            }
+        });
+        load(true);
     }
 
     @Override
     public void onRefresh() {
-        setData();
+        load(false);
     }
 
     @Override
     public void onLoadMore() {
-        addData();
+        load(false);
     }
 
-    private void setData() {
-        refreshLayout.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ArrayList<String> dataList = new ArrayList<>();
-                for (int i = 0; i < 5; i++) {
-                    dataList.add(RandomUtils.genGBK(10, 20));
-                }
-                recyclerView.onLoadFinish(dataList, 0, 0);
-            }
-        }, 2000);
+    private void load(boolean needCache) {
+        NewsController.NewsRequest req = new NewsController.NewsRequest();
+        req.page = helper.getCurrentPage();
+        controller.loadNews(req, needCache);
     }
 
-    private void addData() {
-        refreshLayout.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ArrayList<String> dataList = new ArrayList<>();
-                for (int i = 0; i < 5; i++) {
-                    dataList.add(RandomUtils.genGBK(10, 20));
-                }
-                recyclerView.onLoadFinish(dataList, 0, 0);
-            }
-        }, 2000);
+    @Override
+    public void onLoadNewsFailure(RestError error) {
+        helper.onLoadFailure(error);
     }
 
-    private class StringAdapter extends AfRecyclerAdapter<String, AfViewHolder> {
+    @Override
+    public void onLoadNewsSuccess(List<NewsController.NewsInfo> out, boolean fromCache) {
+        helper.onLoadFinish(out, 0, 0);
+    }
+
+    private class StringAdapter extends AfRecyclerAdapter<NewsController.NewsInfo, AfViewHolder> {
 
         public StringAdapter(Context context) {
             super(context);
@@ -112,9 +117,9 @@ public class RefreshRecyclerSample extends BaseFragment implements RefreshLayout
         }
 
         @Override
-        public void onUpdateView(AfViewHolder holder, String data, int position) {
+        public void onUpdateView(AfViewHolder holder, NewsController.NewsInfo data, int position) {
             TextView tv = (TextView) holder.itemView;
-            tv.setText(String.valueOf(position) + data);
+            tv.setText(String.valueOf(position) + data.title);
         }
     }
 }
