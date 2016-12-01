@@ -24,7 +24,7 @@ import cn.ieclipse.af.demo.sample.ButtonListFragment;
  */
 public class TabAppFragment extends ButtonListFragment {
     @Override
-    protected CharSequence getTitle() {
+    public CharSequence getTitle() {
         return "App struct";
     }
 

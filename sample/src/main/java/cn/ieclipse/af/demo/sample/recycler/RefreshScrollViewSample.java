@@ -53,6 +53,7 @@ public class RefreshScrollViewSample extends BaseFragment implements RefreshLayo
         listView = (ListView) refreshLayout.findViewById(R.id.listView);
         adapter = new StringAdapter();
         listView.setAdapter(adapter);
+        setData();
     }
 
     @Override

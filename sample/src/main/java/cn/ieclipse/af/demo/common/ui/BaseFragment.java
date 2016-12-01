@@ -160,7 +160,7 @@ public abstract class BaseFragment extends AfFragment implements View.OnClickLis
         return null;
     }
 
-    protected CharSequence getTitle(){
+    public CharSequence getTitle(){
         return getClass().getSimpleName();
     }
 

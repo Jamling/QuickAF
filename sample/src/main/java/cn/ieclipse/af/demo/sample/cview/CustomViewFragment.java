@@ -28,7 +28,7 @@ import cn.ieclipse.af.demo.sample.recycler.sort.SortListViewActivity;
 public class CustomViewFragment extends ButtonListFragment {
 
     @Override
-    protected CharSequence getTitle() {
+    public CharSequence getTitle() {
         return "Custom Views";
     }
 

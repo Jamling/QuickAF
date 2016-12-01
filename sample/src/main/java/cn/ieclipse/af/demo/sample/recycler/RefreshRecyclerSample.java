@@ -23,7 +23,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import cn.ieclipse.af.adapter.AfRecyclerAdapter;
-import cn.ieclipse.af.adapter.AfViewHolder;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.AppRefreshRecyclerHelper;
 import cn.ieclipse.af.demo.common.ui.BaseFragment;
@@ -100,7 +99,7 @@ public class RefreshRecyclerSample extends BaseFragment implements NewsControlle
         helper.onLoadFinish(out, 0, 0);
     }
 
-    private class StringAdapter extends AfRecyclerAdapter<NewsController.NewsInfo, AfViewHolder> {
+    private class StringAdapter extends AfRecyclerAdapter<NewsController.NewsInfo> {
 
         public StringAdapter(Context context) {
             super(context);
@@ -112,12 +111,7 @@ public class RefreshRecyclerSample extends BaseFragment implements NewsControlle
         }
 
         @Override
-        public AfViewHolder onBindViewHolder(View view) {
-            return new AfViewHolder(view);
-        }
-
-        @Override
-        public void onUpdateView(AfViewHolder holder, NewsController.NewsInfo data, int position) {
+        public void onUpdateView(RecyclerView.ViewHolder holder, NewsController.NewsInfo data, int position) {
             TextView tv = (TextView) holder.itemView;
             tv.setText(String.valueOf(position) + data.title);
         }

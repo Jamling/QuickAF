@@ -84,7 +84,7 @@ public class MyRefreshRecyclerView extends RefreshRecyclerView {
      * @param resStr
      */
     private void setBottomViewText(int resStr) {
-        View footView = mAdapter.getFootView();
+        View footView = mAdapter.getFooterView();
         if (footView == null) {
             return;
         }

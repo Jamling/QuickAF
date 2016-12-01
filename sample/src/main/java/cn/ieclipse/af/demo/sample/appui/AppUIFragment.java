@@ -46,7 +46,7 @@ public class AppUIFragment extends BaseFragment {
     }
 
     @Override
-    protected CharSequence getTitle() {
+    public CharSequence getTitle() {
         return "UI samples";
     }
 
