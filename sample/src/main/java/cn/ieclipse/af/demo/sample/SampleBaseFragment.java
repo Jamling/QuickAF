@@ -110,8 +110,8 @@ public abstract class SampleBaseFragment extends BaseFragment implements Adapter
         chk2 = (CompoundButton) view.findViewById(R.id.chk2);
         chk3 = (CompoundButton) view.findViewById(R.id.chk3);
         chk4 = (CompoundButton) view.findViewById(R.id.chk4);
-        //chk5 = (CompoundButton) view.findViewById(R.id.chk5);
-        //chk6 = (CompoundButton) view.findViewById(R.id.chk6);
+        chk5 = (CompoundButton) view.findViewById(R.id.chk5);
+        chk6 = (CompoundButton) view.findViewById(R.id.chk6);
         setOnCheckedChangeListener(chk1, chk2, chk3, chk4, chk5, chk6);
     }
 

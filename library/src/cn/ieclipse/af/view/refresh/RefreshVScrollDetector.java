@@ -24,7 +24,7 @@ import cn.ieclipse.af.view.VScrollView;
  *
  * @author Jamling
  */
-public class RefreshVScrollProxy extends RefreshLayout.RefreshProxy<VScrollView> {
+public class RefreshVScrollDetector extends RefreshLayout.RefreshDetector<VScrollView> {
 
     private VScrollView.OnScrollChangeListener mOnScrollChangeListener = new VScrollView.OnScrollChangeListener() {
         @Override

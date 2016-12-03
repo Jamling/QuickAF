@@ -15,6 +15,8 @@
  */
 package cn.ieclipse.af.demo.sample.recycler;
 
+import com.android.volley.NetworkResponse;
+import com.android.volley.Response;
 import com.google.gson.Gson;
 
 import java.io.Serializable;
@@ -132,9 +134,27 @@ public class NewsController extends Controller<NewsController.NewsListener> {
 
         @Override
         protected GsonRequest buildRequest(IUrl url, String body) {
-            GsonRequest request = super.buildRequest(url, body);
+            GsonRequest request = new MyGsonRequest(url.getMethod(), url.getUrl(), body, this, this);
             request.addHeader("apikey", "e8c043231152d9cbcf30a648382ca4c5");
             return request;
+        }
+    }
+
+    private class MyGsonRequest extends GsonRequest {
+
+        public MyGsonRequest(int method, String url, String body, Response.Listener<IBaseResponse> responseListener,
+                             Response.ErrorListener listener) {
+            super(method, url, body, responseListener, listener);
+        }
+
+        @Override
+        protected Response<IBaseResponse> parseNetworkResponse(NetworkResponse response) {
+            try {
+                Thread.sleep(2000);
+            } catch (Exception e) {
+
+            }
+            return super.parseNetworkResponse(response);
         }
     }
 }

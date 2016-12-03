@@ -15,32 +15,41 @@
  */
 package cn.ieclipse.af.adapter.delegate;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import cn.ieclipse.af.adapter.AfRecyclerAdapter;
+
 /**
- * <em>Composite is superior to inherit</em>. refer to {@link https://github.com/sockeqwe/AdapterDelegates/}
- *
+ * <em>Composite is superior to inherit</em>. refer to
+ * <a href="https://github.com/sockeqwe/AdapterDelegates/">AdapterDelegates</a>
+ * <p>
+ *     Here is a minimized implementation of Adapter delegate.
+ * </p>
  * @author Jamling
  */
 public class DelegateManager<T> {
-    private final List<AdapterDelegate> mDelegates;
+    private AfRecyclerAdapter<T> adapter;
+    private final List<AdapterDelegate> delegates;
     private int count;
     private int headerCount;
     private int footerCount;
 
     private static final int MAX_HEADER_COUNT = 2;
 
-    public DelegateManager() {
-        mDelegates = new ArrayList<>();
+    public DelegateManager(@NonNull AfRecyclerAdapter<T> adapter) {
+        delegates = new ArrayList<>();
+        this.adapter = adapter;
     }
 
-    public void addDelegate(int viewType, AdapterDelegate delegate) {
-        delegate.setViewType(viewType);
-        mDelegates.add(viewType, delegate);
+    public void addDelegate(@NonNull AdapterDelegate delegate) {
+        delegate.setAdapter(adapter);
+        delegates.add(delegate);
         count++;
         if (delegate.getViewType() < 0) {
             if (delegate.getViewType() < -MAX_HEADER_COUNT) {
@@ -50,6 +59,28 @@ public class DelegateManager<T> {
                 headerCount++;
                 if (headerCount > MAX_HEADER_COUNT) {
                     throw new IllegalStateException("exceed the max header count(" + MAX_HEADER_COUNT + ")");
+                }
+            }
+        }
+        Collections.sort(delegates);
+    }
+
+    public void addDelegate(int viewType, @NonNull AdapterDelegate delegate) {
+        delegate.setViewType(viewType);
+        addDelegate(delegate);
+    }
+
+    public void removeDelegate(int viewType) {
+        AdapterDelegate delegate = getDelegateForViewType(viewType);
+        if (delegate != null) {
+            if (delegates.remove(delegate)) {
+                if (viewType < 0) {
+                    if (viewType > -MAX_HEADER_COUNT) {
+                        footerCount--;
+                    }
+                    else {
+                        headerCount--;
+                    }
                 }
             }
         }
@@ -69,7 +100,7 @@ public class DelegateManager<T> {
 
     public AdapterDelegate<T> getDelegateForViewType(int viewType) {
         for (int i = 0; i < count; i++) {
-            AdapterDelegate delegate = mDelegates.get(i);
+            AdapterDelegate delegate = delegates.get(i);
             boolean match = delegate.getViewType() == viewType;
             if (match) {
                 return delegate;
@@ -80,7 +111,7 @@ public class DelegateManager<T> {
 
     public int getItemViewType(T info, int position) {
         for (int i = 0; i < count; i++) {
-            AdapterDelegate delegate = mDelegates.get(i);
+            AdapterDelegate delegate = delegates.get(i);
             boolean match = (delegate.isForViewType(info, position));
             if (match) {
                 return delegate.getViewType();

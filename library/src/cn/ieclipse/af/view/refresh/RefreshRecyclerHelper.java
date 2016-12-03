@@ -25,22 +25,17 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import java.util.List;
 
 import cn.ieclipse.af.adapter.AfRecyclerAdapter;
-import cn.ieclipse.af.common.Logger;
 import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.view.recycle.GridItemDecoration;
 import cn.ieclipse.af.view.recycle.ItemOffsetDecoration;
 import cn.ieclipse.af.view.recycle.ListItemDecoration;
-import cn.ieclipse.af.volley.RestError;
 
 /**
  * Description
  *
  * @author Jamling
  */
-public class RefreshRecyclerHelper<T> {
-
-    // protected RecyclerView recyclerView;
-    protected RefreshLayout refreshLayout;
+public class RefreshRecyclerHelper<T> extends RefreshHelper<T> {
 
     /**
      * 当前的ItemDecoration
@@ -74,36 +69,9 @@ public class RefreshRecyclerHelper<T> {
      * adapter
      */
     protected RecyclerView.Adapter mAdapter;
-    /**
-     * adapter中数据条目
-     */
-    private int mItemCount = 0;
-
-    /**
-     * 下拉刷新时，是否保留已经加载的数据
-     */
-    private boolean mKeepLoaded = false;
-    /**
-     * 分页第一页索引
-     */
-    private static final int PAGE_FIRST = 1;
-    /**
-     * 分页加载每一页的大小
-     */
-    private static final int PAGE_SIZE = 10;
-    /**
-     * 分页加载当前页数 mCurrentPage
-     */
-    private int mCurrentPage = PAGE_FIRST;
-    /**
-     * 每页数据大小
-     */
-    private int mPageSize = PAGE_SIZE;
-
-    protected Logger mLogger = Logger.getLogger(getClass());
 
     public RefreshRecyclerHelper(RefreshLayout refreshLayout) {
-        this.refreshLayout = refreshLayout;
+        super(refreshLayout);
         mDividerColor = AppUtils.getColor(getContext(), android.R.color.darker_gray);
         mDividerHeight = AppUtils.dp2px(getContext(), 1);
         setLinearLayoutManager(LinearLayoutManager.VERTICAL);
@@ -284,87 +252,11 @@ public class RefreshRecyclerHelper<T> {
     }
 
     /**
-     * 加载完成将数据添加到adapter中
-     *
-     * @param list 数据
-     */
-    public void onLoadFinish(List<T> list, int total, int pageSize) {
-        if (pageSize > 0) {
-            this.mPageSize = pageSize;
-        }
-        if (mAdapter != null) {
-            setAdapterData(list);
-        }
-        else {
-            refreshLayout.showEmptyView();
-        }
-        calcCurrentPage();
-        refreshLayout.onRefreshComplete();
-    }
-
-    /**
-     * 加载失败，重置RecyclerView的加载状态
-     */
-    public void onLoadFailure(RestError error) {
-        if (refreshLayout.getEmptyView() != null) {
-            refreshLayout.getEmptyView().showErrorLayout(error);
-        }
-        refreshLayout.onRefreshComplete();
-    }
-
-    public void setKeepLoaded(boolean keep) {
-        this.mKeepLoaded = keep;
-    }
-
-    public boolean isKeepLoaded() {
-        return mKeepLoaded;
-    }
-
-    /**
-     * 获取当前需要加载的页数
-     *
-     * @return
-     */
-    public int getCurrentPage() {
-        if (refreshLayout.isRefresh()) {
-            return PAGE_FIRST;
-        }
-        return mCurrentPage;
-    }
-
-    /**
-     * 设置page size
-     */
-    public void setPageSize(int size) {
-        mPageSize = size;
-    }
-
-    /**
-     * 计算页码
-     */
-    private void calcCurrentPage() {
-        if (mAdapter != null) {
-            mItemCount = getTotalCount();
-            int p = mItemCount / mPageSize;
-            if (mItemCount % mPageSize >= 0) {
-                mCurrentPage = p + 1;
-            }
-            else {
-                mCurrentPage = p;
-            }
-        }
-        if (mCurrentPage <= 0) {
-            mCurrentPage = PAGE_FIRST;
-        }
-        mLogger.d("current page : " + mCurrentPage + ", item count : " + mItemCount);
-    }
-
-    /**
      * Return the total actual data count in adapter/recycler view
      *
      * @return total count
      */
-    protected int getTotalCount() {
+    protected int getItemCount() {
         if (mAdapter instanceof AfRecyclerAdapter) {
             return ((AfRecyclerAdapter) mAdapter).getDataList().size();
         }
@@ -376,22 +268,66 @@ public class RefreshRecyclerHelper<T> {
     }
 
     protected void setAdapterData(List<T> list) {
-        if (mAdapter instanceof AfRecyclerAdapter) {
-            AfRecyclerAdapter adapter = (AfRecyclerAdapter) mAdapter;
-            // 下拉刷新或默认是刷新操作
-            if (refreshLayout.isRefresh()) {
-                if (mKeepLoaded) {
-                    adapter.add2Top(list);
+        if (mAdapter != null) {
+            if (mAdapter instanceof AfRecyclerAdapter) {
+                AfRecyclerAdapter adapter = (AfRecyclerAdapter) mAdapter;
+                // 下拉刷新或默认是刷新操作
+                if (refreshLayout.isRefresh()) {
+                    if (isKeepLoaded()) {
+                        adapter.add2Top(list);
+                    }
+                    else {
+                        adapter.setDataList(list);
+                    }
                 }
                 else {
-                    adapter.setDataList(list);
+                    adapter.addAll(list);
                 }
             }
-            else {
-                adapter.addAll(list);
+            if (!refreshLayout.isRefresh()) {
+                setFooterEmpty(isEmpty());
             }
+            mAdapter.notifyDataSetChanged();
+        }
+        else {
+            refreshLayout.showEmptyView();
         }
     }
+
+//    protected void setFooterError(RestError error) {
+//        if (mAdapter instanceof AfRecyclerAdapter) {
+//            View view = ((AfRecyclerAdapter) mAdapter).getFooterView();
+//            if (view != null && view instanceof FooterView) {
+//                FooterView fv = (FooterView) view;
+//                fv.setError(error);
+//            }
+//        }
+//    }
+//
+//    public void setFooterLoading() {
+//        if (mAdapter instanceof AfRecyclerAdapter) {
+//            View view = ((AfRecyclerAdapter) mAdapter).getFooterView();
+//            if (view != null && view instanceof FooterView) {
+//                FooterView fv = (FooterView) view;
+//                fv.setLoading("");
+//            }
+//        }
+//    }
+//
+//    protected void setFooterEmpty(boolean empty) {
+//        if (mAdapter instanceof AfRecyclerAdapter) {
+//            View view = ((AfRecyclerAdapter) mAdapter).getFooterView();
+//            if (view != null && view instanceof FooterView) {
+//                FooterView fv = (FooterView) view;
+//                if (empty) {
+//                    fv.setEmpty(null);
+//                }
+//                else {
+//                    fv.reset();
+//                }
+//            }
+//        }
+//    }
 
     /**
      * 监听adapter中数据的变化

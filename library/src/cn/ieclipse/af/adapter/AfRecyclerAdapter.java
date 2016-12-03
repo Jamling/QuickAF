@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 
 import java.util.List;
 
+import cn.ieclipse.af.adapter.delegate.AdapterDelegate;
 import cn.ieclipse.af.adapter.delegate.DelegateManager;
 import cn.ieclipse.af.common.Logger;
 
@@ -34,7 +35,7 @@ import cn.ieclipse.af.common.Logger;
  *
  * @author Jamling
  */
-public abstract class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     protected Logger mLogger = Logger.getLogger(getClass());
 
     public static final int ITEM_VIEW_TYPE_NORMAL = 0;
@@ -54,13 +55,30 @@ public abstract class AfRecyclerAdapter<T> extends RecyclerView.Adapter<Recycler
         mInflater = LayoutInflater.from(context);
         setDataCheck(AfDataHolder.CHECK_BOTH);
 
+        mDelegatesManager = new DelegateManager<>(this);
         // 绑定footer view
         bindFooterView();
-        mDelegatesManager = new DelegateManager<>();
+    }
+
+    public AfRecyclerAdapter() {
+        setDataCheck(AfDataHolder.CHECK_BOTH);
+        mDelegatesManager = new DelegateManager<>(this);
+    }
+
+    public void registerDelegate(int viewType, AdapterDelegate delegate) {
+        mDelegatesManager.addDelegate(viewType, delegate);
+    }
+
+    public void registerDelegate(AdapterDelegate delegate) {
+        mDelegatesManager.addDelegate(delegate);
+    }
+
+    public void removeDelegate(int viewType) {
+        mDelegatesManager.removeDelegate(viewType);
     }
 
     public T getItem(int position) {
-        return mDataHolder.getItem(position);
+        return mDataHolder.getItem(position - getHeaderCount());
     }
 
     public void setDataCheck(int checkMode) {
@@ -157,7 +175,17 @@ public abstract class AfRecyclerAdapter<T> extends RecyclerView.Adapter<Recycler
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (mDelegatesManager.getCount() > 0) {
-            return mDelegatesManager.onCreateViewHolder(parent, viewType);
+            RecyclerView.ViewHolder holder = mDelegatesManager.onCreateViewHolder(parent, viewType);
+            if (viewType >= 0 && holder instanceof RecyclerView.ViewHolder) {
+                if (mOnItemClickListener != null) {
+                    ((AfViewHolder) holder).setOnClickListener(mOnItemClickListener);
+                }
+
+                if (mOnItemLongClickListener != null) {
+                    ((AfViewHolder) holder).setOnLongClickListener(mOnItemLongClickListener);
+                }
+            }
+            return holder;
         }
         if (viewType == ITEM_VIEW_TYPE_HEADER) {
             mHeaderView.setTag(ITEM_VIEW_TYPE_HEADER);
@@ -188,8 +216,8 @@ public abstract class AfRecyclerAdapter<T> extends RecyclerView.Adapter<Recycler
             // 绑定数据
             try {
                 // 判断是否有headview，更新position
-                int pos = getHeaderCount() > 0 ? position - getHeaderCount() : position;
-                onUpdateView(holder, getItem(pos), pos);
+                // int pos = getHeaderCount() > 0 ? position - getHeaderCount() : position;
+                onUpdateView(holder, getItem(position), position);
             } catch (Exception e) {
                 mLogger.e("exception onUpdateView", e);
             }
@@ -215,11 +243,17 @@ public abstract class AfRecyclerAdapter<T> extends RecyclerView.Adapter<Recycler
         return mDataHolder.getCount();
     }
 
-    private int getHeaderCount() {
+    public int getHeaderCount() {
+        if (mDelegatesManager.getCount() > 0) {
+            return mDelegatesManager.getHeaderCount();
+        }
         return mHeaderView == null ? 0 : 1;
     }
 
-    private int getFooterCount() {
+    public int getFooterCount() {
+        if (mDelegatesManager.getCount() > 0) {
+            return mDelegatesManager.getFooterCount();
+        }
         return mFooterView == null ? 0 : 1;
     }
 

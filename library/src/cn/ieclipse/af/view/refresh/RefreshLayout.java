@@ -96,6 +96,7 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
     protected SwipeRefreshLayout mEmptyViewWrapper;
     protected View mContentView;
     protected EmptyView mEmptyView;
+    protected FooterView mFooterView;
     protected LayoutInflater mLayoutInflater;
     protected Logger mLogger = Logger.getLogger(getClass());
 
@@ -122,8 +123,8 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
         else {
             mContentViewWrapper.setVisibility(GONE);
         }
-        registerProxy(VScrollView.class, new RefreshVScrollProxy());
-        registerProxy(RecyclerView.class, new RefreshRecyclerProxy());
+        registerDetector(VScrollView.class, new RefreshVScrollDetector());
+        registerDetector(RecyclerView.class, new RefreshRecyclerDetector());
     }
 
     protected void handleStyledAttributes(TypedArray a) {
@@ -145,12 +146,12 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
         if (mContentView == null) {
             return;
         }
-        if (getProxy() != null) {
-            getProxy().setEnabled(false);
+        if (getDetector() != null) {
+            getDetector().setEnabled(false);
         }
-        RefreshProxy proxy = mProxyMap.get(mContentView.getClass());
+        RefreshDetector proxy = mDetectorMap.get(mContentView.getClass());
         if (proxy != null) {
-            this.mProxy = proxy;
+            this.mDetector = proxy;
             proxy.setEnabled(true);
         }
     }
@@ -158,6 +159,9 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
     @Override
     public void onRefresh() {
         mLoading = LOADING_REFRESH;
+        if (getFooterView() != null) {
+            getFooterView().setLoading(null);
+        }
         if (mOnRefreshListener != null) {
             mOnRefreshListener.onRefresh();
         }
@@ -169,6 +173,9 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
             && mLoading == LOADING_NONE // 是否正在加载
             && (mRefreshMode & REFRESH_MODE_BOTTOM) != 0) {
             mLogger.d("load more");
+            if (getFooterView() != null) {
+                getFooterView().setLoading(null);
+            }
             mContentViewWrapper.setRefreshing(true);
             mLoading = LOADING_MORE;
             if (mOnRefreshListener != null) {
@@ -207,7 +214,15 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
         mContentViewWrapper.setVisibility(View.VISIBLE);
     }
 
-    public static abstract class RefreshProxy<T> {
+    public void setFooterView(FooterView footerView) {
+        this.mFooterView = footerView;
+    }
+
+    public FooterView getFooterView() {
+        return mFooterView;
+    }
+
+    public static abstract class RefreshDetector<T> {
         protected RefreshLayout mRefresh;
         protected T view;
 
@@ -265,20 +280,20 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
         }
     }
 
-    private Map<Class, RefreshProxy> mProxyMap = new HashMap<>();
-    private RefreshProxy mProxy;
+    private Map<Class, RefreshDetector> mDetectorMap = new HashMap<>();
+    private RefreshDetector mDetector;
 
-    public void registerProxy(Class clazz, RefreshProxy proxy) {
+    public void registerDetector(Class clazz, RefreshDetector proxy) {
         if (proxy != null) {
             proxy.setView(mContentView);
             proxy.setRefresh(this);
-            mProxyMap.put(clazz, proxy);
+            mDetectorMap.put(clazz, proxy);
             detectProxy();
         }
     }
 
-    public RefreshProxy getProxy() {
-        return mProxy;
+    public RefreshDetector getDetector() {
+        return mDetector;
     }
 
     public interface OnRefreshListener extends SwipeRefreshLayout.OnRefreshListener {
@@ -310,6 +325,10 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
         }
     }
 
+    public void setAutoLoad(boolean auto) {
+        this.mAutoLoad = auto;
+    }
+
     public boolean isAutoLoad() {
         return mAutoLoad;
     }
@@ -334,5 +353,9 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
 
     public boolean isRefresh() {
         return mLoading == LOADING_REFRESH;
+    }
+
+    public boolean isLoadMore() {
+        return mLoading == LOADING_MORE;
     }
 }

@@ -25,7 +25,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
  *
  * @author Jamling
  */
-public class RefreshRecyclerProxy extends RefreshLayout.RefreshProxy<RecyclerView> {
+public class RefreshRecyclerDetector extends RefreshLayout.RefreshDetector<RecyclerView> {
     @Override
     public void setEnabled(boolean enable) {
         if (enable) {

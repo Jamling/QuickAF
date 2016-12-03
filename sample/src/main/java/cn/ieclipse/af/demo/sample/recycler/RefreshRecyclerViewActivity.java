@@ -166,17 +166,17 @@ public class RefreshRecyclerViewActivity extends BaseActivity {
             public void onItemClick(View view, int position) {
                 boolean hashead = mAdapter.getHeaderView() != null;
                 String item = "";
-                int pos = 0;
-                if (hashead) {
-                    // 有headview时，data position需要-1
-                    pos = position - 1;
-                }
-                else {
-                    pos = position;
-                }
+                int pos = position - mAdapter.getHeaderCount();
+//                if (hashead) {
+//                    // 有headview时，data position需要-1
+//                    pos = position - 1;
+//                }
+//                else {
+//                    pos = position;
+//                }
                 DialogUtils.showToast(RefreshRecyclerViewActivity.this,
                     "data " + "position=" + (pos) + " \nview position=" + position +
-                        " \nitem=" + mAdapter.getItem(pos));
+                        " \nitem=" + mAdapter.getItem(position));
 
                 // mAdapter.updateItem(pos,"update item "+ (pos));
                 // 需要重写item的equals()方法

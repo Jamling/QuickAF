@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<cn.ieclipse.af.view.refresh.FooterView
+<cn.ieclipse.af.demo.common.view.AppRefreshFooterView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -16,15 +16,16 @@
         android:visibility="visible">
 
         <ProgressBar
-            android:id="@+id/iv_loading_indicator"
+            android:id="@android:id/progress"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:indeterminate="true"
             android:indeterminateOnly="true"
-            />
+            android:visibility="gone"
+            tools:visibility="visible"/>
 
         <TextView
-            android:id="@id/ptr_empty_tv_loading"
+            android:id="@android:id/text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -35,4 +36,4 @@
             android:textSize="@dimen/text_size_normal"/>
     </LinearLayout>
 
-</cn.ieclipse.af.view.refresh.FooterView>
+</cn.ieclipse.af.demo.common.view.AppRefreshFooterView>
