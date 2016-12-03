@@ -40,7 +40,7 @@ public class RefreshScrollViewSample extends BaseFragment implements RefreshLayo
 
     @Override
     protected int getContentLayout() {
-        return R.layout.base_refresh_sv;
+        return R.layout.sample_activity_refresh_sv;
     }
 
     @Override

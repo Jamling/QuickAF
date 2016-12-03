@@ -264,6 +264,9 @@ public class RefreshRecyclerHelper<T> extends RefreshHelper<T> {
     }
 
     protected boolean isEmpty() {
+        if (mAdapter instanceof AfRecyclerAdapter) {
+            return mAdapter.getItemCount() - ((AfRecyclerAdapter) mAdapter).getFooterCount() <= 0;
+        }
         return getRecyclerView().getAdapter().getItemCount() <= 0;
     }
 
@@ -283,9 +286,6 @@ public class RefreshRecyclerHelper<T> extends RefreshHelper<T> {
                 else {
                     adapter.addAll(list);
                 }
-            }
-            if (!refreshLayout.isRefresh()) {
-                setFooterEmpty(isEmpty());
             }
             mAdapter.notifyDataSetChanged();
         }

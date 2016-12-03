@@ -58,19 +58,18 @@ public class AppRefreshFooterView extends FooterView {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-
         progressBar = (ProgressBar) findViewById(android.R.id.progress);
         tvDesc = (TextView) findViewById(android.R.id.text1);
     }
 
     @Override
     public void setEmpty(String text) {
+        progressBar.setVisibility(GONE);
         if (!TextUtils.isEmpty(text)) {
             tvDesc.setText(text);
-            progressBar.setVisibility(GONE);
         }
         else {
-            reset();
+            tvDesc.setText(R.string.common_footer_loading_empty);
         }
     }
 

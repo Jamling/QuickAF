@@ -47,6 +47,11 @@ public class AppRefreshRecyclerHelper extends RefreshRecyclerHelper {
     }
 
     @Override
+    protected boolean isEmpty() {
+        return super.isEmpty();
+    }
+
+    @Override
     public void onLoadFailure(RestError error) {
         if (refreshLayout.getEmptyView() != null) {
             refreshLayout.getEmptyView().setDesc(EmptyView.LAYER_ERROR, VolleyUtils.getError(getContext(), error));

@@ -86,6 +86,14 @@ public abstract class RefreshHelper<T> {
         }
         setAdapterData(list);
         calcCurrentPage();
+        boolean enable = hasMoreData();
+        refreshLayout.setEnableLoadMore(enable);
+        if (!enable) {
+            setFooterEmpty(null);
+        }
+        else {
+            resetFooter();
+        }
         refreshLayout.onRefreshComplete();
     }
 
@@ -165,6 +173,10 @@ public abstract class RefreshHelper<T> {
 
     protected abstract boolean isEmpty();
 
+    protected boolean hasMoreData() {
+        return getTotalCount() > 0 && getItemCount() < getTotalCount();
+    }
+
     protected abstract void setAdapterData(List<T> list);
 
     protected void setFooterError(RestError error) {
@@ -179,9 +191,15 @@ public abstract class RefreshHelper<T> {
         }
     }
 
-    protected void setFooterEmpty(boolean empty) {
+    protected void setFooterEmpty(String text) {
         if (refreshLayout.getFooterView() != null){
-            refreshLayout.getFooterView().setEmpty(null);
+            refreshLayout.getFooterView().setEmpty(text);
+        }
+    }
+
+    protected void resetFooter() {
+        if (refreshLayout.getFooterView() != null) {
+            refreshLayout.getFooterView().reset();
         }
     }
 }

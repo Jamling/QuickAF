@@ -46,7 +46,7 @@ public class GridRecyclerActivity extends BaseActivity {
     @Override
     protected void initHeaderView() {
         super.initHeaderView();
-        mTitleTextView.setText("GridRecyclerView");
+        mTitleTextView.setText("GridRecyclerView(Legacy)");
     }
     
     @Override
@@ -68,17 +68,17 @@ public class GridRecyclerActivity extends BaseActivity {
             @Override
             public void onItemClick(View view, int position) {
                 boolean hashead = mAdapter.getHeaderView() != null;
-                int pos = 0;
-                if (hashead) {
-                    // 有headview时，data position需要-1
-                    pos = position - 1;
-                }
-                else {
-                    pos = position;
-                }
-                DialogUtils.showToast(GridRecyclerActivity.this,
+                int pos = position - mAdapter.getHeaderCount();
+//                if (hashead) {
+//                    // 有headview时，data position需要-1
+//                    pos = position - 1;
+//                }
+//                else {
+//                    pos = position;
+//                }
+                DialogUtils.showToast(mAfRecycleView.getContext(),
                     "data " + "position=" + (pos) + " \nview position=" + position +
-                        " \nitem=" + mAdapter.getItem(pos));
+                        " \nitem=" + mAdapter.getItem(position));
 
                 // mAdapter.updateItem(pos,"update item "+ (pos));
                 // 需要重写item的equals()方法

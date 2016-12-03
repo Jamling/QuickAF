@@ -51,6 +51,11 @@ public class RefreshRecyclerSample extends SampleBaseFragment implements NewsCon
     CheckBox rb1;
 
     @Override
+    public CharSequence getTitle() {
+        return "RefreshRecycler(New)";
+    }
+
+    @Override
     protected int getContentLayout() {
         return R.layout.sample_refresh_recycler;
     }
@@ -149,7 +154,7 @@ public class RefreshRecyclerSample extends SampleBaseFragment implements NewsCon
             throw new NullPointerException("Mock error!");
         }
         else {
-            helper.onLoadFinish(out, 0, 0);
+            helper.onLoadFinish(out, 50, 0);
         }
     }
 

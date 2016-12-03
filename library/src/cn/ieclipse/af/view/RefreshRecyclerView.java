@@ -45,6 +45,7 @@ import cn.ieclipse.af.view.recycle.RefreshEmptyView;
  * <p>
  * 注：(recyclerview显示scrollbar需要在布局中设置android:scrollbars="vertical");
  *
+ * @deprecated use {@link cn.ieclipse.af.view.refresh.RefreshLayout} instead
  * @author wangjian
  * @date 2015/12/25.
  */

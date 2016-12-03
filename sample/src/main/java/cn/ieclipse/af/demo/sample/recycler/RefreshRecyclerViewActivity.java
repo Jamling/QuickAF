@@ -61,7 +61,7 @@ public class RefreshRecyclerViewActivity extends BaseActivity {
     @Override
     protected void initHeaderView() {
         super.initHeaderView();
-        mTitleTextView.setText("RecyclerView");
+        mTitleTextView.setText("RecyclerView(Legacy)");
     }
     
     @Override

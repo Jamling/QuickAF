@@ -82,6 +82,8 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
      */
     private boolean mAutoLoad = true;
 
+    private boolean mEnableLoadMore = true;
+
     public RefreshLayout(Context context) {
         this(context, null);
     }
@@ -171,7 +173,7 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
         boolean isRefreshing = mContentViewWrapper.isRefreshing();
         if (!isRefreshing // 是否正在刷新
             && mLoading == LOADING_NONE // 是否正在加载
-            && (mRefreshMode & REFRESH_MODE_BOTTOM) != 0) {
+            && (mRefreshMode & REFRESH_MODE_BOTTOM) != 0 && isEnableLoadMore()) {
             mLogger.d("load more");
             if (getFooterView() != null) {
                 getFooterView().setLoading(null);
@@ -331,6 +333,14 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
 
     public boolean isAutoLoad() {
         return mAutoLoad;
+    }
+
+    public void setEnableLoadMore(boolean enable) {
+        this.mEnableLoadMore = enable;
+    }
+
+    public boolean isEnableLoadMore() {
+        return this.mEnableLoadMore;
     }
 
     public EmptyView getEmptyView() {

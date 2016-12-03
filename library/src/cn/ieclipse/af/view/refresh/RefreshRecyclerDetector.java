@@ -52,7 +52,7 @@ public class RefreshRecyclerDetector extends RefreshLayout.RefreshDetector<Recyc
                 }
 
                 // 是否允许自动加载
-                if (getRefresh().isAutoLoad()) {
+                if (getRefresh().isEnableLoadMore() && getRefresh().isAutoLoad()) {
                     // 水平滚动加载
                     if (orientation == OrientationHelper.HORIZONTAL) {
                         // if (!recyclerView.canScrollHorizontally(-1)) {
