@@ -49,8 +49,8 @@ public abstract class BaseListFragment<T> extends BaseFragment implements Refres
         mRefreshLayout.setMode(RefreshLayout.REFRESH_MODE_BOTH);
         mListView = (RecyclerView) mRefreshLayout.findViewById(R.id.rv);
 
-        mRefreshHelper = getRefreshHelper();
-        mAdapter = getAdapter();
+        mRefreshHelper = generateRefreshHelper();
+        mAdapter = generateAdapter();
         mRefreshHelper.setAdapter(mAdapter);
     }
 
@@ -67,10 +67,10 @@ public abstract class BaseListFragment<T> extends BaseFragment implements Refres
     protected void load(boolean needCache) {
     }
 
-    protected RefreshRecyclerHelper getRefreshHelper() {
+    protected RefreshRecyclerHelper generateRefreshHelper() {
         AppRefreshRecyclerHelper helper = new AppRefreshRecyclerHelper(mRefreshLayout);
         return helper;
     }
 
-    protected abstract AfRecyclerAdapter<T> getAdapter();
+    protected abstract AfRecyclerAdapter<T> generateAdapter();
 }

@@ -15,7 +15,9 @@
  */
 package cn.ieclipse.af.demo.common;
 
+import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.api.VolleyUtils;
+import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.view.refresh.EmptyView;
 import cn.ieclipse.af.view.refresh.RefreshLayout;
 import cn.ieclipse.af.view.refresh.RefreshRecyclerHelper;
@@ -27,10 +29,11 @@ import cn.ieclipse.af.volley.RestError;
  * @author Jamling
  */
 public class AppRefreshRecyclerHelper extends RefreshRecyclerHelper {
-    protected EmptyView emptyView;
 
     public AppRefreshRecyclerHelper(final RefreshLayout refreshLayout) {
         super(refreshLayout);
+        setDividerColor(AppUtils.getColor(getContext(), R.color.divider));
+        refreshLayout.setColorSchemeResources(R.color.colorPrimary);
         if (refreshLayout.getEmptyView() != null) {
             refreshLayout.getEmptyView().setRetryListener(new EmptyView.RetryListener() {
                 @Override
