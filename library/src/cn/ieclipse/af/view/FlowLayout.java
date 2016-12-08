@@ -1034,6 +1034,7 @@ public class FlowLayout extends ViewGroup {
     private class CheckedStateTracker implements CompoundButton.OnCheckedChangeListener {
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isSingleChoice()) {
+                int id = buttonView.getId();
                 // prevents from infinite recursion
                 if (mProtectFromCheckedChange) {
                     return;
@@ -1041,11 +1042,16 @@ public class FlowLayout extends ViewGroup {
                 
                 mProtectFromCheckedChange = true;
                 if (mCheckedId != -1) {
-                    setCheckedStateForView(mCheckedId, false);
+                    // fix checkbox can't unchecked
+                    if (id == mCheckedId) {
+                        buttonView.setChecked(true);
+                    }
+                    else {
+                        setCheckedStateForView(mCheckedId, false);
+                    }
                 }
                 mProtectFromCheckedChange = false;
-                
-                int id = buttonView.getId();
+
                 setCheckedId(id);
             }
             else {
