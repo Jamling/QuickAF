@@ -25,9 +25,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import cn.ieclipse.af.demo.common.ui.BaseActivity;
 import cn.ieclipse.af.demo.common.BaseFragmentAdapter;
-import cn.ieclipse.af.demo.common.ui.MainBottomTab;
+import cn.ieclipse.af.demo.common.ui.BaseActivity;
+import cn.ieclipse.af.demo.common.view.MainBottomTab;
 import cn.ieclipse.af.demo.my.CheckUpdateController;
 import cn.ieclipse.af.demo.my.MyFragment;
 import cn.ieclipse.af.demo.sample.appui.AppUIFragment;
