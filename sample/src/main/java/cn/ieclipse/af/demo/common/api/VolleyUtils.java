@@ -45,7 +45,7 @@ public final class VolleyUtils {
         tv.setText(getError(tv.getContext(), error));
     }
     
-    private static String getError(Context context, RestError error) {
+    public static String getError(Context context, RestError error) {
         if (error.getCause() instanceof LogicError) {
             return ((LogicError) error.getCause()).getDesc();
         }

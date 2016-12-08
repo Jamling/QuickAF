@@ -25,7 +25,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
  *
  * @author Jamling
  */
-public class RefreshRecyclerProxy extends RefreshLayout.RefreshProxy<RecyclerView> {
+public class RefreshRecyclerDetector extends RefreshLayout.RefreshDetector<RecyclerView> {
     @Override
     public void setEnabled(boolean enable) {
         if (enable) {
@@ -52,7 +52,7 @@ public class RefreshRecyclerProxy extends RefreshLayout.RefreshProxy<RecyclerVie
                 }
 
                 // 是否允许自动加载
-                if (getRefresh().isAutoLoad()) {
+                if (getRefresh().isEnableLoadMore() && getRefresh().isAutoLoad()) {
                     // 水平滚动加载
                     if (orientation == OrientationHelper.HORIZONTAL) {
                         // if (!recyclerView.canScrollHorizontally(-1)) {

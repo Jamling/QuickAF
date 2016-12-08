@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.ieclipse.af.demo.common.ui;
+package cn.ieclipse.af.demo.common;
 
 import android.app.FragmentManager;
 
@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.ieclipse.af.adapter.AfFragmentPagerAdapter;
+import cn.ieclipse.af.demo.common.ui.BaseFragment;
 
 /**
  * Description

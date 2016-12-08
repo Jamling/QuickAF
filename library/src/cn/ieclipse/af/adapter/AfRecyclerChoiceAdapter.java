@@ -31,7 +31,7 @@ import java.util.Map;
  *
  * @author Jamling
  */
-public abstract class AfRecyclerChoiceAdapter<T, VH extends AfViewHolder> extends AfRecyclerAdapter<T, VH> {
+public abstract class AfRecyclerChoiceAdapter<T> extends AfRecyclerAdapter<T> {
     /**
      * Normal list that does not indicate choices
      */

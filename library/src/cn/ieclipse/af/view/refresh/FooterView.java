@@ -57,4 +57,8 @@ public class FooterView extends FrameLayout {
     public void setEmpty(String text) {
         
     }
+
+    public void reset() {
+
+    }
 }

@@ -152,8 +152,8 @@ public class SortRecyclerActivity extends BaseActivity {
     }
 
 
-    public class MyAdapter extends AfRecyclerAdapter<ContactModel.HouseItemInfo, ViewHolder> implements
-        StickyRecyclerHeadersAdapter {
+    public class MyAdapter extends AfRecyclerAdapter<ContactModel.HouseItemInfo> implements
+        StickyRecyclerHeadersAdapter<RecyclerView.ViewHolder> {
 
         public MyAdapter(Context context) {
             super(context);
@@ -165,13 +165,9 @@ public class SortRecyclerActivity extends BaseActivity {
         }
 
         @Override
-        public ViewHolder onBindViewHolder(View view) {
-            return new ViewHolder(view);
-        }
-
-        @Override
-        public void onUpdateView(ViewHolder holder, ContactModel.HouseItemInfo data, int position) {
-            holder.tv1.setText(data.title);
+        public void onUpdateView(RecyclerView.ViewHolder holder, ContactModel.HouseItemInfo data, int position) {
+            holder.itemView.setBackgroundResource(android.R.drawable.list_selector_background);
+            ((TextView)holder.itemView).setText(data.title);
         }
 
         // 实现以下方法,支持浮动头部

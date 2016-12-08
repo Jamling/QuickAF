@@ -40,7 +40,7 @@ public class RefreshScrollViewSample extends BaseFragment implements RefreshLayo
 
     @Override
     protected int getContentLayout() {
-        return R.layout.base_refresh_sv;
+        return R.layout.sample_activity_refresh_sv;
     }
 
     @Override
@@ -53,6 +53,7 @@ public class RefreshScrollViewSample extends BaseFragment implements RefreshLayo
         listView = (ListView) refreshLayout.findViewById(R.id.listView);
         adapter = new StringAdapter();
         listView.setAdapter(adapter);
+        setData();
     }
 
     @Override

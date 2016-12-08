@@ -16,6 +16,7 @@ android {
         minSdkVersion Integer.parseInt(SDK_MIN)
         targetSdkVersion Integer.parseInt(SDK_TARGET)
         versionName VER_NAME
+        versionCode Integer.parseInt(VER_CODE)
         signingConfig signingConfigs.config
     }
     buildTypes {

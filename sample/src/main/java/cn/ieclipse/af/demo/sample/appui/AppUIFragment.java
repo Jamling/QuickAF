@@ -23,7 +23,7 @@ import android.widget.TextView;
 
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.ui.BaseFragment;
-import cn.ieclipse.af.demo.common.ui.BaseFragmentAdapter;
+import cn.ieclipse.af.demo.common.BaseFragmentAdapter;
 import cn.ieclipse.af.demo.sample.cview.CustomViewFragment;
 import cn.ieclipse.af.demo.sample.recycler.RecyclerFragment;
 import cn.ieclipse.af.demo.sample.utils.TabUtils;
@@ -46,7 +46,7 @@ public class AppUIFragment extends BaseFragment {
     }
 
     @Override
-    protected CharSequence getTitle() {
+    public CharSequence getTitle() {
         return "UI samples";
     }
 

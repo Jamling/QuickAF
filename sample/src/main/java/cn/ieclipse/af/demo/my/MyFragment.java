@@ -50,7 +50,7 @@ public class MyFragment extends BaseFragment implements LogoutController.LogoutL
 
     private LogoutController mLogoutController;
     @Override
-    protected CharSequence getTitle() {
+    public CharSequence getTitle() {
         return "个人中心";
     }
 

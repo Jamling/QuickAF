@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <cn.ieclipse.af.view.FlowLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:id="@+id/chk1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="header"/>
+
+
+        <CheckBox
+            android:id="@+id/chk2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="footer"/>
+
+        <CheckBox
+            android:id="@+id/chk3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="keep_loaded"/>
+
+        <CheckBox
+            android:id="@+id/rb1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="auto_load"/>
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/chk4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="success"/>
+
+            <RadioButton
+                android:id="@+id/chk5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="empty"/>
+
+            <RadioButton
+                android:id="@+id/chk6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="error"/>
+        </RadioGroup>
+
+
+    </cn.ieclipse.af.view.FlowLayout>
+
+    <include layout="@layout/base_refresh_recycler"/>
+</LinearLayout>

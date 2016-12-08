@@ -18,6 +18,7 @@ package cn.ieclipse.af.demo.sample.recycler;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -26,7 +27,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import cn.ieclipse.af.adapter.AfRecyclerAdapter;
-import cn.ieclipse.af.adapter.AfViewHolder;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.ui.BaseActivity;
 import cn.ieclipse.af.util.DialogUtils;
@@ -46,7 +46,7 @@ public class GridRecyclerActivity extends BaseActivity {
     @Override
     protected void initHeaderView() {
         super.initHeaderView();
-        mTitleTextView.setText("GridRecyclerView");
+        mTitleTextView.setText("GridRecyclerView(Legacy)");
     }
     
     @Override
@@ -68,17 +68,17 @@ public class GridRecyclerActivity extends BaseActivity {
             @Override
             public void onItemClick(View view, int position) {
                 boolean hashead = mAdapter.getHeaderView() != null;
-                int pos = 0;
-                if (hashead) {
-                    // 有headview时，data position需要-1
-                    pos = position - 1;
-                }
-                else {
-                    pos = position;
-                }
-                DialogUtils.showToast(GridRecyclerActivity.this,
+                int pos = position - mAdapter.getHeaderCount();
+//                if (hashead) {
+//                    // 有headview时，data position需要-1
+//                    pos = position - 1;
+//                }
+//                else {
+//                    pos = position;
+//                }
+                DialogUtils.showToast(mAfRecycleView.getContext(),
                     "data " + "position=" + (pos) + " \nview position=" + position +
-                        " \nitem=" + mAdapter.getItem(pos));
+                        " \nitem=" + mAdapter.getItem(position));
 
                 // mAdapter.updateItem(pos,"update item "+ (pos));
                 // 需要重写item的equals()方法
@@ -157,7 +157,7 @@ public class GridRecyclerActivity extends BaseActivity {
 //        mAfRecycleView.onLoadFailure();
     }
 
-    public class MyAdapter extends AfRecyclerAdapter<String, ViewHolder> {
+    public class MyAdapter extends AfRecyclerAdapter<String> {
 
         public MyAdapter(Context context) {
             super(context);
@@ -175,27 +175,23 @@ public class GridRecyclerActivity extends BaseActivity {
         }
 
         @Override
-        public ViewHolder onBindViewHolder(View view) {
-            return new ViewHolder(view);
-        }
-
-        @Override
-        public void onUpdateView(ViewHolder holder, String data, int position) {
-            holder.tv1.setText(data);
+        public void onUpdateView(RecyclerView.ViewHolder holder, String data, int position) {
+            holder.itemView.setBackgroundResource(android.R.drawable.list_selector_background);
+            ((TextView)holder.itemView).setText(data);
         }
     }
 
-    private static class ViewHolder extends AfViewHolder {
-
-        private TextView tv1;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            // set item selector
-            itemView.setBackgroundResource(android.R.drawable.list_selector_background);
-            tv1 = (TextView) itemView.findViewById(android.R.id.text1);
-        }
-    }
+//    private static class ViewHolder extends AfViewHolder {
+//
+//        private TextView tv1;
+//
+//        public ViewHolder(View itemView) {
+//            super(itemView);
+//            // set item selector
+//            itemView.setBackgroundResource(android.R.drawable.list_selector_background);
+//            tv1 = (TextView) itemView.findViewById(android.R.id.text1);
+//        }
+//    }
 
     public static void go(Context context) {
         Intent intent = new Intent(context, GridRecyclerActivity.class);
