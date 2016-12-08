@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<cn.ieclipse.af.demo.common.ui.MainBottomTab
+<cn.ieclipse.af.demo.common.view.MainBottomTab
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -28,4 +28,4 @@
         style="@style/rb_tab_main"
         android:text="Profile"
         android:drawableTop="@android:drawable/btn_star"/>
-</cn.ieclipse.af.demo.common.ui.MainBottomTab>
+</cn.ieclipse.af.demo.common.view.MainBottomTab>
