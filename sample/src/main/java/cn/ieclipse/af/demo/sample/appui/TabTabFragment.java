@@ -28,7 +28,7 @@ import cn.ieclipse.af.demo.common.ui.BaseFragment;
 public class TabTabFragment extends BaseFragment {
 
     @Override
-    protected CharSequence getTitle() {
+    public CharSequence getTitle() {
         return "Tab Sample";
     }
 

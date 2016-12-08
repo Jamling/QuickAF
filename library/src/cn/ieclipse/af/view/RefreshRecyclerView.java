@@ -45,6 +45,7 @@ import cn.ieclipse.af.view.recycle.RefreshEmptyView;
  * <p>
  * 注：(recyclerview显示scrollbar需要在布局中设置android:scrollbars="vertical");
  *
+ * @deprecated use {@link cn.ieclipse.af.view.refresh.RefreshLayout} instead
  * @author wangjian
  * @date 2015/12/25.
  */
@@ -315,7 +316,7 @@ public class RefreshRecyclerView<T> extends LinearLayout implements View.OnClick
             if (adapter instanceof AfRecyclerAdapter) {
                 mAdapter = (AfRecyclerAdapter) adapter;
                 // 设置foot view 点击监听
-                mFootView = mAdapter.getFootView();
+                mFootView = mAdapter.getFooterView();
                 if (mFootView != null) {
                     mFootView.setOnClickListener(this);
                 }
@@ -521,7 +522,7 @@ public class RefreshRecyclerView<T> extends LinearLayout implements View.OnClick
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 // 滚动停止时
-                if (newState == RecyclerView.SCROLL_STATE_IDLE && mAdapter.getFootView() != null) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && mAdapter.getFooterView() != null) {
                     RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
                     int orientation = VERTICAL;
                     if (manager instanceof StaggeredGridLayoutManager) {

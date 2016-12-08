@@ -26,6 +26,8 @@ import android.widget.LinearLayout;
 
 import java.util.List;
 
+import cn.ieclipse.af.adapter.delegate.AdapterDelegate;
+import cn.ieclipse.af.adapter.delegate.DelegateManager;
 import cn.ieclipse.af.common.Logger;
 
 /**
@@ -33,7 +35,7 @@ import cn.ieclipse.af.common.Logger;
  *
  * @author Jamling
  */
-public abstract class AfRecyclerAdapter<T, VH extends AfViewHolder> extends RecyclerView.Adapter {
+public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     protected Logger mLogger = Logger.getLogger(getClass());
 
     public static final int ITEM_VIEW_TYPE_NORMAL = 0;
@@ -45,18 +47,38 @@ public abstract class AfRecyclerAdapter<T, VH extends AfViewHolder> extends Recy
     private RecyclerView mRecyclerView;
     private GridLayoutManager.SpanSizeLookup mSpanSizeLookup;
     private View mHeaderView;
-    private View mFootView;
+    private View mFooterView;
+
+    private DelegateManager<T> mDelegatesManager;
 
     public AfRecyclerAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
         setDataCheck(AfDataHolder.CHECK_BOTH);
 
+        mDelegatesManager = new DelegateManager<>(this);
         // 绑定footer view
         bindFooterView();
     }
 
+    public AfRecyclerAdapter() {
+        setDataCheck(AfDataHolder.CHECK_BOTH);
+        mDelegatesManager = new DelegateManager<>(this);
+    }
+
+    public void registerDelegate(int viewType, AdapterDelegate delegate) {
+        mDelegatesManager.addDelegate(viewType, delegate);
+    }
+
+    public void registerDelegate(AdapterDelegate delegate) {
+        mDelegatesManager.addDelegate(delegate);
+    }
+
+    public void removeDelegate(int viewType) {
+        mDelegatesManager.removeDelegate(viewType);
+    }
+
     public T getItem(int position) {
-        return mDataHolder.getItem(position);
+        return mDataHolder.getItem(position - getHeaderCount());
     }
 
     public void setDataCheck(int checkMode) {
@@ -131,52 +153,83 @@ public abstract class AfRecyclerAdapter<T, VH extends AfViewHolder> extends Recy
         }
     }
 
-    public abstract int getLayout();
+    public int getIndexOf(T t) {
+        return mDataHolder.getIndexOf(t);
+    }
 
-    public abstract VH onBindViewHolder(View view);
+    @Deprecated
+    public int getLayout() {
+        return 0;
+    }
 
-    public abstract void onUpdateView(VH holder, T data, int position);
+    @Deprecated
+    public void onUpdateView(RecyclerView.ViewHolder holder, T data, int position) {
 
+    }
+
+    @Deprecated
     public int getFootLayout() {
         return 0;
     }
 
     @Override
-    public VH onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (mDelegatesManager.getCount() > 0) {
+            RecyclerView.ViewHolder holder = mDelegatesManager.onCreateViewHolder(parent, viewType);
+            if (viewType >= 0 && holder instanceof RecyclerView.ViewHolder) {
+                if (mOnItemClickListener != null) {
+                    ((AfViewHolder) holder).setOnClickListener(mOnItemClickListener);
+                }
+
+                if (mOnItemLongClickListener != null) {
+                    ((AfViewHolder) holder).setOnLongClickListener(mOnItemLongClickListener);
+                }
+            }
+            return holder;
+        }
         if (viewType == ITEM_VIEW_TYPE_HEADER) {
             mHeaderView.setTag(ITEM_VIEW_TYPE_HEADER);
-            return (VH) new AfViewHolder(mHeaderView);
+            return new AfViewHolder(mHeaderView);
         }
         else if (viewType == ITEM_VIEW_TYPE_FOOTER) {
-            mFootView.setTag(ITEM_VIEW_TYPE_FOOTER);
-            return (VH) new AfViewHolder(mFootView);
+            mFooterView.setTag(ITEM_VIEW_TYPE_FOOTER);
+            return new AfViewHolder(mFooterView);
         }
         else {
-            View layout = mInflater.inflate(getLayout(), parent, false);
-            return onBindViewHolder(layout);
+            return new AfViewHolder(onCreateItemView(parent, viewType));
         }
     }
 
+    protected View onCreateItemView(ViewGroup parent, int viewType) {
+        View layout = mInflater.inflate(getLayout(), parent, false);
+        return layout;
+    }
+
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        if (mDelegatesManager.getCount() > 0) {
+            mDelegatesManager.onBindViewHolder(getItem(position), position, holder);
+            return;
+        }
         // 此处不对头部和尾部item做处理
         if (getItemViewType(position) == ITEM_VIEW_TYPE_NORMAL) {
-            final VH holder = (VH) viewHolder;
             // 绑定数据
             try {
                 // 判断是否有headview，更新position
-                int pos = getHeaderCount() > 0 ? position - 1 : position;
-                onUpdateView(holder, getItem(pos), pos);
+                // int pos = getHeaderCount() > 0 ? position - getHeaderCount() : position;
+                onUpdateView(holder, getItem(position), position);
             } catch (Exception e) {
                 mLogger.e("exception onUpdateView", e);
             }
-            // 设置监听
-            if (mOnItemClickListener != null) {
-                holder.setOnClickListener(mOnItemClickListener);
-            }
+            if (holder instanceof AfViewHolder) {
+                // 设置监听
+                if (mOnItemClickListener != null) {
+                    ((AfViewHolder) holder).setOnClickListener(mOnItemClickListener);
+                }
 
-            if (mOnItemLongClickListener != null) {
-                holder.setOnLongClickListener(mOnItemLongClickListener);
+                if (mOnItemLongClickListener != null) {
+                    ((AfViewHolder) holder).setOnLongClickListener(mOnItemLongClickListener);
+                }
             }
         }
     }
@@ -190,16 +243,25 @@ public abstract class AfRecyclerAdapter<T, VH extends AfViewHolder> extends Recy
         return mDataHolder.getCount();
     }
 
-    private int getHeaderCount() {
+    public int getHeaderCount() {
+        if (mDelegatesManager.getCount() > 0) {
+            return mDelegatesManager.getHeaderCount();
+        }
         return mHeaderView == null ? 0 : 1;
     }
 
-    private int getFooterCount() {
-        return mFootView == null ? 0 : 1;
+    public int getFooterCount() {
+        if (mDelegatesManager.getCount() > 0) {
+            return mDelegatesManager.getFooterCount();
+        }
+        return mFooterView == null ? 0 : 1;
     }
 
     @Override
     public int getItemViewType(int position) {
+        if (mDelegatesManager.getCount() > 0) {
+            return mDelegatesManager.getItemViewType(getItem(position), position);
+        }
         // head默认0位置
         if (getHeaderCount() > 0 && position == 0) {
             return ITEM_VIEW_TYPE_HEADER;
@@ -222,14 +284,14 @@ public abstract class AfRecyclerAdapter<T, VH extends AfViewHolder> extends Recy
         }
     }
 
-    public View getFootView() {
-        return mFootView;
+    public View getFooterView() {
+        return mFooterView;
     }
 
-    public void setFootView(View footView) {
-        this.mFootView = footView;
-        if (mFootView != null) {
-            mFootView.setLayoutParams(getFooterLayoutParams());
+    public void setFooterView(View footerView) {
+        this.mFooterView = footerView;
+        if (mFooterView != null) {
+            mFooterView.setLayoutParams(getFooterLayoutParams());
         }
         notifyItemChanged(getItemCount());
     }
@@ -241,7 +303,7 @@ public abstract class AfRecyclerAdapter<T, VH extends AfViewHolder> extends Recy
         int footLayout = getFootLayout();
         if (footLayout > 0) {
             View layout = mInflater.inflate(footLayout, null);
-            setFootView(layout);
+            setFooterView(layout);
         }
     }
 

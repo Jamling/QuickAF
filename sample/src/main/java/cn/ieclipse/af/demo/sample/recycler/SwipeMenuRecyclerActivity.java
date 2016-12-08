@@ -18,7 +18,9 @@ package cn.ieclipse.af.demo.sample.recycler;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -87,7 +89,7 @@ public class SwipeMenuRecyclerActivity extends BaseActivity {
         mAfRecycleView.onLoadFinish(dataList);
     }
 
-    public class MyAdapter extends AfRecyclerAdapter<MyItem, MyViewHolder> {
+    public class MyAdapter extends AfRecyclerAdapter<MyItem> {
 
         public MyAdapter(Context context) {
             super(context);
@@ -99,13 +101,16 @@ public class SwipeMenuRecyclerActivity extends BaseActivity {
         }
 
         @Override
-        public MyViewHolder onBindViewHolder(View view) {
-            return new MyViewHolder(view);
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            if (viewType == 0) {
+                return new MyViewHolder(onCreateItemView(parent, viewType));
+            }
+            return super.onCreateViewHolder(parent, viewType);
         }
 
         @Override
-        public void onUpdateView(final MyViewHolder holder, MyItem data, final int position) {
-
+        public void onUpdateView(final RecyclerView.ViewHolder holder2, MyItem data, final int position) {
+            final MyViewHolder holder = (MyViewHolder) holder2;
             holder.tv.setText(data.text);
             holder.btDelete.setOnClickListener(new View.OnClickListener() {
                 @Override

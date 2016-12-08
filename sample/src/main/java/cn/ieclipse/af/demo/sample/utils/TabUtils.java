@@ -17,8 +17,6 @@ package cn.ieclipse.af.demo.sample.utils;
 
 import cn.ieclipse.af.demo.sample.ButtonListFragment;
 import cn.ieclipse.af.demo.sample.orm.AormActivity;
-import cn.ieclipse.af.demo.sample.utils.AsyncTimeoutTaskSample;
-import cn.ieclipse.af.demo.sample.utils.DialogsActivity;
 
 /**
  * Description
@@ -28,7 +26,7 @@ import cn.ieclipse.af.demo.sample.utils.DialogsActivity;
 public class TabUtils extends ButtonListFragment {
 
     @Override
-    protected CharSequence getTitle() {
+    public CharSequence getTitle() {
         return "Utils";
     }
 

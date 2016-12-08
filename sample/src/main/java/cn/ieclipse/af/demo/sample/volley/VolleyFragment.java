@@ -29,7 +29,7 @@ import cn.ieclipse.af.demo.sample.volley.weather.WeatherActivity;
  */
 public class VolleyFragment extends ButtonListFragment2 {
     @Override
-    protected CharSequence getTitle() {
+    public CharSequence getTitle() {
         return "Volley sample";
     }
 

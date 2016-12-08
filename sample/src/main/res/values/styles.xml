@@ -83,6 +83,11 @@
         <item name="android:singleLine">true</item>
     </style>
 
+    <style name="text_normal">
+        <item name="android:textColor">@color/black_666666</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
+    </style>
+
     <style name="PopupWindowAnimation">
         <item name="android:windowEnterAnimation">@anim/popshow_anim</item>
         <item name="android:windowExitAnimation">@anim/pophidden_anim</item>

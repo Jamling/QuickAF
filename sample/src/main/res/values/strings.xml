@@ -12,6 +12,9 @@
     <string name="common_select">选择</string>
     <string name="common_search">搜索</string>
     <string name="common_loading">正在加载, 请稍候...</string>
+    <string name="common_footer_loading">@string/common_loading</string>
+    <string name="common_footer_loading_hint">点击或上拉加载更多</string>
+    <string name="common_footer_loading_empty">没有更多的数据了</string>
     <string name="common_no_data">暂无数据, 请下拉重试</string>
     <string name="common_click_load_more">点击加载更多</string>
     <string name="common_save">保存</string>

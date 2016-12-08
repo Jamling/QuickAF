@@ -25,7 +25,7 @@ import cn.ieclipse.af.demo.sample.recycler.sort.SortRecyclerActivity;
  */
 public class RecyclerFragment extends ButtonListFragment {
     @Override
-    protected CharSequence getTitle() {
+    public CharSequence getTitle() {
         return "Recyclerview";
     }
 

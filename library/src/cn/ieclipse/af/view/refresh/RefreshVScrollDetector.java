@@ -24,12 +24,12 @@ import cn.ieclipse.af.view.VScrollView;
  *
  * @author Jamling
  */
-public class RefreshVScrollProxy extends RefreshLayout.RefreshProxy<VScrollView> {
+public class RefreshVScrollDetector extends RefreshLayout.RefreshDetector<VScrollView> {
 
     private VScrollView.OnScrollChangeListener mOnScrollChangeListener = new VScrollView.OnScrollChangeListener() {
         @Override
         public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-            if (getView().isScroll2Bottom()) {
+            if (getRefresh().isEnableLoadMore() && getView().isScroll2Bottom()) {
                 getRefresh().loadMore();
             }
         }

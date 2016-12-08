@@ -107,7 +107,7 @@ public class AfDataHolder<T> {
                 int size = list.size();
                 for (int i = 0; i < size; i++) {
                     T t = list.get(i);
-                    int idx = mDataList.indexOf(t);
+                    int idx = getIndexOf(t);
                     if (idx >= 0) {
                         mDataList.set(idx, t);
                     }
@@ -136,7 +136,7 @@ public class AfDataHolder<T> {
                 int size = list.size();
                 for (int i = size - 1; i > 0; i--) {
                     T t = list.get(i);
-                    int idx = mDataList.indexOf(t);
+                    int idx = getIndexOf(t);
                     if (idx >= 0) {
                         mDataList.set(idx, t);
                     }
@@ -162,7 +162,7 @@ public class AfDataHolder<T> {
         checkDataList();
         if (t != null) {
             if ((mDataCheck & CHECK_TOP) == CHECK_TOP) {
-                int idx = mDataList.indexOf(t);
+                int idx = getIndexOf(t);
                 if (idx >= 0) {
                     mDataList.set(idx, t);
                     return;
@@ -183,7 +183,7 @@ public class AfDataHolder<T> {
         checkDataList();
         if (t != null) {
             if ((mDataCheck & CHECK_TAIL) == CHECK_TAIL) {
-                int idx = mDataList.indexOf(t);
+                int idx = getIndexOf(t);
                 if (idx >= 0) {
                     mDataList.set(idx, t);
                     return;
@@ -192,6 +192,10 @@ public class AfDataHolder<T> {
             mDataList.add(t);
             mSize += 1;
         }
+    }
+
+    public int getIndexOf(T t){
+        return mDataList.indexOf(t);
     }
     
     /**
