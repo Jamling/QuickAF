@@ -50,15 +50,11 @@ public class Controller<Listener> {
     public static long CACHE_AMONTH = 30 * 24 * 3600000;
     
     public static void log(String msg) {
-        if (DEBUG) {
-            Log.i(TAG, msg);
-        }
+        Log.i(TAG, msg);
     }
     
     public static void log(String msg, Throwable t) {
-        if (DEBUG) {
-            Log.w(TAG, msg, t);
-        }
+        Log.w(TAG, msg, t);
     }
     
     public Controller() {
@@ -115,8 +111,9 @@ public class Controller<Listener> {
             String body = getBody(input);
             // get url
             IUrl url = buildUrl(body);
-            
-            Controller.log("request url: " + url.getUrl());
+            if (Controller.DEBUG) {
+                Controller.log("request url: " + url.getUrl());
+            }
             // get request
             request = buildRequest(url, body);
             // set request
@@ -224,7 +221,9 @@ public class Controller<Listener> {
             else {
                 body = StringUtils.getRequestParam(input, getParamsEncoding());
             }
-            Controller.log("request body: " + body);
+            if (Controller.DEBUG) {
+                Controller.log("request body: " + body);
+            }
             return body;
         }
         
@@ -232,14 +231,18 @@ public class Controller<Listener> {
         public final void onResponse(IBaseResponse response) {
             Output out = null;
             try {
-                Controller.log("from cache : " + request.intermediate);
+                if (Controller.DEBUG) {
+                    Controller.log("from cache : " + request.intermediate);
+                }
                 if (response == null) {
                     throw new NullPointerException(
                         "base response is null, please check your http response.");
                 }
                 out = convertData(response, mDataClazz, mDataItemClass);
             } catch (InterceptorError e) {
-                Controller.log("interceptor the response", e);
+                if (Controller.DEBUG) {
+                    Controller.log("interceptor the response", e);
+                }
                 return;
             } catch (VolleyError e) {
                 onError(new RestError(e));

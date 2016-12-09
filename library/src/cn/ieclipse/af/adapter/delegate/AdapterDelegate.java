@@ -34,6 +34,7 @@ public abstract class AdapterDelegate<T> implements Comparable<AdapterDelegate> 
     protected int viewType;
     private LayoutInflater layoutInflater;
     private AfRecyclerAdapter<T> adapter;
+    private RecyclerView.ViewHolder viewHolder;
 
     public AdapterDelegate(int viewType) {
         this.viewType = viewType;
@@ -57,6 +58,10 @@ public abstract class AdapterDelegate<T> implements Comparable<AdapterDelegate> 
 
     public AfRecyclerAdapter<T> getAdapter() {
         return adapter;
+    }
+
+    public RecyclerView.ViewHolder getViewHolder() {
+        return viewHolder;
     }
 
     public boolean isForViewType(T info, int position) {
@@ -84,7 +89,8 @@ public abstract class AdapterDelegate<T> implements Comparable<AdapterDelegate> 
         if (layout > 0) {
             view = layoutInflater.inflate(getLayout(), parent, false);
         }
-        return instanceViewHolder(view);
+        viewHolder = instanceViewHolder(view);
+        return viewHolder;
     }
 
     private RecyclerView.ViewHolder instanceViewHolder(View itemView) {
@@ -94,7 +100,8 @@ public abstract class AdapterDelegate<T> implements Comparable<AdapterDelegate> 
                 Constructor c = cls.getConstructor(View.class);
                 return (RecyclerView.ViewHolder) c.newInstance(itemView);
             } catch (Exception e) {
-                throw new NullPointerException("Can't create ViewHolder in " + getClass());
+                throw new NullPointerException(
+                    "Can't instance ViewHolder of " + getClass() + " is it a " + "assessable(public/static) class?");
             }
         }
         return null;

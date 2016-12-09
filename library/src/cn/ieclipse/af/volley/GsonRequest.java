@@ -87,7 +87,9 @@ public class GsonRequest extends JsonRequest<IBaseResponse> {
     }
     
     protected IBaseResponse getData(String json, NetworkResponse response) {
-        Controller.log("response json:" + json);
+        if (Controller.DEBUG) {
+            Controller.log("response json:" + json);
+        }
         return (IBaseResponse) mGson.fromJson(json, mClazz);
     }
     
