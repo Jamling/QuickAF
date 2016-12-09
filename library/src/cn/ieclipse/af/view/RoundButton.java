@@ -165,28 +165,36 @@ public class RoundButton extends Button {
         }
     }
 
-    public void addStateBgColor(int[] stateSet, int color) {
+    public RoundButton addStateBgColor(int[] stateSet, int color) {
         if (mRoundBg != null) {
             mRoundBg.addStateColor(stateSet, color);
         }
+        return this;
     }
 
-    public void setPressedBgColor(int color) {
+    public RoundButton setPressedBgColor(int color) {
         if (mRoundBg != null) {
             mRoundBg.addStateColor(android.R.attr.state_pressed, color);
         }
+        return this;
     }
 
-    public void setCheckedBgColor(int color) {
+    public RoundButton setCheckedBgColor(int color) {
         if (mRoundBg != null) {
             mRoundBg.addStateColor(android.R.attr.state_checked, color);
         }
+        return this;
     }
 
-    public void setSelectedBgColor(int color) {
+    public RoundButton setSelectedBgColor(int color) {
         if (mRoundBg != null) {
             mRoundBg.addStateColor(android.R.attr.state_selected, color);
         }
+        return this;
+    }
+
+    public RoundedColorDrawable getRoundBg() {
+        return mRoundBg;
     }
 
     public void apply() {

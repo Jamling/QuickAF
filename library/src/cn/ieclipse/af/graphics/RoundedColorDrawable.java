@@ -232,6 +232,7 @@ public class RoundedColorDrawable extends Drawable {
     private StateListDrawable sld;
     public RoundedColorDrawable setStateColor(int[][] stateSets, int[] colors){
         if (stateSets != null && colors != null) {
+            sld = new StateListDrawable();
             int len = Math.min(stateSets.length, colors.length);
             for (int i = 0; i < len; i++) {
                 RoundedColorDrawable self = new RoundedColorDrawable(mRadii, colors[i]);

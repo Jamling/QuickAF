@@ -28,6 +28,7 @@ import java.util.Arrays;
 /**
  * Description
  *
+ * @deprecated the class works not well, please use {@link cn.ieclipse.af.graphics.RoundedColorDrawable}
  * @author Jamling
  */
 public class RoundedColorDrawable2 extends ColorDrawable {

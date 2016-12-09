@@ -37,6 +37,7 @@ import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.util.DialogUtils;
 import cn.ieclipse.af.util.EncodeUtil;
 import cn.ieclipse.af.view.CountDownButton;
+import cn.ieclipse.af.view.RoundButton;
 import cn.ieclipse.af.volley.RestError;
 
 public class LoginActivity extends BaseActivity implements LoginController.LoginListener {
@@ -101,10 +102,8 @@ public class LoginActivity extends BaseActivity implements LoginController.Login
         bg.setBorder(AppUtils.getColor(view.getContext(), R.color.divider), 1);
         bg.applyTo(mLayoutInput);
 
-
-        RoundedColorDrawable normal = new RoundedColorDrawable(radius, 0xffe6e6e6);
-        normal.addStateColor(new int[]{android.R.attr.state_enabled, android.R.attr.state_window_focused}, AppUtils
-            .getColor(this, R.color.colorPrimary)).applyTo(mBtnLogin);
+        ((RoundButton) mBtnLogin).addStateBgColor(new int[]{-android.R.attr.state_enabled},
+            AppUtils.getColor(this, R.color.black_999999)).apply();
 
         ColorStateList csl = new ColorStateList(new int[][]{{android.R.attr.state_enabled}, {}},
             new int[]{0, 0});// the second color is disabled color, the enabled color

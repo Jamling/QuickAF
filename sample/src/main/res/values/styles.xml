@@ -88,6 +88,14 @@
         <item name="android:textSize">@dimen/text_size_normal</item>
     </style>
 
+    <style name="et_login" parent="text_title">
+        <item name="android:minHeight">50dp</item>
+        <item name="android:textColorHint">@color/black_999999</item>
+        <item name="android:textColor">@color/black_333333</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:background">@null</item>
+    </style>
+
     <style name="PopupWindowAnimation">
         <item name="android:windowEnterAnimation">@anim/popshow_anim</item>
         <item name="android:windowExitAnimation">@anim/pophidden_anim</item>

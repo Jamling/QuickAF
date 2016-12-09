@@ -18,6 +18,7 @@ package cn.ieclipse.af.demo.sample.cview;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -60,13 +61,20 @@ public class RoundButtonActivity extends SampleBaseActivity {
         // btn2 bg
         int r = AppUtils.dp2px(this, 4);
         RoundedColorDrawable normal = new RoundedColorDrawable(r, AppUtils.getColor(this, R.color.black_333333));
-        normal.addStateColor(new int[]{android.R.attr.state_enabled, android.R.attr.state_window_focused}, AppUtils
-            .getColor(this, R.color.colorPrimary)).applyTo(myBtn2);
+        myBtn2.getRoundBg().addStateColor(new int[]{android.R.attr.state_pressed},
+            AppUtils.getColor(this, R.color.colorAccent)).addStateColor(new int[]{-android.R.attr.state_enabled},
+            AppUtils.getColor(this, R.color.black_333333)).applyTo(myBtn2);
 
         RoundButton btn3 = (RoundButton) this.btn3;
-        RoundedColorDrawable bg3 = new RoundedColorDrawable(r << 1, 0xff333333);
-        bg3.addStateColor(android.R.attr.state_pressed, 0xff3F51B5).applyTo(btn3);
+        btn3.addStateBgColor(new int[]{android.R.attr.state_pressed}, AppUtils.getColor(this, R.color.colorAccent))
+            .apply();
 
+        ColorStateList csl3 = new ColorStateList(new int[][]{{android.R.attr.state_pressed}, {}},
+            new int[]{AppUtils.getColor(this, R.color.fg_title_bar_press), AppUtils.getColor(this,
+                R.color.fg_title_bar)});
+        ColorStateList csl3xml = AppUtils.getColorStateList(this, R.color.fg_main_titlebar_selector);
+        btn3.setTextColor(csl3xml);
+        //btn3.setHintTextColor(csl3);
     }
 
     void changeBorder() {
@@ -105,6 +113,14 @@ public class RoundButtonActivity extends SampleBaseActivity {
         if (v == myBtn2) {
             myBtn2.start();
             return;
+        }
+        else if (v == btn3) {
+            if (TextUtils.isEmpty(btn3.getText())) {
+                btn3.setText("text");
+            }
+            else {
+                btn3.setText(null);
+            }
         }
         super.onClick(v);
     }
