@@ -155,7 +155,7 @@ public class LoginActivity extends BaseActivity implements LoginController.Login
 
     @Override
     public void onLoginSuccess(LoginResponse out) {
-        AppConfig.login(this, out.token, out.userinfo);
+        AppConfig.login(out.token, out.userinfo);
         startActivity(MainActivity.create(this));
         finish();
     }

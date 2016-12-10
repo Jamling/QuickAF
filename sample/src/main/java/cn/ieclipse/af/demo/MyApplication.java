@@ -19,7 +19,6 @@ import android.app.Application;
 
 import com.android.volley.DefaultRetryPolicy;
 
-import cn.ieclipse.af.demo.common.api.BaseResponse;
 import cn.ieclipse.af.volley.VolleyConfig;
 import cn.ieclipse.af.volley.VolleyManager;
 
@@ -40,8 +39,8 @@ public class MyApplication extends Application {
 //        ImageLoader.getInstance().init(config);
         AppConfig.init(getApplicationContext());
 
-        VolleyConfig vc = new VolleyConfig.Builder().setBaseResponseClass(BaseResponse.class).setRetryPolicy(
-            new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+        VolleyConfig vc = new VolleyConfig.Builder().setBaseResponseClass(AppConfig.VOLLEY_RESPONSE_CLASS)
+            .setRetryPolicy(new DefaultRetryPolicy(AppConfig.VOLLEY_TIMEOUT, DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)).build();
         VolleyManager.init(getApplicationContext(), vc);
     }

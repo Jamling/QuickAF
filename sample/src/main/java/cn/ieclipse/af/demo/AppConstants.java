@@ -32,7 +32,10 @@ public final class AppConstants {
      * {@link android.content.SharedPreferences} key
      */
     public static class Prefs {
+        public static final String KEY_APP_VERSION = "app.version";
         public static final String KEY_UUID = "device.uuid";
-        public static String KEY_USER_TOKEN = "key_user_token";
+        public static final String KEY_USER_TOKEN = "user.token";
+        public static final String KEY_USER_INFO = "user.info";
+
     }
 }
