@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true">
+        <layer-list>
+            <item android:left="0dp" android:right="0dp">
+                <shape>
+                    <solid android:color="@color/colorPrimary"/>
+                </shape>
+            </item>
+            <item android:bottom="2dp">
+                <shape>
+                    <solid android:color="@color/white"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item>
+        <layer-list>
+            <item>
+                <shape>
+                    <solid android:color="@color/divider"/>
+                </shape>
+            </item>
+            <item android:bottom="2dp">
+                <shape>
+                    <solid android:color="@color/white"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>

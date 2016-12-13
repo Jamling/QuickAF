@@ -152,12 +152,18 @@ public abstract class BaseActivity extends AfActivity implements View.OnClickLis
 
     @Override
     public void setTitle(CharSequence title) {
-        mTitleTextView.setText(title);
+        //super.setTitle(title);
+        if (mTitleTextView != null) {
+            mTitleTextView.setText(title);
+        }
     }
 
     @Override
     public void setTitle(int titleId) {
-        mTitleTextView.setText(titleId);
+        //super.setTitle(titleId);
+        if (mTitleTextView != null) {
+            mTitleTextView.setText(titleId);
+        }
     }
 
     protected DialogFragment mLoadingDialog;
