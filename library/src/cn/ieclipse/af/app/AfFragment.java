@@ -18,7 +18,9 @@ package cn.ieclipse.af.app;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,12 +39,12 @@ import cn.ieclipse.af.view.TitleBar;
  */
 public abstract class AfFragment extends Fragment implements View.OnClickListener {
 
-    protected AfActivity mActivity;
+    // protected AfActivity mActivity;
     private boolean overlay = false;
     private boolean showTitleBar = false;
     private int windowBgColor = 0;
     private RelativeLayout mRootView;
-    private LayoutInflater mLayoutInflater;
+    protected LayoutInflater mLayoutInflater;
     protected TitleBar mTitleBar;
     private FrameLayout mContentView;
     protected FrameLayout mBottomBar;
@@ -51,6 +53,9 @@ public abstract class AfFragment extends Fragment implements View.OnClickListene
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT >= 15 && container != null && container instanceof ViewPager) {
+            isInViewPager = true;
+        }
         // init argument
         Bundle bundle = getArguments();
         if (savedInstanceState != null) {
@@ -61,14 +66,21 @@ public abstract class AfFragment extends Fragment implements View.OnClickListene
         }
         // init initial data
         initInitData();
+        if (isTrimMode()) {
+            View view = inflater.inflate(getContentLayout(), container, false);
+            initContentView(view);
+            initData();
+            return view;
+        }
         // init root view
-        initRootView();
+        initRootView(inflater, container);
 
         if (isShowTitleBar()) {
             initHeaderView();
         }
 
         initContentView(mContentView);
+        initBottomView();
         initData();
         return mRootView;
     }
@@ -101,6 +113,10 @@ public abstract class AfFragment extends Fragment implements View.OnClickListene
     }
     
     protected void initContentView(View view) {
+
+    }
+
+    protected void initBottomView() {
 
     }
     
@@ -165,23 +181,10 @@ public abstract class AfFragment extends Fragment implements View.OnClickListene
         }
     }
 
-    private void initRootView() {
+    private void initRootView(LayoutInflater inflater, ViewGroup container) {
         Context context = getActivity();
-        mLayoutInflater = LayoutInflater.from(context);
-        mRootView = new RelativeLayout(context) {
-//            @Override
-//            protected boolean fitSystemWindows(Rect insets) {
-//                return super.fitSystemWindows(insets);
-//            }
-//
-//            @TargetApi(20)
-//            @Override
-//            public WindowInsets dispatchApplyWindowInsets(WindowInsets insets) {
-//                mRootView.setPadding(insets.getSystemWindowInsetLeft(), insets.getSystemWindowInsetTop(), insets
-//                    .getSystemWindowInsetRight(), insets.getSystemWindowInsetBottom());
-//                return super.dispatchApplyWindowInsets(insets);
-//            }
-        };
+        mLayoutInflater = inflater;//LayoutInflater.from(context);
+        mRootView = new RelativeLayout(context);
         mRootView.setFitsSystemWindows(true);
         mRootView.setBackgroundColor(windowBgColor);
         mTitleBar = new TitleBar(context);
@@ -220,8 +223,13 @@ public abstract class AfFragment extends Fragment implements View.OnClickListene
             mLayoutInflater.inflate(rootLayoutId, mContentView, true);
         }
 
-        mRootView.setLayoutParams(
-            new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        if (container != null) {
+            mRootView.setLayoutParams(container.getLayoutParams());
+        }
+        else {
+            mRootView.setLayoutParams(
+                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        }
     }
 
     private void setContentViewLayoutParams(RelativeLayout.LayoutParams lp, boolean overlay, boolean showTitleBar) {
@@ -243,5 +251,69 @@ public abstract class AfFragment extends Fragment implements View.OnClickListene
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         // mActivity = (AfActivity) activity;
+    }
+
+    //-------> lazy load
+    /*
+    1, In FragmentAdapter setUserVisibleHint->onCreateView(), so need wait onActivityCreated to call
+    onFirstUserVisible()
+    2, Only work after ICS_MR1 (15) in FragmentAdapter
+    */
+    private boolean isFirstVisible = true;
+    private boolean isUIInitialize = false;
+    private boolean isInViewPager = false;
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        init();
+    }
+
+    private synchronized void init() {
+        if (!isInViewPager || isUIInitialize) {
+            onFirstUserVisible();
+        }
+        else {
+            isUIInitialize = true;
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && isFirstVisible) {
+            isFirstVisible = false;
+            init();
+        }
+        if (isUIInitialize) {
+            onUserVisible(isVisibleToUser);
+        }
+    }
+
+    /**
+     * Work greater ICS_MR1 (15) in FragmentAdapter to do something (e.g. fetching data from server) lazily (lazy load)
+     */
+    protected void onFirstUserVisible() {
+    }
+
+    protected void onUserVisible(boolean visible) {
+
+    }
+
+    //--------> for traditional mode, no TitleBar and no BottomBar
+    private boolean trimMode = false;
+
+    /**
+     * Set inflate mode, if true to use tradition inflate, false (default) to create new root view with TitleBar and
+     * BottomBar
+     *
+     * @param trimMode true to inflate content view only, default is false.
+     */
+    public void setTrimMode(boolean trimMode) {
+        this.trimMode = trimMode;
+    }
+
+    public boolean isTrimMode() {
+        return trimMode;
     }
 }

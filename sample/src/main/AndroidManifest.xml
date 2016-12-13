@@ -90,6 +90,8 @@
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".sample.appui.AfLoadingActivity"/>
 
+        <activity android:name=".sample.appui.SampleTabActivity" />
+
         <!-- custom view -->
         <activity android:name=".sample.cview.FlowLayoutActivity" android:windowSoftInputMode="stateHidden" />
         <activity android:name=".sample.cview.FlexboxLayoutActivity" android:windowSoftInputMode="stateHidden" />

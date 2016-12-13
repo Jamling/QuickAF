@@ -31,7 +31,7 @@ import cn.ieclipse.af.demo.R;
 public class FragmentActivity extends BaseActivity {
 
     private static final String EXTRA_FRAGMENT = "cn.ieclipse.af.fragment";
-    private static final String EXTRA_SHOW_TITLE = "showActivityTitleBar";
+    public static final String EXTRA_SHOW_TITLE = "showActivityTitleBar";
     //private Class<?> fragmentClass = null;
     private String fragmentName;
 
@@ -46,7 +46,7 @@ public class FragmentActivity extends BaseActivity {
             }
             Fragment f = Fragment.instantiate(this, fragmentName, getIntent().getExtras());
             getFragmentManager().beginTransaction().add(R.id.main_content, f).commit();
-            if (f instanceof BaseFragment) {
+            if (f instanceof BaseFragment && isShowTitleBar()) {
                 setTitle(((BaseFragment) f).getTitle());
             }
         }
