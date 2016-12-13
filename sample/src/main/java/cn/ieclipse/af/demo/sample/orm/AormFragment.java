@@ -37,7 +37,7 @@ public class AormFragment extends BaseFragment {
     private Button btnClear;
     @Override
     protected int getContentLayout() {
-        return R.layout.sample_fragment_arom;
+        return R.layout.sample_fragment_aorm;
     }
 
     @Override

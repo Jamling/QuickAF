@@ -17,11 +17,11 @@ package cn.ieclipse.af.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
-import android.graphics.PorterDuff.Mode;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorMatrix;
@@ -32,12 +32,14 @@ import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
+import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.Build;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
@@ -46,8 +48,11 @@ import android.renderscript.ScriptIntrinsicBlur;
 import android.util.Log;
 import android.view.View;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -1643,4 +1648,32 @@ public class BitmapUtil {
         return rotatedData;
     }
 
+    public static boolean saveBitmap(Context context, Bitmap bm, File file) {
+        try {
+            File p = file.getParentFile();
+            if (!p.exists()) {
+                p.mkdirs();
+            }
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+            bm.compress(Bitmap.CompressFormat.PNG, 100, bos);
+            bos.flush();
+            bos.close();
+
+            if (context != null) {
+                Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                Uri uri = Uri.fromFile(file);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.setData(uri);
+                context.sendBroadcast(intent);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
