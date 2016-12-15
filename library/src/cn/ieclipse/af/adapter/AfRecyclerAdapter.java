@@ -216,7 +216,9 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
             return new AfViewHolder(mFooterView);
         }
         else {
-            return new AfViewHolder(onCreateItemView(parent, viewType));
+            AfViewHolder vh = new AfViewHolder(onCreateItemView(parent, viewType));
+            vh.setAdapter(this);
+            return vh;
         }
     }
 
@@ -396,24 +398,30 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
     }
 
     //-------------------设置监听-start---------------------//
+
+    /**
+     * refer to {@link android.widget.AdapterView.OnItemClickListener}
+     */
     public interface OnItemClickListener {
         /**
          * 对item做点击监听
          *
-         * @param view
-         * @param position
+         * @param adapter AfRecyclerAdapter
+         * @param view item view
+         * @param position position
          */
-        void onItemClick(View view, int position);
+        void onItemClick(AfRecyclerAdapter adapter, View view, int position);
     }
 
     public interface OnItemLongClickListener {
         /**
          * 对item做长按监听
          *
-         * @param view
-         * @param position
+         * @param adapter AfRecyclerAdapter
+         * @param view item view
+         * @param position position
          */
-        void onItemLongClick(View view, int position);
+        void onItemLongClick(AfRecyclerAdapter adapter, View view, int position);
     }
 
     private OnItemClickListener mOnItemClickListener;

@@ -66,7 +66,7 @@ public class GridRecyclerActivity extends BaseActivity {
 
         mAdapter.setOnItemClickListener(new AfRecyclerAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void onItemClick(AfRecyclerAdapter adapter, View view, int position) {
                 boolean hashead = mAdapter.getHeaderView() != null;
                 int pos = position - mAdapter.getHeaderCount();
 //                if (hashead) {

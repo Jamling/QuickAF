@@ -63,14 +63,14 @@ public class AfViewHolder extends RecyclerView.ViewHolder implements View.OnClic
     @Override
     public void onClick(View v) {
         if (mOnClickListener != null) {
-            mOnClickListener.onItemClick(v, getLayoutPosition());
+            mOnClickListener.onItemClick(getAdapter(), v, getLayoutPosition());
         }
     }
 
     @Override
     public boolean onLongClick(View v) {
         if (mOnLongClickListener != null) {
-            mOnLongClickListener.onItemLongClick(v, getLayoutPosition());
+            mOnLongClickListener.onItemLongClick(getAdapter(), v, getLayoutPosition());
         }
         return true;
     }

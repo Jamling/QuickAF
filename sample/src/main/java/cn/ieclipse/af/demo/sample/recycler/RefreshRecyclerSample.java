@@ -84,7 +84,7 @@ public class RefreshRecyclerSample extends SampleBaseFragment implements NewsCon
         adapter.registerDelegate(new NewDelegate());
         adapter.setOnItemClickListener(new AfRecyclerAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void onItemClick(AfRecyclerAdapter adapter1, View view, int position) {
                 DialogUtils.showToast(refreshLayout.getContext(),
                     String.format("Adapter#onItemClick() layout " + "position = %d", position));
                 NewsController.NewsInfo info = adapter.getItem(position);
