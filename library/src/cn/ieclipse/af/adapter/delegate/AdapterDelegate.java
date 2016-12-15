@@ -90,6 +90,9 @@ public abstract class AdapterDelegate<T> implements Comparable<AdapterDelegate> 
             view = layoutInflater.inflate(getLayout(), parent, false);
         }
         viewHolder = instanceViewHolder(view);
+        if (viewHolder != null && viewHolder instanceof AfViewHolder) {
+            ((AfViewHolder) viewHolder).setAdapter(getAdapter());
+        }
         return viewHolder;
     }
 

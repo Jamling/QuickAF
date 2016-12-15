@@ -118,7 +118,7 @@ public class SwipeMenuRecyclerActivity extends BaseActivity {
                     // 有删除单条数据此处使用以下position否则会出现position混乱
                     int adaposition = holder.getAdapterPosition();
                     // int layoutpos = holder.getLayoutPosition();
-                    deleteItem(adaposition);
+                    deleteItem(position);
                 }
             });
 

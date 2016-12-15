@@ -114,42 +114,62 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
         notifyDataSetChanged();
     }
 
-    public void updateItem(int position, T data) {
-        mDataHolder.getDataList().set(position, data);
-        notifyItemChanged(position);
-    }
-
     public void clear() {
         mDataHolder.clear();
         notifyDataSetChanged();
     }
 
     /**
-     * 函数里面的传入的参数position，
-     * 它是在进行onBind操作时确定的，
-     * 在删除单项后，已经出现在画面里的项不会再有调用onBind机会，
-     * 这样它保留的position一直是未进行删除操作前的postion值。
-     * 所以最好使用holder.getAdapterPosition();
+     * Same as <code>deleteItem(position, true);</code>
      *
-     * @param position
+     * @param position item position see {@link android.support.v7.widget.RecyclerView.ViewHolder#getAdapterPosition()}
+     *
+     * @see cn.ieclipse.af.adapter.AfRecyclerAdapter#deleteItem(int, boolean)
      */
     public void deleteItem(int position) {
-        mDataHolder.remove(position);
+        deleteItem(position, true);
+    }
+
+    /**
+     * Remove item, if isLayoutPosition is true (default) means removing the adapter item.
+     *
+     * @param position         the position of adapter or data
+     * @param isLayoutPosition true is the layout/adapter position, false is the data position
+     *
+     * @deprecated use {@link #deleteItem(int)} instead.
+     */
+    public void deleteItem(int position, boolean isLayoutPosition) {
+        int index = isLayoutPosition ? position - getHeaderCount() : position;
+        T obj = mDataHolder.remove(index);
         // 删除后不为空，更新item
         if (mDataHolder.getCount() > 0) {
-            // 根据是否有headview，移除对应的item view
-            int delViewPosi;
-            if (getHeaderCount() > 0) {
-                delViewPosi = position + 1;
+            if (obj != null) {
+                notifyItemRemoved(isLayoutPosition ? position : position + getHeaderCount());
             }
-            else {
-                delViewPosi = position;
-            }
-            notifyItemRemoved(delViewPosi);
         }
         else {
             // 删除后为空，更新显示empty view
             notifyDataSetChanged();
+        }
+    }
+
+    public void deleteItem(T info) {
+        int idx = getIndexOf(info);
+        if (idx >= 0) {
+            deleteItem(idx, false);
+        }
+    }
+
+    public void updateItem(int position){
+        // int idx = position - getHeaderCount();
+        notifyItemChanged(position);
+    }
+
+    public void updateItem(T info) {
+        int idx = getIndexOf(info);
+        if (idx >= 0) {
+            mDataHolder.getDataList().set(idx, info);
+            notifyItemChanged(idx + getHeaderCount());
         }
     }
 
@@ -196,7 +216,9 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
             return new AfViewHolder(mFooterView);
         }
         else {
-            return new AfViewHolder(onCreateItemView(parent, viewType));
+            AfViewHolder vh = new AfViewHolder(onCreateItemView(parent, viewType));
+            vh.setAdapter(this);
+            return vh;
         }
     }
 
@@ -375,30 +397,34 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
-
     //-------------------设置监听-start---------------------//
+
+    /**
+     * refer to {@link android.widget.AdapterView.OnItemClickListener}
+     */
     public interface OnItemClickListener {
         /**
-         * 对item做点击监听，当有headview时，adapter中数据对应的position需要-1
+         * 对item做点击监听
          *
-         * @param view
-         * @param position
+         * @param adapter AfRecyclerAdapter
+         * @param view item view
+         * @param position position
          */
-        void onItemClick(View view, int position);
+        void onItemClick(AfRecyclerAdapter adapter, View view, int position);
     }
 
     public interface OnItemLongClickListener {
         /**
-         * 对item做长按监听，当有headview时，adapter中数据对应的position需要-1
+         * 对item做长按监听
          *
-         * @param view
-         * @param position
+         * @param adapter AfRecyclerAdapter
+         * @param view item view
+         * @param position position
          */
-        void onItemLongClick(View view, int position);
+        void onItemLongClick(AfRecyclerAdapter adapter, View view, int position);
     }
 
     private OnItemClickListener mOnItemClickListener;
-
 
     private OnItemLongClickListener mOnItemLongClickListener;
 

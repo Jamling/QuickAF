@@ -163,7 +163,7 @@ public class RefreshRecyclerViewActivity extends BaseActivity {
         // 点击事件
         mAdapter.setOnItemClickListener(new AfRecyclerAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void onItemClick(AfRecyclerAdapter adapter, View view, int position) {
                 boolean hashead = mAdapter.getHeaderView() != null;
                 String item = "";
                 int pos = position - mAdapter.getHeaderCount();
@@ -187,7 +187,7 @@ public class RefreshRecyclerViewActivity extends BaseActivity {
         // 长按事件
         mAdapter.setOnItemLongClickListener(new AfRecyclerAdapter.OnItemLongClickListener() {
             @Override
-            public void onItemLongClick(View view, int position) {
+            public void onItemLongClick(AfRecyclerAdapter adapter, View view, int position) {
                 // 有headview时，data position需要-1
                 // mAdapter.deleteItem(position -1);
                 // 需要重写item的equals()方法
@@ -201,7 +201,7 @@ public class RefreshRecyclerViewActivity extends BaseActivity {
                     pos = position;
                 }
 
-                mAfRecycleView.deleteItem(mAdapter.getItem(pos));
+                mAfRecycleView.deleteItem(mAdapter.getItem(position));
             }
         });
     }

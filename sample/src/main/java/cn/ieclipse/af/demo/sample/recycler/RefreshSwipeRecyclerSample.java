@@ -33,6 +33,7 @@ import cn.ieclipse.af.demo.common.AppRefreshRecyclerHelper;
 import cn.ieclipse.af.demo.common.ui.H5Activity;
 import cn.ieclipse.af.demo.sample.SampleBaseFragment;
 import cn.ieclipse.af.util.DialogUtils;
+import cn.ieclipse.af.view.recycle.SwipeMenuRecyclerView;
 import cn.ieclipse.af.view.refresh.RefreshLayout;
 import cn.ieclipse.af.view.refresh.RefreshRecyclerHelper;
 import cn.ieclipse.af.volley.RestError;
@@ -42,11 +43,12 @@ import cn.ieclipse.af.volley.RestError;
  *
  * @author Jamling
  */
-public class RefreshRecyclerSample extends SampleBaseFragment implements NewsController.NewsListener,
+public class RefreshSwipeRecyclerSample extends SampleBaseFragment implements NewsController.NewsListener,
     RefreshLayout.OnRefreshListener {
     RefreshLayout refreshLayout;
     RefreshRecyclerHelper helper;
     RecyclerView listView;
+    SwipeMenuRecyclerView swipeListView;
     AfRecyclerAdapter<NewsController.NewsInfo> adapter;
     NewsController controller = new NewsController(this);
 
@@ -54,14 +56,16 @@ public class RefreshRecyclerSample extends SampleBaseFragment implements NewsCon
 
     private int loadResult;
 
+    private int[] swipeDirs = new int[]{SwipeMenuRecyclerView.DIRECTION_LEFT, SwipeMenuRecyclerView.DIRECTION_RIGHT};
+
     @Override
     public CharSequence getTitle() {
-        return "RefreshRecycler(New)";
+        return "RefreshSwipeRecycler(New)";
     }
 
     @Override
     protected int getContentLayout() {
-        return R.layout.sample_refresh_recycler;
+        return R.layout.sample_refresh_swipe;
     }
 
     @Override
@@ -80,6 +84,9 @@ public class RefreshRecyclerSample extends SampleBaseFragment implements NewsCon
         };
         helper.setKeepLoaded(true);
         listView = (RecyclerView) refreshLayout.findViewById(R.id.rv);
+        swipeListView = (SwipeMenuRecyclerView) refreshLayout.findViewById(R.id.swipe_rv);
+        swipeListView.setSwipeDirection(swipeDirs[0]);
+
         adapter = new AfRecyclerAdapter<>();
         adapter.registerDelegate(new NewDelegate());
         adapter.setOnItemClickListener(new AfRecyclerAdapter.OnItemClickListener() {
@@ -145,6 +152,9 @@ public class RefreshRecyclerSample extends SampleBaseFragment implements NewsCon
         if (parent == spn1) {
             loadResult = position;
         }
+        else if (parent == spn2) {
+            swipeListView.setSwipeDirection(swipeDirs[position]);
+        }
     }
 
     private void load(boolean needCache) {
@@ -175,18 +185,18 @@ public class RefreshRecyclerSample extends SampleBaseFragment implements NewsCon
 
         @Override
         public int getLayout() {
-            return R.layout.sample_list_item_news;
+            return R.layout.sample_list_item_news_swipe;
         }
 
         @Override
         public void onUpdateView(RecyclerView.ViewHolder holder, NewsController.NewsInfo info, int position) {
-            NewsHolder vh = (NewsHolder) holder;
+            SwipeNewsHolder vh = (SwipeNewsHolder) holder;
             vh.setInfo(info);
         }
 
         @Override
         public Class<? extends RecyclerView.ViewHolder> getViewHolderClass() {
-            return NewsHolder.class;
+            return SwipeNewsHolder.class;
         }
     }
 
@@ -206,6 +216,32 @@ public class RefreshRecyclerSample extends SampleBaseFragment implements NewsCon
         public void onUpdateView(RecyclerView.ViewHolder holder, NewsController.NewsInfo info, int position) {
             TextView tv = (TextView) holder.itemView;
             tv.setText("Mock Header!");
+        }
+    }
+
+    private static class SwipeNewsHolder extends NewsHolder {
+        View btOpen;
+        View btDelete;
+
+        public SwipeNewsHolder(View view) {
+            super(view);
+            btOpen = itemView.findViewById(R.id.btOpen);
+            btDelete = itemView.findViewById(R.id.btDelete);
+            btOpen.setOnClickListener(this);
+            btDelete.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (v == btOpen) {
+                super.onClick(itemView);
+            }
+            else if (btDelete == v) {
+                getAdapter().deleteItem(getLayoutPosition());
+            }
+            else {
+                super.onClick(v);
+            }
         }
     }
 
