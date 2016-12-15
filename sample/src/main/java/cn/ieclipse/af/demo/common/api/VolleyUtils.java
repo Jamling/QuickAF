@@ -61,7 +61,7 @@ public final class VolleyUtils {
             resId = R.string.error_type_timeout;
         }
         else if (type == RestError.TYPE_NETWORK) {
-            resId = R.string.error_type_no_network;
+            resId = R.string.error_type_network;
         }
         else if (type == RestError.TYPE_SERVER) {
             resId = R.string.error_type_server;

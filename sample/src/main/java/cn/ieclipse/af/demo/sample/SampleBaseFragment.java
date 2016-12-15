@@ -80,7 +80,7 @@ public abstract class SampleBaseFragment extends BaseFragment implements Adapter
         spn3 = (Spinner) view.findViewById(R.id.spn3);
         spn4 = (Spinner) view.findViewById(R.id.spn4);
         spn5 = (Spinner) view.findViewById(R.id.spn5);
-        // spn6 = (Spinner) view.findViewById(R.id.spn6);
+        spn6 = (Spinner) view.findViewById(R.id.spn6);
         setOnItemSelectedListener(spn1, spn2, spn3, spn4, spn5, spn6);
 
         fl1 = (FlowLayout) view.findViewById(R.id.fl1);

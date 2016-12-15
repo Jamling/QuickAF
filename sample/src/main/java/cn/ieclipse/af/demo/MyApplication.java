@@ -18,6 +18,9 @@ package cn.ieclipse.af.demo;
 import android.app.Application;
 
 import com.android.volley.DefaultRetryPolicy;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import cn.ieclipse.af.volley.VolleyConfig;
 import cn.ieclipse.af.volley.VolleyManager;
@@ -31,12 +34,11 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-//        DisplayImageOptions options = new DisplayImageOptions.Builder().showImageForEmptyUri(R.mipmap.logo)
-//            .showImageOnFail(R.mipmap.logo).cacheOnDisk(true).build();
-//        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).defaultDisplayImageOptions
-// (options)
-//            .build();
-//        ImageLoader.getInstance().init(config);
+        DisplayImageOptions options = new DisplayImageOptions.Builder().showImageForEmptyUri(R.mipmap.logo)
+            .showImageOnFail(R.mipmap.logo).cacheOnDisk(true).build();
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).defaultDisplayImageOptions(options)
+            .build();
+        ImageLoader.getInstance().init(config);
         AppConfig.init(getApplicationContext());
 
         VolleyConfig vc = new VolleyConfig.Builder().setBaseResponseClass(AppConfig.VOLLEY_RESPONSE_CLASS)

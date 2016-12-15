@@ -201,7 +201,7 @@ public class RefreshRecyclerViewActivity extends BaseActivity {
                     pos = position;
                 }
 
-                mAfRecycleView.deleteItem(mAdapter.getItem(pos));
+                mAfRecycleView.deleteItem(mAdapter.getItem(position));
             }
         });
     }

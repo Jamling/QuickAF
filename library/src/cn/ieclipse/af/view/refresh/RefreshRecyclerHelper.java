@@ -294,41 +294,6 @@ public class RefreshRecyclerHelper<T> extends RefreshHelper<T> {
         }
     }
 
-//    protected void setFooterError(RestError error) {
-//        if (mAdapter instanceof AfRecyclerAdapter) {
-//            View view = ((AfRecyclerAdapter) mAdapter).getFooterView();
-//            if (view != null && view instanceof FooterView) {
-//                FooterView fv = (FooterView) view;
-//                fv.setError(error);
-//            }
-//        }
-//    }
-//
-//    public void setFooterLoading() {
-//        if (mAdapter instanceof AfRecyclerAdapter) {
-//            View view = ((AfRecyclerAdapter) mAdapter).getFooterView();
-//            if (view != null && view instanceof FooterView) {
-//                FooterView fv = (FooterView) view;
-//                fv.setLoading("");
-//            }
-//        }
-//    }
-//
-//    protected void setFooterEmpty(boolean empty) {
-//        if (mAdapter instanceof AfRecyclerAdapter) {
-//            View view = ((AfRecyclerAdapter) mAdapter).getFooterView();
-//            if (view != null && view instanceof FooterView) {
-//                FooterView fv = (FooterView) view;
-//                if (empty) {
-//                    fv.setEmpty(null);
-//                }
-//                else {
-//                    fv.reset();
-//                }
-//            }
-//        }
-//    }
-
     /**
      * 监听adapter中数据的变化
      */

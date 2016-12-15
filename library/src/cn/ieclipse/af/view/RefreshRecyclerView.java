@@ -587,11 +587,12 @@ public class RefreshRecyclerView<T> extends LinearLayout implements View.OnClick
      */
     public void updateItem(T item) {
         if (mAdapter != null) {
-            int idx = getChooseItemIndex(item);
-            mLogger.d("try to refresh item idx = " + idx);
-            if (idx >= 0) {
-                mAdapter.updateItem(idx, item);
-            }
+//            int idx = getChooseItemIndex(item);
+//            mLogger.d("try to refresh item idx = " + idx);
+//            if (idx >= 0) {
+//                mAdapter.updateItem(idx, item);
+//            }
+            mAdapter.updateItem(item);
         }
     }
 
@@ -602,11 +603,12 @@ public class RefreshRecyclerView<T> extends LinearLayout implements View.OnClick
      */
     public void deleteItem(T item) {
         if (mAdapter != null) {
-            int idx = getChooseItemIndex(item);
-            mLogger.d("try to delete item idx= " + idx);
-            if (idx >= 0) {
-                mAdapter.deleteItem(idx);
-            }
+//            int idx = getChooseItemIndex(item);
+//            mLogger.d("try to delete item idx= " + idx);
+//            if (idx >= 0) {
+//                mAdapter.deleteItem(idx);
+//            }
+            mAdapter.deleteItem(item);
         }
     }
 

@@ -15,6 +15,7 @@
  */
 package cn.ieclipse.af.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -26,37 +27,50 @@ import android.view.View;
  * @author Jamling
  */
 public class AfViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-
-    private View mItemView;
+    private AfRecyclerAdapter adapter;
     private AfRecyclerAdapter.OnItemClickListener mOnClickListener;
     private AfRecyclerAdapter.OnItemLongClickListener mOnLongClickListener;
 
-    public AfViewHolder(View itemView) {
-        super(itemView);
-        this.mItemView = itemView;
+    public AfViewHolder(View view) {
+        super(view);
+        itemView.setOnClickListener(this);
+        itemView.setOnLongClickListener(this);
+        itemView.setBackgroundResource(android.R.drawable.list_selector_background);
+    }
+
+    public Context getContext() {
+        return itemView.getContext();
+    }
+
+    public void setAdapter(AfRecyclerAdapter adapter) {
+        this.adapter = adapter;
+    }
+
+    public AfRecyclerAdapter getAdapter() {
+        return adapter;
     }
 
     public void setOnClickListener(AfRecyclerAdapter.OnItemClickListener listener) {
         this.mOnClickListener = listener;
-        mItemView.setOnClickListener(this);
+        itemView.setOnClickListener(this);
     }
 
     public void setOnLongClickListener(AfRecyclerAdapter.OnItemLongClickListener listener) {
         this.mOnLongClickListener = listener;
-        mItemView.setOnLongClickListener(this);
+        itemView.setOnLongClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if (mOnClickListener != null) {
-            mOnClickListener.onItemClick(v, getAdapterPosition());
+            mOnClickListener.onItemClick(v, getLayoutPosition());
         }
     }
 
     @Override
     public boolean onLongClick(View v) {
         if (mOnLongClickListener != null) {
-            mOnLongClickListener.onItemLongClick(v, getAdapterPosition());
+            mOnLongClickListener.onItemLongClick(v, getLayoutPosition());
         }
         return true;
     }
