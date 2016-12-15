@@ -203,13 +203,16 @@ public class AfDataHolder<T> {
      * 
      * @param position
      *            data position of this holder
+     * @return the removed object
      */
-    public void remove(int position) {
+    public T remove(int position) {
+        T ret = null;
         checkDataList();
         if (position >= 0 && position < mSize) {
-            mDataList.remove(position);
+            ret = mDataList.remove(position);
             mSize -= 1;
         }
+        return ret;
     }
     
     /**

@@ -68,6 +68,10 @@ public abstract class AfBaseAdapter<T> extends BaseAdapter {
         mDataHolder.add(t);
     }
 
+    public int getIndexOf(T t) {
+        return mDataHolder.getIndexOf(t);
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null && getLayout() > 0) {
