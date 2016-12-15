@@ -18,51 +18,53 @@ package cn.ieclipse.af.demo.sample.appui;
 import android.view.View;
 
 import cn.ieclipse.af.demo.R;
-import cn.ieclipse.af.demo.sample.SampleBaseFragment;
+import cn.ieclipse.af.demo.common.ui.LoadingActivity;
 
 /**
  * Description
  *
  * @author Jamling
  */
-public class AfDemoFragment extends SampleBaseFragment {
+public class LoadingActivitySample extends LoadingActivity {
     @Override
     protected int getContentLayout() {
-        return R.layout.sample_fragment_af_demo;
+        return R.layout.sample_activity_loading;
     }
 
+    private View mGuideView;
     @Override
     protected void initContentView(View view) {
         super.initContentView(view);
-    }
-
-    @Override
-    protected void initInitData() {
-        super.initInitData();
-        // fragment title bar default hidden.
-        setShowTitleBar(true);
-    }
-
-    @Override
-    protected void initHeaderView() {
-        super.initHeaderView();
-        mTitleTextView.setText(getTitle() + "(fragment)");
+        mLoadingView = View.inflate(this, R.layout.sample_layout_loading, null);
+        mGuideView = View.inflate(this, R.layout.sample_layout_guide, null);
+        mGuideView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                hideGuideView(v);
+            }
+        });
+        showLoadingView(false);
+        finishLoad();
     }
 
     @Override
     public void onClick(View v) {
-        if (btn1 == v) {
-            getBaseActivity().setOverlay(!getBaseActivity().isOverlay());
+        if (v.getId() == R.id.btn1) {
+            showLoadingView(true);
+            finishLoad();
         }
-        else if (btn2 == v) {
-            getBaseActivity().setShowTitleBar(!getBaseActivity().isShowTitleBar());
-        }
-        else if (btn3 == v) {
-            setOverlay(!isOverlay());
-        }
-        else if (btn4 == v) {
-            setShowTitleBar(!isShowTitleBar());
+        else if (v.getId() == R.id.btn2) {
+            showGuideView(mGuideView, "show_loading_guide");
         }
         super.onClick(v);
+    }
+
+    private void finishLoad(){
+        mTitleBar.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                hideLoadingView();
+            }
+        }, 2000);
     }
 }

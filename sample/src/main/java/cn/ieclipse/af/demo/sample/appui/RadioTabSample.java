@@ -32,12 +32,12 @@ import cn.ieclipse.af.demo.common.ui.BaseFragment;
  *
  * @author Jamling
  */
-public class SampleTabActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
+public class RadioTabSample extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
     private RadioGroup mRadioGroup;
 
     @Override
     protected int getContentLayout() {
-        return R.layout.sample_activity_tab;
+        return R.layout.sample_radio_tab;
     }
 
     @Override

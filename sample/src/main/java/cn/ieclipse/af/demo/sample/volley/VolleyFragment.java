@@ -17,7 +17,7 @@ package cn.ieclipse.af.demo.sample.volley;
 
 import android.view.View;
 
-import cn.ieclipse.af.demo.sample.ButtonListFragment2;
+import cn.ieclipse.af.demo.sample.ButtonListFragment;
 import cn.ieclipse.af.demo.sample.volley.upload.UploadActivity;
 import cn.ieclipse.af.demo.sample.volley.upload.UploadActivity2;
 import cn.ieclipse.af.demo.sample.volley.weather.WeatherActivity;
@@ -27,7 +27,7 @@ import cn.ieclipse.af.demo.sample.volley.weather.WeatherActivity;
  *
  * @author Jamling
  */
-public class VolleyFragment extends ButtonListFragment2 {
+public class VolleyFragment extends ButtonListFragment {
     @Override
     public CharSequence getTitle() {
         return "Volley sample";
