@@ -90,7 +90,7 @@
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".sample.appui.LoadingActivitySample"/>
 
-        <activity android:name=".sample.appui.RadioTabSample" />
+        <activity android:name=".sample.appui.RadioTabSample" android:windowSoftInputMode="stateHidden"/>
 
         <!-- custom view -->
         <activity android:name=".sample.cview.FlowLayoutActivity" android:windowSoftInputMode="stateHidden" />

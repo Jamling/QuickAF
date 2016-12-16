@@ -43,6 +43,7 @@ public class RadioTabSample extends BaseActivity implements RadioGroup.OnChecked
     @Override
     protected void initContentView(View view) {
         super.initContentView(view);
+        setTitle("RadioGroup+Fragment");
         mRadioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
         mRadioGroup.setOnCheckedChangeListener(this);
     }

@@ -19,6 +19,7 @@ import android.view.View;
 
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.ui.LoadingActivity;
+import cn.ieclipse.af.util.SharedPrefsUtils;
 
 /**
  * Description
@@ -32,6 +33,15 @@ public class LoadingActivitySample extends LoadingActivity {
     }
 
     private View mGuideView;
+    private View btnRemove;
+
+    @Override
+    protected void initHeaderView() {
+        super.initHeaderView();
+        setTitle("Loading/Tip");
+        btnRemove = createRightText("Reset", true);
+    }
+
     @Override
     protected void initContentView(View view) {
         super.initContentView(view);
@@ -55,6 +65,9 @@ public class LoadingActivitySample extends LoadingActivity {
         }
         else if (v.getId() == R.id.btn2) {
             showGuideView(mGuideView, "show_loading_guide");
+        }
+        else if (v == btnRemove) {
+            SharedPrefsUtils.remove("show_loading_guide");
         }
         super.onClick(v);
     }

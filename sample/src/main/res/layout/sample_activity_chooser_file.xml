@@ -29,6 +29,6 @@
         android:id="@+id/tv1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:hint="no file selected"/>
+        android:hint="no file selected"
+        android:padding="10dp"/>
 </LinearLayout>

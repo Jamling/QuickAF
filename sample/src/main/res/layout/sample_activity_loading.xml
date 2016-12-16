@@ -20,8 +20,9 @@
         android:onClick="onClick"/>
 
     <TextView
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="invoke BaseActivity#showLoadingView(boolean fillContentView) to add loading view to cover content view\n
-        invoke BaseActivity#showGuideView(View guideView, String prefKey) to show a guide layer"/>
+        invoke BaseActivity#showGuideView(View guideView, String prefKey) to show a guide layer\nPress 'Reset' to reset show guide "/>
 </LinearLayout>
