@@ -30,7 +30,8 @@
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:paddingLeft="4dp"
-        android:text="No."/>
+        android:text="@string/sample_label_index"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     <TextView
         android:id="@+id/tv_name"
@@ -40,7 +41,7 @@
         android:ellipsize="end"
         android:paddingLeft="4dp"
         android:singleLine="true"
-        android:text="Name"
+        android:text="@string/sample_label_name"
         android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     <TextView
@@ -51,7 +52,7 @@
         android:ellipsize="end"
         android:paddingLeft="4dp"
         android:singleLine="true"
-        android:text="Phone"
+        android:text="@string/sample_label_phone"
         android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     <TextView
@@ -62,6 +63,6 @@
         android:ellipsize="end"
         android:paddingLeft="4dp"
         android:singleLine="true"
-        android:text="Age"
+        android:text="@string/sample_label_age"
         android:textAppearance="?android:attr/textAppearanceMedium"/>
 </LinearLayout>

@@ -19,7 +19,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -54,11 +53,8 @@ public class StudentListActivity extends BaseActivity
     @Override
     protected void initHeaderView() {
         super.initHeaderView();
-        ImageView iv = new ImageView(this);
-        iv.setImageResource(android.R.drawable.ic_menu_add);
-        mTitleBar.addRight(iv);
-        mAdd = iv;
-        setOnClickListener(mAdd);
+        mAdd = createRightIcon(android.R.drawable.ic_menu_add, true);
+        setTitle("Students");
     }
     
     @Override

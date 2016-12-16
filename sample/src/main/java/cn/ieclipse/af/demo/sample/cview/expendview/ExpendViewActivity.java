@@ -46,6 +46,7 @@ public class ExpendViewActivity extends BaseActivity {
     @Override
     protected void initContentView(View view) {
         super.initContentView(view);
+        setTitle("ExpandView");
         mExpandableView = (ExpandableView) findViewById(R.id.expandview);
 
         // mExpandableView.setTabItemId(R.layout.toggle_button);

@@ -14,22 +14,29 @@
  * limitations under the License.
  */
 
-package cn.ieclipse.af.demo.sample.recycler;
+package cn.ieclipse.af.demo.sample.legacy;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cn.ieclipse.af.adapter.AfRecyclerAdapter;
 import cn.ieclipse.af.demo.R;
-import cn.ieclipse.af.demo.common.ui.BaseActivity;
+import cn.ieclipse.af.demo.common.ui.H5Activity;
+import cn.ieclipse.af.demo.sample.SampleBaseFragment;
+import cn.ieclipse.af.demo.sample.recycler.NewsController;
+import cn.ieclipse.af.demo.sample.recycler.NewsListItem;
 import cn.ieclipse.af.util.DialogUtils;
 import cn.ieclipse.af.util.RandomUtils;
 import cn.ieclipse.af.view.RefreshRecyclerView;
+import cn.ieclipse.af.volley.RestError;
 
 //  ┏┓　　  ┏┓
 //┏┛┻━━━┛┻┓
@@ -48,14 +55,16 @@ import cn.ieclipse.af.view.RefreshRecyclerView;
 //   ┗┓┓┏━┳┓┏┛
 //     ┃┫┫　┃┫┫
 //     ┗┻┛　┗┻┛
-public class RefreshRecyclerViewActivity extends BaseActivity {
+public class LegacyRefreshRecyclerView extends SampleBaseFragment implements NewsController.NewsListener {
     
     RefreshRecyclerView mAfRecycleView;
     private MyAdapter mAdapter;
+    private int loadResult;
+    NewsController controller = new NewsController(this);
 
     @Override
     protected int getContentLayout() {
-        return R.layout.sample_activity_recycler;
+        return R.layout.sample_legacy_refresh_recycler;
     }
     
     @Override
@@ -74,18 +83,80 @@ public class RefreshRecyclerViewActivity extends BaseActivity {
         // 设置支持的刷新方向
         mAfRecycleView.setMode(RefreshRecyclerView.REFRESH_MODE_BOTH);
         // set adapter
-        mAdapter = new MyAdapter(this);
+        mAdapter = new MyAdapter(getActivity());
 
         mAfRecycleView.setAdapter(mAdapter);
         setListener();
 
+        chk2.setEnabled(false);
+        chk5.setEnabled(false);
+        chk3.setChecked(mAfRecycleView.isAutoLoad());
         // set data
-        setData();
+        // setData();
+        load(true);
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (chk1 == buttonView) {
+            if (isChecked) {
+                addHead(null);
+            }
+            else {
+                removeHead(null);
+            }
+        }
+        else if (chk2 == buttonView) {
+
+        }
+        else if (chk3 == buttonView) {
+
+        }
+        else if (chk3 == buttonView) {
+            mAfRecycleView.setAutoLoad(isChecked);
+        }
+        else if (chk4 == buttonView) {
+            controller.setLazyLoad(isChecked);
+        }
+        else if (chk5 == buttonView) {
+
+        }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (parent == spn1) {
+            loadResult = position;
+        }
+    }
+
+    private void load(boolean needCache) {
+        NewsController.NewsRequest req = new NewsController.NewsRequest();
+        req.page = mAfRecycleView.getCurrentPage();
+        controller.loadNews(req, needCache);
+    }
+
+    @Override
+    public void onLoadNewsFailure(RestError error) {
+        mAfRecycleView.onLoadFailure();
+    }
+
+    @Override
+    public void onLoadNewsSuccess(List<NewsController.NewsInfo> out, boolean fromCache) {
+        if (loadResult == 1) {
+            mAfRecycleView.onLoadFinish(null);
+        }
+        else if (loadResult == 2) {
+            throw new NullPointerException("Mock error!");
+        }
+        else {
+            mAfRecycleView.onLoadFinish(out);
+        }
     }
 
     public void addHead(View view) {
         // 设置header
-        TextView headView = (TextView) View.inflate(this, android.R.layout.simple_list_item_1, null);
+        TextView headView = (TextView) View.inflate(getActivity(), android.R.layout.simple_list_item_1, null);
         headView.setGravity(Gravity.CENTER);
         headView.setBackgroundResource(android.R.color.holo_green_dark);
         headView.setText("i am header");
@@ -95,7 +166,7 @@ public class RefreshRecyclerViewActivity extends BaseActivity {
         mAdapter.getHeaderView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogUtils.showToast(RefreshRecyclerViewActivity.this, "click head view");
+                DialogUtils.showToast(getActivity(), "click head view");
             }
         });
     }
@@ -151,12 +222,12 @@ public class RefreshRecyclerViewActivity extends BaseActivity {
         mAfRecycleView.setOnRefreshListener(new RefreshRecyclerView.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                setData();
+                load(false);
             }
 
             @Override
             public void onLoadMore() {
-                addData();
+                load(false);
             }
         });
 
@@ -164,23 +235,14 @@ public class RefreshRecyclerViewActivity extends BaseActivity {
         mAdapter.setOnItemClickListener(new AfRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(AfRecyclerAdapter adapter, View view, int position) {
-                boolean hashead = mAdapter.getHeaderView() != null;
-                String item = "";
-                int pos = position - mAdapter.getHeaderCount();
-//                if (hashead) {
-//                    // 有headview时，data position需要-1
-//                    pos = position - 1;
-//                }
-//                else {
-//                    pos = position;
-//                }
-                DialogUtils.showToast(RefreshRecyclerViewActivity.this,
-                    "data " + "position=" + (pos) + " \nview position=" + position +
-                        " \nitem=" + mAdapter.getItem(position));
-
-                // mAdapter.updateItem(pos,"update item "+ (pos));
-                // 需要重写item的equals()方法
-                // mAfRecycleView.updateItem(item);
+                // don't wonder header or footer.
+                NewsController.NewsInfo info = mAdapter.getItem(position);
+                // not recommended to use data position.
+                int dataPosition = position - mAdapter.getHeaderCount();
+                DialogUtils.showToast(getActivity(),
+                    "data " + "position=" + dataPosition + " \nview position=" + position +
+                        " \nitem=" + info);
+                startActivity(H5Activity.create(getActivity(), info.url, info.title));
             }
         });
 
@@ -188,26 +250,12 @@ public class RefreshRecyclerViewActivity extends BaseActivity {
         mAdapter.setOnItemLongClickListener(new AfRecyclerAdapter.OnItemLongClickListener() {
             @Override
             public void onItemLongClick(AfRecyclerAdapter adapter, View view, int position) {
-                // 有headview时，data position需要-1
-                // mAdapter.deleteItem(position -1);
-                // 需要重写item的equals()方法
-                boolean hashead = mAdapter.getHeaderView() != null;
-                int pos = 0;
-                if (hashead) {
-                    // 有headview时，position需要-1
-                    pos = position - 1;
-                }
-                else {
-                    pos = position;
-                }
-
                 mAfRecycleView.deleteItem(mAdapter.getItem(position));
             }
         });
     }
 
-
-    public class MyAdapter extends AfRecyclerAdapter<String> {
+    public class MyAdapter extends AfRecyclerAdapter<NewsController.NewsInfo> {
 
         public MyAdapter(Context context) {
             super(context);
@@ -215,7 +263,8 @@ public class RefreshRecyclerViewActivity extends BaseActivity {
 
         @Override
         public int getLayout() {
-            return android.R.layout.simple_list_item_1;
+            // return android.R.layout.simple_list_item_1;
+            return R.layout.sample_list_item_news;
         }
 
         @Override
@@ -224,9 +273,10 @@ public class RefreshRecyclerViewActivity extends BaseActivity {
         }
 
         @Override
-        public void onUpdateView(RecyclerView.ViewHolder holder, String data, int position) {
-            holder.itemView.setBackgroundResource(android.R.drawable.list_selector_background);
-            ((TextView)holder.itemView).setText(data);
+        public void onUpdateView(RecyclerView.ViewHolder holder, NewsController.NewsInfo data, int position) {
+            //holder.itemView.setBackgroundResource(android.R.drawable.list_selector_background);
+            //((TextView) holder.itemView).setText(data.title);
+            ((NewsListItem) holder.itemView).setInfo(data);
         }
     }
 

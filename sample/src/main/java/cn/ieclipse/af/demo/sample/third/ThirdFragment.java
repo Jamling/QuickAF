@@ -13,18 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.ieclipse.af.demo.sample;
+package cn.ieclipse.af.demo.sample.third;
 
-import cn.ieclipse.af.demo.R;
+import cn.ieclipse.af.demo.sample.ButtonListFragment;
 
 /**
  * Description
  *
  * @author Jamling
  */
-public class ButtonListFragment2 extends ButtonListFragment {
+public class ThirdFragment extends ButtonListFragment {
     @Override
-    protected int getContentLayout() {
-        return R.layout.sample_button_list_fragment2;
+    public CharSequence getTitle() {
+        return "3rd";
+    }
+
+    @Override
+    protected Class[] getActivities() {
+        return new Class[]{FlexboxLayoutActivity.class, PercentLayoutActivity.class};
     }
 }

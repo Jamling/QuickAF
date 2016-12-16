@@ -7,14 +7,16 @@
     android:background="@color/bg_main"
     android:orientation="vertical">
 
-    <ImageView
+    <cn.ieclipse.af.view.RoundImageView
         android:id="@+id/iv_profile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:scaleType="centerInside"
         android:src="@mipmap/logo"
-        android:contentDescription="点击登录"/>
+        android:contentDescription="点击登录"
+        app:isCircle="true"
+        android:layout_gravity="center_horizontal"/>
 
     <LinearLayout
         android:layout_width="match_parent"

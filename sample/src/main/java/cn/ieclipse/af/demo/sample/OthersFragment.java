@@ -13,26 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.ieclipse.af.demo.sample.appui;
+package cn.ieclipse.af.demo.sample;
 
-import cn.ieclipse.af.demo.sample.ButtonListFragment;
+import android.view.View;
+
+import cn.ieclipse.af.demo.common.ui.BasePagerTabFragment;
+import cn.ieclipse.af.demo.sample.orm.AormFragment;
+import cn.ieclipse.af.demo.sample.third.ThirdFragment;
+import cn.ieclipse.af.demo.sample.utils.TabUtils;
 
 /**
  * Description
  *
  * @author Jamling
  */
-public class TabAppFragment extends ButtonListFragment {
+public class OthersFragment extends BasePagerTabFragment {
+
     @Override
     public CharSequence getTitle() {
-        return "App struct";
+        return "Others";
     }
 
     @Override
-    protected Class[] getActivities() {
-        return new Class[]{
-            AfActivitySample.class, AfActivityImmersiveSample.class, LoadingActivitySample.class, FileChooserSample.class,
-            H5Sample.class, AfFragmentSample.class, RadioTabSample.class
-        };
+    protected void initContentView(View view) {
+        super.initContentView(view);
+        mTopView.setShowFixTabsOneScreen(3);
+    }
+
+    @Override
+    protected void addFragments() {
+        mAdapter.setFragments(new TabUtils(), new AormFragment(), new ThirdFragment());
     }
 }

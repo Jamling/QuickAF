@@ -20,11 +20,18 @@
         android:id="@+id/rb2"
         style="@style/rb_tab_main"
         android:checked="false"
-        android:text="Volley"
+        android:text="Controller"
         android:drawableTop="@android:drawable/btn_star"/>
 
     <cn.ieclipse.af.view.RadioBadgeView
-        android:id="@+id/radio_btn_user"
+        android:id="@+id/rb3"
+        style="@style/rb_tab_main"
+        android:checked="false"
+        android:text="Others"
+        android:drawableTop="@android:drawable/btn_star"/>
+
+    <cn.ieclipse.af.view.RadioBadgeView
+        android:id="@+id/rb4"
         style="@style/rb_tab_main"
         android:text="Profile"
         android:drawableTop="@android:drawable/btn_star"/>

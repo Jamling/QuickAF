@@ -41,6 +41,11 @@ public class AormFragment extends BaseFragment {
     }
 
     @Override
+    public CharSequence getTitle() {
+        return "Aorm";
+    }
+
+    @Override
     protected void initContentView(View view) {
         super.initContentView(view);
         btn = (Button) view.findViewById(R.id.btn1);

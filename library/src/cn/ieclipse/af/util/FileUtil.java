@@ -147,6 +147,32 @@ public final class FileUtil {
         return context.getExternalFilesDir(dir);
     }
 
+    public static long getCacheSize(Context context, boolean includeInternal, boolean includeExternal) {
+        long size = 0l;
+        File dir = null;
+        if (includeInternal) {
+            dir = context.getCacheDir();
+            size += FileUtil.getFileSize(dir);
+        }
+        if (includeExternal) {
+            dir = context.getExternalCacheDir();
+            size += FileUtil.getFileSize(dir);
+        }
+        return size;
+    }
+
+    public static void clearCache(Context context, boolean includeInternal, boolean includeExternal) {
+        File dir = null;
+        if (includeInternal) {
+            dir = context.getCacheDir();
+            FileUtil.rmdir(dir, true);
+        }
+        if (includeExternal) {
+            dir = context.getExternalCacheDir();
+            FileUtil.rmdir(dir, true);
+        }
+    }
+
     public static boolean writeObject(File dir, String name, Object object) {
         if (dir != null && !TextUtils.isEmpty(name)) {
             if (!dir.exists()) {
@@ -208,6 +234,9 @@ public final class FileUtil {
     }
 
     public static long getFileSize(File f) {
+        if (f == null || !f.exists()) {
+            return 0l;
+        }
         if (f.isFile()) {
             return f.length();
         }

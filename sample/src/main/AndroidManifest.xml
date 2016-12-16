@@ -83,18 +83,18 @@
 
         <!-- Samples -->
         <activity
-            android:name=".sample.appui.AfDemoActivity"
+            android:name=".sample.appui.AfActivitySample"
             android:windowSoftInputMode="stateHidden"/>
         <activity
-            android:name=".sample.appui.AfImmersiveDemoActivity"
+            android:name=".sample.appui.AfActivityImmersiveSample"
             android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".sample.appui.AfLoadingActivity"/>
+        <activity android:name=".sample.appui.LoadingActivitySample"/>
 
-        <activity android:name=".sample.appui.SampleTabActivity" />
+        <activity android:name=".sample.appui.RadioTabSample" android:windowSoftInputMode="stateHidden"/>
 
         <!-- custom view -->
         <activity android:name=".sample.cview.FlowLayoutActivity" android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".sample.cview.FlexboxLayoutActivity" android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".sample.third.FlexboxLayoutActivity" android:windowSoftInputMode="stateHidden" />
         <activity android:name=".sample.cview.TableLayoutActivity" android:windowSoftInputMode="stateHidden" />
         <activity android:name=".sample.cview.TitleBarActivity" />
         <activity android:name=".sample.cview.RoundButtonActivity" />
@@ -105,15 +105,14 @@
         <activity android:name=".sample.cview.AutoHeightViewPagerActivity" />
         <activity android:name=".sample.cview.CheckableLayoutActivity" />
         <activity android:name=".sample.cview.AutoPlayViewActivity" />
-        <activity android:name=".sample.cview.PercentLayoutActivity" />
+        <activity android:name=".sample.third.PercentLayoutActivity" />
         <activity android:name=".sample.cview.WheelViewActivity"
                   android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".sample.cview.SimpleMonthPickerActivity" />
 
         <!-- list view -->
-        <activity android:name=".sample.recycler.RefreshRecyclerViewActivity" />
-        <activity android:name=".sample.recycler.SwipeMenuRecyclerActivity" />
-        <activity android:name=".sample.recycler.GridRecyclerActivity" />
+        <activity android:name=".sample.legacy.LegacySwipeMenuRecyclerActivity" />
+        <activity android:name=".sample.legacy.LegacyRecyclerLayoutActivity" />
         <activity android:name=".sample.cview.expendview.ExpendViewActivity" />
         <activity android:name=".sample.recycler.sort.SortRecyclerActivity" />
         <activity android:name=".sample.recycler.sort.SortListViewActivity" />

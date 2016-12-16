@@ -25,13 +25,19 @@
             android:id="@+id/chk3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="keep_loaded"/>
+            android:text="auto_load"/>
 
         <CheckBox
-            android:id="@+id/rb1"
+            android:id="@+id/chk4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="auto_load"/>
+            android:text="lazy"/>
+
+        <CheckBox
+            android:id="@+id/chk5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="keep_loaded"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -72,5 +78,9 @@
         </LinearLayout>
     </cn.ieclipse.af.view.FlowLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"/>
     <include layout="@layout/base_refresh_swipe"/>
 </LinearLayout>

@@ -5,11 +5,11 @@ import android.view.View;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.sample.SampleBaseActivity;
 
-public class AfDemoActivity extends SampleBaseActivity {
+public class AfActivitySample extends SampleBaseActivity {
     
     @Override
     protected int getContentLayout() {
-        return R.layout.sample_activity_af_demo;
+        return R.layout.sample_af_activity;
     }
     
     @Override

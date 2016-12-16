@@ -21,8 +21,6 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.widget.Toast;
 
-import java.io.File;
-
 import cn.ieclipse.af.demo.AppConfig;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.api.BasePostRequest;
@@ -90,12 +88,9 @@ public class MyFragment extends BaseFragment implements LogoutController.LogoutL
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        // if (mRefreshCacheSize)
-        {
-            calcCache();
-        }
+    protected void onFirstUserVisible() {
+        super.onFirstUserVisible();
+        calcCache();
     }
 
     @Override
@@ -145,9 +140,7 @@ public class MyFragment extends BaseFragment implements LogoutController.LogoutL
     }
 
     private long calcSync() {
-        long ret = 0l;
-        File dir = FileUtil.getExternal(getActivity(), null);
-        ret += FileUtil.getFileSize(dir);
+        long ret = FileUtil.getCacheSize(getActivity(), true, true);
         return ret;
     }
 
@@ -170,10 +163,11 @@ public class MyFragment extends BaseFragment implements LogoutController.LogoutL
 
     private void clearCache() {
         final Activity mActivity = getActivity();
-        AsyncTask task = new AsyncTask() {
+        final AsyncTask task = new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] params) {
                 // TODO
+                FileUtil.clearCache(getActivity(), true, true);
                 return FileUtil.formatFileSize(calcSync());
             }
 

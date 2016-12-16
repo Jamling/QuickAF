@@ -641,7 +641,7 @@ public class RefreshRecyclerView<T> extends LinearLayout implements View.OnClick
         if (mAdapter != null) {
             // 下拉刷新或默认是刷新操作
             if (mCurRefreshDirection == CUR_REFRESH) {
-                mAdapter.getDataList().clear();
+                mAdapter.clear();
             }
             else {
                 // do nothing

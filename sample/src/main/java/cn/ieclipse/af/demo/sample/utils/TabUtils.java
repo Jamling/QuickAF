@@ -16,7 +16,6 @@
 package cn.ieclipse.af.demo.sample.utils;
 
 import cn.ieclipse.af.demo.sample.ButtonListFragment;
-import cn.ieclipse.af.demo.sample.orm.AormActivity;
 
 /**
  * Description
@@ -32,6 +31,6 @@ public class TabUtils extends ButtonListFragment {
 
     @Override
     protected Class[] getActivities() {
-        return new Class[]{DialogsActivity.class, AormActivity.class, AsyncTimeoutTaskSample.class};
+        return new Class[]{DialogsActivity.class, AsyncTimeoutTaskSample.class};
     }
 }

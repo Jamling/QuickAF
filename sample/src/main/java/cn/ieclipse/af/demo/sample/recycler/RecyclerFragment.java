@@ -16,6 +16,9 @@
 package cn.ieclipse.af.demo.sample.recycler;
 
 import cn.ieclipse.af.demo.sample.ButtonListFragment;
+import cn.ieclipse.af.demo.sample.legacy.LegacyRecyclerLayoutActivity;
+import cn.ieclipse.af.demo.sample.legacy.LegacyRefreshRecyclerView;
+import cn.ieclipse.af.demo.sample.legacy.LegacySwipeMenuRecyclerActivity;
 import cn.ieclipse.af.demo.sample.recycler.sort.SortRecyclerActivity;
 
 /**
@@ -26,13 +29,13 @@ import cn.ieclipse.af.demo.sample.recycler.sort.SortRecyclerActivity;
 public class RecyclerFragment extends ButtonListFragment {
     @Override
     public CharSequence getTitle() {
-        return "Recyclerview";
+        return "Refresh&Recycler";
     }
 
     @Override
     protected Class[] getActivities() {
-        return new Class[]{RefreshRecyclerViewActivity.class, GridRecyclerActivity.class, SwipeMenuRecyclerActivity
-            .class, SortRecyclerActivity.class, RefreshScrollViewSample.class, RefreshRecyclerSample.class,
-            RefreshSwipeRecyclerSample.class};
+        return new Class[]{RefreshRecyclerSample.class, RefreshSwipeRecyclerSample.class, RefreshScrollViewSample
+            .class, SortRecyclerActivity.class, LegacyRecyclerLayoutActivity.class, LegacyRefreshRecyclerView.class,
+            LegacySwipeMenuRecyclerActivity.class};
     }
 }

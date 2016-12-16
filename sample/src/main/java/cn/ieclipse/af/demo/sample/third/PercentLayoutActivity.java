@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.ieclipse.af.demo.sample.cview;
+package cn.ieclipse.af.demo.sample.third;
 
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.ui.BaseActivity;
@@ -37,6 +37,6 @@ public class PercentLayoutActivity extends BaseActivity {
 //        layout_marginTopPercent、layout_marginRightPercent、
 //        layout_marginBottomPercent、layout_marginStartPercent、layout_marginEndPercent。
 
-        return R.layout.smaple_activity_percent_layout;
+        return R.layout.smaple_3rd_percent_layout;
     }
 }
