@@ -13,35 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.ieclipse.af.demo.sample;
+package cn.ieclipse.af.demo.sample.third;
 
-import android.view.View;
-
-import cn.ieclipse.af.demo.common.ui.BasePagerTabFragment;
-import cn.ieclipse.af.demo.sample.orm.AormFragment;
-import cn.ieclipse.af.demo.sample.third.ThirdFragment;
-import cn.ieclipse.af.demo.sample.utils.TabUtils;
+import cn.ieclipse.af.demo.sample.ButtonListFragment;
 
 /**
  * Description
  *
  * @author Jamling
  */
-public class OthersFragment extends BasePagerTabFragment {
-
+public class ThirdFragment extends ButtonListFragment {
     @Override
     public CharSequence getTitle() {
-        return "Others";
+        return "3rd";
     }
 
     @Override
-    protected void initContentView(View view) {
-        super.initContentView(view);
-        mTopView.setShowFixTabsOneScreen(3);
-    }
-
-    @Override
-    protected void addFragments() {
-        mAdapter.setFragments(new TabUtils(), new AormFragment(), new ThirdFragment());
+    protected Class[] getActivities() {
+        return new Class[]{FlexboxLayoutActivity.class, PercentLayoutActivity.class};
     }
 }

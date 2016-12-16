@@ -115,7 +115,7 @@ public class AppConfig {
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         uuid = tm.getDeviceId();
         if (TextUtils.isEmpty(uuid)) {
-            uuid = Settings.System.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+            uuid = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
         }
         if (TextUtils.isEmpty(uuid)) {
             uuid = android.os.Build.SERIAL;

@@ -55,6 +55,11 @@ public abstract class BasePagerTabFragment extends BaseFragment {
         }
 
         mAdapter = new BaseFragmentAdapter(fragmentManager);
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
         // add fragments
         addFragments();
         mViewPager.setAdapter(mAdapter);
