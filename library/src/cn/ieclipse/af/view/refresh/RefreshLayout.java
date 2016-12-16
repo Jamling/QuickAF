@@ -151,10 +151,15 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
         if (getDetector() != null) {
             getDetector().setEnabled(false);
         }
-        RefreshDetector proxy = mDetectorMap.get(mContentView.getClass());
-        if (proxy != null) {
-            this.mDetector = proxy;
-            proxy.setEnabled(true);
+        for (Class key : mDetectorMap.keySet()) {
+            if (key.isInstance(mContentView)) {
+                RefreshDetector proxy = mDetectorMap.get(key);
+                if (proxy != null) {
+                    this.mDetector = proxy;
+                    proxy.setEnabled(true);
+                }
+                break;
+            }
         }
     }
 
