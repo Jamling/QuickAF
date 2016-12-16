@@ -21,6 +21,8 @@ package cn.ieclipse.af.demo.my;
  * @author Jamling
  */
 public class UserInfo implements java.io.Serializable {
+    // TODO the serialVersionUID must set
+    private static final long serialVersionUID = -2482587253971268655L;
     public String username;
     public String userid;
 }
