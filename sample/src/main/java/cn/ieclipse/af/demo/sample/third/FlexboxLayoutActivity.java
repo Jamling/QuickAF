@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.ieclipse.af.demo.sample.cview;
+package cn.ieclipse.af.demo.sample.third;
 
 import android.view.View;
 import android.widget.AdapterView;
@@ -53,7 +53,7 @@ public class FlexboxLayoutActivity extends SampleBaseActivity {
 
     @Override
     protected int getContentLayout() {
-        return R.layout.sample_activity_flexboxlayout;
+        return R.layout.sample_3rd_flexboxlayout;
     }
     
     @Override

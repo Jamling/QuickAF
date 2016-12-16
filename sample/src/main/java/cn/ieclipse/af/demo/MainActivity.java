@@ -30,6 +30,7 @@ import cn.ieclipse.af.demo.common.ui.BaseActivity;
 import cn.ieclipse.af.demo.common.view.MainBottomTab;
 import cn.ieclipse.af.demo.my.CheckUpdateController;
 import cn.ieclipse.af.demo.my.MyFragment;
+import cn.ieclipse.af.demo.sample.OthersFragment;
 import cn.ieclipse.af.demo.sample.appui.AppUIFragment;
 import cn.ieclipse.af.demo.sample.volley.VolleyFragment;
 import cn.ieclipse.af.util.AppUtils;
@@ -70,7 +71,7 @@ public class MainActivity extends BaseActivity implements CheckUpdateController.
         mViewPager = (ViewPager) view.findViewById(R.id.view_pager);
         mViewPager.setOffscreenPageLimit(2);
         mAdapter = new BaseFragmentAdapter(getFragmentManager());
-        mAdapter.setFragments(new AppUIFragment(), new VolleyFragment(), new MyFragment());
+        mAdapter.setFragments(new AppUIFragment(), new VolleyFragment(), new OthersFragment(), new MyFragment());
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.ieclipse.af.demo.sample.appui;
+package cn.ieclipse.af.demo.sample;
 
 import cn.ieclipse.af.demo.common.ui.BasePagerTabFragment;
-import cn.ieclipse.af.demo.sample.cview.CustomViewFragment;
-import cn.ieclipse.af.demo.sample.recycler.RecyclerFragment;
+import cn.ieclipse.af.demo.sample.orm.AormFragment;
+import cn.ieclipse.af.demo.sample.utils.TabUtils;
 
 /**
  * Description
  *
  * @author Jamling
  */
-public class AppUIFragment extends BasePagerTabFragment {
+public class OthersFragment extends BasePagerTabFragment {
 
     @Override
     public CharSequence getTitle() {
@@ -33,6 +33,6 @@ public class AppUIFragment extends BasePagerTabFragment {
 
     @Override
     protected void addFragments() {
-        mAdapter.setFragments(new TabAppFragment(), new CustomViewFragment(), new RecyclerFragment());
+        mAdapter.setFragments(new TabUtils(), new AormFragment());
     }
 }

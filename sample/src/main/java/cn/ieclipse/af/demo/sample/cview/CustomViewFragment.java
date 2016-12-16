@@ -18,6 +18,7 @@ package cn.ieclipse.af.demo.sample.cview;
 import cn.ieclipse.af.demo.sample.ButtonListFragment;
 import cn.ieclipse.af.demo.sample.cview.expendview.ExpendViewActivity;
 import cn.ieclipse.af.demo.sample.recycler.sort.SortListViewActivity;
+import cn.ieclipse.af.demo.sample.third.FlexboxLayoutActivity;
 
 /**
  * 类/接口描述
@@ -38,7 +39,7 @@ public class CustomViewFragment extends ButtonListFragment {
             RoundButtonActivity.class, ColumnLayoutActivity.class, PreferenceActivity.class,
             StaggeredGridViewActivity.class, AutoPlayViewActivity.class, RadioButtonBadgeViewActivity.class,
             AutoHeightViewPagerActivity.class, CheckableLayoutActivity.class, ExpendViewActivity.class,
-            WheelViewActivity.class, PercentLayoutActivity.class, SortListViewActivity.class, FlexboxLayoutActivity
-            .class, SimpleMonthPickerActivity.class, CustomImageViewSample.class};
+            WheelViewActivity.class, SortListViewActivity.class, SimpleMonthPickerActivity.class,
+            CustomImageViewSample.class};
     }
 }
