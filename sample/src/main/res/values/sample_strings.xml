@@ -95,8 +95,8 @@
         <item>error</item>
     </string-array>
     <string-array name="sample_swipe_dir">
-        <item>left</item>
         <item>right</item>
+        <item>left</item>
     </string-array>
     <!-- from aorm example -->
     <string name="label_index">No.</string>

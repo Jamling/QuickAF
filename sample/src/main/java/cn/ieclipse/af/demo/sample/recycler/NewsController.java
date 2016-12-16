@@ -41,6 +41,12 @@ public class NewsController extends Controller<NewsController.NewsListener> {
         setListener(listener);
     }
 
+    private boolean lazy;
+
+    public void setLazyLoad(boolean lazy) {
+        this.lazy = lazy;
+    }
+
     public void loadNews(NewsRequest req, boolean needCache) {
         ListTask task = new ListTask();
         task.load2List(req, NewsInfo.class, needCache);
@@ -97,6 +103,11 @@ public class NewsController extends Controller<NewsController.NewsListener> {
             }
             return super.equals(obj);
         }
+
+        @Override
+        public String toString() {
+            return title;
+        }
     }
 
     private class ListTask extends RequestObjectTask<NewsRequest, List<NewsInfo>> {
@@ -149,10 +160,12 @@ public class NewsController extends Controller<NewsController.NewsListener> {
 
         @Override
         protected Response<IBaseResponse> parseNetworkResponse(NetworkResponse response) {
-            try {
-                Thread.sleep(2000);
-            } catch (Exception e) {
+            if (lazy) {
+                try {
+                    Thread.sleep(2000);
+                } catch (Exception e) {
 
+                }
             }
             return super.parseNetworkResponse(response);
         }

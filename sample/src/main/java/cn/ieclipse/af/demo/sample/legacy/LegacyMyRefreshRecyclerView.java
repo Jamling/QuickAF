@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.ieclipse.af.demo.sample.recycler.view;
+package cn.ieclipse.af.demo.sample.legacy;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -30,16 +30,17 @@ import cn.ieclipse.af.view.RefreshRecyclerView;
  *
  * @author wangjian
  * @date 2016/9/27.
+ * @deprecated
  */
-public class MyRefreshRecyclerView extends RefreshRecyclerView {
+public class LegacyMyRefreshRecyclerView extends RefreshRecyclerView {
 
-    private MyEmptyView mMyEmptyView;
+    private LegacyMyEmptyView mMyEmptyView;
 
-    public MyRefreshRecyclerView(Context context) {
+    public LegacyMyRefreshRecyclerView(Context context) {
         super(context);
     }
 
-    public MyRefreshRecyclerView(Context context, AttributeSet attrs) {
+    public LegacyMyRefreshRecyclerView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
@@ -47,7 +48,7 @@ public class MyRefreshRecyclerView extends RefreshRecyclerView {
     protected void onFinishInflate() {
         super.onFinishInflate();
         // 设置empty view
-        mMyEmptyView = new MyEmptyView(getContext());
+        mMyEmptyView = new LegacyMyEmptyView(getContext());
         initEmptyView(mMyEmptyView);
         // 设置自动加载
         setAutoLoad(true);

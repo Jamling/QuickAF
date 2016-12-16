@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.ieclipse.af.demo.sample.recycler.view;
+package cn.ieclipse.af.demo.sample.legacy;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -27,14 +27,15 @@ import cn.ieclipse.af.view.recycle.RefreshEmptyView;
  *
  * @author wangjian
  * @date 2016/9/27.
+ * @deprecated
  */
-public class MyEmptyView extends RefreshEmptyView {
+public class LegacyMyEmptyView extends RefreshEmptyView {
 
-    public MyEmptyView(Context context) {
+    public LegacyMyEmptyView(Context context) {
         super(context);
     }
 
-    public MyEmptyView(Context context, AttributeSet attrs) {
+    public LegacyMyEmptyView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

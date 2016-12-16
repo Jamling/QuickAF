@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.ieclipse.af.demo.sample.recycler;
+package cn.ieclipse.af.demo.sample.legacy;
 
 import android.content.Context;
 import android.content.Intent;
@@ -33,14 +33,14 @@ import cn.ieclipse.af.util.DialogUtils;
 import cn.ieclipse.af.util.RandomUtils;
 import cn.ieclipse.af.view.RefreshRecyclerView;
 
-public class GridRecyclerActivity extends BaseActivity {
+public class LegacyRecyclerLayoutActivity extends BaseActivity {
     
     private RefreshRecyclerView mAfRecycleView;
     private MyAdapter mAdapter;
 
     @Override
     protected int getContentLayout() {
-        return R.layout.sample_activity_grid_recycler;
+        return R.layout.sample_legacy_recycler_layout;
     }
     
     @Override
@@ -194,7 +194,7 @@ public class GridRecyclerActivity extends BaseActivity {
 //    }
 
     public static void go(Context context) {
-        Intent intent = new Intent(context, GridRecyclerActivity.class);
+        Intent intent = new Intent(context, LegacyRecyclerLayoutActivity.class);
         context.startActivity(intent);
     }
 }

@@ -111,9 +111,8 @@
         <activity android:name=".sample.cview.SimpleMonthPickerActivity" />
 
         <!-- list view -->
-        <activity android:name=".sample.recycler.RefreshRecyclerViewActivity" />
-        <activity android:name=".sample.recycler.SwipeMenuRecyclerActivity" />
-        <activity android:name=".sample.recycler.GridRecyclerActivity" />
+        <activity android:name=".sample.legacy.LegacySwipeMenuRecyclerActivity" />
+        <activity android:name=".sample.legacy.LegacyRecyclerLayoutActivity" />
         <activity android:name=".sample.cview.expendview.ExpendViewActivity" />
         <activity android:name=".sample.recycler.sort.SortRecyclerActivity" />
         <activity android:name=".sample.recycler.sort.SortListViewActivity" />

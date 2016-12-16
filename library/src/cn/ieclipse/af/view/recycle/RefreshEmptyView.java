@@ -28,6 +28,7 @@ import cn.ieclipse.af.view.RefreshRecyclerView;
  *
  * @author wangjian
  * @date 2016/1/4.
+ * @deprecated use {@link cn.ieclipse.af.view.refresh.RefreshLayout} instead
  */
 public abstract class RefreshEmptyView extends SwipeRefreshLayout implements View.OnClickListener,
     SwipeRefreshLayout.OnRefreshListener {

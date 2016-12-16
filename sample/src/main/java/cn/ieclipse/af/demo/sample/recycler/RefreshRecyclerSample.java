@@ -19,7 +19,6 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
@@ -50,8 +49,6 @@ public class RefreshRecyclerSample extends SampleBaseFragment implements NewsCon
     AfRecyclerAdapter<NewsController.NewsInfo> adapter;
     NewsController controller = new NewsController(this);
 
-    CheckBox rb1;
-
     private int loadResult;
 
     @Override
@@ -81,7 +78,7 @@ public class RefreshRecyclerSample extends SampleBaseFragment implements NewsCon
         helper.setKeepLoaded(true);
         listView = (RecyclerView) refreshLayout.findViewById(R.id.rv);
         adapter = new AfRecyclerAdapter<>();
-        adapter.registerDelegate(new NewDelegate());
+        registerDelegate();
         adapter.setOnItemClickListener(new AfRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(AfRecyclerAdapter adapter1, View view, int position) {
@@ -93,13 +90,15 @@ public class RefreshRecyclerSample extends SampleBaseFragment implements NewsCon
                 }
             }
         });
-
         helper.setAdapter(adapter);
 
-        rb1 = (CheckBox) view.findViewById(R.id.rb1);
-        rb1.setChecked(refreshLayout.isAutoLoad());
-        chk3.setChecked(helper.isKeepLoaded());
+        chk3.setChecked(refreshLayout.isAutoLoad());
+        chk5.setChecked(helper.isKeepLoaded());
         load(true);
+    }
+
+    protected void registerDelegate(){
+        adapter.registerDelegate(new NewDelegate());
     }
 
     @Override
@@ -133,10 +132,13 @@ public class RefreshRecyclerSample extends SampleBaseFragment implements NewsCon
             adapter.notifyDataSetChanged();
         }
         else if (chk3 == buttonView) {
-            helper.setKeepLoaded(isChecked);
+            refreshLayout.setAutoLoad(isChecked);
         }
-        else if (rb1 == buttonView) {
-            refreshLayout.setAutoLoad(rb1.isChecked());
+        else if (chk4 == buttonView) {
+            controller.setLazyLoad(isChecked);
+        }
+        else if (chk5 == buttonView) {
+            helper.setKeepLoaded(isChecked);
         }
     }
 
@@ -180,6 +182,7 @@ public class RefreshRecyclerSample extends SampleBaseFragment implements NewsCon
 
         @Override
         public void onUpdateView(RecyclerView.ViewHolder holder, NewsController.NewsInfo info, int position) {
+            System.err.println("onUpdate " + position);
             NewsHolder vh = (NewsHolder) holder;
             vh.setInfo(info);
         }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.ieclipse.af.demo.sample.recycler;
+package cn.ieclipse.af.demo.sample.legacy;
 
 import android.content.Context;
 import android.content.Intent;
@@ -38,7 +38,7 @@ import cn.ieclipse.af.view.recycle.SwipeMenuRecyclerView;
 /**
  * list item显示左右滑动显示菜单
  */
-public class SwipeMenuRecyclerActivity extends BaseActivity {
+public class LegacySwipeMenuRecyclerActivity extends BaseActivity {
     
     private RefreshRecyclerView mAfRecycleView;
     private SwipeMenuRecyclerView mSwipeMenuRecyclerView;
@@ -46,13 +46,13 @@ public class SwipeMenuRecyclerActivity extends BaseActivity {
 
     @Override
     protected int getContentLayout() {
-        return R.layout.sample_activity_swipe_menu_recycler;
+        return R.layout.sample_legacy_swipe_menu_recycler;
     }
     
     @Override
     protected void initHeaderView() {
         super.initHeaderView();
-        mTitleTextView.setText("SwipeMenuRecyclerView");
+        mTitleTextView.setText("SwipeMenuRecyclerView(Legacy)");
     }
     
     @Override
@@ -125,7 +125,7 @@ public class SwipeMenuRecyclerActivity extends BaseActivity {
             holder.btOpen.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DialogUtils.showToast(SwipeMenuRecyclerActivity.this, "click open");
+                    DialogUtils.showToast(LegacySwipeMenuRecyclerActivity.this, "click open");
                 }
             });
 
@@ -173,7 +173,7 @@ public class SwipeMenuRecyclerActivity extends BaseActivity {
     }
 
     public static void go(Context context) {
-        Intent intent = new Intent(context, SwipeMenuRecyclerActivity.class);
+        Intent intent = new Intent(context, LegacySwipeMenuRecyclerActivity.class);
         context.startActivity(intent);
     }
 }
