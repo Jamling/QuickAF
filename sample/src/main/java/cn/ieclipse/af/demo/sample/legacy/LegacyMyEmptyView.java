@@ -41,7 +41,7 @@ public class LegacyMyEmptyView extends RefreshEmptyView {
 
     @Override
     protected View getEmptyLayout(Context context) {
-        View v = View.inflate(context, R.layout.pull_to_refresh_empty_view, null);
+        View v = View.inflate(context, R.layout.legacy_refresh_empty_view, null);
         // 必须实现对以下3个view的赋值，否则EmptyView不起作用
         mLoadingLayout = v.findViewById(R.id.layout_loading);
         mNetworkErrorLayout = v.findViewById(R.id.layout_network_error);
