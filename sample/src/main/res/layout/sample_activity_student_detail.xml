@@ -14,7 +14,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/label_index" />
+            android:text="@string/sample_label_index" />
 
         <EditText
             android:id="@+id/et_no"
@@ -33,14 +33,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/label_name" />
+            android:text="@string/sample_label_name" />
 
         <EditText
             android:id="@+id/et_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:hint="@string/label_name" />
+            android:hint="@string/sample_label_name" />
     </LinearLayout>
 
     <LinearLayout
@@ -52,14 +52,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/label_phone" />
+            android:text="@string/sample_label_phone" />
 
         <EditText
             android:id="@+id/et_phone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:hint="@string/label_phone"
+            android:hint="@string/sample_label_phone"
             android:inputType="phone" />
     </LinearLayout>
 
@@ -72,7 +72,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/label_age" />
+            android:text="@string/sample_label_age" />
 
         <EditText
             android:id="@+id/et_age"
@@ -92,7 +92,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/label_address" />
+            android:text="@string/sample_label_address" />
 
         <EditText
             android:id="@+id/et_address"

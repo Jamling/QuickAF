@@ -52,6 +52,7 @@ public abstract class DetailActivity extends BaseActivity {
     @Override
     protected void initHeaderView() {
         super.initHeaderView();
+        setTitle("Student Detail");
         mSave = new ImageView(this);
         mEdit = new ImageView(this);
         mDel = new ImageView(this);

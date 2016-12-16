@@ -99,25 +99,25 @@
         <item>left</item>
     </string-array>
     <!-- from aorm example -->
-    <string name="label_index">No.</string>
-    <string name="label_name">Name</string>
-    <string name="label_course">Course</string>
-    <string name="label_phone">Phone</string>
-    <string name="label_age">Age</string>
-    <string name="label_score">Score</string>
-    <string name="label_pass">Pass</string>
-    <string name="label_address">Address</string>
-    <string name="pass_ok">Yes</string>
-    <string name="pass_not">No</string>
-    <string name="menu_add">Add</string>
-    <string name="menu_save">Save</string>
-    <string name="menu_edit">Edit</string>
-    <string name="menu_delete">Delete</string>
-    <string name="page_info">pagination: %1$s - %2$s of %3$s</string>
-    <string name="btn_prev">Prev Page</string>
-    <string name="btn_next">Next Page</string>
-    <string name="delete_grade_info">Delete %1$s grade info of student %2$s</string>
-    <string name="label_view">Grade</string>
+    <string name="sample_label_index">No.</string>
+    <string name="sample_label_name">Name</string>
+    <string name="sample_label_course">Course</string>
+    <string name="sample_label_phone">Phone</string>
+    <string name="sample_label_age">Age</string>
+    <string name="sample_label_score">Score</string>
+    <string name="sample_label_pass">Pass</string>
+    <string name="sample_label_address">Address</string>
+    <string name="sample_pass_ok">Yes</string>
+    <string name="sample_pass_not">No</string>
+    <string name="sample_menu_add">Add</string>
+    <string name="sample_menu_save">Save</string>
+    <string name="sample_menu_edit">Edit</string>
+    <string name="sample_menu_delete">Delete</string>
+    <string name="sample_page_info">pagination: %1$s - %2$s of %3$s</string>
+    <string name="sample_btn_prev">Prev Page</string>
+    <string name="sample_btn_next">Next Page</string>
+    <string name="sample_delete_grade_info">Delete %1$s grade info of student %2$s</string>
+    <string name="sample_label_view">Grade</string>
     <!-- end from aorm -->
 
 </resources>
