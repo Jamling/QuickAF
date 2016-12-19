@@ -101,10 +101,11 @@
         <item name="android:windowExitAnimation">@anim/pophidden_anim</item>
     </style>
 
-    <!-- Base RefreshRecyclerView -->
-    <style name="refresh_rv">
-        <item name="recyclerView">@layout/base_rv</item>
-        <item name="dividerHeight">1px</item>
-        <item name="dividerColor">@color/divider</item>
+    <!-- Base style for RecyclerView -->
+    <style name="base_rv">
+        <item name="android:scrollbarStyle">insideOverlay</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:scrollbarThumbVertical">@drawable/scrollbar_thumb</item>
+        <item name="android:scrollbarSize">4dp</item>
     </style>
 </resources>
