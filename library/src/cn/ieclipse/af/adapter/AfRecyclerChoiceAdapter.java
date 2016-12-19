@@ -31,7 +31,7 @@ import java.util.Map;
  *
  * @author Jamling
  */
-public abstract class AfRecyclerChoiceAdapter<T> extends AfRecyclerAdapter<T> {
+public class AfRecyclerChoiceAdapter<T> extends AfRecyclerAdapter<T> {
     /**
      * Normal list that does not indicate choices
      */
@@ -57,6 +57,10 @@ public abstract class AfRecyclerChoiceAdapter<T> extends AfRecyclerAdapter<T> {
 
     public AfRecyclerChoiceAdapter(Context context) {
         super(context);
+    }
+
+    public AfRecyclerChoiceAdapter() {
+        super();
     }
 
     /**
@@ -89,9 +93,22 @@ public abstract class AfRecyclerChoiceAdapter<T> extends AfRecyclerAdapter<T> {
         if (mChoiceMode == CHOICE_MODE_NONE) {
             return;
         }
-
+        if (position < getHeaderCount() || position >= getHeaderCount() + getDataList().size()) {
+            return;
+        }
         if (mChoiceMode == CHOICE_MODE_SINGLE) {
-            clearChoices();
+            // clearChoices();
+            if (mSelections != null) {
+                int size = mSelections.size();
+                for (int i = 0; i < size; i++) {
+                    int k = mSelections.keyAt(i);
+                    boolean v = mSelections.valueAt(i);
+                    if (v) {
+                        updateCheckedHolder(k, false);
+                    }
+                }
+                mSelections.clear();
+            }
             mSelections.put(position, value);
         }
         else if (mChoiceMode == CHOICE_MODE_MULTIPLE) {

@@ -51,6 +51,7 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
 
     private DelegateManager<T> mDelegatesManager;
 
+    @Deprecated
     public AfRecyclerAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
         setDataCheck(AfDataHolder.CHECK_BOTH);
@@ -196,7 +197,7 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (mDelegatesManager.getCount() > 0) {
             RecyclerView.ViewHolder holder = mDelegatesManager.onCreateViewHolder(parent, viewType);
-            if (viewType >= 0 && holder instanceof RecyclerView.ViewHolder) {
+            if (viewType >= 0 && holder instanceof AfViewHolder) {
                 if (mOnItemClickListener != null) {
                     ((AfViewHolder) holder).setOnClickListener(mOnItemClickListener);
                 }
