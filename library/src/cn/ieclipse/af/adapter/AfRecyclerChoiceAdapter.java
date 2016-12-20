@@ -55,6 +55,7 @@ public class AfRecyclerChoiceAdapter<T> extends AfRecyclerAdapter<T> {
     protected List<T> mCheckedItems;
     protected T mCheckedItem;
 
+    @Deprecated
     public AfRecyclerChoiceAdapter(Context context) {
         super(context);
     }

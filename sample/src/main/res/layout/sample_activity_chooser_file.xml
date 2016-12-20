@@ -5,25 +5,114 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btn1"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Single File"/>
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btn2"
+        <Button
+            android:id="@+id/btn1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"
+            android:text="Single File"/>
+
+        <Button
+            android:id="@+id/btn2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_weight="1"
+            android:text="Single Folder"/>
+    </LinearLayout>
+
+    <cn.ieclipse.af.view.FlowLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="Multi Folder or File"/>
+        android:gravity="center"
+        android:paddingLeft="10dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sort:"/>
+
+        <cn.ieclipse.af.view.FlowLayout
+            android:id="@+id/fl1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+        </cn.ieclipse.af.view.FlowLayout>
+    </cn.ieclipse.af.view.FlowLayout>
+
+
+    <cn.ieclipse.af.view.FlowLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="mode:"/>
+
+        <Spinner
+            android:id="@id/spn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/sample_file_chooser"/>
+
+        <CheckBox
+            android:id="@+id/chk1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Include empty folder"/>
+
+        <CheckBox
+            android:id="@+id/chk2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Include hidden"/>
+
+        <CheckBox
+            android:id="@+id/chk3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="select file directly"/>
+
+        <EditText
+            android:id="@+id/et1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="max count"
+            android:inputType="number"/>
+
+        <EditText
+            android:id="@+id/et2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="max size (kb)"
+            android:inputType="number"/>
+
+        <EditText
+            android:id="@+id/et3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="ext1;ext2"
+            android:inputType="textWebEmailAddress"/>
+    </cn.ieclipse.af.view.FlowLayout>
     <Button
         android:id="@+id/btn3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="Single Folder"/>
+        android:text="Open"/>
+
 
     <TextView
         android:id="@+id/tv1"

@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.TextUtils;
+import android.util.SparseBooleanArray;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AbsListView;
@@ -32,10 +33,13 @@ import android.widget.TextView;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.ieclipse.af.adapter.AfBaseAdapter;
 import cn.ieclipse.af.demo.R;
@@ -61,6 +65,8 @@ public class FileChooserActivity extends BaseActivity implements AbsListView.OnI
     private TextView mTvCheckedCount;
     private View mBtnOk;
     private int mChoiceMode = ListView.CHOICE_MODE_NONE;
+
+    private Map<File, State> mStates = new HashMap<>();
 
     @Override
     protected int getContentLayout() {
@@ -95,19 +101,25 @@ public class FileChooserActivity extends BaseActivity implements AbsListView.OnI
         mTvCheckedCount = (TextView) mBottomBar.findViewById(android.R.id.text1);
         mBtnOk = mBottomBar.findViewById(android.R.id.button1);
         setOnClickListener(mBtnOk);
+        mBottomBar.setBackgroundResource(R.color.bg_main);
     }
 
     @Override
     protected void initData() {
         super.initData();
+
         mAdapter = new FileAdapter();
         initFileAdapter(mAdapter);
 
+        onCheckCountChanged(0);
         onFolderChanged(new File(mParams.initDir));
         mListView.setAdapter(mAdapter);
     }
 
     protected void initFileAdapter(FileAdapter adapter) {
+        FileAdapter.DEFAULT_COMPARATOR.setSort(mParams.sort);
+        FileAdapter.DEFAULT_FILTER.setParams(mParams);
+        FileAdapter.FOLDER_FILTER.setParams(mParams);
         if (mParams.chooserMode == Params.CHOOSER_FOLDER) {
             adapter.setFileFilter(FileAdapter.FOLDER_FILTER);
         }
@@ -123,13 +135,16 @@ public class FileChooserActivity extends BaseActivity implements AbsListView.OnI
                         return file.isFile();
                     }
                 });
+                return;
             }
         }
         adapter.setContentClick(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 File file = (File) v.getTag();
-                onFolderChanged(file);
+                if (file.isDirectory()) {
+                    onFolderChanged(file);
+                }
             }
         });
     }
@@ -162,6 +177,7 @@ public class FileChooserActivity extends BaseActivity implements AbsListView.OnI
         if (mParams.chooserMode == Params.CHOOSER_FILE) {
             File f = mAdapter.getItem(position);
             if (f.isDirectory()) {
+                mListView.setItemChecked(position, false);
                 onFolderChanged(f);
                 return;
             }
@@ -169,11 +185,15 @@ public class FileChooserActivity extends BaseActivity implements AbsListView.OnI
 
         if (mChoiceMode == ListView.CHOICE_MODE_SINGLE) {
             mAdapter.setItemChecked(position, true);
+            // return result directly
+            if (Params.CHOOSER_FILE == mParams.chooserMode && mParams.selectDirectly) {
+                select(mAdapter.getCheckedItem());
+            }
         }
         else if (mChoiceMode == ListView.CHOICE_MODE_MULTIPLE) {
             mAdapter.setItemChecked(position, mListView.isItemChecked(position));
         }
-        int count = mListView.getCheckedItemCount();
+        int count = mAdapter.getCheckedItems().size();//mListView.getCheckedItemCount();
         onCheckCountChanged(count);
     }
 
@@ -201,9 +221,23 @@ public class FileChooserActivity extends BaseActivity implements AbsListView.OnI
 
     protected void onFolderChanged(File dir) {
         if (dir != null) {
+            if (mAdapter.getCurrentDir() != null) {
+                mStates.put(mAdapter.getCurrentDir(), State.get(mListView));
+            }
+            mListView.clearChoices();
             mAdapter.setCurrentDir(dir);
             mAdapter.notifyDataSetChanged();
             mTitleTextView.setText(dir.getAbsolutePath());
+
+            final State state = mStates.get(dir);
+            if (state != null) {
+                mListView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        state.set(mListView);
+                    }
+                }, 100);
+            }
         }
     }
 
@@ -297,12 +331,40 @@ public class FileChooserActivity extends BaseActivity implements AbsListView.OnI
         public static final int CHOOSER_FILE = 0;
         public static final int CHOOSER_FOLDER = 1;
 
+        public static final int SORT_FOLDER_FIRST = 0x80;
+        public static final int SORT_NAME_ASC = 0x02;
+        public static final int SORT_NAME_DESC = 0x03;
+        public static final int SORT_DATE_ASC = 0x08;
+        public static final int SORT_DATE_DESC = 0x0C;
+        public static final int SORT_SIZE_ASC = 0x20;
+        public static final int SORT_SIZE_DESC = 0x30;
+
         public String initDir;
         public String initFile;
         public int chooserMode = CHOOSER_FILE;
         public int maxCount = 1;
-        public int maxLength = -1;
+        public int maxSize = -1;
         public String[] exts;
+        public boolean includeEmpty = true;
+        public boolean includeHidden = false;
+        /**
+         * In {@link #CHOOSER_FILE} and {@link #maxCount} == 1 (Single Choice), whether select directly (default is
+         * true)
+         */
+        public boolean selectDirectly = true;
+        public int sort = SORT_FOLDER_FIRST | SORT_NAME_ASC;
+
+        public static Params newSingleFileParams() {
+            Params params = new Params();
+            params.includeEmpty = false;
+            return params;
+        }
+
+        public static Params newSingleFolderParams() {
+            Params params = new Params();
+            params.chooserMode = CHOOSER_FOLDER;
+            return params;
+        }
     }
 
     public static class ExtFilter implements FileFilter {
@@ -377,43 +439,21 @@ public class FileChooserActivity extends BaseActivity implements AbsListView.OnI
             return position == 0 ? 0 : 1;
         }
 
-        public static final FileFilter DEFAULT_FILTER = new FileFilter() {
+        public static final DefaultFileFilter DEFAULT_FILTER = new DefaultFileFilter() {
             @Override
             public boolean accept(File pathname) {
-                return pathname.canRead();
+                return pathname.canRead() && include(pathname);
             }
         };
 
-        public static final FileFilter FOLDER_FILTER = new FileFilter() {
+        public static final DefaultFileFilter FOLDER_FILTER = new DefaultFileFilter() {
             @Override
             public boolean accept(File pathname) {
-                return pathname.canRead() && pathname.isDirectory();
+                return pathname.canRead() && pathname.isDirectory() && include(pathname);
             }
         };
 
-        public static final Comparator<File> DEFAULT_COMPARATOR = new Comparator<File>() {
-
-            @Override
-            public int compare(File lhs, File rhs) {
-                if (lhs.isDirectory()) {
-                    if (rhs.isDirectory()) {
-                        return lhs.getName().compareToIgnoreCase(rhs.getName());
-                    }
-                    else {
-                        return -1;
-                    }
-                }
-                else if (lhs.isFile()) {
-                    if (rhs.isDirectory()) {
-                        return 1;
-                    }
-                    else {
-                        return lhs.getName().compareToIgnoreCase(rhs.getName());
-                    }
-                }
-                return 0;
-            }
-        };
+        public static final FileComparator DEFAULT_COMPARATOR = new FileComparator();
 
         public interface CheckFilter {
             boolean isCheckable(File file);
@@ -464,6 +504,163 @@ public class FileChooserActivity extends BaseActivity implements AbsListView.OnI
 
         public File getCurrentDir() {
             return mCurrentDir;
+        }
+    }
+
+    public static abstract class DefaultFileFilter implements FileFilter {
+        private Params params;
+
+        public void setParams(Params params) {
+            this.params = params;
+        }
+
+        public boolean include(File pathname) {
+            boolean flag = true;
+            if (params != null) {
+                if (!params.includeHidden) {
+                    flag = !pathname.isHidden();
+                }
+                if (!params.includeEmpty && pathname.isDirectory()) {
+                    File[] sub = pathname.listFiles();
+                    flag &= (sub != null && sub.length > 0);
+                }
+            }
+            return flag;
+        }
+    }
+
+    public static class FileComparator implements Comparator<File> {
+        private int sort = Params.SORT_FOLDER_FIRST | Params.SORT_NAME_ASC;
+
+        public void setSort(int sort) {
+            this.sort = sort;
+        }
+
+        @Override
+        public int compare(File lhs, File rhs) {
+            int ret = 0;
+            if ((sort & Params.SORT_FOLDER_FIRST) != 0) {
+                ret = compareFolder(lhs, rhs);
+                if (ret != 0) {
+                    return ret;
+                }
+            }
+            if ((sort & Params.SORT_NAME_DESC) == Params.SORT_NAME_ASC) {
+                ret = compareName(lhs, rhs);
+            }
+            else if ((sort & Params.SORT_NAME_DESC) == Params.SORT_NAME_DESC) {
+                ret = compareName(rhs, lhs);
+            }
+            if (ret != 0) {
+                return ret;
+            }
+
+            if ((sort & Params.SORT_DATE_DESC) == Params.SORT_DATE_ASC) {
+                ret = compareDate(lhs, rhs);
+            }
+            else if ((sort & Params.SORT_DATE_DESC) == Params.SORT_DATE_DESC) {
+                ret = compareDate(rhs, lhs);
+            }
+            if (ret != 0) {
+                return ret;
+            }
+
+            if ((sort & Params.SORT_SIZE_DESC) == Params.SORT_SIZE_ASC) {
+                ret = compareLength(lhs, rhs);
+            }
+            else if ((sort & Params.SORT_SIZE_DESC) == Params.SORT_SIZE_DESC) {
+                ret = compareLength(rhs, lhs);
+            }
+            if (ret != 0) {
+                return ret;
+            }
+
+            return ret;
+        }
+
+        private int compareFolder(File lhs, File rhs) {
+            if (lhs.isDirectory()) {
+                if (rhs.isDirectory()) {
+                    return 0;
+                }
+                else {
+                    return -1;
+                }
+            }
+            else if (lhs.isFile()) {
+                if (rhs.isDirectory()) {
+                    return 1;
+                }
+                else {
+                    return 0;
+                }
+            }
+            return 0;
+        }
+
+        private int compareName(File lhs, File rhs) {
+            return lhs.getName().compareToIgnoreCase(rhs.getName());
+        }
+
+        private int compareDate(File lhs, File rhs) {
+            long l1 = lhs.lastModified();
+            long l2 = rhs.lastModified();
+            return compareLong(l1, l2);
+        }
+
+        private int compareLength(File lhs, File rhs) {
+            long l1 = lhs.length();
+            long l2 = rhs.length();
+            return compareLong(l1, l2);
+        }
+
+        private int compareLong(long l1, long l2) {
+            long t = l1 - l2;
+            if (t > 0) {
+                return 1;
+            }
+            else if (t == 0) {
+                return 0;
+            }
+            else {
+                return -1;
+            }
+        }
+    }
+
+    private static class State {
+        private List<Integer> checked;
+        private int location;
+
+        public static State get(ListView listView) {
+            State state = new State();
+            SparseBooleanArray checked = listView.getCheckedItemPositions();
+            if (checked != null) {
+                state.checked = new ArrayList<>(checked.size());
+                for (int i = 0; i < checked.size(); i++) {
+                    int k = checked.keyAt(i);
+                    boolean v = checked.valueAt(i);
+                    if (v) {
+                        state.checked.add(k);
+                    }
+                }
+            }
+            state.location = listView.getFirstVisiblePosition();
+            return state;
+        }
+
+        public void set(ListView listView) {
+            listView.setSelection(location);
+            if (checked != null) {
+                for (int i = 0; i < checked.size(); i++) {
+                    listView.setItemChecked(checked.get(i), true);
+                }
+            }
+        }
+
+        @Override
+        public String toString() {
+            return "State(position=" + location + ",checked=" + checked + ")";
         }
     }
 }
