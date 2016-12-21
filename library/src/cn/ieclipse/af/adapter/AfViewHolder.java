@@ -16,8 +16,12 @@
 package cn.ieclipse.af.adapter;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+
+import java.lang.reflect.Field;
 
 /**
  * // Provide a reference to the views for each data item
@@ -33,9 +37,15 @@ public class AfViewHolder extends RecyclerView.ViewHolder implements View.OnClic
 
     public AfViewHolder(View view) {
         super(view);
-        itemView.setOnClickListener(this);
-        itemView.setOnLongClickListener(this);
-        itemView.setBackgroundResource(android.R.drawable.list_selector_background);
+        if (!hasOnClickListener(view)) {
+            itemView.setOnClickListener(this);
+        }
+        if (!hasOnLongClickListener(view)) {
+            itemView.setOnLongClickListener(this);
+        }
+        if (itemView.getBackground() == null) {
+            itemView.setBackgroundResource(android.R.drawable.list_selector_background);
+        }
     }
 
     public Context getContext() {
@@ -73,5 +83,42 @@ public class AfViewHolder extends RecyclerView.ViewHolder implements View.OnClic
             mOnLongClickListener.onItemLongClick(getAdapter(), v, getLayoutPosition());
         }
         return true;
+    }
+
+    private boolean hasOnClickListener(View view) {
+        if (Build.VERSION.SDK_INT >= 15) {
+            return view.hasOnClickListeners();
+        }
+        try {
+            Field f = View.class.getDeclaredField("mListenerInfo");
+            f.setAccessible(true);
+            Object li = f.get(view);
+            if (li != null) {
+                f = li.getClass().getDeclaredField("mOnClickListener");
+                f.setAccessible(true);
+                Object l = f.get(li);
+                return l != null;
+            }
+        } catch (Exception e) {
+            Log.e("AfViewHolder", "can't detect OnClickListener under API 15", e);
+        }
+        return false;
+    }
+
+    private boolean hasOnLongClickListener(View view) {
+        try {
+            Field f = View.class.getDeclaredField("mListenerInfo");
+            f.setAccessible(true);
+            Object li = f.get(view);
+            if (li != null) {
+                f = li.getClass().getDeclaredField("mOnLongClickListener");
+                f.setAccessible(true);
+                Object l = f.get(li);
+                return l != null;
+            }
+        } catch (Exception e) {
+            Log.e("AfViewHolder", "can't detect OnLongClickListener", e);
+        }
+        return false;
     }
 }
