@@ -98,7 +98,7 @@ public class RefreshRecyclerSample extends SampleBaseFragment implements NewsCon
     }
 
     protected void registerDelegate(){
-        adapter.registerDelegate(new NewDelegate());
+        adapter.registerDelegate(new NewsDelegate());
     }
 
     @Override
@@ -173,7 +173,7 @@ public class RefreshRecyclerSample extends SampleBaseFragment implements NewsCon
         }
     }
 
-    private class NewDelegate extends AdapterDelegate<NewsController.NewsInfo> {
+    private class NewsDelegate extends AdapterDelegate<NewsController.NewsInfo> {
 
         @Override
         public int getLayout() {

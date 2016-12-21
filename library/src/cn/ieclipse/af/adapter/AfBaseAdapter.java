@@ -36,6 +36,10 @@ public abstract class AfBaseAdapter<T> extends BaseAdapter {
     protected List<T> mCheckedItems;
     protected T mCheckedItem;
 
+    public AfBaseAdapter() {
+        setDataCheck(AfDataHolder.CHECK_BOTH);
+    }
+
     public abstract int getLayout();
 
     public abstract void onUpdateView(View convertView, int position);
@@ -62,6 +66,10 @@ public abstract class AfBaseAdapter<T> extends BaseAdapter {
 
     public void add2Top(T t) {
         mDataHolder.add2Top(t);
+    }
+
+    public void add2Top(List<T> list){
+        mDataHolder.addAll2Top(list);
     }
 
     public void add(T t) {
