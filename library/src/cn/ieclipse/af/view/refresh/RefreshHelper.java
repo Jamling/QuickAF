@@ -28,29 +28,33 @@ import cn.ieclipse.af.volley.RestError;
  * @author Jamling
  */
 public abstract class RefreshHelper<T> {
+    /**
+     * 未知的数据总条目
+     */
+    public static final int TOTAL_UNKNOWN = -1;
+    /**
+     * 分页第一页索引
+     */
+    public static final int PAGE_FIRST = 1;
+    /**
+     * 分页加载每一页的大小
+     */
+    public static final int PAGE_SIZE = 10;
 
-    // protected RecyclerView recyclerView;
     protected RefreshLayout refreshLayout;
+
+    /**
+     * 下拉刷新时，是否保留已经加载的数据
+     */
+    private boolean mKeepLoaded = false;
 
     /**
      * adapter中数据条目
      */
     private int mItemCount = 0;
 
-    private int mTotalCount;
+    private int mTotalCount = TOTAL_UNKNOWN;
 
-    /**
-     * 下拉刷新时，是否保留已经加载的数据
-     */
-    private boolean mKeepLoaded = false;
-    /**
-     * 分页第一页索引
-     */
-    private static final int PAGE_FIRST = 1;
-    /**
-     * 分页加载每一页的大小
-     */
-    private static final int PAGE_SIZE = 10;
     /**
      * 分页加载当前页数 mCurrentPage
      */
@@ -74,14 +78,14 @@ public abstract class RefreshHelper<T> {
      * 加载完成将数据添加到adapter中
      *
      * @param list     加载的分页数据
-     * @param total    服务端数据总条目
+     * @param total    服务端数据总条目, 如果不确定，请使用{@link #TOTAL_UNKNOWN}
      * @param pageSize 分页大小
      */
     public void onLoadFinish(List<T> list, int total, int pageSize) {
         if (pageSize > 0) {
             this.mPageSize = pageSize;
         }
-        if (total > 0) {
+        if (total >= 0) {
             this.mTotalCount = total;
         }
         setAdapterData(list);
@@ -95,6 +99,14 @@ public abstract class RefreshHelper<T> {
             resetFooter();
         }
         refreshLayout.onRefreshComplete();
+    }
+
+    public void onLoadFinish(List<T> list, int pageSize) {
+        onLoadFinish(list, RefreshHelper.TOTAL_UNKNOWN, pageSize);
+    }
+
+    public void onLoadFinish(List<T> list) {
+        onLoadFinish(list, RefreshHelper.TOTAL_UNKNOWN, 0);
     }
 
     /**
@@ -174,6 +186,9 @@ public abstract class RefreshHelper<T> {
     protected abstract boolean isEmpty();
 
     protected boolean hasMoreData() {
+        if (getTotalCount() < 0) {
+            return true;
+        }
         return getTotalCount() > 0 && getItemCount() < getTotalCount();
     }
 
