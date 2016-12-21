@@ -23,6 +23,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.FrameLayout;
 
 import java.util.HashMap;
@@ -125,8 +126,10 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
         else {
             mContentViewWrapper.setVisibility(GONE);
         }
-        registerDetector(VScrollView.class, new RefreshVScrollDetector());
-        registerDetector(RecyclerView.class, new RefreshRecyclerDetector());
+        internalRegisterDetector(VScrollView.class, new RefreshVScrollDetector());
+        internalRegisterDetector(RecyclerView.class, new RefreshRecyclerDetector());
+        internalRegisterDetector(AbsListView.class, new RefreshListViewDetector());
+        detectProxy();
     }
 
     protected void handleStyledAttributes(TypedArray a) {
@@ -252,10 +255,6 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
         public abstract void setEnabled(boolean enable);
     }
 
-    public static class ViewProxy<T> {
-
-    }
-
     public enum Mode {
         /**
          * Disable all Pull-to-Refresh gesture and Refreshing handling
@@ -290,12 +289,16 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
     private Map<Class, RefreshDetector> mDetectorMap = new HashMap<>();
     private RefreshDetector mDetector;
 
-    public void registerDetector(Class clazz, RefreshDetector proxy) {
-        if (proxy != null) {
-            proxy.setView(mContentView);
-            proxy.setRefresh(this);
-            mDetectorMap.put(clazz, proxy);
-            detectProxy();
+    public void registerDetector(Class clazz, RefreshDetector detector) {
+        internalRegisterDetector(clazz, detector);
+        detectProxy();
+    }
+
+    private void internalRegisterDetector(Class clazz, RefreshDetector detector) {
+        if (detector != null) {
+            detector.setView(mContentView);
+            detector.setRefresh(this);
+            mDetectorMap.put(clazz, detector);
         }
     }
 

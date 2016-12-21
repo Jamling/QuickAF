@@ -108,4 +108,11 @@
         <item name="android:scrollbarThumbVertical">@drawable/scrollbar_thumb</item>
         <item name="android:scrollbarSize">4dp</item>
     </style>
+
+    <style name="base_list_view">
+        <item name="android:scrollbarStyle">insideOverlay</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:scrollbarThumbVertical">@drawable/scrollbar_thumb</item>
+        <item name="android:scrollbarSize">4dp</item>
+    </style>
 </resources>

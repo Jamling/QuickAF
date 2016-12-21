@@ -69,6 +69,8 @@ public class RefreshRecyclerHelper<T> extends RefreshHelper<T> {
      * adapter
      */
     protected RecyclerView.Adapter mAdapter;
+    private RecyclerView mRecyclerView;
+
 
     public RefreshRecyclerHelper(RefreshLayout refreshLayout) {
         super(refreshLayout);
@@ -78,11 +80,18 @@ public class RefreshRecyclerHelper<T> extends RefreshHelper<T> {
     }
 
     public RecyclerView getRecyclerView() {
+        if (mRecyclerView != null) {
+            return mRecyclerView;
+        }
         return (RecyclerView) refreshLayout.getContentView();
     }
 
     protected Context getContext() {
         return refreshLayout.getContext();
+    }
+
+    public void setRecyclerView(RecyclerView recyclerView) {
+        this.mRecyclerView = recyclerView;
     }
 
     /**

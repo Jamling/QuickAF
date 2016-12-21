@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015-2016 QuickAF
+ * Copyright (C) 2015-2016 HongTu
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@ import android.widget.ListView;
 import java.util.List;
 
 import cn.ieclipse.af.demo.R;
-import cn.ieclipse.af.demo.common.PagerBaseAdapter;
 import cn.ieclipse.af.demo.sample.SampleBaseFragment;
 import cn.ieclipse.af.view.refresh.RefreshLayout;
 import cn.ieclipse.af.view.refresh.RefreshListViewHelper;
@@ -33,45 +32,56 @@ import cn.ieclipse.af.volley.RestError;
  *
  * @author Jamling
  */
-public class RefreshScrollViewSample extends SampleBaseFragment implements RefreshLayout.OnRefreshListener,
+public class RefreshListViewSample extends SampleBaseFragment implements RefreshLayout.OnRefreshListener,
     NewsController.NewsListener {
-    RefreshLayout refreshLayout;
-    RefreshListViewHelper helper;
-    ListView listView;
-    NewsAdapter adapter;
-    NewsController controller = new NewsController(this);
+    protected RefreshLayout mRefreshLayout;
+    protected RefreshListViewHelper mRefreshHelper;
+    protected ListView mListView;
+    protected RefreshScrollViewSample.NewsAdapter mAdapter;
+
+    private NewsController controller = new NewsController(this);
 
     @Override
     protected int getContentLayout() {
-        return R.layout.sample_activity_refresh_sv;
+        return R.layout.sample_refresh_list_view;
     }
 
     @Override
     protected void initContentView(View view) {
         super.initContentView(view);
-        refreshLayout = (RefreshLayout) view.findViewById(R.id.refresh);
-        refreshLayout.setOnRefreshListener(this);
-        refreshLayout.setMode(RefreshLayout.REFRESH_MODE_BOTH);
 
-        listView = (ListView) refreshLayout.findViewById(R.id.listView);
-        adapter = new NewsAdapter();
-        // listView.setAdapter(adapter);
+        mRefreshLayout = (RefreshLayout) view.findViewById(R.id.refresh);
+        // mRefreshLayout.registerDetector(ListView.class, new RefreshListViewDetector());
+        mRefreshLayout.setOnRefreshListener(this);
+        mRefreshLayout.setMode(RefreshLayout.REFRESH_MODE_BOTH);
+        mListView = (ListView) mRefreshLayout.findViewById(R.id.listView);
+        mListView.setBackgroundResource(R.color.bg_main);
+        mListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
-        helper = new RefreshListViewHelper(refreshLayout);
-        helper.setListView(listView);
-        helper.setAdapter(adapter);
+        mRefreshHelper = new RefreshListViewHelper(mRefreshLayout);
+        mAdapter = new RefreshScrollViewSample.NewsAdapter();
+        mRefreshHelper.setAdapter(mAdapter);
 
         chk1.setEnabled(false);
         chk2.setEnabled(false);
-        chk3.setChecked(refreshLayout.isAutoLoad());
-        chk5.setChecked(helper.isKeepLoaded());
-
-        load();
+        chk3.setChecked(mRefreshLayout.isAutoLoad());
+        chk5.setChecked(mRefreshHelper.isKeepLoaded());
+        load(false);
     }
 
-    protected void load() {
+    @Override
+    public void onRefresh() {
+        load(false);
+    }
+
+    @Override
+    public void onLoadMore() {
+        load(false);
+    }
+
+    protected void load(boolean needCache) {
         NewsController.NewsRequest req = new NewsController.NewsRequest();
-        req.page = helper.getCurrentPage();//adapter.getPage();
+        req.page = mRefreshHelper.getCurrentPage();
         controller.loadNews(req, false);
     }
 
@@ -96,38 +106,19 @@ public class RefreshScrollViewSample extends SampleBaseFragment implements Refre
 //            adapter.notifyDataSetChanged();
         }
         else if (chk3 == buttonView) {
-            refreshLayout.setAutoLoad(isChecked);
+            mRefreshLayout.setAutoLoad(isChecked);
         }
         else if (chk4 == buttonView) {
             controller.setLazyLoad(isChecked);
         }
         else if (chk5 == buttonView) {
-            helper.setKeepLoaded(isChecked);
+            mRefreshHelper.setKeepLoaded(isChecked);
         }
     }
 
     @Override
-    public void onRefresh() {
-        load();
-    }
-
-    @Override
-    public void onLoadMore() {
-        load();
-    }
-
-    @Override
     public void onLoadNewsFailure(RestError error) {
-//        if (refreshLayout.getEmptyView() != null) {
-//            refreshLayout.getEmptyView().showErrorLayout(error);
-//        }
-//        if (!refreshLayout.isLoadMore()) {
-//            if (refreshLayout.getFooterView() != null) {
-//                refreshLayout.getFooterView().setError(error);
-//            }
-//        }
-//        refreshLayout.onRefreshComplete();
-        helper.onLoadFailure(error);
+        mRefreshHelper.onLoadFailure(error);
     }
 
     @Override
@@ -139,29 +130,6 @@ public class RefreshScrollViewSample extends SampleBaseFragment implements Refre
         else if (loadResult == 2) {
             throw new NullPointerException("Mock error!");
         }
-//        if (adapter.getPage() <= 1) {
-//            adapter.setDataList(out);
-//        }
-//        else {
-//            adapter.addAll(out);
-//        }
-//        adapter.notifyDataSetChanged();
-//        refreshLayout.hideEmptyView();
-//        refreshLayout.onRefreshComplete();
-        helper.onLoadFinish(out);
-    }
-
-    public static class NewsAdapter extends PagerBaseAdapter<NewsController.NewsInfo> {
-
-        @Override
-        public int getLayout() {
-            return R.layout.sample_list_item_news;
-        }
-
-        @Override
-        public void onUpdateView(View convertView, int position) {
-            NewsListItem item = (NewsListItem) convertView;
-            item.setInfo(getItem(position));
-        }
+        mRefreshHelper.onLoadFinish(out);
     }
 }

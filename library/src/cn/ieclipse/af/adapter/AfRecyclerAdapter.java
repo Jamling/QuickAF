@@ -86,6 +86,10 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
         mDataHolder.setDataCheck(checkMode);
     }
 
+    public int getDataCheck() {
+        return mDataHolder.getDataCheck();
+    }
+
     public void setDataList(List<T> list) {
         mDataHolder.setDataList(list);
         notifyDataSetChanged();

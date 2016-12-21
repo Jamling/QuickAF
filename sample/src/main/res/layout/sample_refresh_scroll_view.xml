@@ -20,6 +20,11 @@
             2. The ScrollView must trigger onScrollChanged\n
             3. AutoLoad attribute default true"/>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"/>
+
         <cn.ieclipse.af.view.ah.AutoHeightListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
