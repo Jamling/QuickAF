@@ -18,9 +18,7 @@ package cn.ieclipse.af.app;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,9 +51,9 @@ public abstract class AfFragment extends Fragment implements View.OnClickListene
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= 15 && container != null && container instanceof ViewPager) {
-            isInViewPager = true;
-        }
+//        if (Build.VERSION.SDK_INT >= 15 && container != null && container instanceof ViewPager) {
+//            isInViewPager = true;
+//        }
         // init argument
         Bundle bundle = getArguments();
         if (savedInstanceState != null) {
@@ -281,6 +279,7 @@ public abstract class AfFragment extends Fragment implements View.OnClickListene
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        isInViewPager = true;
         if (isVisibleToUser && isFirstVisible) {
             isFirstVisible = false;
             init();
