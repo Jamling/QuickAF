@@ -51,6 +51,13 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
 
     private DelegateManager<T> mDelegatesManager;
 
+    /**
+     * If old version (no delegate), use this constructor.
+     *
+     * @param context Context
+     *
+     * @deprecated from 2.0.0 Use {@link #AfRecyclerAdapter()} instead
+     */
     @Deprecated
     public AfRecyclerAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
@@ -61,8 +68,14 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
         bindFooterView();
     }
 
+    /**
+     * Use delegate
+     *
+     * @since 2.0.0
+     */
     public AfRecyclerAdapter() {
         setDataCheck(AfDataHolder.CHECK_BOTH);
+        setHasStableIds(true);
         mDelegatesManager = new DelegateManager<>(this);
     }
 
@@ -92,7 +105,7 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
 
     public void setDataList(List<T> list) {
         mDataHolder.setDataList(list);
-        notifyDataSetChanged();
+        //notifyDataSetChanged();
     }
 
     public List<T> getDataList() {
@@ -111,17 +124,17 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
 
     public void add2Top(List<T> list) {
         mDataHolder.addAll2Top(list);
-        notifyDataSetChanged();
+        //notifyDataSetChanged();
     }
 
     public void addAll(List<T> list) {
         mDataHolder.addAll(list);
-        notifyDataSetChanged();
+        //notifyDataSetChanged();
     }
 
     public void clear() {
         mDataHolder.clear();
-        notifyDataSetChanged();
+        //notifyDataSetChanged();
     }
 
     /**
@@ -227,6 +240,7 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
+    @Deprecated
     protected View onCreateItemView(ViewGroup parent, int viewType) {
         View layout = mInflater.inflate(getLayout(), parent, false);
         return layout;
@@ -264,6 +278,11 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public int getItemCount() {
         return getHeaderCount() + mDataHolder.getCount() + getFooterCount();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     public int getDataItemCount() {
