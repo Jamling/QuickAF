@@ -17,7 +17,9 @@ package cn.ieclipse.af.demo.sample.recycler;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -98,6 +100,7 @@ public class RefreshRecyclerSample extends SampleBaseFragment implements NewsCon
     }
 
     protected void registerDelegate(){
+        adapter.setHasStableIds(true);
         adapter.registerDelegate(new NewsDelegate());
     }
 
@@ -181,8 +184,14 @@ public class RefreshRecyclerSample extends SampleBaseFragment implements NewsCon
         }
 
         @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
+            Log.e("QuickAF", "onCreateViewHolder ");
+            return super.onCreateViewHolder(parent);
+        }
+
+        @Override
         public void onUpdateView(RecyclerView.ViewHolder holder, NewsController.NewsInfo info, int position) {
-            System.err.println("onUpdate " + position);
+            Log.e("QuickAF", "onUpdateView " + position + " " + info);
             NewsHolder vh = (NewsHolder) holder;
             vh.setInfo(info);
         }

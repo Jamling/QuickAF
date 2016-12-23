@@ -647,6 +647,7 @@ public class RefreshRecyclerView<T> extends LinearLayout implements View.OnClick
                 // do nothing
             }
             mAdapter.addAll(list);
+            mAdapter.notifyDataSetChanged();
         }
         finishLoad();
     }

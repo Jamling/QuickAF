@@ -15,6 +15,7 @@
  */
 package cn.ieclipse.af.demo.sample.recycler;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ListView;
@@ -160,6 +161,7 @@ public class RefreshScrollViewSample extends SampleBaseFragment implements Refre
 
         @Override
         public void onUpdateView(View convertView, int position) {
+            Log.e("QuickAF", "onUpdateView " + position);
             NewsListItem item = (NewsListItem) convertView;
             item.setInfo(getItem(position));
         }

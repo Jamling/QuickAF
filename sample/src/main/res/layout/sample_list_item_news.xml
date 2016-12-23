@@ -12,7 +12,8 @@
         android:layout_width="100dp"
         android:layout_height="60dp"
         android:layout_margin="10dp"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:src="@mipmap/logo"/>
 
     <LinearLayout
         android:layout_width="match_parent"
