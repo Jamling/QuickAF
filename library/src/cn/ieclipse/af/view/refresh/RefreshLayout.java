@@ -129,7 +129,7 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
         internalRegisterDetector(VScrollView.class, new RefreshVScrollDetector());
         internalRegisterDetector(RecyclerView.class, new RefreshRecyclerDetector());
         internalRegisterDetector(AbsListView.class, new RefreshListViewDetector());
-        detectProxy();
+        findDetector();
     }
 
     protected void handleStyledAttributes(TypedArray a) {
@@ -147,7 +147,7 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
         mAutoLoad = a.getBoolean(R.styleable.RefreshLayout_ptr_autoLoad, mAutoLoad);
     }
 
-    protected void detectProxy() {
+    private void findDetector() {
         if (mContentView == null) {
             return;
         }
@@ -156,10 +156,10 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
         }
         for (Class key : mDetectorMap.keySet()) {
             if (key.isInstance(mContentView)) {
-                RefreshDetector proxy = mDetectorMap.get(key);
-                if (proxy != null) {
-                    this.mDetector = proxy;
-                    proxy.setEnabled(true);
+                RefreshDetector detector = mDetectorMap.get(key);
+                if (detector != null) {
+                    this.mDetector = detector;
+                    detector.setEnabled(true);
                 }
                 break;
             }
@@ -291,7 +291,7 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
 
     public void registerDetector(Class clazz, RefreshDetector detector) {
         internalRegisterDetector(clazz, detector);
-        detectProxy();
+        findDetector();
     }
 
     private void internalRegisterDetector(Class clazz, RefreshDetector detector) {
@@ -355,8 +355,48 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
         return mEmptyView;
     }
 
+    public void setEmptyView(int layout) {
+        if (layout > 0) {
+            mEmptyViewWrapper.removeAllViews();
+            mEmptyView = (EmptyView) mLayoutInflater.inflate(layout, mEmptyViewWrapper, false);
+            mEmptyViewWrapper.addView(mEmptyView);
+        }
+    }
+
+    public void setEmptyView(EmptyView view) {
+        if (view != null) {
+            mEmptyViewWrapper.removeAllViews();
+            if (view.getLayoutParams() == null) {
+                view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT));
+            }
+            mEmptyView = view;
+            mEmptyViewWrapper.addView(mEmptyView);
+        }
+    }
+
     public View getContentView() {
         return mContentView;
+    }
+
+    public void setContentView(int layout) {
+        if (layout > 0) {
+            mContentViewWrapper.removeAllViews();
+            mContentView = mLayoutInflater.inflate(layout, mContentViewWrapper, false);
+            mContentViewWrapper.addView(mContentView);
+        }
+    }
+
+    public void setContentView(View view) {
+        if (view != null) {
+            mContentViewWrapper.removeAllViews();
+            if (view.getLayoutParams() == null) {
+                view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT));
+            }
+            mContentView = view;
+            mContentViewWrapper.addView(mContentView);
+        }
     }
 
     /**

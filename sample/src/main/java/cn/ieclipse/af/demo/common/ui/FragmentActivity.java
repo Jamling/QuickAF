@@ -60,7 +60,7 @@ public class FragmentActivity extends BaseActivity {
     @Override
     protected void initIntent(Bundle bundle) {
         super.initIntent(bundle);
-        setShowTitleBar(bundle.getBoolean(EXTRA_SHOW_TITLE));
+        setShowTitleBar(bundle.getBoolean(EXTRA_SHOW_TITLE, true));
         //fragmentClass = (Class<?>) bundle.getSerializable(EXTRA_FRAGMENT);
         //bundle.remove(EXTRA_FRAGMENT);
         //fragmentName = getIntent().getAction();

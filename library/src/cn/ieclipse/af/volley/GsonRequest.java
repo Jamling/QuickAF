@@ -24,6 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonRequest;
 import com.google.gson.Gson;
@@ -66,6 +67,18 @@ public class GsonRequest extends JsonRequest<IBaseResponse> {
         } catch (JsonSyntaxException e) {
             return Response.error(new ParseError(e));
         }
+    }
+
+    @Override
+    protected VolleyError parseNetworkError(VolleyError volleyError) {
+        if (Controller.DEBUG) {
+            int code = -1;
+            if (volleyError.networkResponse != null) {
+                code = volleyError.networkResponse.statusCode;
+            }
+            Controller.log(String.format("response error HTTP %d", code), volleyError);
+        }
+        return super.parseNetworkError(volleyError);
     }
 
     public void setOutputClass(Class<?> clazz) {

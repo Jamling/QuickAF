@@ -37,6 +37,9 @@ public final class VolleyUtils {
     }
     
     public static void toastError(Context context, RestError error) {
+        if (context == null) {
+            return;
+        }
         String msg = getError(context, error);
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
@@ -46,6 +49,9 @@ public final class VolleyUtils {
     }
     
     public static String getError(Context context, RestError error) {
+        if (context == null) {
+            return "";
+        }
         if (error.getCause() instanceof LogicError) {
             return ((LogicError) error.getCause()).getDesc();
         }
