@@ -52,6 +52,10 @@ public class RefreshRecyclerHelper<T> extends RefreshHelper<T> {
         return (RecyclerView) refreshLayout.getContentView();
     }
 
+    public RecyclerHelper getRecyclerHelper() {
+        return mRecyclerHelper;
+    }
+
     protected Context getContext() {
         return refreshLayout.getContext();
     }
@@ -164,8 +168,11 @@ public class RefreshRecyclerHelper<T> extends RefreshHelper<T> {
                         adapter.setDataList(list);
                     }
                 }
-                else {
+                else if (refreshLayout.isLoadMore()) {
                     adapter.addAll(list);
+                }
+                else {
+                    adapter.setDataList(list);
                 }
             }
             mAdapter.notifyDataSetChanged();
