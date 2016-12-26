@@ -17,10 +17,8 @@ package cn.ieclipse.af.demo.sample.recycler;
 
 import android.graphics.Color;
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
@@ -31,6 +29,7 @@ import cn.ieclipse.af.adapter.AfRecyclerAdapter;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.sample.SampleBaseFragment;
 import cn.ieclipse.af.util.AppUtils;
+import cn.ieclipse.af.view.recycle.GridSpaceDecoration;
 import cn.ieclipse.af.view.recycle.ListDividerItemDecoration;
 import cn.ieclipse.af.view.recycle.RecyclerHelper;
 import cn.ieclipse.af.volley.RestError;
@@ -54,10 +53,6 @@ public class RecyclerHelperSample extends SampleBaseFragment implements NewsCont
     DividerItemDecoration mDefaultDivider;
     ListDividerItemDecoration mAfDivider;
 
-    GridLayoutManager gridLayoutManager;
-    StaggeredGridLayoutManager staggeredLayoutManager;
-    LinearLayoutManager linearLayoutManager;
-
     private static final int[] ORIENTATION = {LinearLayoutManager.VERTICAL, LinearLayoutManager.HORIZONTAL};
 
     @Override
@@ -67,16 +62,14 @@ public class RecyclerHelperSample extends SampleBaseFragment implements NewsCont
         helper = new RecyclerHelper();
         helper.setRecyclerView(listView);
 
+        adapter = new AfRecyclerAdapter<>();
         mDefaultDivider = new DividerItemDecoration(listView.getContext(), getOrientation());
         mAfDivider = new ListDividerItemDecoration(listView.getContext(), getOrientation());
         onItemSelected(spn3, null, 0, 0);
 
         setLayout();
-
-        adapter = new AfRecyclerAdapter<>();
-        adapter.registerDelegate(new RefreshRecyclerSample.NewsDelegate());
         listView.setAdapter(adapter);
-
+        chk1.setChecked(true);
         spn5.setSelection(getResources().getStringArray(R.array.sample_round_radius).length - 1);
     }
 
@@ -84,16 +77,38 @@ public class RecyclerHelperSample extends SampleBaseFragment implements NewsCont
         return ORIENTATION[spn2.getSelectedItemPosition()];
     }
 
+    private int getColor() {
+        String c = getResources().getStringArray(R.array.sample_colors)[spn3.getSelectedItemPosition()];
+        return Color.parseColor(c);
+    }
+
     private void setLayout() {
         int i = spn1.getSelectedItemPosition();
+        adapter.removeDelegate(1);
         if (i == 0) {
+            adapter.registerDelegate(1, new RefreshRecyclerSample.NewsDelegate());
             helper.setLinearLayoutManager(getOrientation());
+            helper.getRecyclerView().setBackgroundResource(R.color.white);
         }
         else if (i == 1) {
+            adapter.registerDelegate(1, new NewsGridDelegate());
+            GridSpaceDecoration decoration = new GridSpaceDecoration(getOrientation());
+            int r = Integer.parseInt(
+                getResources().getStringArray(R.array.sample_round_radius)[spn4.getSelectedItemPosition()]);
+            decoration.setSpacing(r);
+            helper.setItemDecoration(decoration);
             helper.setGridLayoutManager(3);
+            helper.getRecyclerView().setBackgroundColor(getColor());
         }
         else if (i == 2) {
+            adapter.registerDelegate(1, new NewsStaggerDelegate());
+            GridSpaceDecoration decoration = new GridSpaceDecoration(getOrientation());
+            int r = Integer.parseInt(
+                getResources().getStringArray(R.array.sample_round_radius)[spn4.getSelectedItemPosition()]);
+            decoration.setSpacing(r);
+            helper.setItemDecoration(decoration);
             helper.setStaggeredGridLayoutManager(3, getOrientation());
+            helper.getRecyclerView().setBackgroundColor(getColor());
         }
     }
 
@@ -107,12 +122,28 @@ public class RecyclerHelperSample extends SampleBaseFragment implements NewsCont
             String c = getResources().getStringArray(R.array.sample_colors)[pos];
             mAfDivider.setDividerColor(Color.parseColor(c));
             helper.setDividerColor(Color.parseColor(c));
+            int layout = spn1.getSelectedItemPosition();
+            if (layout > 0) {
+                helper.getRecyclerView().setBackgroundColor(getColor());
+            }
         }
         else if (parent == spn4) {
             int r = Integer.parseInt(getResources().getStringArray(R.array.sample_round_radius)[pos]);
             int h = AppUtils.dp2px(getActivity(), r);
-            mAfDivider.setDividerHeight(h);
-            helper.setDividerHeight(h);
+
+            int layout = spn1.getSelectedItemPosition();
+            if (layout > 0) {
+                GridSpaceDecoration decoration = (GridSpaceDecoration) helper.getItemDecoration();
+                if (decoration != null) {
+                    helper.getRecyclerView().setBackgroundColor(getColor());
+                    decoration.setSpacing(r);
+                    helper.getRecyclerView().invalidateItemDecorations();
+                }
+            }
+            else {
+                mAfDivider.setDividerHeight(h);
+                helper.setDividerHeight(h);
+            }
         }
         else if (parent == spn5) {
             int r = Integer.parseInt(getResources().getStringArray(R.array.sample_round_radius)[pos]);
@@ -158,5 +189,19 @@ public class RecyclerHelperSample extends SampleBaseFragment implements NewsCont
     public void onLoadNewsSuccess(List<NewsController.NewsInfo> out, boolean fromCache) {
         adapter.setDataList(out);
         adapter.notifyDataSetChanged();
+    }
+
+    public static class NewsGridDelegate extends RefreshRecyclerSample.NewsDelegate {
+        @Override
+        public int getLayout() {
+            return R.layout.sample_grid_item_news;
+        }
+    }
+
+    public static class NewsStaggerDelegate extends NewsGridDelegate {
+        @Override
+        public int getLayout() {
+            return R.layout.sample_stagger_item_news;
+        }
     }
 }

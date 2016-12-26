@@ -16,19 +16,13 @@
 package cn.ieclipse.af.view.refresh;
 
 import android.content.Context;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 
 import java.util.List;
 
 import cn.ieclipse.af.adapter.AfRecyclerAdapter;
-import cn.ieclipse.af.util.AppUtils;
-import cn.ieclipse.af.view.recycle.GridItemDecoration;
-import cn.ieclipse.af.view.recycle.ItemOffsetDecoration;
-import cn.ieclipse.af.view.recycle.ListItemDecoration;
+import cn.ieclipse.af.view.recycle.RecyclerHelper;
 
 /**
  * Description
@@ -38,44 +32,16 @@ import cn.ieclipse.af.view.recycle.ListItemDecoration;
 public class RefreshRecyclerHelper<T> extends RefreshHelper<T> {
 
     /**
-     * 当前的ItemDecoration
-     */
-    private RecyclerView.ItemDecoration mItemDecoration;
-    /**
-     * 默认list分隔线
-     */
-    private ListItemDecoration mListDecoration;
-    /**
-     * 默认流式分隔线
-     */
-    private ItemOffsetDecoration mOffsetDecoration;
-
-    /**
-     * 默认分隔线颜色
-     */
-    private int mDividerColor;
-    /**
-     * 默认分隔线高度
-     */
-    private int mDividerHeight = 1;
-
-    /**
-     * 分割线的宽度（网格布局有效）
-     */
-    private int mOffPadding = 1;
-    private int mVerticalPadding = mOffPadding;
-    private int mHorizontalPadding = mOffPadding;
-    /**
      * adapter
      */
     protected RecyclerView.Adapter mAdapter;
     private RecyclerView mRecyclerView;
+    protected RecyclerHelper mRecyclerHelper;
 
 
     public RefreshRecyclerHelper(RefreshLayout refreshLayout) {
         super(refreshLayout);
-        mDividerColor = AppUtils.getColor(getContext(), android.R.color.darker_gray);
-        mDividerHeight = AppUtils.dp2px(getContext(), 1);
+        mRecyclerHelper = new RecyclerHelper(getRecyclerView());
         setLinearLayoutManager(LinearLayoutManager.VERTICAL);
     }
 
@@ -92,12 +58,13 @@ public class RefreshRecyclerHelper<T> extends RefreshHelper<T> {
 
     public void setRecyclerView(RecyclerView recyclerView) {
         this.mRecyclerView = recyclerView;
+        mRecyclerHelper.setRecyclerView(getRecyclerView());
     }
 
     /**
-     * 设置RecyclerView adapter
+     *  Set RecyclerView adapter ({@link cn.ieclipse.af.adapter.AfRecyclerAdapter})
      *
-     * @param adapter
+     * @param adapter {@link cn.ieclipse.af.adapter.AfRecyclerAdapter}
      */
     public void setAdapter(AfRecyclerAdapter adapter) {
         if (adapter != null && getRecyclerView() != null) {
@@ -111,142 +78,47 @@ public class RefreshRecyclerHelper<T> extends RefreshHelper<T> {
     }
 
     /**
-     * 更新ItemDecoration
+     * Set {@link cn.ieclipse.af.view.recycle.ListDividerItemDecoration} color
      *
-     * @param decoration
-     */
-    private void removeOldItemDecoration(RecyclerView.ItemDecoration decoration) {
-        if (mItemDecoration != null) {
-            getRecyclerView().removeItemDecoration(mItemDecoration);
-        }
-        if (mOffsetDecoration != null) {
-            getRecyclerView().removeItemDecoration(mOffsetDecoration);
-        }
-
-        mItemDecoration = decoration;
-        getRecyclerView().addItemDecoration(mItemDecoration);
-    }
-
-    /**
-     * 设置分隔线颜色,实际是设置Paint中的{@link android.graphics.Paint setColor(int)}的颜色，仅在布局管理器是LinearLayoutManager有效
-     *
-     * @param color the color resources id or Color.parseColor(ARGB)
+     * @param color the color (ARGB format)
      */
     public void setDividerColor(int color) {
-        this.mDividerColor = color;
-        if (mListDecoration != null) {
-            mListDecoration.setColor(color);
-        }
-    }
-
-    public int getDividerColor() {
-        return mDividerColor;
+        mRecyclerHelper.setDividerColor(color);
     }
 
     /**
-     * 设置分隔线的宽度，仅在布局管理器是LinearLayoutManager有效
-     *
-     * @param height px
+     * @see cn.ieclipse.af.view.recycle.RecyclerHelper#setDividerHeight(int)
      */
     public void setDividerHeight(int height) {
-        this.mDividerHeight = height;
-        if (mListDecoration != null) {
-            mListDecoration.setSize(height);
-        }
+        mRecyclerHelper.setDividerHeight(height);
     }
 
     /**
-     * 获取分割线的高度px，仅在布局管理器是LinearLayoutManager有效
-     *
-     * @return
+     * @see RecyclerHelper#setItemDecoration(android.support.v7.widget.RecyclerView.ItemDecoration)
      */
-    public int getDividerHeight() {
-        return mDividerHeight;
+    public void setItemDecoration(RecyclerView.ItemDecoration decoration) {
+        mRecyclerHelper.setItemDecoration(decoration);
     }
 
     /**
-     * 设置竖向padding（网格流式布局有效）
-     *
-     * @param verticalSpacing px
-     */
-    public void setVerticalSpacing(int verticalSpacing) {
-        mVerticalPadding = verticalSpacing;
-    }
-
-    /**
-     * 设置水平padding（网格流式布局有效）
-     *
-     * @param horizontalSpacing px
-     */
-    public void setHorizontalSpacing(int horizontalSpacing) {
-        mHorizontalPadding = horizontalSpacing;
-    }
-
-    /**
-     * 设置AfRecycleView默认样式
-     *
-     * @param orientation {@link android.support.v7.widget.LinearLayoutManager#HORIZONTAL} or
-     *                    {@link android.support.v7.widget.LinearLayoutManager#VERTICAL}
+     * @see RecyclerHelper#setLinearLayoutManager(int)
      */
     public void setLinearLayoutManager(int orientation) {
-        // 设置布局样式
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        manager.setOrientation(orientation);
-        getRecyclerView().setItemAnimator(new DefaultItemAnimator());
-        // 设置分隔线
-        mListDecoration = new ListItemDecoration(orientation);
-        setDividerHeight(mDividerHeight);
-        setDividerColor(mDividerColor);
-
-        removeOldItemDecoration(mListDecoration);
-
-        getRecyclerView().setLayoutManager(manager);
+        mRecyclerHelper.setLinearLayoutManager(orientation);
     }
 
     /**
-     * 显示成gridview形式
-     *
-     * @param column 列数
+     * @see RecyclerHelper#setGridLayoutManager(int)
      */
     public void setGridLayoutManager(int column) {
-        final GridLayoutManager gridManager = new GridLayoutManager(getContext(), column);
-        GridItemDecoration decoration = new GridItemDecoration(getContext());
-        removeOldItemDecoration(decoration);
-        getRecyclerView().setLayoutManager(gridManager);
-        if (mAdapter != null) {
-            // mAdapter.setSpanSizeLookup(gridManager);
-            if (gridManager.getSpanSizeLookup() instanceof GridLayoutManager.DefaultSpanSizeLookup) {
-                // 当itemType是head或footer时占满一行
-                gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                    @Override
-                    public int getSpanSize(int position) {
-                        int itemType = mAdapter.getItemViewType(position);
-                        int spanCount = gridManager.getSpanCount();
-                        if (itemType < 0) {
-                            return spanCount;
-                        }
-                        else {
-                            return 1;
-                        }
-                    }
-                });
-            }
-        }
+        mRecyclerHelper.setGridLayoutManager(column);
     }
 
     /**
-     * 显示成gridview形式 支持水平和垂直方向
-     *
-     * @param column      列数
-     * @param orientation {@link android.support.v7.widget.LinearLayoutManager#HORIZONTAL} or
-     * {@link android.support.v7.widget.LinearLayoutManager#VERTICAL}
+     * @see RecyclerHelper#setStaggeredGridLayoutManager(int, int)
      */
     public void setStaggeredGridLayoutManager(int column, int orientation) {
-        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(column, orientation);
-        //GridItemDecoration decoration = new GridItemDecoration(getContext());
-        mOffsetDecoration = new ItemOffsetDecoration(mVerticalPadding, mHorizontalPadding);
-        removeOldItemDecoration(mOffsetDecoration);
-        getRecyclerView().setLayoutManager(manager);
+        mRecyclerHelper.setStaggeredGridLayoutManager(column, orientation);
     }
 
     /**

@@ -25,6 +25,7 @@ import android.view.View;
  * Description
  *
  * @author Jamling
+ * TODO
  */
 public abstract class ItemDecorationDelegate {
 

@@ -25,7 +25,6 @@ import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -113,11 +112,6 @@ public class ListDividerItemDecoration extends RecyclerView.ItemDecoration {
         if (parent.getLayoutManager() == null) {
             return;
         }
-        if (parent.getLayoutManager() instanceof GridLayoutManager) {
-            drawHorizontal(c, parent);
-            drawVertical(c, parent);
-            return;
-        }
 
         if (mOrientation == VERTICAL) {
             drawVertical(c, parent);
@@ -189,50 +183,6 @@ public class ListDividerItemDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        if (parent.getLayoutManager() instanceof GridLayoutManager) {
-
-            GridLayoutManager glm = (GridLayoutManager) parent.getLayoutManager();
-            int position = parent.getChildAdapterPosition(view); // item position
-            int spanCount = glm.getSpanCount();
-            int column = position % spanCount; // item column
-            int row = position / spanCount;
-            int hspacing = getDividerDrawableWidth();
-            int vspacing = getDividerDrawableHeight();
-            int frameWidth = (int) ((parent.getWidth() - (float) hspacing * (spanCount - 1)) / spanCount);//
-            int padding = parent.getWidth() / spanCount - frameWidth;
-            if (position % spanCount == 0) {
-                outRect.left = 0;
-                outRect.right = padding;
-                mNeedLeftSpacing = true;
-            }
-            else if ((position + 1) % spanCount == 0) {
-                mNeedLeftSpacing = false;
-                outRect.right = 0;
-                outRect.left = padding;
-            }
-            else if (mNeedLeftSpacing) {
-                mNeedLeftSpacing = false;
-                outRect.left = hspacing - padding;
-                if ((position + 2) % spanCount == 0) {
-                    outRect.right = hspacing - padding;
-                }
-                else {
-                    outRect.right = hspacing / 2;
-                }
-            }
-            else if ((position + 2) % spanCount == 0) {
-                mNeedLeftSpacing = false;
-                outRect.left = hspacing / 2;
-                outRect.right = hspacing - padding;
-            }
-            else {
-                mNeedLeftSpacing = false;
-                outRect.left = hspacing / 2;
-                outRect.right = hspacing / 2;
-            }
-            return;
-        }
-
         if (mOrientation == VERTICAL) {
             outRect.set(0, 0, 0, getDividerDrawableHeight());
         }
@@ -279,7 +229,7 @@ public class ListDividerItemDecoration extends RecyclerView.ItemDecoration {
         return Math.max(mDivider.getIntrinsicWidth(), mDividerHeight);
     }
 
-    private boolean getClipToPadding(RecyclerView parent) {
+    protected boolean getClipToPadding(RecyclerView parent) {
         if (Build.VERSION.SDK_INT >= 21) {
             return parent.getClipToPadding();
         }

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cn.ieclipse.af.demo.sample.recycler.NewsListItem
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_selector_white"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <cn.ieclipse.af.view.RatioImageView
+        android:id="@+id/icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/logo"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/text_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            tools:text="我是标题\n我是标题2"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_time"
+                style="@style/text_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="2016-12-12"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/tv_desc"
+                style="@style/text_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                tools:text="人民网"/>
+        </LinearLayout>
+    </LinearLayout>
+</cn.ieclipse.af.demo.sample.recycler.NewsListItem>

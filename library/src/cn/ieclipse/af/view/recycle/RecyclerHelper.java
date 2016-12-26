@@ -15,12 +15,15 @@
  */
 package cn.ieclipse.af.view.recycle;
 
-import android.support.v7.widget.DividerItemDecoration;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+
+import cn.ieclipse.af.adapter.AfRecyclerAdapter;
 
 /**
  * Description
@@ -28,40 +31,28 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
  * @author Jamling
  */
 public final class RecyclerHelper {
+
+    /**
+     * Same to {@link android.support.v7.widget.OrientationHelper#HORIZONTAL}
+     */
+    public static final int HORIZONTAL = OrientationHelper.HORIZONTAL;
+    /**
+     * Same to {@link android.support.v7.widget.OrientationHelper#VERTICAL}
+     */
+    public static final int VERTICAL = OrientationHelper.VERTICAL;
+
     private RecyclerView recyclerView;
-
-    /**
-     * 当前的ItemDecoration
-     */
     private RecyclerView.ItemDecoration mItemDecoration;
-    /**
-     * 默认list分隔线
-     */
-    private ListItemDecoration mListDecoration;
-    /**
-     * 默认流式分隔线
-     */
-    private ItemOffsetDecoration mOffsetDecoration;
 
-    /**
-     * 默认分隔线颜色
-     */
-    private int mDividerColor;
-    /**
-     * 默认分隔线高度
-     */
-    private int mDividerHeight = 1;
+    public RecyclerHelper() {
 
-    /**
-     * 分割线的宽度（网格布局有效）
-     */
-    private int mOffPadding = 1;
-    private int mVerticalPadding = mOffPadding;
-    private int mHorizontalPadding = mOffPadding;
+    }
 
-    private DividerItemDecoration mDividerDecoration;
+    public RecyclerHelper(RecyclerView recyclerView) {
+        setRecyclerView(recyclerView);
+    }
 
-    public void setRecyclerView(RecyclerView recyclerView) {
+    public void setRecyclerView(@NonNull RecyclerView recyclerView) {
         this.recyclerView = recyclerView;
     }
 
@@ -82,10 +73,9 @@ public final class RecyclerHelper {
     // layout
 
     /**
-     * 设置AfRecycleView默认样式
+     * Set the RecyclerView using {@link android.support.v7.widget.LinearLayoutManager}.
      *
-     * @param orientation {@link android.support.v7.widget.LinearLayoutManager#HORIZONTAL} or
-     *                    {@link android.support.v7.widget.LinearLayoutManager#VERTICAL}
+     * @param orientation orientation value of {@link #HORIZONTAL} or {@link #VERTICAL}
      */
     public void setLinearLayoutManager(int orientation) {
         LinearLayoutManager manager = new LinearLayoutManager(getRecyclerView().getContext());
@@ -93,16 +83,32 @@ public final class RecyclerHelper {
         getRecyclerView().setLayoutManager(manager);
     }
 
+    /**
+     * Set the RecyclerView using {@link android.support.v7.widget.GridLayoutManager}.
+     *
+     * @param column grid column
+     */
     public void setGridLayoutManager(int column) {
         final GridLayoutManager gridManager = new GridLayoutManager(getRecyclerView().getContext(), column);
         getRecyclerView().setLayoutManager(gridManager);
     }
 
+    /**
+     * Set the RecyclerView using {@link android.support.v7.widget.StaggeredGridLayoutManager}
+     *
+     * @param column      grid column
+     * @param orientation orientation value of {@link #HORIZONTAL} or {@link #VERTICAL}
+     */
     public void setStaggeredGridLayoutManager(int column, int orientation) {
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(column, orientation);
         getRecyclerView().setLayoutManager(manager);
     }
 
+    /**
+     * Set the {@link android.support.v7.widget.RecyclerView} item decoration
+     *
+     * @param itemDecoration {@link android.support.v7.widget.RecyclerView.ItemDecoration}
+     */
     public void setItemDecoration(RecyclerView.ItemDecoration itemDecoration) {
         if (mItemDecoration != null) {
             getRecyclerView().removeItemDecoration(mItemDecoration);
@@ -112,6 +118,15 @@ public final class RecyclerHelper {
         getRecyclerView().invalidateItemDecorations();
     }
 
+    public RecyclerView.ItemDecoration getItemDecoration() {
+        return mItemDecoration;
+    }
+
+    /**
+     * Set {@link cn.ieclipse.af.view.recycle.ListDividerItemDecoration} height
+     *
+     * @param height px height;
+     */
     public void setDividerHeight(int height) {
         if (mItemDecoration instanceof ListDividerItemDecoration) {
             ((ListDividerItemDecoration) mItemDecoration).setDividerHeight(height);
@@ -119,6 +134,11 @@ public final class RecyclerHelper {
         }
     }
 
+    /**
+     * Set {@link cn.ieclipse.af.view.recycle.ListDividerItemDecoration} color
+     *
+     * @param color color argb format
+     */
     public void setDividerColor(int color) {
         if (mItemDecoration instanceof ListDividerItemDecoration) {
             ((ListDividerItemDecoration) mItemDecoration).setDividerColor(color);
@@ -140,18 +160,25 @@ public final class RecyclerHelper {
         }
     }
 
+    /**
+     * For #GridLayoutManager set header/footer full row
+     */
     public void setSpanSizeLookup() {
-        RecyclerView.LayoutManager lm = getRecyclerView().getLayoutManager();
+        final RecyclerView.LayoutManager lm = getRecyclerView().getLayoutManager();
         if (lm instanceof GridLayoutManager) {
             ((GridLayoutManager) lm).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
-                    return 0;
+                    if (getRecyclerView().getAdapter() instanceof AfRecyclerAdapter) {
+                        int viewType = getRecyclerView().getAdapter().getItemViewType(position);
+                        if (viewType < 0) {
+                            return ((GridLayoutManager) lm).getSpanCount();
+                        }
+                        return 1;
+                    }
+                    return 1;
                 }
             });
-        }
-        else if (lm instanceof StaggeredGridLayoutManager) {
-            ((StaggeredGridLayoutManager) lm).setSpanCount(0);
         }
     }
 }

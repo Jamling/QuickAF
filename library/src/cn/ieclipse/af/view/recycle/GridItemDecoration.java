@@ -12,7 +12,9 @@ import android.view.View;
 
 /**
  * RecyclerView show as grid' divider
+ * @deprecated has some problem, not recommend to use.
  */
+@Deprecated
 public class GridItemDecoration extends RecyclerView.ItemDecoration {
 
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
