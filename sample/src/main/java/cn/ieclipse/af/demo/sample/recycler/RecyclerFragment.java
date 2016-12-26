@@ -34,7 +34,8 @@ public class RecyclerFragment extends ButtonListFragment {
 
     @Override
     protected Class[] getActivities() {
-        return new Class[]{RefreshRecyclerSample.class, RefreshSwipeRecyclerSample.class, RefreshScrollViewSample
+        return new Class[]{RecyclerHelperSample.class, RefreshRecyclerSample.class, RefreshSwipeRecyclerSample.class,
+            RefreshScrollViewSample
             .class, RefreshListViewSample.class, CheckableRecyclerSample.class, SortRecyclerActivity.class,
             LegacyRecyclerLayoutActivity.class, LegacyRefreshRecyclerView.class, LegacySwipeMenuRecyclerActivity.class};
     }

@@ -103,6 +103,18 @@
         <item>Folder</item>
         <item>All</item>
     </string-array>
+
+    <string-array name="sample_rv_layout">
+        <item>Linear</item>
+        <item>Grid</item>
+        <item>Staggered</item>
+    </string-array>
+
+    <string-array name="sample_rv_orientation">
+        <item>Vertical</item>
+        <item>Horizontal</item>
+    </string-array>
+
     <!-- from aorm example -->
     <string name="sample_label_index">No.</string>
     <string name="sample_label_name">Name</string>

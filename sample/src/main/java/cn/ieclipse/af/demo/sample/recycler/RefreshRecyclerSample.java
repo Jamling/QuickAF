@@ -176,7 +176,7 @@ public class RefreshRecyclerSample extends SampleBaseFragment implements NewsCon
         }
     }
 
-    private class NewsDelegate extends AdapterDelegate<NewsController.NewsInfo> {
+    public static class NewsDelegate extends AdapterDelegate<NewsController.NewsInfo> {
 
         @Override
         public int getLayout() {
