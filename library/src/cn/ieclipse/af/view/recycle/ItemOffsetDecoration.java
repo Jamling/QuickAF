@@ -24,7 +24,9 @@ import android.view.View;
  *
  * @author wangjian
  * @date 2016/4/6 .
+ * @deprecated use {@link cn.ieclipse.af.view.recycle.GridSpaceDecoration} instead
  */
+@Deprecated
 public class ItemOffsetDecoration extends RecyclerView.ItemDecoration {
 
     private int mItemOffsetV;

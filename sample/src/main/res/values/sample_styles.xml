@@ -31,4 +31,9 @@
     <style name="sample_spn">
 
     </style>
+
+    <style name="sample_rv_layout">
+        <item name="android:divider">@color/colorPrimary</item>
+        <item name="android:dividerHeight">5dp</item>
+    </style>
 </resources>

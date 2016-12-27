@@ -18,7 +18,6 @@ package cn.ieclipse.af.adapter;
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -376,21 +375,22 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public void onViewAttachedToWindow(final RecyclerView.ViewHolder holder) {
         super.onViewAttachedToWindow(holder);
-        if (mRecyclerView != null) {
-            RecyclerView.LayoutManager manager = mRecyclerView.getLayoutManager();
-            // 设置当StaggeredGridLayoutManager时的header和footer占满一行
-            if (manager instanceof StaggeredGridLayoutManager) {
-                ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
-                if (lp != null && lp instanceof StaggeredGridLayoutManager.LayoutParams) {
-                    int itemType = holder.getItemViewType();
-                    // itemType 是head或footer时占满一行
-                    if (itemType == ITEM_VIEW_TYPE_FOOTER || itemType == ITEM_VIEW_TYPE_HEADER) {
-                        StaggeredGridLayoutManager.LayoutParams p = (StaggeredGridLayoutManager.LayoutParams) lp;
-                        p.setFullSpan(true);
-                    }
-                }
-            }
-        }
+        // do in sub
+//        if (mRecyclerView != null) {
+//            RecyclerView.LayoutManager manager = mRecyclerView.getLayoutManager();
+//            // 设置当StaggeredGridLayoutManager时的header和footer占满一行
+//            if (manager instanceof StaggeredGridLayoutManager) {
+//                ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
+//                if (lp != null && lp instanceof StaggeredGridLayoutManager.LayoutParams) {
+//                    int itemType = holder.getItemViewType();
+//                    // itemType 是head或footer时占满一行
+//                    if (itemType < 0) {
+//                        StaggeredGridLayoutManager.LayoutParams p = (StaggeredGridLayoutManager.LayoutParams) lp;
+//                        p.setFullSpan(true);
+//                    }
+//                }
+//            }
+//        }
     }
 
     /**

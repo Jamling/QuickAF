@@ -27,7 +27,9 @@ import android.view.View;
  * 类/接口描述
  *
  * @author wangjian
+ * @deprecated use {@link cn.ieclipse.af.view.recycle.ListDividerItemDecoration} instead.
  */
+@Deprecated
 public class ListItemDecoration extends RecyclerView.ItemDecoration {
     /**
      * 水平方向

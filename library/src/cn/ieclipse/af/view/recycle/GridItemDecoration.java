@@ -12,7 +12,9 @@ import android.view.View;
 
 /**
  * RecyclerView show as grid' divider
+ * @deprecated has some problem, not recommend to use.
  */
+@Deprecated
 public class GridItemDecoration extends RecyclerView.ItemDecoration {
 
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
@@ -108,11 +110,12 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
         int spanCount = getSpanCount(parent);
         int childCount = parent.getAdapter().getItemCount();
 
-        if (isLastColumn(parent, position, spanCount, childCount)) {
-            outRect.set(0, 0, mDivider.getIntrinsicWidth(), mDivider.getIntrinsicHeight());
-        }
-        else {
-            outRect.set(0, 0, mDivider.getIntrinsicWidth(), mDivider.getIntrinsicHeight());
-        }
+//        if (isLastColumn(parent, position, spanCount, childCount)) {
+//            outRect.set(0, 0, mDivider.getIntrinsicWidth(), mDivider.getIntrinsicHeight());
+//        }
+//        else {
+//            outRect.set(0, 0, mDivider.getIntrinsicWidth(), mDivider.getIntrinsicHeight());
+//        }
+        outRect.set(0, 0, mDivider.getIntrinsicWidth(), mDivider.getIntrinsicHeight());
     }
 }

@@ -114,8 +114,11 @@ public class RefreshListViewHelper<T> extends RefreshHelper<T> {
                         adapter.setDataList(list);
                     }
                 }
-                else {
+                else if (refreshLayout.isLoadMore()) {
                     adapter.addAll(list);
+                }
+                else {
+                    adapter.setDataList(list);
                 }
             }
             if (mAdapter instanceof BaseAdapter) {
