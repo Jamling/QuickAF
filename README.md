@@ -48,13 +48,13 @@ library:
 
 - DB, recommend to use orm library
  - Aorm see https://github.com/Jamling/Android-ORM
-- Image, 
+- Image,
  - Universal-Image-Loader see https://github.com/nostra13/Android-Universal-Image-Loader
  - Fresco see https://github.com/facebook/fresco
 
 In sample:
 
-- Profile, sample user profile 
+- Profile, sample user profile
  - login
  - register
  - forget
@@ -64,8 +64,24 @@ In sample:
  - H5Activity
  - SelectPhotoActivity
 
+## Change log
+###v2.0.0
+- New refresh component.
+- Import recyclerview adapter delegate.
+- Lost of bug fix
+- ***Don't compatible to v1.x***
+
 ## Blog
 See http://www.ieclipse.cn/tags/QuickAF/
+
+## Integrated library as source
+SystemBarTint https://github.com/hexiaochun/SystemBarTint
+SwipeMenuRecyclerView unkonwn
+WheelView unkonwn
+BadgeView https://github.com/stefanjauker/BadgeView
+PagerSlidingTabStrip https://github.com/astuetz/PagerSlidingTabStrip
+ScrollLayout http://blog.csdn.net/Yao_GUET
+
 
 ## Contributors
 
