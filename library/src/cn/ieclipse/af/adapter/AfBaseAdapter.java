@@ -80,6 +80,17 @@ public abstract class AfBaseAdapter<T> extends BaseAdapter {
         return mDataHolder.getIndexOf(t);
     }
 
+    public T deleteItem(int position) {
+        return mDataHolder.remove(position);
+    }
+
+    public void deleteItem(T t) {
+        int index = getIndexOf(t);
+        if (index >= 0) {
+            deleteItem(index);
+        }
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null && getLayout() > 0) {

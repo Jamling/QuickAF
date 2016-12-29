@@ -68,7 +68,6 @@ public class RecyclerHelperSample extends SampleBaseFragment implements NewsCont
         onItemSelected(spn3, null, 0, 0);
 
         setLayout();
-        listView.setAdapter(adapter);
         chk1.setChecked(true);
         spn5.setSelection(getResources().getStringArray(R.array.sample_round_radius).length - 1);
     }
@@ -87,6 +86,7 @@ public class RecyclerHelperSample extends SampleBaseFragment implements NewsCont
         adapter.removeDelegate(1);
         if (i == 0) {
             adapter.registerDelegate(1, new RefreshRecyclerSample.NewsDelegate());
+            helper.setItemDecoration(chk1.isChecked() ? mDefaultDivider : mAfDivider);
             helper.setLinearLayoutManager(getOrientation());
             helper.getRecyclerView().setBackgroundResource(R.color.white);
         }
@@ -110,6 +110,7 @@ public class RecyclerHelperSample extends SampleBaseFragment implements NewsCont
             helper.setStaggeredGridLayoutManager(3, getOrientation());
             helper.getRecyclerView().setBackgroundColor(getColor());
         }
+        listView.setAdapter(adapter);
     }
 
     @Override

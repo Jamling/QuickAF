@@ -24,6 +24,7 @@ import java.util.List;
 
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.PagerBaseAdapter;
+import cn.ieclipse.af.demo.common.api.VolleyUtils;
 import cn.ieclipse.af.demo.sample.SampleBaseFragment;
 import cn.ieclipse.af.view.refresh.RefreshLayout;
 import cn.ieclipse.af.view.refresh.RefreshListViewHelper;
@@ -129,6 +130,7 @@ public class RefreshScrollViewSample extends SampleBaseFragment implements Refre
 //        }
 //        refreshLayout.onRefreshComplete();
         helper.onLoadFailure(error);
+        refreshLayout.setEmptyError(VolleyUtils.getError(getActivity(), error));
     }
 
     @Override

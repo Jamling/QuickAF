@@ -16,12 +16,12 @@
 package cn.ieclipse.af.view.refresh;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.List;
 
 import cn.ieclipse.af.adapter.AfRecyclerAdapter;
+import cn.ieclipse.af.view.recycle.ListDividerItemDecoration;
 import cn.ieclipse.af.view.recycle.RecyclerHelper;
 
 /**
@@ -42,7 +42,10 @@ public class RefreshRecyclerHelper<T> extends RefreshHelper<T> {
     public RefreshRecyclerHelper(RefreshLayout refreshLayout) {
         super(refreshLayout);
         mRecyclerHelper = new RecyclerHelper(getRecyclerView());
-        setLinearLayoutManager(LinearLayoutManager.VERTICAL);
+        // set default layout manager
+        setLinearLayoutManager(RecyclerHelper.VERTICAL);
+        // set default divider
+        setItemDecoration(new ListDividerItemDecoration(getContext(), RecyclerHelper.VERTICAL));
     }
 
     public RecyclerView getRecyclerView() {

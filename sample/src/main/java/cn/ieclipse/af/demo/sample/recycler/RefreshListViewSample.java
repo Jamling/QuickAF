@@ -22,6 +22,7 @@ import android.widget.ListView;
 import java.util.List;
 
 import cn.ieclipse.af.demo.R;
+import cn.ieclipse.af.demo.common.api.VolleyUtils;
 import cn.ieclipse.af.demo.sample.SampleBaseFragment;
 import cn.ieclipse.af.view.refresh.RefreshLayout;
 import cn.ieclipse.af.view.refresh.RefreshListViewHelper;
@@ -119,6 +120,7 @@ public class RefreshListViewSample extends SampleBaseFragment implements Refresh
     @Override
     public void onLoadNewsFailure(RestError error) {
         mRefreshHelper.onLoadFailure(error);
+        mRefreshLayout.setEmptyError(VolleyUtils.getError(getActivity(), error));
     }
 
     @Override

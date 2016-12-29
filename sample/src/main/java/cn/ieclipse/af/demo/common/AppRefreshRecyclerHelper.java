@@ -17,7 +17,6 @@ package cn.ieclipse.af.demo.common;
 
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.api.VolleyUtils;
-import cn.ieclipse.af.view.refresh.EmptyView;
 import cn.ieclipse.af.view.refresh.RefreshLayout;
 import cn.ieclipse.af.view.refresh.RefreshRecyclerHelper;
 import cn.ieclipse.af.volley.RestError;
@@ -31,21 +30,21 @@ public class AppRefreshRecyclerHelper extends RefreshRecyclerHelper {
 
     public AppRefreshRecyclerHelper(final RefreshLayout refreshLayout) {
         super(refreshLayout);
+        // use theme listDivider as default divider
         // setDividerColor(AppUtils.getColor(getContext(), R.color.divider));
         refreshLayout.setColorSchemeResources(R.color.colorPrimary);
-        if (refreshLayout.getEmptyView() != null) {
-            refreshLayout.getEmptyView().setRetryListener(new EmptyView.RetryListener() {
-                @Override
-                public void onErrorClick() {
-                    refreshLayout.onRefresh();
-                }
-
-                @Override
-                public void onDataEmptyClick() {
-                    refreshLayout.onRefresh();
-                }
-            });
-        }
+        // TODO the RefreshLayout has set the default RetryListener
+//        refreshLayout.setEmptyRetryListener(new EmptyView.RetryListener() {
+//                @Override
+//                public void onErrorClick() {
+//                    refreshLayout.onRefresh();
+//                }
+//
+//                @Override
+//                public void onDataEmptyClick() {
+//                    refreshLayout.onRefresh();
+//                }
+//            });
     }
 
     @Override
@@ -55,9 +54,7 @@ public class AppRefreshRecyclerHelper extends RefreshRecyclerHelper {
 
     @Override
     public void onLoadFailure(RestError error) {
-        if (refreshLayout.getEmptyView() != null) {
-            refreshLayout.getEmptyView().setDesc(EmptyView.LAYER_ERROR, VolleyUtils.getError(getContext(), error));
-        }
+        refreshLayout.setEmptyError(VolleyUtils.getError(getContext(), error));
         super.onLoadFailure(error);
     }
 }

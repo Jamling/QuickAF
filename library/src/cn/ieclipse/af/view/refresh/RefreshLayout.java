@@ -48,7 +48,8 @@ import cn.ieclipse.af.view.VScrollView;
  *
  * @author Jamling
  */
-public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnRefreshListener {
+public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnRefreshListener,
+    EmptyView.RetryListener {
 
     /**
      * 禁用刷新和加载
@@ -135,13 +136,11 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
     protected void handleStyledAttributes(TypedArray a) {
         int contentId = a.getResourceId(R.styleable.RefreshLayout_ptr_content, 0);
         if (contentId > 0) {
-            mContentView = mLayoutInflater.inflate(contentId, mContentViewWrapper, false);
-            mContentViewWrapper.addView(mContentView);
+            setContentView(contentId);
         }
         int emptyId = a.getResourceId(R.styleable.RefreshLayout_ptr_empty, 0);
         if (emptyId > 0) {
-            mEmptyView = (EmptyView) mLayoutInflater.inflate(emptyId, mEmptyViewWrapper, false);
-            mEmptyViewWrapper.addView(mEmptyView);
+            setEmptyView(emptyId);
         }
 
         mAutoLoad = a.getBoolean(R.styleable.RefreshLayout_ptr_autoLoad, mAutoLoad);
@@ -164,6 +163,16 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
                 break;
             }
         }
+    }
+
+    @Override
+    public void onDataEmptyClick() {
+        onRefresh();
+    }
+
+    @Override
+    public void onErrorClick() {
+        onRefresh();
     }
 
     @Override
@@ -357,21 +366,52 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
 
     public void setEmptyView(int layout) {
         if (layout > 0) {
-            mEmptyViewWrapper.removeAllViews();
-            mEmptyView = (EmptyView) mLayoutInflater.inflate(layout, mEmptyViewWrapper, false);
-            mEmptyViewWrapper.addView(mEmptyView);
+            EmptyView emptyView = (EmptyView) mLayoutInflater.inflate(layout, mEmptyViewWrapper, false);
+            setEmptyView(emptyView);
         }
     }
 
     public void setEmptyView(EmptyView view) {
         if (view != null) {
-            mEmptyViewWrapper.removeAllViews();
+            if (mEmptyView != null && mEmptyView.getParent() == mEmptyViewWrapper) {
+                mEmptyViewWrapper.removeView(mEmptyView);
+                mEmptyView.setRetryListener(null);
+            }
             if (view.getLayoutParams() == null) {
                 view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT));
             }
             mEmptyView = view;
             mEmptyViewWrapper.addView(mEmptyView);
+            setEmptyRetryListener(this);
+        }
+    }
+
+    public void setEmptyRetryListener(EmptyView.RetryListener listener) {
+        if (mEmptyView != null) {
+            mEmptyView.setRetryListener(listener);
+        }
+    }
+
+    /**
+     * Set error message in empty view
+     *
+     * @param message error message
+     */
+    public void setEmptyError(String message) {
+        if (mEmptyView != null) {
+            mEmptyView.setDesc(EmptyView.LAYER_ERROR, message);
+        }
+    }
+
+    /**
+     * Set data empty message in empty view
+     *
+     * @param message empty message
+     */
+    public void setEmptyText(String message) {
+        if (mEmptyView != null) {
+            mEmptyView.setDesc(EmptyView.LAYER_EMPTY, message);
         }
     }
 
@@ -381,15 +421,16 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
 
     public void setContentView(int layout) {
         if (layout > 0) {
-            mContentViewWrapper.removeAllViews();
-            mContentView = mLayoutInflater.inflate(layout, mContentViewWrapper, false);
-            mContentViewWrapper.addView(mContentView);
+            View view = mLayoutInflater.inflate(layout, mContentViewWrapper, false);
+            setContentView(view);
         }
     }
 
     public void setContentView(View view) {
         if (view != null) {
-            mContentViewWrapper.removeAllViews();
+            if (mContentView != null && mContentView.getParent() == mContentViewWrapper) {
+                mContentViewWrapper.removeView(mContentView);
+            }
             if (view.getLayoutParams() == null) {
                 view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT));

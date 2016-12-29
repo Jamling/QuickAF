@@ -67,10 +67,14 @@ public class NewsController extends Controller<NewsController.NewsListener> {
     }
 
     public static class NewsResponse implements java.io.Serializable, IBaseResponse {
-
+        // success
         public int code;
         public String msg;
         public List<NewsInfo> newslist;
+
+        // failure
+        public int errNum;
+        public String errMsg;
 
         @Override
 
@@ -137,7 +141,7 @@ public class NewsController extends Controller<NewsController.NewsListener> {
             if (response instanceof NewsResponse) {
                 NewsResponse resp = (NewsResponse) response;
                 if (resp.code != 200) {
-                    throw new LogicError(null, String.valueOf(resp.code), resp.msg);
+                    throw new LogicError(null, String.valueOf(resp.errNum), resp.errMsg);
                 }
             }
             return false;
