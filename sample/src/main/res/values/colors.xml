@@ -10,7 +10,7 @@
     <color name="fg_title_bar_press">@android:color/darker_gray</color>
     <color name="divider">@color/black_cccccc</color>
     <color name="fg_title_bar">@color/white</color>
-    <color name="fg_hint">#cccccc</color>
+    <color name="fg_hint">@color/black_cccccc</color>
 
     <color name="bg_main">@color/black_f0f0f0</color>
 

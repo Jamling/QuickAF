@@ -88,10 +88,10 @@ public final class SharedPrefsUtils {
         return sharedPreferences.getLong(key, 0);
     }
     
-    public static void putLong(String key, String value) {
+    public static void putLong(String key, long value) {
         SharedPreferences sharedPreferences = getSharedPreferences();
         Editor edit = sharedPreferences.edit();
-        edit.putString(key, value);
+        edit.putLong(key, value);
         edit.commit();
     }
     

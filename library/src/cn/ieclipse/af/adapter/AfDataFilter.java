@@ -79,6 +79,7 @@ public abstract class AfDataFilter<T> extends Filter {
         }
         if (recyclerAdapter != null) {
             recyclerAdapter.setDataList(list);
+            recyclerAdapter.notifyDataSetChanged();
         }
     }
 }
