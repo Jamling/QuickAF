@@ -223,6 +223,13 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
         }
     }
 
+    public void showEmptyLoading() {
+        if (mEmptyView != null) {
+            mEmptyView.showLoadingLayout();
+        }
+        showEmptyView();
+    }
+
     public void showEmptyView() {
         mEmptyViewWrapper.setVisibility(View.VISIBLE);
         mContentViewWrapper.setVisibility(View.GONE);

@@ -17,7 +17,9 @@ package cn.ieclipse.af.app;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -106,7 +108,7 @@ public abstract class AfFragment extends Fragment implements View.OnClickListene
 
     }
 
-    protected void initHeaderView(){
+    protected void initHeaderView() {
 
     }
     
@@ -314,5 +316,12 @@ public abstract class AfFragment extends Fragment implements View.OnClickListene
 
     public boolean isTrimMode() {
         return trimMode;
+    }
+
+    public FragmentManager getSubFragmentManager() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            return getChildFragmentManager();
+        }
+        return getFragmentManager();
     }
 }

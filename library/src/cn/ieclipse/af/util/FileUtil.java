@@ -162,6 +162,9 @@ public final class FileUtil {
     }
 
     public static void clearCache(Context context, boolean includeInternal, boolean includeExternal) {
+        if (context == null) {
+            return;
+        }
         File dir = null;
         if (includeInternal) {
             dir = context.getCacheDir();

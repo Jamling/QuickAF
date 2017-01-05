@@ -158,6 +158,10 @@ public class FileChooserActivity extends BaseActivity implements AbsListView.OnI
             onCheckCountChanged(mListView.getCheckedItemCount());
             return;
         }
+        if (mParams.finishOnSDRoot && mAdapter.getCurrentDir().equals(SDUtils.getRootDirectory())) {
+            super.onBackPressed();
+            return;
+        }
         if (mAdapter.getCurrentDir() != null) {
             File parent = mAdapter.getCurrentDir().getParentFile();
             if (parent != null) {
@@ -352,6 +356,10 @@ public class FileChooserActivity extends BaseActivity implements AbsListView.OnI
          * true)
          */
         public boolean selectDirectly = true;
+        /**
+         * Finish when current dir is SD root.
+         */
+        public boolean finishOnSDRoot = true;
         public int sort = SORT_FOLDER_FIRST | SORT_NAME_ASC;
 
         public static Params newSingleFileParams() {

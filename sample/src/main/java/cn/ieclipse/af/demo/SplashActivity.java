@@ -66,7 +66,7 @@ public class SplashActivity extends BaseActivity {
         textView.setGravity(Gravity.CENTER);
         textView.setTextColor(AppUtils.getColor(view.getContext(), R.color.white));
         textView.setTextSize(24);
-        textView.setText("QuickAF");
+        textView.setText(R.string.app_name);
         ((FrameLayout) view).addView(textView,
             new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
     }

@@ -113,7 +113,11 @@ public class AppConfig {
     private static String generateUUID(Context context) {
         String uuid = null;
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        uuid = tm.getDeviceId();
+        try {
+            uuid = tm.getDeviceId();
+        } catch (SecurityException e) {
+
+        }
         if (TextUtils.isEmpty(uuid)) {
             uuid = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
         }
