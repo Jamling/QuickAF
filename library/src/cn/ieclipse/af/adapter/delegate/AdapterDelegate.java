@@ -101,10 +101,11 @@ public abstract class AdapterDelegate<T> implements Comparable<AdapterDelegate> 
         if (cls != null) {
             try {
                 Constructor c = cls.getConstructor(View.class);
+                c.setAccessible(true);
                 return (RecyclerView.ViewHolder) c.newInstance(itemView);
             } catch (Exception e) {
-                throw new NullPointerException(
-                    "Can't instance ViewHolder of " + getClass() + " is it a " + "assessable(public/static) class?");
+                throw new NullPointerException("Can't instance ViewHolder(" + cls + ") in " + getClass()
+                    + " is it an assessable (public/static) class?");
             }
         }
         return null;

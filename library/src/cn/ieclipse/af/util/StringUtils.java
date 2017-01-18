@@ -1,5 +1,9 @@
 package cn.ieclipse.af.util;
 
+import android.annotation.TargetApi;
+import android.os.Build;
+import android.text.TextUtils;
+
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.math.RoundingMode;
@@ -7,10 +11,6 @@ import java.net.URLEncoder;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.List;
-
-import android.annotation.TargetApi;
-import android.os.Build;
-import android.text.TextUtils;
 
 public class StringUtils {
     
@@ -78,14 +78,12 @@ public class StringUtils {
                     else {
                         sb.append(name + "=" + getRequestParamValue(val, encoding));
                     }
-                    
                 }
             }
             return sb.toString();
         }
         
         return sb.toString();
-        
     }
     
     /**
@@ -98,20 +96,21 @@ public class StringUtils {
          * 总结起来就是第一位必定为1，第二位必定为3或5或8，其他位置的可以为0-9
          */
         String telRegex = "[1][3456789]\\d{9}";// "[1]"代表第1位为数字1，"[358]"代表第二位可以为3、5、8中的一个，"\\d{9}"代表后面是可以是0～9的数字，有9位。
-        if (TextUtils.isEmpty(mobiles))
+        if (TextUtils.isEmpty(mobiles)) {
             return false;
-        else
+        }
+        else {
             return mobiles.matches(telRegex);
+        }
     }
+
     /**
      * Get scaled number
-     * 
-     * @param <T>
-     *            number
-     * @param value
-     *            number valued before scaled
-     * @param fraction
-     *            fraction
+     *
+     * @param <T>      number
+     * @param value    number valued before scaled
+     * @param fraction fraction
+     *
      * @return scaled number
      */
     public static <T extends Number> Number scale(T value, int fraction) {
@@ -119,8 +118,7 @@ public class StringUtils {
     }
 
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
-    public static <T extends Number> Number scale(T value, int fraction,
-            RoundingMode mode) {
+    public static <T extends Number> Number scale(T value, int fraction, RoundingMode mode) {
         Number ret;
         NumberFormat nf = NumberFormat.getNumberInstance();
         nf.setMaximumFractionDigits(fraction);
@@ -133,5 +131,19 @@ public class StringUtils {
             ret = value;
         }
         return ret;
+    }
+
+    public static String join(String separator, String... array) {
+        if (array == null) {
+            return null;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < array.length; i++) {
+            if (i > 0) {
+                sb.append(separator);
+            }
+            sb.append(TextUtils.isEmpty(array[i]) ? "" : array[i]);
+        }
+        return sb.toString();
     }
 }

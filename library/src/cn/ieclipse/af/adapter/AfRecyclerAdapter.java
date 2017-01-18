@@ -113,12 +113,12 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
 
     public void add(T data) {
         mDataHolder.add(data);
-        notifyItemInserted(mDataHolder.getCount());
+        notifyItemInserted(getHeaderCount() + mDataHolder.getCount());
     }
 
     public void add2Top(T data) {
         mDataHolder.add2Top(data);
-        notifyItemInserted(0);
+        notifyItemInserted(getHeaderCount());
     }
 
     public void add2Top(List<T> list) {
