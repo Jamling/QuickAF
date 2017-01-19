@@ -151,8 +151,8 @@
         <attr name="pstsOneScreenTabs" format="integer"/>
     </declare-styleable>
 
-    <declare-styleable name="expandView">
-        <attr name="tabItemId" format="reference"/>
+    <declare-styleable name="FilterTabHost">
+        <attr name="tabLayout" format="reference"/>
     </declare-styleable>
 
     <!-- from old library -->

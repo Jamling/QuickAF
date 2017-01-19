@@ -113,7 +113,6 @@
         <!-- list view -->
         <activity android:name=".sample.legacy.LegacySwipeMenuRecyclerActivity" />
         <activity android:name=".sample.legacy.LegacyRecyclerLayoutActivity" />
-        <activity android:name=".sample.cview.expendview.ExpendViewActivity" />
         <activity android:name=".sample.recycler.sort.SortRecyclerActivity" />
         <activity android:name=".sample.recycler.sort.SortListViewActivity" />
 
