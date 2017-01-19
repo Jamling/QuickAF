@@ -108,7 +108,7 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
     private void init(Context context, AttributeSet attrs) {
         if (attrs != null) {
             TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.FilterTabHost);
-            mTabLayoutRes = array.getResourceId(R.styleable.FilterTabHost_tabLayout, mTabLayoutRes);
+            mTabLayoutRes = array.getResourceId(R.styleable.FilterTabHost_af_tabLayout, mTabLayoutRes);
             array.recycle();
         }
         mOffset.y = getVerticalDividerHeight();

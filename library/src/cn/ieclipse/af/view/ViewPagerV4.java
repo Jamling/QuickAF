@@ -32,7 +32,7 @@ public class ViewPagerV4 extends ViewPager {
         if (attrs != null) {
             TypedArray a = context.obtainStyledAttributes(attrs,
                     R.styleable.ViewPagerV4);
-            disableWipe = a.getBoolean(R.styleable.ViewPagerV4_disableWipe,
+            disableWipe = a.getBoolean(R.styleable.ViewPagerV4_af_disableWipe,
                     false);
                     
             a.recycle();

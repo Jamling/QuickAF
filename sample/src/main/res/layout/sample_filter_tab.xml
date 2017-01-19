@@ -27,7 +27,7 @@
         style="@style/base_filter_tab_host"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabLayout="@layout/sample_toggle_button">
+        app:af_tabLayout="@layout/sample_toggle_button">
     </cn.ieclipse.af.view.FilterTabHost>
 
     <ListView

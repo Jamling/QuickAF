@@ -53,7 +53,7 @@ public class RatioImageView extends ImageView {
     private void init(Context context, AttributeSet attrs) {
         if (attrs != null) {
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RatioImageView);
-            mRatio = a.getFloat(R.styleable.RatioImageView_ratio, 0);
+            mRatio = a.getFloat(R.styleable.RatioImageView_af_ratio, 0);
             a.recycle();
         }
     }

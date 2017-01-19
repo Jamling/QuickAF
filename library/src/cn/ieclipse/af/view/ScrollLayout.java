@@ -74,8 +74,8 @@ public class ScrollLayout extends ViewGroup {
         if (attrs != null) {
             TypedArray a = context.obtainStyledAttributes(attrs,
                     R.styleable.ScrollLayout);
-            debug = a.getBoolean(R.styleable.ScrollLayout_debug, false);
-            mSnapVelocity = a.getInt(R.styleable.ScrollLayout_snapVelocity,
+            debug = a.getBoolean(R.styleable.ScrollLayout_af_debug, false);
+            mSnapVelocity = a.getInt(R.styleable.ScrollLayout_af_snapVelocity,
                     SNAP_VELOCITY);
                     
             a.recycle();
