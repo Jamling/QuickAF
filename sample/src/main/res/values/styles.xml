@@ -64,7 +64,9 @@
     </style>
 
     <style name="h5_progress" parent="android:Widget.Holo.ProgressBar.Horizontal">
-
+        <item name="android:progressDrawable">@drawable/h5_progress</item>
+        <item name="android:minHeight">3dp</item>
+        <item name="android:maxHeight">3dp</item>
     </style>
 
     <!-- main sliding tab -->

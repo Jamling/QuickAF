@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:hint="H5 page url"
         android:text="http://www.ieclipse.cn/categories/Android/"
+        android:inputType="textWebEditText"
         android:maxLines="5"/>
     <Button
         android:layout_width="match_parent"

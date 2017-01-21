@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <ProgressBar
-        android:id="@android:id/progress"
-        style="@style/h5_progress"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:max="100"
-        android:progress="0"/>
 
     <WebView
         android:id="@android:id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-</LinearLayout>
+    <ProgressBar
+        android:id="@android:id/progress"
+        style="@style/h5_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|left"
+        android:max="100"
+        android:progress="0"
+        tools:progress="50"/>
+</FrameLayout>
