@@ -58,7 +58,7 @@ public final class DialogUtils {
         if (prev != null) {
             ft.remove(prev);
         }
-        ft.addToBackStack(null);
+        // ft.addToBackStack(null);
         
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragment.show(ft, "dialog");
