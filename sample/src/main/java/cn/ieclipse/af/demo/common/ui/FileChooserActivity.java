@@ -198,6 +198,9 @@ public class FileChooserActivity extends BaseActivity implements AbsListView.OnI
             mAdapter.setItemChecked(position, mListView.isItemChecked(position));
         }
         int count = mAdapter.getCheckedItems().size();//mListView.getCheckedItemCount();
+        if (mChoiceMode != ListView.CHOICE_MODE_MULTIPLE) {
+            count = Math.min(count, 1);
+        }
         onCheckCountChanged(count);
     }
 

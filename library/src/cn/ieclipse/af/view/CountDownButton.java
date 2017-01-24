@@ -18,6 +18,7 @@ package cn.ieclipse.af.view;
 
 import android.content.Context;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 
 /**
@@ -28,13 +29,18 @@ import android.util.AttributeSet;
 public class CountDownButton extends RoundButton {
     private long totalTime = 60 * 1000;// 默认60秒
     private String label = "秒后重发";
+    private String countDownText = "%s秒后重发";
     private long time;
     private long step = 1000;
     private int interval = 1000;
+    private CountDownListener countDownListener;
 
     private Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             time -= step;
+            if (countDownListener != null) {
+                countDownListener.onCountDown(time);
+            }
             if (time <= 0) {
                 reset();
             }
@@ -68,17 +74,36 @@ public class CountDownButton extends RoundButton {
 
     }
     
-    public void start() {
-        this.setEnabled(false);
+    /**
+     * Start count down counter
+     *
+     * @param enable whether enable this button or not, default false
+     */
+    public void start(boolean enable) {
+        this.setEnabled(enable);
         this.time = totalTime;
         refreshText();
         mHandler.sendEmptyMessageDelayed(0, step);
     }
 
+    /**
+     * Start count down counter
+     *
+     * @see #start(boolean)
+     */
+    public void start() {
+        this.start(false);
+    }
+
     private void refreshText() {
         long t = (time / interval);
         if (t > 0) {
-            this.setText(t + label);
+            if (!TextUtils.isEmpty(countDownText)) {
+                this.setText(String.format(countDownText, t));
+            }
+            else {
+                this.setText(t + label);
+            }
         }
     }
     
@@ -136,11 +161,36 @@ public class CountDownButton extends RoundButton {
         return this;
     }
 
+    /**
+     * Set the count down display text
+     *
+     * @param text e.g. %s秒后重发
+     */
+    public void setCountDownText(String text) {
+        this.countDownText = text;
+    }
+
+    public void setCountDownListener(CountDownListener countDownListener) {
+        this.countDownListener = countDownListener;
+    }
+
     public long getRemainingTime() {
         return time;
     }
 
     public long getStep() {
         return step;
+    }
+
+    /**
+     * The count down listener
+     */
+    public interface CountDownListener {
+        /**
+         * The step count down callback, running on UI thread
+         *
+         * @param time the remaining time
+         */
+        void onCountDown(long time);
     }
 }
