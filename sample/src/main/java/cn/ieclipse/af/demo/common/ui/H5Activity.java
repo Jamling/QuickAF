@@ -17,11 +17,13 @@ package cn.ieclipse.af.demo.common.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
+import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -121,6 +123,7 @@ public class H5Activity extends BaseActivity {
         mWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
 
         mWebView.getSettings().setDomStorageEnabled(true);
+        mWebView.setDownloadListener(new SystemDownloadListener(this));
     }
 
     protected void load() {
@@ -194,6 +197,26 @@ public class H5Activity extends BaseActivity {
         @Override
         public boolean shouldOverrideUrlLoading(WebView webView, String s) {
             return H5Activity.this.shouldOverrideUrlLoading(webView, s);
+        }
+    }
+
+    public static class SystemDownloadListener implements DownloadListener {
+        private Context context;
+
+        public SystemDownloadListener(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype,
+                                    long contentLength) {
+            Uri uri = Uri.parse(url);
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+            intent.addCategory(Intent.CATEGORY_DEFAULT);
+            if (context != null) {
+                context.startActivity(intent);
+            }
         }
     }
 }

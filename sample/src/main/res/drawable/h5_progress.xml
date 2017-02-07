@@ -3,7 +3,7 @@
     <!-- background -->
     <item
         android:id="@android:id/background"
-        android:drawable="@android:color/darker_gray">
+        android:drawable="@android:color/transparent">
     </item>
     <!-- progress -->
     <item android:id="@android:id/progress">

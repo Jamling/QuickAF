@@ -124,6 +124,7 @@ public class H5Fragment extends BaseFragment {
         mWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
 
         mWebView.getSettings().setDomStorageEnabled(true);
+        mWebView.setDownloadListener(new H5Activity.SystemDownloadListener(getActivity()));
     }
 
     protected void load() {
