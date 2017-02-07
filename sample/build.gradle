@@ -26,6 +26,8 @@ android {
             signingConfig signingConfigs.config
         }
         debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }
     }
@@ -64,6 +66,7 @@ dependencies {
     compile ('com.google.android:flexbox:0.1.2') {
         exclude group: 'com.android.support'
     }
+    compile "com.android.support:design:${supportLibVersion}"
     compile "com.android.support:percent:${supportLibVersion}"
     // import ORM for SQLite database
     compile 'cn.ieclipse.aorm:aorm-core:1.1.2'
@@ -71,4 +74,6 @@ dependencies {
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     // import EventBus for event notify
     compile 'org.greenrobot:eventbus:3.0.0'
+    // target sdk >= 23
+    compile 'com.yanzhenjie:permission:1.0.4'
 }
