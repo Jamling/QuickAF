@@ -25,7 +25,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toolbar;
 
 import cn.ieclipse.af.R;
 import cn.ieclipse.af.util.AppUtils;
@@ -240,6 +239,13 @@ public class TitleBar extends LinearLayout{
     public void setBottomDrawable(int color) {
         ColorDrawable drawable = new ColorDrawable(color);
         setBottomDrawable(drawable);
+    }
+
+    public void setBottomDrawableHeight(int height) {
+        this.bottomDrawableHeight = height;
+        if (this.bottomDrawable != null) {
+            this.invalidateDrawable(this.bottomDrawable);
+        }
     }
     
     public int getGravity() {
