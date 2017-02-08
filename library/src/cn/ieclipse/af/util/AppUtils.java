@@ -36,10 +36,8 @@ import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
-import android.widget.PopupWindow;
 
 import java.io.File;
-import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -211,16 +209,6 @@ public final class AppUtils {
         return result;
     }
     
-    public static void setPopupWindowModal(PopupWindow popupWindow, boolean modal) {
-        try {
-            Method method = PopupWindow.class.getDeclaredMethod("setTouchModal", boolean.class);
-            method.setAccessible(true);
-            method.invoke(popupWindow, modal);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
     public static String getModel() {
         return Build.MODEL;
     }
@@ -279,6 +267,14 @@ public final class AppUtils {
         activity.sendBroadcast(shortcut);
     }
 
+    /**
+     * Need {@link android.Manifest.permission#READ_PHONE_STATE} permission
+     *
+     * @param context context
+     * @param imei    default IMEI
+     *
+     * @return imei
+     */
     public static String getImei(Context context, String imei) {
         try {
             TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -297,9 +293,14 @@ public final class AppUtils {
      * @param context 上下文
      * @return if application is in background return true, otherwise return
      * false
+     * @deprecated Fail from Android L
      */
     public static boolean isApplicationInBackground(Context context) {
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ActivityManager.RunningAppProcessInfo processInfo = am.getRunningAppProcesses().get(0);
+            return context.getPackageName().equals(processInfo.pkgList[0]);
+        }
         List<ActivityManager.RunningTaskInfo> taskList = am.getRunningTasks(1);
         if (taskList != null && !taskList.isEmpty()) {
             ComponentName topActivity = taskList.get(0).topActivity;
