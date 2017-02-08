@@ -17,11 +17,13 @@ package cn.ieclipse.af.demo.common.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
+import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -41,6 +43,8 @@ public class H5Activity extends BaseActivity {
     public static final String EXTRA_URL = "url";
     public static final String EXTRA_TITLE = "title";
     public static final String EXTRA_SHARE = "share";
+    public static final int MSG_FAKE_PROGRESS = 0;
+    public static final int MSG_REAL_PROGRESS = 1;
 
     private ProgressBar mPb;
     private WebView mWebView;
@@ -50,13 +54,28 @@ public class H5Activity extends BaseActivity {
     private ImageView mShareIv;
 
     private static final int PB_FAKE_MAX = 85;
+    private int mFakeInternal = 200;
 
     private Handler mPbHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (mPb.getProgress() < PB_FAKE_MAX) {
-                mPb.setProgress(mPb.getProgress() + 1);
-                mPbHandler.sendEmptyMessageDelayed(0, 100);
+            if (msg.what == MSG_FAKE_PROGRESS) {
+                if (mPb.getProgress() < PB_FAKE_MAX) {
+                    mPb.setProgress(mPb.getProgress() + 1);
+                    mPbHandler.sendEmptyMessageDelayed(MSG_FAKE_PROGRESS, getFakeInternal());
+                }
+            }
+            else if (msg.what == MSG_REAL_PROGRESS) {
+                int p = msg.arg1;
+                if (p > mPb.getProgress()) {
+                    mPb.setProgress(p);
+                }
+                if (p >= 100) {
+                    mPb.setVisibility(View.GONE);
+                }
+                else {
+                    mPb.setVisibility(View.VISIBLE);
+                }
             }
         }
     };
@@ -104,18 +123,24 @@ public class H5Activity extends BaseActivity {
         mWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
 
         mWebView.getSettings().setDomStorageEnabled(true);
+        mWebView.setDownloadListener(new SystemDownloadListener(this));
     }
 
     protected void load() {
         // WebView加载web资源
         mWebView.loadUrl(mUrl);
+        mPbHandler.sendEmptyMessageDelayed(MSG_FAKE_PROGRESS, getFakeInternal());
     }
 
     @Override
     public void onClick(View v) {
         super.onClick(v);
     }
-
+    
+    public int getFakeInternal() {
+        return mFakeInternal;
+    }
+    
     /**
      * @param context
      * @param url     请求URL（以http://开头的完整URL）
@@ -161,14 +186,10 @@ public class H5Activity extends BaseActivity {
         @Override
         public void onProgressChanged(WebView webView, int i) {
             mLogger.d("progress: " + i);
-            mPb.setProgress(i);
-            if (i >= 100) {
-                mPb.setVisibility(View.GONE);
-            }
-            else {
-                mPb.setVisibility(View.VISIBLE);
-            }
-            super.onProgressChanged(webView, i);
+            Message msg = new Message();
+            msg.what = MSG_REAL_PROGRESS;
+            msg.arg1 = i;
+            mPbHandler.sendMessage(msg);
         }
     }
 
@@ -176,6 +197,26 @@ public class H5Activity extends BaseActivity {
         @Override
         public boolean shouldOverrideUrlLoading(WebView webView, String s) {
             return H5Activity.this.shouldOverrideUrlLoading(webView, s);
+        }
+    }
+
+    public static class SystemDownloadListener implements DownloadListener {
+        private Context context;
+
+        public SystemDownloadListener(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype,
+                                    long contentLength) {
+            Uri uri = Uri.parse(url);
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+            intent.addCategory(Intent.CATEGORY_DEFAULT);
+            if (context != null) {
+                context.startActivity(intent);
+            }
         }
     }
 }

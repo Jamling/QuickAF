@@ -6,7 +6,11 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.PopupMenu;
 import android.widget.PopupWindow;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  * show popwindow
@@ -14,7 +18,7 @@ import android.widget.PopupWindow;
  * @author wangjian
  * @date 2015/11/11.
  */
-public class PopWindowUtils {
+public class PopupUtils {
 
     /**
      * show the popwindow on view's bottom
@@ -168,5 +172,34 @@ public class PopWindowUtils {
                 local[1]);
         }
         return mPopupWindows;
+    }
+
+    /**
+     * Set popup modal, default is true
+     *
+     * @param popupWindow {@link android.widget.PopupWindow}
+     * @param modal       true to set modal(default) or false
+     */
+    public static void setModal(PopupWindow popupWindow, boolean modal) {
+        try {
+            Method method = PopupWindow.class.getDeclaredMethod("setTouchModal", boolean.class);
+            method.setAccessible(true);
+            method.invoke(popupWindow, modal);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void setShowIcon(PopupMenu pm) {
+        try {
+            Field field = pm.getClass().getDeclaredField("mPopup");
+            field.setAccessible(true);
+            Object helper = field.get(pm);
+            // MenuPopupHelper mHelper = (MenuPopupHelper) field.get(pm);
+            // mHelper.setForceShowIcon(true);
+            helper.getClass().getDeclaredMethod("setForceShowIcon", boolean.class).invoke(helper, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

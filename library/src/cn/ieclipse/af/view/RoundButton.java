@@ -111,10 +111,10 @@ public class RoundButton extends Button {
             TypedArray a = context.obtainStyledAttributes(attrs, attr);
             mRadius = a.getDimensionPixelOffset(
                     R.styleable.RoundButton_android_radius, mRadius);
-            borderColor = a.getColor(R.styleable.RoundButton_borderColor,
+            borderColor = a.getColor(R.styleable.RoundButton_af_borderColor,
                     Color.TRANSPARENT);
             borderWidth = a.getDimensionPixelOffset(
-                    R.styleable.RoundButton_borderWidth, borderWidth);
+                    R.styleable.RoundButton_af_borderWidth, borderWidth);
             setRadius(mRadius);
             setBorder(borderColor, borderWidth);
 //            if (a.hasValue(R.styleable.RoundButton_pressedBgColor)) {

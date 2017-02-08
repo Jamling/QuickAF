@@ -113,8 +113,8 @@ public class TableContainer extends LinearLayout {
             a.getDimensionPixelOffset(R.styleable.TableContainer_fl_hDividerPadding, mDividerPadding));
         setHorizontalSpacing(a.getDimensionPixelOffset(R.styleable.TableContainer_fl_hSpacing, mHorizontalSpacing));
 
-        if (a.hasValue(R.styleable.TableContainer_edgeColor)) {
-            edgeColor = a.getColor(R.styleable.TableContainer_edgeColor, edgeColor);
+        if (a.hasValue(R.styleable.TableContainer_af_edgeColor)) {
+            edgeColor = a.getColor(R.styleable.TableContainer_af_edgeColor, edgeColor);
             mVScroll.setEdgeColor(edgeColor);
             mHeaderScroll.setEdgeColor(edgeColor);
             mDataScroll.setEdgeColor(edgeColor);

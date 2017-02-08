@@ -65,7 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fadingEdgeLength="6dp"
-        app:edgeColor="#ffff00"
+        app:af_edgeColor="#ffff00"
         app:fl_hDivider="@color/colorPrimaryDark"
         app:fl_hDividerShow="beginning|middle|end"
         app:fl_hDividerWidth="1dp"

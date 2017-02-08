@@ -15,7 +15,7 @@
         android:scaleType="centerInside"
         android:src="@mipmap/logo"
         android:contentDescription="点击登录"
-        app:isCircle="true"
+        app:af_circle="true"
         android:layout_gravity="center_horizontal"/>
 
     <LinearLayout

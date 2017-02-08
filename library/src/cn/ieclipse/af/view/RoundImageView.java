@@ -47,9 +47,9 @@ public class RoundImageView extends RatioImageView {
     private void init(Context context, AttributeSet attrs) {
         if (attrs != null) {
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RoundImageView);
-            mBorderColor = a.getColor(R.styleable.RoundImageView_borderColor, Color.TRANSPARENT);
-            mBorderWidth = a.getDimensionPixelOffset(R.styleable.RoundImageView_borderWidth, (int) mBorderWidth);
-            mIsCircle = a.getBoolean(R.styleable.RoundImageView_isCircle, mIsCircle);
+            mBorderColor = a.getColor(R.styleable.RoundImageView_af_borderColor, Color.TRANSPARENT);
+            mBorderWidth = a.getDimensionPixelOffset(R.styleable.RoundImageView_af_borderWidth, (int) mBorderWidth);
+            mIsCircle = a.getBoolean(R.styleable.RoundImageView_af_circle, mIsCircle);
             mRadius = a.getDimensionPixelOffset(R.styleable.RoundImageView_android_radius, mRadius);
             a.recycle();
         }

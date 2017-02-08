@@ -59,6 +59,7 @@ public class NewsController extends Controller<NewsController.NewsListener> {
     }
 
     public static class NewsRequest implements java.io.Serializable {
+        public String key = "f1d4f487a1d5a7e0bf12382c24301d3a";
         public int num = 10;
         public int page = 1;
         public int rand = 1;
@@ -118,7 +119,8 @@ public class NewsController extends Controller<NewsController.NewsListener> {
 
         @Override
         public IUrl getUrl() {
-            return new URLConst.AbsoluteUrl("http://apis.baidu.com/txapi/weixin/wxhot").get();
+            //return new URLConst.AbsoluteUrl("http://apis.baidu.com/txapi/weixin/wxhot").get();
+            return new URLConst.AbsoluteUrl("http://api.huceo.com/wxnew").get();
         }
 
         @Override
@@ -150,7 +152,7 @@ public class NewsController extends Controller<NewsController.NewsListener> {
         @Override
         protected GsonRequest buildRequest(IUrl url, String body) {
             GsonRequest request = new MyGsonRequest(url.getMethod(), url.getUrl(), body, this, this);
-            request.addHeader("apikey", "e8c043231152d9cbcf30a648382ca4c5");
+            //request.addHeader("apikey", "e8c043231152d9cbcf30a648382ca4c5");
             return request;
         }
     }

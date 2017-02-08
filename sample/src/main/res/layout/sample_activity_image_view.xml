@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@color/black_333333"
-            app:ratio="5"/>
+            app:af_ratio="5"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -41,9 +41,9 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
 
-                app:borderColor="@color/colorPrimary"
-                app:borderWidth="2dp"
-                app:isCircle="true"
+                app:af_borderColor="@color/colorPrimary"
+                app:af_borderWidth="2dp"
+                app:af_circle="true"
                 android:radius="8dp"/>
 
             <TextView
@@ -69,9 +69,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                app:borderColor="@color/colorPrimary"
-                app:borderWidth="4dp"
-                app:ratio="2"
+                app:af_borderColor="@color/colorPrimary"
+                app:af_borderWidth="4dp"
+                app:af_ratio="2"
                 android:radius="8dp"/>
 
             <TextView

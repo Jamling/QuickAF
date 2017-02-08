@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- ============== -->
+    <!-- AF attribute -->
+    <!-- ============== -->
+    <eat-comment/>
+
+    <!-- see android:numColumns -->
     <attr name="fl_columns" format="integer"/>
+    <!-- see android:horizontalSpacing -->
     <attr name="fl_hSpacing" format="reference|dimension"/>
+    <!-- see android:verticalSpacing -->
     <attr name="fl_vSpacing" format="reference|dimension"/>
 
     <!-- horizontal divider -->
@@ -25,11 +33,24 @@
         <flag name="middle" value="2"/>
         <flag name="end" value="4"/>
     </attr>
+    <!-- choice mode see android:choiceMode -->
     <attr name="fl_choiceMode" format="integer">
         <flag name="none" value="0"/>
         <flag name="single" value="1"/>
         <flag name="multiple" value="2"/>
     </attr>
+
+    <attr name="af_borderColor" format="reference|color"/>
+    <attr name="af_borderWidth" format="reference|dimension"/>
+    <!--<attr name="af_radius" format="reference|dimension"/>-->
+    <!-- is circle -->
+    <attr name="af_circle" format="boolean"/>
+    <attr name="af_pressColor" format="reference|color"/>
+
+    <!-- ============== -->
+    <!-- AF Component define -->
+    <!-- ============== -->
+    <eat-comment/>
 
     <declare-styleable name="FlowLayout">
         <attr name="fl_gridRatio" format="float"/>
@@ -76,7 +97,7 @@
         <attr name="fl_vDividerPadding"/>
         <attr name="fl_vDividerShow"/>
         <!-- edge -->
-        <attr name="edgeColor" format="color|reference"/>
+        <attr name="af_edgeColor" format="color|reference"/>
         <attr name="android:fadingEdgeLength"/>
     </declare-styleable>
 
@@ -89,8 +110,8 @@
 
     <declare-styleable name="RoundButton">
         <attr name="android:radius"/>
-        <attr name="borderColor" format="reference|color"/>
-        <attr name="borderWidth" format="reference|dimension"/>
+        <attr name="af_borderColor"/>
+        <attr name="af_borderWidth"/>
         <!--<attr name="pressedBgColor" format="reference|color"/>-->
         <!--<attr name="checkedBgColor" format="reference|color"/>-->
         <!--<attr name="selectedBgColor" format="reference|color"/>-->
@@ -109,11 +130,11 @@
     </declare-styleable>
 
     <declare-styleable name="ScrollLayout">
-        <attr name="debug" format="boolean"/>
-        <attr name="snapVelocity" format="integer"/>
+        <attr name="af_debug" format="boolean"/>
+        <attr name="af_snapVelocity" format="integer"/>
     </declare-styleable>
     <declare-styleable name="ViewPagerV4">
-        <attr name="disableWipe" format="boolean"/>
+        <attr name="af_disableWipe" format="boolean"/>
     </declare-styleable>
 
     <!-- AfSwipeRefreshLayout-->
@@ -151,23 +172,23 @@
         <attr name="pstsOneScreenTabs" format="integer"/>
     </declare-styleable>
 
-    <declare-styleable name="expandView">
-        <attr name="tabItemId" format="reference"/>
+    <declare-styleable name="FilterTabHost">
+        <attr name="af_tabLayout" format="reference"/>
     </declare-styleable>
 
     <!-- from old library -->
     <declare-styleable name="RotateTextView">
-        <attr name="degree" format="float" />
+        <attr name="af_degree" format="float"/>
     </declare-styleable>
 
     <declare-styleable name="RatioImageView">
-        <attr name="ratio" format="float"/>
+        <attr name="af_ratio" format="float"/>
     </declare-styleable>
     <declare-styleable name="RoundImageView">
-        <attr name="borderWidth" />
-        <attr name="borderColor" />
-        <attr name="pressColor" format="reference|color"/>
-        <attr name="isCircle" format="boolean"/>
+        <attr name="af_borderWidth"/>
+        <attr name="af_borderColor"/>
+        <attr name="af_pressColor"/>
+        <attr name="af_circle"/>
         <attr name="android:radius" />
     </declare-styleable>
 </resources>

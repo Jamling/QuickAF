@@ -30,9 +30,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import cn.ieclipse.af.R;
-import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.util.SharedPrefsUtils;
-import cn.ieclipse.af.util.ViewUtils;
 
 /**
  * 类/接口描述
@@ -104,8 +102,8 @@ public class Preference extends FrameLayout implements OnCheckedChangeListener {
         icon = a.getDrawable(R.styleable.Preference_android_icon);
         icon2 = a.getDrawable(R.styleable.Preference_android_drawableRight);
         if (!a.hasValue(R.styleable.Preference_android_background)) {
-            ViewUtils.setBackground(this, AppUtils.getDrawable(getContext(),
-                android.R.drawable.list_selector_background));
+//            ViewUtils.setBackground(this, AppUtils.getDrawable(getContext(),
+//                android.R.drawable.list_selector_background));
             // TODO set default background
 //            TypedValue tv = new TypedValue();
 //            if(getContext().getTheme().resolveAttribute(, tv,true)){

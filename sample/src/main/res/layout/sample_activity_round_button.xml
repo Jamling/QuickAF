@@ -86,8 +86,8 @@
             android:layout_marginTop="20dp"
             android:padding="8dp"
             android:radius="8dp"
-            app:borderColor="@color/black_alpha_60"
-            app:borderWidth="0dp"
+            app:af_borderColor="@color/black_alpha_60"
+            app:af_borderWidth="0dp"
             android:background="#f00"
             android:text="RoundButton"/>
 
@@ -102,8 +102,8 @@
             android:padding="8dp"
             android:radius="8dp"
             android:textSize="14sp"
-            app:borderColor="@color/black_alpha_60"
-            app:borderWidth="0dp"
+            app:af_borderColor="@color/black_alpha_60"
+            app:af_borderWidth="0dp"
             android:layout_marginTop="20dp"
             android:text=""
             android:textColor="@color/fg_title_bar_press"
@@ -121,8 +121,8 @@
             android:radius="8dp"
             android:textColor="@color/white"
             android:textSize="14sp"
-            app:borderColor="@color/black_alpha_60"
-            app:borderWidth="1dp"
+            app:af_borderColor="@color/black_alpha_60"
+            app:af_borderWidth="1dp"
             android:layout_marginTop="20dp"
             android:hint="Hint"
             android:textColorHint="@color/fg_title_bar"/>

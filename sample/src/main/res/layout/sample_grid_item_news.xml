@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
         android:src="@mipmap/logo"
-        app:ratio="1.67"/>
+        app:af_ratio="1.67"/>
 
     <LinearLayout
         android:layout_width="match_parent"

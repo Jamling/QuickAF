@@ -66,7 +66,7 @@ public class RotateTextView extends TextView {
     private void init(Context context, AttributeSet attrs) {
         if (attrs != null) {
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RotateTextView);
-            degree = a.getFloat(R.styleable.RotateTextView_degree, 0);
+            degree = a.getFloat(R.styleable.RotateTextView_af_degree, 0);
             a.recycle();
         }
     }
