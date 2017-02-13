@@ -1177,7 +1177,7 @@ public class FlowLayout extends ViewGroup {
 
         for (int i = 0; i < mAdapter.getCount(); i++) {
             final View childView = mAdapter.getView(i, null, this);
-            ViewGroup.LayoutParams lp = childView.getLayoutParams() == null ? new MarginLayoutParams(
+            ViewGroup.LayoutParams lp = childView.getLayoutParams() == null ? new LayoutParams(
                 LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT) : childView.getLayoutParams();
             addView(childView, lp);
         }
@@ -1200,7 +1200,7 @@ public class FlowLayout extends ViewGroup {
         if (mAdapter != null) {
             for (int i = 0; i < mAdapter.getCount(); i++) {
                 final View childView = mAdapter.getView(i, null, this);
-                ViewGroup.LayoutParams lp = childView.getLayoutParams() == null ? new MarginLayoutParams(
+                ViewGroup.LayoutParams lp = childView.getLayoutParams() == null ? new LayoutParams(
                     LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT) : childView.getLayoutParams();
                 addView(childView, lp);
             }

@@ -44,6 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.ieclipse.af.R;
+import cn.ieclipse.af.util.PopupUtils;
 
 /**
  * The FilterTabHost include several tab corresponding to {@link cn.ieclipse.af.view.FilterTabView} used to
@@ -318,7 +319,8 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
             mContentWrapper = wrapper;
             setWindowAlpha(mDimAlpha);
             mPopupWindow.update();
-            mPopupWindow.showAsDropDown(mSelectedTab, mOffset.x, mOffset.y);
+            //mPopupWindow.showAsDropDown(mSelectedTab, mOffset.x, mOffset.y);
+            PopupUtils.showAsDropDown(mPopupWindow, mSelectedTab, mOffset.x, mOffset.y);
             if (enterAnimation != null) {
                 content.startAnimation(enterAnimation);
                 bgTransitionDrawable.startTransition((int) enterAnimation.getDuration());

@@ -1,7 +1,9 @@
 package cn.ieclipse.af.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,8 +26,8 @@ public class PopupUtils {
      * show the popwindow on view's bottom
      *
      * @param context
-     * @param clickView the view click to show popwidow
-     * @param contentView  the layout view be shown
+     * @param clickView   the view click to show popwidow
+     * @param contentView the layout view be shown
      */
     public static PopupWindow showPopWindowBottom(Context context, View clickView, View contentView) {
         return showPopWindow(context, clickView, contentView, 0, 0);
@@ -46,8 +48,8 @@ public class PopupUtils {
      * show the popwindow on view's top
      *
      * @param context
-     * @param clickView the view click to show popwidow
-     * @param contentView  the layout view be shown
+     * @param clickView   the view click to show popwidow
+     * @param contentView the layout view be shown
      */
     public static PopupWindow showPopWindowTop(Context context, View clickView, View contentView) {
         return showPopWindow(context, clickView, contentView, 0, 1);
@@ -68,8 +70,8 @@ public class PopupUtils {
      * show the popwindow on view's left
      *
      * @param context
-     * @param clickView the view click to show popwidow
-     * @param contentView  the layout view be shown
+     * @param clickView   the view click to show popwidow
+     * @param contentView the layout view be shown
      */
     public static PopupWindow showPopWindowLeft(Context context, View clickView, View contentView) {
         return showPopWindow(context, clickView, contentView, 0, 2);
@@ -90,8 +92,8 @@ public class PopupUtils {
      * show the popwindow on view's right
      *
      * @param context
-     * @param clickView the view click to show popwidow
-     * @param contentView  the layout view be shown
+     * @param clickView   the view click to show popwidow
+     * @param contentView the layout view be shown
      */
     public static PopupWindow showPopWindowRight(Context context, View clickView, View contentView) {
         return showPopWindow(context, clickView, contentView, 0, 3);
@@ -108,18 +110,18 @@ public class PopupUtils {
         return showPopWindow(context, clickView, null, layoutId, 3);
     }
 
-
     /**
      * show popwindow on clickview top, bottom ,right or left
      *
      * @param context
-     * @param clickView the view click to show popwidow
-     * @param contentView  the layout view be shown
-     * @param layoutId  the layout resid be shown
-     * @param location  0.bottom
-     *                  1.top
-     *                  2.left
-     *                  3.right
+     * @param clickView   the view click to show popwidow
+     * @param contentView the layout view be shown
+     * @param layoutId    the layout resid be shown
+     * @param location    0.bottom
+     *                    1.top
+     *                    2.left
+     *                    3.right
+     *
      * @return
      */
     private static PopupWindow showPopWindow(Context context, View clickView, View contentView, int layoutId,
@@ -172,6 +174,20 @@ public class PopupUtils {
                 local[1]);
         }
         return mPopupWindows;
+    }
+
+    public static void showAsDropDown(PopupWindow popupWindow, View anchorView, int offsetX, int offsetY) {
+        if (Build.VERSION.SDK_INT >= 24) {
+            int[] a = new int[2];
+            anchorView.getLocationInWindow(a);
+            if (anchorView.getContext() instanceof Activity) {
+                View decorView = ((Activity) anchorView.getContext()).getWindow().getDecorView();
+                popupWindow.showAtLocation(decorView, Gravity.NO_GRAVITY, offsetX,
+                    a[1] + anchorView.getHeight() + offsetY);
+                return;
+            }
+        }
+        popupWindow.showAsDropDown(anchorView, offsetX, offsetY);
     }
 
     /**
