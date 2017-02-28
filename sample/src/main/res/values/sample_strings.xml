@@ -102,6 +102,7 @@
         <item>File</item>
         <item>Folder</item>
         <item>All</item>
+        <item>None</item>
     </string-array>
 
     <string-array name="sample_rv_layout">

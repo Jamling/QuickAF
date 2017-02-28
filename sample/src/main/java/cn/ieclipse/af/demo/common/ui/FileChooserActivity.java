@@ -17,12 +17,14 @@ package cn.ieclipse.af.demo.common.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.view.Gravity;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
@@ -137,6 +139,16 @@ public class FileChooserActivity extends BaseActivity implements AbsListView.OnI
                 });
                 return;
             }
+            else if (mParams.chooserMode == Params.CHOOSER_NONE) {
+                adapter.setCheckFilter(new FileAdapter.CheckFilter() {
+
+                    @Override
+                    public boolean isCheckable(File file) {
+                        return false;
+                    }
+                });
+                return;
+            }
         }
         adapter.setContentClick(new View.OnClickListener() {
             @Override
@@ -172,6 +184,16 @@ public class FileChooserActivity extends BaseActivity implements AbsListView.OnI
         super.onBackPressed();
     }
 
+    protected void openFile(File f) {
+        String ext = FileUtil.getExtensionFromUrl(f.getName());
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.fromFile(f));
+        intent.setType(MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext));
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivity(Intent.createChooser(intent, null));
+    }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (position == 0) {
@@ -183,6 +205,18 @@ public class FileChooserActivity extends BaseActivity implements AbsListView.OnI
             if (f.isDirectory()) {
                 mListView.setItemChecked(position, false);
                 onFolderChanged(f);
+                return;
+            }
+        }
+        else if (mParams.chooserMode == Params.CHOOSER_NONE) {
+            File f = mAdapter.getItem(position);
+            if (f.isDirectory()) {
+                mListView.setItemChecked(position, false);
+                onFolderChanged(f);
+                return;
+            }
+            else {
+                openFile(f);
                 return;
             }
         }
@@ -337,6 +371,7 @@ public class FileChooserActivity extends BaseActivity implements AbsListView.OnI
         public static final int CHOOSER_ALL = -1;
         public static final int CHOOSER_FILE = 0;
         public static final int CHOOSER_FOLDER = 1;
+        public static final int CHOOSER_NONE = 2;
 
         public static final int SORT_FOLDER_FIRST = 0x80;
         public static final int SORT_NAME_ASC = 0x02;

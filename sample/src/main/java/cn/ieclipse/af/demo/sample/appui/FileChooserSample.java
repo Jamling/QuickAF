@@ -38,7 +38,7 @@ public class FileChooserSample extends SampleBaseFragment {
 
     private int[] modes
         = new int[]{FileChooserActivity.Params.CHOOSER_FILE, FileChooserActivity.Params.CHOOSER_FOLDER,
-        FileChooserActivity.Params.CHOOSER_ALL};
+        FileChooserActivity.Params.CHOOSER_ALL, FileChooserActivity.Params.CHOOSER_NONE};
 
     @Override
     protected int getContentLayout() {
