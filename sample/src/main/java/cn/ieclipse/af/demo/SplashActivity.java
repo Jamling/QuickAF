@@ -15,6 +15,7 @@
  */
 package cn.ieclipse.af.demo;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
@@ -36,6 +37,7 @@ import cn.ieclipse.af.util.AppUtils;
 public class SplashActivity extends BaseActivity {
     private Handler mHandler = new Handler();
     private long mDelay = 800;
+
     @Override
     protected int getContentLayout() {
         return 0;
@@ -46,6 +48,11 @@ public class SplashActivity extends BaseActivity {
         super.initWindowFeature();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setShowTitleBar(false);
+
+        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
+            setSkipCreate(true);
+            finish();
+        }
     }
 
     @Override
@@ -91,7 +98,6 @@ public class SplashActivity extends BaseActivity {
                 }
             }, mDelay);
         }
-
     }
 
     private void goHome() {

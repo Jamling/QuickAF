@@ -56,8 +56,8 @@ public abstract class AfActivity extends Activity implements OnClickListener {
     protected TitleBar mTitleBar;
     private FrameLayout mContentView;
     protected FrameLayout mBottomBar;
-    
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
+    private boolean skipCreate = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +73,11 @@ public abstract class AfActivity extends Activity implements OnClickListener {
         initInitData();
         // 2, init widow feature
         initWindowFeature();
-        
+
+        if (skipCreate) {
+            return;
+        }
+
         // 3, init root content layout
         initRootView();
         // 4, init title bar
@@ -104,7 +108,7 @@ public abstract class AfActivity extends Activity implements OnClickListener {
 
     }
 
-    protected void initInitData(){
+    protected void initInitData() {
 
     }
 
@@ -202,7 +206,16 @@ public abstract class AfActivity extends Activity implements OnClickListener {
             this.windowBgColor = AppUtils.getColor(this, colorId);
         }
     }
-    
+
+    /**
+     * Skip on create.
+     *
+     * @param skipCreate true to skip {@link #onCreate(android.os.Bundle)}
+     */
+    public void setSkipCreate(boolean skipCreate) {
+        this.skipCreate = skipCreate;
+    }
+
     protected void setOnClickListener(View... views) {
         if (views != null) {
             for (View view : views) {
