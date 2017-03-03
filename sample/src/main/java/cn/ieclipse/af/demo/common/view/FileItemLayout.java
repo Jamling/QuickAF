@@ -17,7 +17,6 @@ package cn.ieclipse.af.demo.common.view;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.CheckBox;
@@ -87,8 +86,8 @@ public class FileItemLayout extends CheckableLinearLayout implements View.OnClic
         }
         else {
             size.setText(FileUtil.formatFileSize(file.length()));
-            // icon.setImageDrawable(getFileDrawable(file));
-            icon.setImageResource(R.drawable.ic_file);
+            icon.setImageDrawable(getFileDrawable(file));
+            // icon.setImageResource(R.drawable.ic_file);
         }
         content.setTag(file);
     }
@@ -136,18 +135,13 @@ public class FileItemLayout extends CheckableLinearLayout implements View.OnClic
         else {
             d = AppUtils.getDrawable(getContext(), R.drawable.ic_folder);
         }
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            d = AppUtils.tintDrawable(d, AppUtils.getColor(getContext(), R.color.colorPrimary));
-        }
+        d = AppUtils.tintDrawable(d, AppUtils.getColor(getContext(), R.color.colorPrimary));
         return d;
     }
 
     private Drawable getFileDrawable(File file) {
         String ext = FileUtil.getExtension(file.getName());
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return AppUtils.tintDrawable(getContext(), R.drawable.ic_file, R.color.colorAccent);
-        }
-
-        return AppUtils.getDrawable(getContext(), R.drawable.ic_file);
+        return AppUtils.tintDrawable(getContext(), R.drawable.ic_file, R.color.colorAccent);
+        // return AppUtils.getDrawable(getContext(), R.drawable.ic_file);
     }
 }

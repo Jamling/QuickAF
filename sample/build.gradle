@@ -18,6 +18,7 @@ android {
         versionName VER_NAME
         versionCode Integer.parseInt(VER_CODE)
         signingConfig signingConfigs.config
+        //vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -52,6 +53,10 @@ android {
 
     packagingOptions {
         exclude ''
+    }
+    // Flag to tell aapt to keep the attribute ids around
+    aaptOptions {
+        //additionalParameters "--no-version-vectors"
     }
 }
 
