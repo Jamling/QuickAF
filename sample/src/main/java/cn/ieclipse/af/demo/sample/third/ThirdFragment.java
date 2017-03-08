@@ -30,6 +30,6 @@ public class ThirdFragment extends ButtonListFragment {
 
     @Override
     protected Class[] getActivities() {
-        return new Class[]{FlexboxLayoutActivity.class, PercentLayoutActivity.class};
+        return new Class[]{FlexboxLayoutActivity.class, PercentLayoutActivity.class, PayFragment.class};
     }
 }

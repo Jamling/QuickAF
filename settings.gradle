@@ -1,4 +1,4 @@
 include ':sample'
 include ':af-library'
+include ':af-pay'
 project(':af-library').projectDir = new File(rootDir, 'library')
-
