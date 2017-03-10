@@ -15,12 +15,16 @@
  */
 package cn.ieclipse.af.demo.common.ui;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
+import android.net.http.SslError;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -198,6 +202,40 @@ public class H5Fragment extends BaseFragment {
         @Override
         public boolean shouldOverrideUrlLoading(WebView webView, String s) {
             return H5Fragment.this.shouldOverrideUrlLoading(webView, s);
+        }
+    
+        @Override
+        public void onReceivedSslError(WebView view, final SslErrorHandler handler, SslError error) {
+            AlertDialog dialog = new AlertDialog.Builder(view.getContext()).setTitle("SSL证书错误").setMessage(
+                "错误信息：" + getSSLErrorMsg(error) + "\n是否继续访问？").setPositiveButton(android.R.string.ok,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        handler.proceed();
+                    }
+                }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    handler.cancel();
+                }
+            }).create();
+            dialog.show();
+        }
+    
+        private String getSSLErrorMsg(SslError error) {
+            String msg = "";
+            switch (error.getPrimaryError()) {
+                case SslError.SSL_EXPIRED:
+                    msg = "SSL证书已过期";
+                    break;
+                case SslError.SSL_UNTRUSTED:
+                    msg = "证书不受信任";
+                    break;
+                default:
+                    msg = "证书错误或无效";
+                    break;
+            }
+            return msg;
         }
     }
 
