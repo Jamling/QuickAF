@@ -42,7 +42,7 @@ public class RegexUtils {
      * 匹配邮箱的正则表达式
      * <br>"www."可省略不写
      */
-    public static final String EMAIL_REGEX = "^(www\\.)?\\w+@\\w+(\\.\\w+)+$";
+    public static final String EMAIL_REGEX = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
 
     /**
      * 匹配汉子的正则表达式，个数限制为一个或多个

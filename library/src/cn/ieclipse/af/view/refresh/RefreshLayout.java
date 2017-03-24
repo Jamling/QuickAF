@@ -177,6 +177,12 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
 
     @Override
     public void onRefresh() {
+        if (!mContentViewWrapper.isRefreshing() && mContentViewWrapper.getVisibility() == View.VISIBLE) {
+            mContentViewWrapper.setRefreshing(true);
+        }
+        else if (!mEmptyViewWrapper.isRefreshing() && mEmptyViewWrapper.getVisibility() == View.VISIBLE) {
+            mEmptyViewWrapper.setRefreshing(true);
+        }
         mLoading = LOADING_REFRESH;
         if (getFooterView() != null) {
             getFooterView().setLoading(null);

@@ -113,7 +113,15 @@ public class RefreshRecyclerSample extends SampleBaseFragment implements NewsCon
     public void onLoadMore() {
         load(false);
     }
-
+    
+    @Override
+    public void onClick(View v) {
+        if (v == btn1) {
+            refreshLayout.onRefresh();
+        }
+        super.onClick(v);
+    }
+    
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (chk1 == buttonView) {
