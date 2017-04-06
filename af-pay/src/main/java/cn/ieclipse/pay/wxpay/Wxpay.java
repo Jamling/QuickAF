@@ -26,13 +26,12 @@ import android.widget.Toast;
 import com.tencent.mm.sdk.constants.Build;
 import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.modelpay.PayReq;
+import com.tencent.mm.sdk.modelpay.PayResp;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
-import java.nio.charset.Charset;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -79,6 +78,13 @@ public class Wxpay {
     public void pay(PayReq req) {
         if (isSupportPay()) {
             mWXApi.sendReq(req);
+        }
+        else {
+            if (payListener != null ) {
+                PayResp resp = new PayResp();
+                resp.errCode = BaseResp.ErrCode.ERR_UNSUPPORT;
+                payListener.onPayFailure(resp);
+            }
         }
     }
 
@@ -149,7 +155,11 @@ public class Wxpay {
 
         @Override
         protected void onPreExecute() {
-            dialog = ProgressDialog.show(wxpay.context, "提示", "正在下单，请稍候...");
+            try {
+                dialog = ProgressDialog.show(wxpay.context, "提示", "正在下单，请稍候...");
+            } catch (Exception e) {
+                Wxpay.log("弹出下单提示框失败\n" + e.toString());
+            }
         }
 
         @Override
@@ -193,49 +203,13 @@ public class Wxpay {
             if (DEBUG) {
                 Wxpay.log("下单响应xml为：\n" + content);
             }
-            Map<String, String> result = OrderInfoUtil.parseXmlResponse(content);
-            req = OrderInfoUtil.getPayReq(result);
+            req = OrderInfoUtil.getPayReq(content);
             return null;
-        }
-
-        /**
-         * Sample :
-         * <xml>
-         * <appid>wx2421b1c4370ec43b</appid>
-         * <attach>支付测试</attach>
-         * <body>APP支付测试</body>
-         * <mch_id>10000100</mch_id>
-         * <nonce_str>1add1a30ac87aa2db72f57a2375d8fec</nonce_str>
-         * <notify_url>http://wxpay.wxutil.com/pub_v2/pay/notify.v2.php</notify_url>
-         * <out_trade_no>1415659990</out_trade_no>
-         * <spbill_create_ip>14.23.150.211</spbill_create_ip>
-         * <total_fee>1</total_fee>
-         * <trade_type>APP</trade_type>
-         * <sign>0CB01533B8C1EF103065174F50BCA001</sign>
-         * </xml>
-         *
-         * @return request xml body
-         */
-        protected String getRequest(String out_trade_no, String body, String detail, String fee, String notify_url,
-                                    String nonce_str, String ip) {
-            Map<String, String> map = new LinkedHashMap<>();
-            map.put("appid", Config.app_id);
-            map.put("body", body);
-            map.put("detail", detail);
-            map.put("mch_id", Config.mch_id);
-            map.put("nonce_str", TextUtils.isEmpty(nonce_str) ? OrderInfoUtil.genNonceStr() : nonce_str);
-            map.put("notify_url", TextUtils.isEmpty(notify_url) ? Config.notify_url : notify_url);
-            map.put("out_trade_no", out_trade_no);
-            map.put("spbill_create_ip", TextUtils.isEmpty(ip) ? "127.0.0.1" : ip);
-            map.put("fee", fee);
-            map.put("trade_type", "APP");
-            map.put("sign", genSign(map));
-            return map2xmlStr(map);
         }
 
         protected String getRequest(Map<String, String> params, boolean signed) {
             if (!signed) {
-                params.put("sign", genSign(params));
+                params.put("sign", OrderInfoUtil.genSign(params));
             }
             return map2xmlStr(params);
         }
@@ -258,25 +232,15 @@ public class Wxpay {
                 }
             }
             sb.append("</xml>");
-            return sb.toString();
-        }
-
-        public String genSign(Map<String, String> parameters) {
-            StringBuffer sb = new StringBuffer();
-            Set es = parameters.entrySet();
-            Iterator it = es.iterator();
-            while (it.hasNext()) {
-                Map.Entry entry = (Map.Entry) it.next();
-                String k = (String) entry.getKey();
-                Object v = entry.getValue();
-                if (null != v && !"".equals(v) && !"sign".equals(k) && !"key".equals(k)) {
-                    sb.append(k + "=" + v + "&");
+            String xml = "";
+            try {
+                xml = new String(sb.toString().getBytes(), "ISO8859-1");
+            } catch (Exception e) {
+                if (Wxpay.DEBUG) {
+                    Wxpay.log(e.getMessage());
                 }
             }
-            sb.append("key=" + Config.api_key);
-            System.out.println(sb.toString());
-            String sign = MD5.getMessageDigest(sb.toString().getBytes(Charset.forName("utf-8")));
-            return sign;
+            return xml;
         }
 
         //-----------> Response

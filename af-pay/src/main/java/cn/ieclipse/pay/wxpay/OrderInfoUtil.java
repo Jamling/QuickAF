@@ -26,6 +26,8 @@ import java.io.StringReader;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * Description
@@ -98,8 +100,21 @@ public abstract class OrderInfoUtil {
             req.partnerId = result.get("mch_id");
             req.packageValue = "Sign=WXPay";
             req.prepayId = result.get("prepay_id");
-            req.sign = result.get("sign");
             req.timeStamp = String.valueOf(System.currentTimeMillis() / 1000);
+            req.sign = result.get("sign");
+            
+            Map<String, String> sortedMap = new TreeMap<>();
+            sortedMap.put("appid", req.appId);
+            sortedMap.put("noncestr", req.nonceStr);
+            sortedMap.put("partnerid", req.partnerId);
+            sortedMap.put("prepayid", req.prepayId);
+            sortedMap.put("timestamp", req.timeStamp);
+            sortedMap.put("package", req.packageValue);
+            String sign = OrderInfoUtil.genSign(sortedMap);
+            if (Wxpay.DEBUG) {
+                Wxpay.log("客户端支付签名：" + sign);
+            }
+            req.sign = sign;
         }
         return req;
     }
@@ -113,33 +128,46 @@ public abstract class OrderInfoUtil {
      */
     public static PayReq getPayReq(String xmlResultContent) {
         Map<String, String> result = OrderInfoUtil.parseXmlResponse(xmlResultContent);
-        PayReq req = null;
-        if (result != null && "SUCCESS".equals(result.get("result_code")) && "SUCCESS".equals(
-            result.get("return_code"))) {
-            req = new PayReq();
-            req.appId = result.get("appid");
-            req.nonceStr = result.get("nonce_str");
-            req.partnerId = result.get("mch_id");
-            req.packageValue = "Sign=WXPay";
-            req.prepayId = result.get("prepay_id");
-            req.sign = result.get("sign");
-            req.timeStamp = String.valueOf(System.currentTimeMillis() / 1000);
-        }
-        return req;
+        return getPayReq(result);
     }
-
+    
+    /**
+     * Sample :
+     * <xml>
+     * <appid>wx2421b1c4370ec43b</appid>
+     * <attach>支付测试</attach>
+     * <body>APP支付测试</body>
+     * <mch_id>10000100</mch_id>
+     * <nonce_str>1add1a30ac87aa2db72f57a2375d8fec</nonce_str>
+     * <notify_url>http://wxpay.wxutil.com/pub_v2/pay/notify.v2.php</notify_url>
+     * <out_trade_no>1415659990</out_trade_no>
+     * <spbill_create_ip>14.23.150.211</spbill_create_ip>
+     * <total_fee>1</total_fee>
+     * <trade_type>APP</trade_type>
+     * <sign>0CB01533B8C1EF103065174F50BCA001</sign>
+     * </xml>
+     *
+     * @return request xml body
+     */
     public static Map<String, String> buildOrderParamMap(String out_trade_no, String body, String detail, String fee,
                                                          String notify_url, String nonce_str, String ip) {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("appid", Wxpay.Config.app_id);
-        map.put("body", body);
-        map.put("detail", detail);
+        if (body.length() > 128) {
+            map.put("body", body.substring(0, 128));
+        }
+        else {
+            map.put("body", body);
+        }
+        if (!TextUtils.isEmpty(detail)) {
+            map.put("detail", detail);
+        }
         map.put("mch_id", Wxpay.Config.mch_id);
         map.put("nonce_str", TextUtils.isEmpty(nonce_str) ? OrderInfoUtil.genNonceStr() : nonce_str);
         map.put("notify_url", TextUtils.isEmpty(notify_url) ? Wxpay.Config.notify_url : notify_url);
         map.put("out_trade_no", out_trade_no);
         map.put("spbill_create_ip", TextUtils.isEmpty(ip) ? "127.0.0.1" : ip);
-        map.put("fee", fee);
+        map.put("total_fee", fee);
         map.put("trade_type", "APP");
         return map;
     }
@@ -147,5 +175,34 @@ public abstract class OrderInfoUtil {
     public static String genNonceStr() {
         String str = String.valueOf(new java.util.Random().nextDouble());
         return MD5.getMessageDigest(str.getBytes());
+    }
+    
+    public static String genSign(Map<String, String> parameters) {
+        // see https://pay.weixin.qq.com/wiki/tools/signverify/
+        Map<String, String> sortedMap = new TreeMap<>();
+        for (String key : parameters.keySet()) {
+            sortedMap.put(key, parameters.get(key));
+        }
+        
+        StringBuffer sb = new StringBuffer();
+        Set<String> es = sortedMap.keySet();
+        for (String k : es) {
+            String v = sortedMap.get(k);
+            if (!TextUtils.isEmpty(v) && !"sign".equals(k) && !"key".equals(k)) {
+                sb.append(k + "=" + v + "&");
+            }
+        }
+        if (Wxpay.DEBUG) {
+            Wxpay.log("生成字符串：" + sb.toString());
+        }
+        sb.append("key=" + Wxpay.Config.api_key);
+        if (Wxpay.DEBUG) {
+            Wxpay.log("连接商户key：" + sb.toString());
+        }
+        String sign = MD5.getMessageDigest(sb.toString().getBytes());
+        if (Wxpay.DEBUG) {
+            Wxpay.log("MD5并转成大写：" + sign);
+        }
+        return sign;
     }
 }
