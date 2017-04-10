@@ -81,5 +81,5 @@ dependencies {
     // import EventBus for event notify
     compile 'org.greenrobot:eventbus:3.0.0'
     // target sdk >= 23
-    compile 'com.yanzhenjie:permission:1.0.4'
+    compile 'com.yanzhenjie:permission:1.0.5'
 }

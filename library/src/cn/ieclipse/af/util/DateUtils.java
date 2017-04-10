@@ -89,136 +89,42 @@ public class DateUtils {
     /**
      * Formats milliseconds to a friendly form
      *
-     * @param millis
+     * @param millis ms
+     * @param format sample %02d:%02d:%02d
      * @return the formated string
      */
-    public static String formatDuration(long millis) {
+    public static String formatDuration(long millis, String format) {
         String ret = "";
+        int size = format.split("%").length - 1;
         
-        int seconds = (int) Math.floor(millis / 1000);
+        int seconds = (int) Math.ceil((double) millis / 1000);
         
         int days = 0, hours = 0, minutes = 0;
-        if (seconds > (60 * 60 * 24)) {
-            days = seconds / (60 * 60 * 24);
-            seconds -= days * (60 * 60 * 24);
+        if (seconds > 86400) {
+            days = seconds / 86400;
+            seconds = seconds % 86400;
         }
-        if (seconds > (60 * 60)) {
-            hours = seconds / (60 * 60);
-            seconds -= hours * (60 * 60);
+        if (seconds > 3600) {
+            hours = seconds / 3600;
+            seconds = seconds % 3600;
         }
         if (seconds > 60) {
             minutes = seconds / 60;
-            seconds -= minutes * 60;
+            seconds = seconds % 60;
         }
-        ret = "";
-        if (days > 0) {
-            ret += days + " d ";
+        if (size == 1) {
+            ret = String.format(format, seconds);
         }
-        
-        if (hours > 0) {
-            ret += hours + " h ";
+        else if (size == 2) {
+            ret = String.format(format, minutes, seconds);
         }
-        
-        if (minutes > 0) {
-            ret += minutes + " m ";
+        else if (size == 3) {
+            ret = String.format(format, hours, minutes, seconds);
         }
-        if (seconds > 0) {
-            ret += seconds + " s ";
-        }
-        
-        if (ret.equals("")) {
-            ret = "0 s";
+        else if (size == 4) {
+            ret = String.format(format, days, hours, minutes, seconds);
         }
         return ret;
-    }
-    
-    /**
-     * Formats milliseconds to a friendly form. Short means that seconds are
-     * truncated if value &gt; 1 Day
-     *
-     * @param millis
-     * @return the formated string
-     */
-    public static String formatDurationShort(long millis) {
-        String ret = "";
-        
-        int seconds = (int) Math.floor(millis / 1000);
-        
-        int days = 0, hours = 0, minutes = 0;
-        if (seconds > (60 * 60 * 24)) {
-            days = seconds / (60 * 60 * 24);
-            seconds -= days * (60 * 60 * 24);
-        }
-        if (seconds > (60 * 60)) {
-            hours = seconds / (60 * 60);
-            seconds -= hours * (60 * 60);
-        }
-        if (seconds > 60) {
-            minutes = seconds / 60;
-            seconds -= minutes * 60;
-        }
-        ret = "";
-        if (days > 0) {
-            ret += days + " d ";
-        }
-        
-        if (hours > 0) {
-            ret += hours + " h ";
-        }
-        
-        if (minutes > 0) {
-            ret += minutes + " m ";
-        }
-        if ((seconds > 0) && (days == 0)) {
-            // only show seconds when value < 1 day
-            ret += seconds + " s ";
-        }
-        
-        if (ret.equals("")) {
-            ret = "0 s";
-        }
-        return ret;
-    }
-    
-    /**
-     * Returns String i.e. hh:mm:ss representing the duration specified
-     * (positive values only)
-     *
-     * @param period - time in seconds
-     * @return String on format mm:ss or hh:mm:ss if more than one hour.
-     */
-    public static String formatSecond(int period) {
-        
-        int totalSeconds = (period > 0) ? period : 0;
-        
-        totalSeconds = (totalSeconds < 360000) ? totalSeconds : 0;
-        
-        int minutes = (totalSeconds / 60) % 60;
-        int seconds = totalSeconds % 60;
-        int hours = (totalSeconds / 3600);
-        
-        char[] time = new char[hours > 0 ? 8 : 5];
-        
-        int buf = 0;
-        int i = 0;
-        
-        if (hours > 0) {
-            buf = hours % 10;
-            time[i++] = (char) ((hours / 10) + 48);
-            time[i++] = (char) (buf + 48);
-            time[i++] = ':';
-        }
-        
-        buf = minutes % 10;
-        time[i++] = (char) ((minutes / 10) + 48);
-        time[i++] = (char) (buf + 48);
-        
-        time[i++] = ':';
-        buf = seconds % 10;
-        time[i++] = (char) ((seconds / 10) + 48);
-        time[i++] = (char) (buf + 48);
-        
-        return new String(time);
     }
     
     /**
