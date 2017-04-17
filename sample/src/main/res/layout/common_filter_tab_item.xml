@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cn.ieclipse.af.demo.common.view.SimpleFilterTab
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:layout_weight="1"
+    android:background="@null"
+    android:drawablePadding="3dp"
+    android:drawableRight="@android:drawable/arrow_down_float"
+    android:gravity="right|center_vertical"
+    android:maxLines="1"
+    android:textColor="@color/fg_main_bottom_selector"
+    android:textOff="@null"
+    android:textOn="@null"
+    android:textSize="16sp"
+    android:textStyle="bold"
+    tools:text="Item1">
+
+</cn.ieclipse.af.demo.common.view.SimpleFilterTab>

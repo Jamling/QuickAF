@@ -43,7 +43,7 @@ public abstract class FilterTabView extends FrameLayout {
     }
 
     public FilterTabView(FilterTabHost expandableLayout, CharSequence title) {
-        this(expandableLayout, null, null);
+        this(expandableLayout, title, null);
     }
 
     public FilterTabView(FilterTabHost expandableLayout, CharSequence title, OnPopupItemClickListener listener) {
