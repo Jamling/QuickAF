@@ -90,9 +90,9 @@ public class SortListViewActivity extends BaseActivity {
 
     }
 
-    public void onLoadList(List<ContactModel.HouseItemInfo> hosueList) {
-        if (hosueList != null && !hosueList.isEmpty()) {
-            for (ContactModel.HouseItemInfo at : hosueList) {
+    public void onLoadList(List<ContactModel.HouseItemInfo> houseList) {
+        if (houseList != null && !houseList.isEmpty()) {
+            for (ContactModel.HouseItemInfo at : houseList) {
                 if (at.title.length() > 0) {
                     // 解析出对应的拼音
                     String a = characterParser.getSelling(at.title).toUpperCase(Locale.US);
@@ -107,9 +107,9 @@ public class SortListViewActivity extends BaseActivity {
                     }
                 }
             }
-            Collections.sort(hosueList);
+            Collections.sort(houseList);
             adapter.clear();
-            adapter.setDataList(hosueList);
+            adapter.setDataList(houseList);
         }
     }
 

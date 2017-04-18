@@ -144,12 +144,6 @@
         <attr name="anim_duration" format="integer"/>
     </declare-styleable>
 
-    <declare-styleable name="RefreshRecyclerView">
-        <attr name="dividerHeight" format="reference|dimension"/>
-        <attr name="dividerColor" format="reference|color"/>
-        <attr name="recyclerView" format="reference"/>
-        <attr name="autoLoad" format="boolean"/>
-    </declare-styleable>
     <declare-styleable name="RefreshLayout">
         <attr name="ptr_content" format="reference" />
         <attr name="ptr_empty" format="reference" />

@@ -40,7 +40,6 @@
 
 package cn.ieclipse.af.demo.sample.recycler.sort;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,12 +57,13 @@ import java.util.Locale;
 
 import cn.ieclipse.af.adapter.AfRecyclerAdapter;
 import cn.ieclipse.af.adapter.AfViewHolder;
+import cn.ieclipse.af.adapter.delegate.AdapterDelegate;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.ui.BaseActivity;
 import cn.ieclipse.af.util.CharacterParser;
-import cn.ieclipse.af.view.RefreshRecyclerView;
 import cn.ieclipse.af.view.SideBar;
-
+import cn.ieclipse.af.view.refresh.RefreshLayout;
+import cn.ieclipse.af.view.refresh.RefreshRecyclerHelper;
 
 /**
  * 类/接口描述
@@ -76,7 +76,8 @@ public class SortRecyclerActivity extends BaseActivity {
     private CharacterParser characterParser;
     private SideBar mSideBar;
     private TextView mUserDialog;
-    private RefreshRecyclerView recyclerView;
+    private RefreshLayout mRefreshLayout;
+    private RefreshRecyclerHelper<ContactModel.HouseItemInfo> mRefreshHelper;
 
     StickyRecyclerHeadersDecoration headersDecor;
     ContactModel contactModel;
@@ -96,17 +97,21 @@ public class SortRecyclerActivity extends BaseActivity {
         mUserDialog = (TextView) findViewById(R.id.contact_dialog);
         mSideBar.setTextView(mUserDialog);
         mSideBar.setFocusBarBackground(R.drawable.sidebar_background);
-
-        recyclerView = (RefreshRecyclerView) findViewById(R.id.contact_member);
-        recyclerView.setMode(RefreshRecyclerView.REFRESH_MODE_NONE);
-        adapter = new MyAdapter(this);
+    
+        mRefreshLayout = (RefreshLayout) view.findViewById(R.id.refresh);
+        mRefreshLayout.setMode(RefreshLayout.REFRESH_MODE_NONE);
+        mRefreshHelper = new RefreshRecyclerHelper<>(mRefreshLayout);
+        
+        adapter = new MyAdapter();
 
         headersDecor = new StickyRecyclerHeadersDecoration(adapter);
-        recyclerView.getRecyclerView().addItemDecoration(headersDecor);
+        // Header as ItemDecoration
+        mRefreshHelper.setItemDecoration(headersDecor);
+        // set Adapter
+        mRefreshHelper.setAdapter(adapter);
 
         Gson gson = new GsonBuilder().create();
         contactModel = gson.fromJson(DataList.tempData, ContactModel.class);
-        recyclerView.setAdapter(adapter);
         onLoadList(contactModel.lipro);
 
         mSideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
@@ -115,7 +120,8 @@ public class SortRecyclerActivity extends BaseActivity {
             public void onTouchingLetterChanged(String s) {
                 int position = adapter.getPositionForSection(s.charAt(0));
                 if (position != -1) {
-                    recyclerView.getRecyclerView().scrollToPosition(position);
+                    // mRefreshHelper.getRecyclerView().scrollToPosition(position);
+                    mRefreshHelper.scrollToPosition(position);
                 }
             }
         });
@@ -128,9 +134,9 @@ public class SortRecyclerActivity extends BaseActivity {
         });
     }
 
-    public void onLoadList(List<ContactModel.HouseItemInfo> hosueList) {
-        if (hosueList != null && !hosueList.isEmpty()) {
-            for (ContactModel.HouseItemInfo at : hosueList) {
+    public void onLoadList(List<ContactModel.HouseItemInfo> houseList) {
+        if (houseList != null && !houseList.isEmpty()) {
+            for (ContactModel.HouseItemInfo at : houseList) {
                 if (at.title.length() > 0) {
                     // 解析出对应的拼音
                     String a = characterParser.getSelling(at.title).toUpperCase(Locale.US);
@@ -145,9 +151,8 @@ public class SortRecyclerActivity extends BaseActivity {
                     }
                 }
             }
-            Collections.sort(hosueList);
-            adapter.clear();
-            adapter.setDataList(hosueList);
+            Collections.sort(houseList);
+            mRefreshHelper.onLoadFinish(houseList);
         }
     }
 
@@ -155,20 +160,20 @@ public class SortRecyclerActivity extends BaseActivity {
     public class MyAdapter extends AfRecyclerAdapter<ContactModel.HouseItemInfo> implements
         StickyRecyclerHeadersAdapter<RecyclerView.ViewHolder> {
 
-        public MyAdapter(Context context) {
-            super(context);
+        public MyAdapter() {
+            registerDelegate(new MyDelegate());
         }
 
-        @Override
-        public int getLayout() {
-            return android.R.layout.simple_list_item_1;
-        }
-
-        @Override
-        public void onUpdateView(RecyclerView.ViewHolder holder, ContactModel.HouseItemInfo data, int position) {
-            holder.itemView.setBackgroundResource(android.R.drawable.list_selector_background);
-            ((TextView)holder.itemView).setText(data.title);
-        }
+//        @Override
+//        public int getLayout() {
+//            return android.R.layout.simple_list_item_1;
+//        }
+//
+//        @Override
+//        public void onUpdateView(RecyclerView.ViewHolder holder, ContactModel.HouseItemInfo data, int position) {
+//            holder.itemView.setBackgroundResource(android.R.drawable.list_selector_background);
+//            ((TextView)holder.itemView).setText(data.title);
+//        }
 
         // 实现以下方法,支持浮动头部
         @Override
@@ -204,15 +209,34 @@ public class SortRecyclerActivity extends BaseActivity {
 
         }
     }
+    
+    public static class MyDelegate extends AdapterDelegate<ContactModel.HouseItemInfo> {
+    
+        @Override
+        public int getLayout() {
+            return android.R.layout.simple_list_item_1;
+        }
+    
+        @Override
+        public void onUpdateView(RecyclerView.ViewHolder holder, ContactModel.HouseItemInfo info, int position) {
+            MyViewHolder holder1 = (MyViewHolder) holder;
+            holder1.tv1.setText(info.title);
+        }
+    
+        @Override
+        public Class<? extends RecyclerView.ViewHolder> getViewHolderClass() {
+            return MyViewHolder.class;
+        }
+    }
 
-    private static class ViewHolder extends AfViewHolder {
+    public static class MyViewHolder extends AfViewHolder {
 
-        private TextView tv1;
+        public TextView tv1;
 
-        public ViewHolder(View itemView) {
+        public MyViewHolder(View itemView) {
             super(itemView);
             // set item selector
-            itemView.setBackgroundResource(android.R.drawable.list_selector_background);
+            // itemView.setBackgroundResource(android.R.drawable.list_selector_background);
             tv1 = (TextView) itemView.findViewById(android.R.id.text1);
         }
     }

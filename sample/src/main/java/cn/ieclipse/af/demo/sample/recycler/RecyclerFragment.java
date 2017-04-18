@@ -16,9 +16,7 @@
 package cn.ieclipse.af.demo.sample.recycler;
 
 import cn.ieclipse.af.demo.sample.ButtonListFragment;
-import cn.ieclipse.af.demo.sample.legacy.LegacyRecyclerLayoutActivity;
-import cn.ieclipse.af.demo.sample.legacy.LegacyRefreshRecyclerView;
-import cn.ieclipse.af.demo.sample.legacy.LegacySwipeMenuRecyclerActivity;
+import cn.ieclipse.af.demo.sample.recycler.sort.SortListViewActivity;
 import cn.ieclipse.af.demo.sample.recycler.sort.SortRecyclerActivity;
 
 /**
@@ -37,6 +35,6 @@ public class RecyclerFragment extends ButtonListFragment {
         return new Class[]{RecyclerHelperSample.class, RefreshRecyclerSample.class, RefreshSwipeRecyclerSample.class,
             RefreshScrollViewSample
             .class, RefreshListViewSample.class, CheckableRecyclerSample.class, SortRecyclerActivity.class,
-            LegacyRecyclerLayoutActivity.class, LegacyRefreshRecyclerView.class, LegacySwipeMenuRecyclerActivity.class};
+            SortListViewActivity.class};
     }
 }

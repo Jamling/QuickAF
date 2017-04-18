@@ -127,6 +127,13 @@ public class RefreshRecyclerHelper<T> extends RefreshHelper<T> {
     public void setStaggeredGridLayoutManager(int column, int orientation) {
         mRecyclerHelper.setStaggeredGridLayoutManager(column, orientation);
     }
+    
+    /**
+     * @see cn.ieclipse.af.view.recycle.RecyclerHelper#scrollToPosition(int)
+     */
+    public void scrollToPosition(int position) {
+        mRecyclerHelper.scrollToPosition(position);
+    }
 
     /**
      * RecyclerView can perform several optimizations if it can know in advance that changes in

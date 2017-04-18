@@ -31,7 +31,7 @@ import cn.ieclipse.af.adapter.AfRecyclerAdapter;
  * @author Jamling
  */
 public final class RecyclerHelper {
-
+    
     /**
      * Same to {@link android.support.v7.widget.OrientationHelper#HORIZONTAL}
      */
@@ -40,26 +40,26 @@ public final class RecyclerHelper {
      * Same to {@link android.support.v7.widget.OrientationHelper#VERTICAL}
      */
     public static final int VERTICAL = OrientationHelper.VERTICAL;
-
+    
     private RecyclerView recyclerView;
     private RecyclerView.ItemDecoration mItemDecoration;
-
+    
     public RecyclerHelper() {
-
+        
     }
-
+    
     public RecyclerHelper(RecyclerView recyclerView) {
         setRecyclerView(recyclerView);
     }
-
+    
     public void setRecyclerView(@NonNull RecyclerView recyclerView) {
         this.recyclerView = recyclerView;
     }
-
+    
     public RecyclerView getRecyclerView() {
         return recyclerView;
     }
-
+    
     /**
      * @see android.support.v7.widget.SimpleItemAnimator#setSupportsChangeAnimations(boolean)
      */
@@ -69,9 +69,9 @@ public final class RecyclerHelper {
             ((SimpleItemAnimator) animator).setSupportsChangeAnimations(false);
         }
     }
-
+    
     // layout
-
+    
     /**
      * Set the RecyclerView using {@link android.support.v7.widget.LinearLayoutManager}.
      *
@@ -82,7 +82,7 @@ public final class RecyclerHelper {
         manager.setOrientation(orientation);
         getRecyclerView().setLayoutManager(manager);
     }
-
+    
     /**
      * Set the RecyclerView using {@link android.support.v7.widget.GridLayoutManager}.
      *
@@ -92,7 +92,7 @@ public final class RecyclerHelper {
         final GridLayoutManager gridManager = new GridLayoutManager(getRecyclerView().getContext(), column);
         getRecyclerView().setLayoutManager(gridManager);
     }
-
+    
     /**
      * Set the RecyclerView using {@link android.support.v7.widget.StaggeredGridLayoutManager}
      *
@@ -103,7 +103,7 @@ public final class RecyclerHelper {
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(column, orientation);
         getRecyclerView().setLayoutManager(manager);
     }
-
+    
     /**
      * Set the {@link android.support.v7.widget.RecyclerView} item decoration
      *
@@ -117,11 +117,11 @@ public final class RecyclerHelper {
         getRecyclerView().addItemDecoration(mItemDecoration);
         getRecyclerView().invalidateItemDecorations();
     }
-
+    
     public RecyclerView.ItemDecoration getItemDecoration() {
         return mItemDecoration;
     }
-
+    
     /**
      * Set {@link cn.ieclipse.af.view.recycle.ListDividerItemDecoration} height
      *
@@ -133,7 +133,7 @@ public final class RecyclerHelper {
             getRecyclerView().invalidateItemDecorations();
         }
     }
-
+    
     /**
      * Set {@link cn.ieclipse.af.view.recycle.ListDividerItemDecoration} color
      *
@@ -145,21 +145,21 @@ public final class RecyclerHelper {
             getRecyclerView().invalidateItemDecorations();
         }
     }
-
+    
     public void setDividerPaddingStart(int start) {
         if (mItemDecoration instanceof ListDividerItemDecoration) {
             ((ListDividerItemDecoration) mItemDecoration).setPaddingStart(start);
             getRecyclerView().invalidateItemDecorations();
         }
     }
-
+    
     public void setDividerPaddingEnd(int end) {
         if (mItemDecoration instanceof ListDividerItemDecoration) {
             ((ListDividerItemDecoration) mItemDecoration).setPaddingStart(end);
             getRecyclerView().invalidateItemDecorations();
         }
     }
-
+    
     /**
      * For #GridLayoutManager set header/footer full row
      */
@@ -179,6 +179,51 @@ public final class RecyclerHelper {
                     return 1;
                 }
             });
+        }
+    }
+    
+    /**
+     * Scroll to recycler position and set the position to top
+     *
+     * @param position position
+     */
+    public void scrollToPosition(int position) {
+        final RecyclerView.LayoutManager lm = getRecyclerView().getLayoutManager();
+        if (lm instanceof LinearLayoutManager) {
+            LinearLayoutManager llm = (LinearLayoutManager) lm;
+            llm.scrollToPositionWithOffset(position, 0);
+//            int firt = llm.findFirstVisibleItemPosition();
+//            int last = llm.findLastVisibleItemPosition();
+//            if (position <= firt) {
+//                getRecyclerView().scrollToPosition(position);
+//            }
+//            else if (position <= last) {
+//                View v = getRecyclerView().getChildAt(position - firt);
+//                if (llm.getOrientation() == OrientationHelper.VERTICAL) {
+//                    int top = v.getTop();
+//                    getRecyclerView().scrollBy(0, top);
+//                }
+//                else {
+//                    int left = v.getLeft();
+//                    getRecyclerView().scrollTo(left, 0);
+//                }
+//            }
+//            else {
+//                getRecyclerView().scrollToPosition(position);
+//                // repeat (position <= last)
+//                int n = position - llm.findFirstVisibleItemPosition();
+//                if (0 <= n && n < getRecyclerView().getChildCount()) {
+//                    View v = getRecyclerView().getChildAt(n);
+//                    if (llm.getOrientation() == OrientationHelper.VERTICAL) {
+//                        int top = v.getTop();
+//                        getRecyclerView().scrollBy(0, top);
+//                    }
+//                    else {
+//                        int left = v.getLeft();
+//                        getRecyclerView().scrollTo(left, 0);
+//                    }
+//                }
+//            }
         }
     }
 }
