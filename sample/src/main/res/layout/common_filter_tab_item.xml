@@ -15,6 +15,7 @@
     android:textOn="@null"
     android:textSize="16sp"
     android:textStyle="bold"
-    tools:text="Item1">
+    tools:text="Item1"
+    tools:checked="true">
 
 </cn.ieclipse.af.demo.common.view.SimpleFilterTab>

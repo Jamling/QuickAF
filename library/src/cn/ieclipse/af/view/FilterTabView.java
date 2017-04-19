@@ -29,26 +29,26 @@ public abstract class FilterTabView extends FrameLayout {
     public FilterTabView(Context context) {
         super(context);
     }
-
+    
     public CharSequence mTitle;
 
     protected LayoutInflater mLayoutInflater;
 
-    protected FilterTabHost mExpandableLayout;
+    protected FilterTabHost mFilterTabHost;
 
     protected OnPopupItemClickListener mOnPopupItemClickListener;
 
-    public FilterTabView(FilterTabHost expandableLayout) {
-        this(expandableLayout, null);
+    public FilterTabView(FilterTabHost filterTabHost) {
+        this(filterTabHost, null);
     }
 
-    public FilterTabView(FilterTabHost expandableLayout, CharSequence title) {
-        this(expandableLayout, title, null);
+    public FilterTabView(FilterTabHost filterTabHost, CharSequence title) {
+        this(filterTabHost, title, null);
     }
 
-    public FilterTabView(FilterTabHost expandableLayout, CharSequence title, OnPopupItemClickListener listener) {
-        super(expandableLayout.getContext(), null);
-        this.mExpandableLayout = expandableLayout;
+    public FilterTabView(FilterTabHost filterTabHost, CharSequence title, OnPopupItemClickListener listener) {
+        super(filterTabHost.getContext(), null);
+        this.mFilterTabHost = filterTabHost;
         this.mOnPopupItemClickListener = listener;
 
         mLayoutInflater = LayoutInflater.from(getContext());
@@ -97,10 +97,12 @@ public abstract class FilterTabView extends FrameLayout {
 //    }
 
     public void hideExpandableView() {
-        mExpandableLayout.hidePopup();
+        mFilterTabHost.hidePopup();
     }
 
-    public abstract void clearChoice();
+    public void clearChoice() {
+        mFilterTabHost.clearChoice(this);
+    }
 
     /**
      * 自定义回调

@@ -16,6 +16,7 @@
 package cn.ieclipse.af.demo.sample.cview;
 
 import android.view.View;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,13 +53,16 @@ public class FilterTabHostSample extends SampleBaseFragment {
     protected void initContentView(View view) {
         super.initContentView(view);
         mFilterLayout = (FilterTabHost) view.findViewById(R.id.filter_layout);
+        mFilterLayout.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         mFilterViews = new ArrayList<>();
 
         FilterTabView.OnPopupItemClickListener listener = new FilterTabView.OnPopupItemClickListener() {
             @Override
             public void onPopupItemClick(FilterTabView parent, View view, int position) {
                 if (parent instanceof SimpleFilterTabView) {
-                    if (position > 0) {
+                    if (position >= 0) {
+                        mFilterLayout.setTabChecked(parent, true);
+                        parent.setSelected(true);
                         String text = ((SimpleFilterTabView) parent).getData().get(position).toString();
                         DialogUtils.showToast(parent.getContext(), text);
                     }

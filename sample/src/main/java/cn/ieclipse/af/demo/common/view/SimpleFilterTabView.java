@@ -42,13 +42,13 @@ public class SimpleFilterTabView<T> extends FilterTabView implements AdapterView
     protected boolean mReplaceTitle;
     protected SimpleAdapter<T> mAdapter;
 
-    public SimpleFilterTabView(FilterTabHost expandableLayout) {
-        super(expandableLayout);
+    public SimpleFilterTabView(FilterTabHost filterTabHost) {
+        super(filterTabHost);
     }
 
-    public SimpleFilterTabView(FilterTabHost expandableLayout, CharSequence title, OnPopupItemClickListener listener,
+    public SimpleFilterTabView(FilterTabHost filterTabHost, CharSequence title, OnPopupItemClickListener listener,
                                List<T> data) {
-        super(expandableLayout, title, listener);
+        super(filterTabHost, title, listener);
         setData(data);
     }
 
@@ -89,7 +89,18 @@ public class SimpleFilterTabView<T> extends FilterTabView implements AdapterView
     public SimpleAdapter<T> getAdapter() {
         return mAdapter;
     }
-
+    
+    public void setItemChecked(int position) {
+        if (mListView != null) {
+            mListView.setSelection(position);
+            mListView.setItemChecked(position, true);
+        }
+        if (mReplaceTitle && getAdapter() != null) {
+            T info = (T) mListView.getAdapter().getItem(position);
+            mFilterTabHost.setSelectTabText(info.toString());
+        }
+    }
+    
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         hideExpandableView();
@@ -103,12 +114,13 @@ public class SimpleFilterTabView<T> extends FilterTabView implements AdapterView
 
         if (mReplaceTitle) {
             T info = (T) parent.getAdapter().getItem(position);
-            mExpandableLayout.setSelectTabText(info.toString());
+            mFilterTabHost.setSelectTabText(info.toString());
         }
     }
 
     @Override
     public void clearChoice() {
+        super.clearChoice();
         if (mListView != null) {
             mListView.clearChoices();
             mListView.setSelection(ListView.INVALID_POSITION);
