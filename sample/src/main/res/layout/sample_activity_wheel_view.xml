@@ -100,5 +100,5 @@
 
     <include
         android:id="@+id/wv_container"
-        layout="@layout/view_wheel_time_container"/>
+        layout="@layout/common_wheel_time_container"/>
 </LinearLayout>
