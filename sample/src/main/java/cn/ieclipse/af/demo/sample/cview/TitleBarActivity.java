@@ -132,27 +132,27 @@ public class TitleBarActivity extends SampleBaseActivity {
             bar2.setLeft(btn);
         }
         else if (v.getId() == R.id.btn3) {
-            View rv = View.inflate(this, R.layout.title_right_iv, null);
+            View rv = View.inflate(this, R.layout.common_title_right_iv, null);
             bar.addRight(rv);
 
-            TextView tv = (TextView) View.inflate(this, R.layout.title_right_tv, null);
+            TextView tv = (TextView) View.inflate(this, R.layout.common_title_right_tv, null);
             tv.setText(s);
             bar2.addRight(tv);
         }
         else if (v.getId() == R.id.btn4) {
-            View rv = View.inflate(this, R.layout.title_right_iv, null);
+            View rv = View.inflate(this, R.layout.common_title_right_iv, null);
             bar.setRight(rv);
 
-            TextView tv = (TextView) View.inflate(this, R.layout.title_right_tv, null);
+            TextView tv = (TextView) View.inflate(this, R.layout.common_title_right_tv, null);
             tv.setText(s);
             bar2.setRight(tv);
         }
         else if (v.getId() == R.id.btn5){
-            TextView tv = (TextView) View.inflate(this, R.layout.title_right_tv, null);
+            TextView tv = (TextView) View.inflate(this, R.layout.common_title_right_tv, null);
             tv.setText(s);
             bar.addMiddle(tv);
 
-             tv = (TextView) View.inflate(this, R.layout.title_right_tv, null);
+             tv = (TextView) View.inflate(this, R.layout.common_title_right_tv, null);
             tv.setText(s);
             bar2.addMiddle(tv);
         }

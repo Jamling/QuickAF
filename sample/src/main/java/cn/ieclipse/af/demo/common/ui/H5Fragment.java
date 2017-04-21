@@ -84,7 +84,7 @@ public class H5Fragment extends BaseFragment {
 
     @Override
     protected int getContentLayout() {
-        return R.layout.main_activity_h5;
+        return R.layout.common_activity_h5;
     }
 
     @Override

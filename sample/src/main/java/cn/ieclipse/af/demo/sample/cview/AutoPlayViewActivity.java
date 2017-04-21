@@ -73,7 +73,7 @@ public class AutoPlayViewActivity extends BaseActivity implements View.OnTouchLi
         // indicator item
         autoPlayView.setIndicatorItemPadding(AppUtils.dp2px(this, 6));
         //autoPlayView.setIndicatorItemLayout(android.R.layout.simple_list_item_single_choice);
-        autoPlayView.setIndicatorItemLayout(R.layout.main_pager_indicator_item);
+        autoPlayView.setIndicatorItemLayout(R.layout.common_pager_indicator_item);
 
         // 设置indicator文本显示
         // autoPlayView.setIndicatorTextView(tv);
@@ -113,7 +113,7 @@ public class AutoPlayViewActivity extends BaseActivity implements View.OnTouchLi
         
         @Override
         public int getLayout() {
-            return R.layout.title_right_iv;
+            return R.layout.common_title_right_iv;
         }
         
         @Override
@@ -216,7 +216,7 @@ public class AutoPlayViewActivity extends BaseActivity implements View.OnTouchLi
 
         @Override
         public int getLayout() {
-            return R.layout.title_right_iv;
+            return R.layout.common_title_right_iv;
         }
 
         @Override

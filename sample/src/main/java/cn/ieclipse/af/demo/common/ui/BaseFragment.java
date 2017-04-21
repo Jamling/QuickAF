@@ -79,8 +79,8 @@ public abstract class BaseFragment extends AfFragment implements View.OnClickLis
     @Override
     protected void initHeaderView() {
         super.initHeaderView();
-        mTitleLeftView = (TextView) View.inflate(mTitleBar.getContext(), R.layout.title_left_tv, null);
-        mTitleTextView = (TextView) View.inflate(mTitleBar.getContext(), R.layout.title_middle_tv, null);
+        mTitleLeftView = (TextView) View.inflate(mTitleBar.getContext(), R.layout.common_title_left_tv, null);
+        mTitleTextView = (TextView) View.inflate(mTitleBar.getContext(), R.layout.common_title_middle_tv, null);
 
         mTitleBar.setLeft(mTitleLeftView);
         mTitleBar.setMiddle(mTitleTextView);

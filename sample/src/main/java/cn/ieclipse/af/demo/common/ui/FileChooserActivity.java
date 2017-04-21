@@ -99,7 +99,7 @@ public class FileChooserActivity extends BaseActivity implements AbsListView.OnI
     @Override
     protected void initBottomView() {
         super.initBottomView();
-        getLayoutInflater().inflate(R.layout.main_bottom_file_chooser, mBottomBar, true);
+        getLayoutInflater().inflate(R.layout.common_bottom_file_chooser, mBottomBar, true);
         mTvCheckedCount = (TextView) mBottomBar.findViewById(android.R.id.text1);
         mBtnOk = mBottomBar.findViewById(android.R.id.button1);
         setOnClickListener(mBtnOk);
@@ -441,7 +441,7 @@ public class FileChooserActivity extends BaseActivity implements AbsListView.OnI
 
         @Override
         public int getLayout() {
-            return R.layout.main_list_item_file;
+            return R.layout.common_list_item_file;
         }
 
         @Override
