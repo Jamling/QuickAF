@@ -285,7 +285,7 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
     
     protected void initPopupWindow(View contentView) {
         mPopupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.MATCH_PARENT);
+            ViewGroup.LayoutParams.WRAP_CONTENT);
         /** 监听popupWindow的收缩*/
         mPopupWindow.setOnDismissListener(this);
         // mPopupWindow.setAnimationStyle(0);

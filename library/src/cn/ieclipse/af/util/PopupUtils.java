@@ -177,7 +177,7 @@ public class PopupUtils {
     }
 
     public static void showAsDropDown(PopupWindow popupWindow, View anchorView, int offsetX, int offsetY) {
-        if (Build.VERSION.SDK_INT >= 24) {
+        if (Build.VERSION.SDK_INT == 24) {
             int[] a = new int[2];
             anchorView.getLocationInWindow(a);
             if (anchorView.getContext() instanceof Activity) {
