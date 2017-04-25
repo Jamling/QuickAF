@@ -19,6 +19,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
@@ -60,9 +61,13 @@ public class DrawableCenterEditText extends EditText {
         if (drawables != null) {
             Drawable drawableLeft = drawables[0];
             if (drawableLeft != null) {
-                float textWidth = getPaint().measureText(getText().toString());
-                if (textWidth == 0) {
-                    textWidth = getPaint().measureText(getHint().toString());
+                CharSequence text = getText();
+                if (TextUtils.isEmpty(text)) {
+                    text = getHint();
+                }
+                float textWidth = 0;
+                if (!TextUtils.isEmpty(text)) {
+                    textWidth = getPaint().measureText(text.toString());
                 }
                 int drawablePadding = getCompoundDrawablePadding();
                 int drawableWidth = 0;
