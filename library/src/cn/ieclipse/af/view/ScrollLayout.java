@@ -326,7 +326,7 @@ public class ScrollLayout extends ViewGroup {
         return mTouchState != TOUCH_STATE_REST;
     }
     
-    public static interface OnScreenChangeListener {
+    public interface OnScreenChangeListener {
         void onScreenChange(int screen, boolean hasNext, boolean hasPreview);
     }
 }

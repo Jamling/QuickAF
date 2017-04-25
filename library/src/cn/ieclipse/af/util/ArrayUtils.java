@@ -159,7 +159,6 @@ public class ArrayUtils {
                     i++;
                 }
                 for (; intArray[i] < tmp && i < j; i++) {
-                    ;
                 }
                 if (i < j) {
                     intArray[j] = intArray[i];
@@ -177,7 +176,6 @@ public class ArrayUtils {
                     i++;
                 }
                 for (; intArray[i] > tmp && i < j; i++) {
-                    ;
                 }
                 if (i < j) {
                     intArray[j] = intArray[i];
@@ -206,8 +204,8 @@ public class ArrayUtils {
         sa.push(0);
         sa.push(intArray.length - 1);
         while (!sa.isEmpty()) {
-            int end = ((Integer) sa.pop()).intValue();
-            int start = ((Integer) sa.pop()).intValue();
+            int end = sa.pop().intValue();
+            int start = sa.pop().intValue();
             int i = start;
             int j = end;
             int tmp = intArray[i];
@@ -221,7 +219,6 @@ public class ArrayUtils {
                         i++;
                     }
                     for (; intArray[i] < tmp && i < j; i++) {
-                        ;
                     }
                     if (i < j) {
                         intArray[j] = intArray[i];
@@ -239,7 +236,6 @@ public class ArrayUtils {
                         i++;
                     }
                     for (; intArray[i] > tmp && i < j; i++) {
-                        ;
                     }
                     if (i < j) {
                         intArray[j] = intArray[i];

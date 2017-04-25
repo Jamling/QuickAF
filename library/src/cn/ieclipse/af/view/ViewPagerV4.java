@@ -42,12 +42,12 @@ public class ViewPagerV4 extends ViewPager {
     
     @Override
     public boolean onTouchEvent(MotionEvent e) {
-        return disableWipe ? false : super.onTouchEvent(e);
+        return !disableWipe && super.onTouchEvent(e);
     }
     
     @Override
     public boolean onInterceptTouchEvent(MotionEvent e) {
-        return disableWipe ? false : super.onInterceptTouchEvent(e);
+        return !disableWipe && super.onInterceptTouchEvent(e);
     }
     
     protected boolean canScroll(View v, boolean checkV, int dx, int x, int y) {

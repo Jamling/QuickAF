@@ -25,7 +25,7 @@ public interface Authorizer {
      * @param listener
      *            authorize linstener
      */
-    public void fetchAccounts(AuthorizationListener<String[]> listener);
+    void fetchAccounts(AuthorizationListener<String[]> listener);
     
     /**
      * Add account.
@@ -35,8 +35,7 @@ public interface Authorizer {
      * @param listener
      *            listener
      */
-    public void addAccount(Activity activity,
-            AuthorizationListener<String> listener);
+    void addAccount(Activity activity, AuthorizationListener<String> listener);
     
     /**
      * Get assigned account auth token
@@ -48,8 +47,7 @@ public interface Authorizer {
      * @param listener
      *            listener
      */
-    public void fetchAuthToken(String account, Activity activity,
-            AuthorizationListener<String> listener);
+    void fetchAuthToken(String account, Activity activity, AuthorizationListener<String> listener);
     
     /**
      * Get account auth token.
@@ -58,7 +56,7 @@ public interface Authorizer {
      *            account name
      * @return auth token
      */
-    public String getAuthToken(String accountName);
+    String getAuthToken(String accountName);
     
     /**
      * Fresh auth token
@@ -69,7 +67,7 @@ public interface Authorizer {
      *            old auth token
      * @return new auth token
      */
-    public String getFreshAuthToken(String accountName, String authToken);
+    String getFreshAuthToken(String accountName, String authToken);
     
     /**
      * Invalidate auth token
@@ -79,7 +77,7 @@ public interface Authorizer {
      * @param authToken
      *            cached auth token
      */
-    public void clearAuthToken(String accountType, String authToken);
+    void clearAuthToken(String accountType, String authToken);
     
     /**
      * Authorizer Listener
@@ -89,19 +87,19 @@ public interface Authorizer {
      * @param <T>
      *            Returned Object data struct
      */
-    public static interface AuthorizationListener<T> {
+    interface AuthorizationListener<T> {
         /**
          * Authorize success.
          * 
          * @param result
          *            authorize data struct
          */
-        public void onSuccess(T result);
+        void onSuccess(T result);
         
         /**
          * Authorize canceled.
          */
-        public void onCanceled();
+        void onCanceled();
         
         /**
          * Authorize meet an exception
@@ -109,7 +107,7 @@ public interface Authorizer {
          * @param e
          *            exception
          */
-        public void onError(Exception e);
+        void onError(Exception e);
     }
     
     /**
@@ -119,7 +117,7 @@ public interface Authorizer {
      * @author melord_li
      * 
      */
-    public static interface AuthorizerFactory {
+    interface AuthorizerFactory {
         /**
          * Get new authorizer.
          * 
@@ -129,7 +127,7 @@ public interface Authorizer {
          *            account type
          * @return created authorizer instance
          */
-        public Authorizer getAuthorizer(Context context, String type);
+        Authorizer getAuthorizer(Context context, String type);
     }
     
 }

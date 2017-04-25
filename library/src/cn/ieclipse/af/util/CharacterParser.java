@@ -132,7 +132,7 @@ public class CharacterParser {
         for (int i = 0; i < chs.length(); i++) {
             key = chs.substring(i, i + 1);
             if (key.getBytes().length >= 2) {
-                value = (String) convert(key);
+                value = convert(key);
                 if (value == null) {
                     value = "unknown";
                 }

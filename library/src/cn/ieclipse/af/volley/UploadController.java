@@ -82,7 +82,7 @@ public class UploadController<Listener> extends Controller<Listener> {
             public void handleMessage(android.os.Message msg) {
                 long[] p = (long[]) msg.obj;
                 onProgress(p[0], p[1], (int) p[2]);
-            };
+            }
         };
     }
 }

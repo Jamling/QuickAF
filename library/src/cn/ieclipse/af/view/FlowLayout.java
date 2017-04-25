@@ -1144,7 +1144,7 @@ public class FlowLayout extends ViewGroup {
          * @param group     the group in which the checked radio button has changed
          * @param checkedId the unique identifier of the newly checked radio button
          */
-        public void onCheckedChanged(FlowLayout group, int checkedId);
+        void onCheckedChanged(FlowLayout group, int checkedId);
     }
     
     // ----> adapter support

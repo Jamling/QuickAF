@@ -74,12 +74,7 @@ public class BaseResponse implements java.io.Serializable, IBaseResponse {
         if (obj instanceof BaseResponse && obj != null) {
             BaseResponse another = (BaseResponse) obj;
             if (getData() == null) {
-                if (another.getData() == null) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
+                return another.getData() == null;
             }
             else {
                 return getData().equals(another.getData());

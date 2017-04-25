@@ -172,7 +172,7 @@ public class UploadRequest extends GsonRequest {
         return null;
     }
     
-    public static interface MultipartProgressListener {
+    public interface MultipartProgressListener {
         void transferred(long transfered, int progress);
     }
     

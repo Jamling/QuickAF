@@ -70,7 +70,7 @@ public class TypeAdapterRuntimeTypeWrapper<T> extends TypeAdapter<T> {
             type = value.getClass();
         }
 
-        return (Type) type;
+        return type;
     }
 }
 
