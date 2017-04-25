@@ -107,7 +107,7 @@
             android:layout_marginTop="20dp"
             android:text=""
             android:textColor="@color/fg_title_bar_press"
-            android:textColorHint="@color/fg_title_bar"
+            android:textColorHint="@color/fg_title_bar_normal"
         />
 
         <cn.ieclipse.af.view.RoundButton
@@ -125,7 +125,7 @@
             app:af_borderWidth="1dp"
             android:layout_marginTop="20dp"
             android:hint="Hint"
-            android:textColorHint="@color/fg_title_bar"/>
+            android:textColorHint="@color/fg_title_bar_normal"/>
 
     </LinearLayout>
 

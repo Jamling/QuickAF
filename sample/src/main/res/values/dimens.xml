@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- 页面水平方向的左右间距 -->
-    <dimen name="activity_horizontal_margin">10dp</dimen>
+    <dimen name="activity_horizontal_margin">12dp</dimen>
     <dimen name="activity_vertical_margin">0dp</dimen>
 
     <!-- 通用 -->

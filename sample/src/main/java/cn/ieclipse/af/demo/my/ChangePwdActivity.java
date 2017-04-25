@@ -77,7 +77,7 @@ public class ChangePwdActivity extends BaseActivity implements ChangePwdControll
         mEtPwd = (EditText) view.findViewById(R.id.et_pwd);
         mEtRepeat = (EditText) view.findViewById(R.id.et_repeat);
 
-        mSubmit = view.findViewById(R.id.btn_login);
+        mSubmit = view.findViewById(R.id.btn_submit);
         setOnClickListener(mSubmit);
     }
 

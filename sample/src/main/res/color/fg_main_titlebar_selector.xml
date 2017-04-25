@@ -21,5 +21,5 @@
     <item android:color="@color/fg_title_bar_press" android:state_hovered="true"/>
     <item android:color="@color/fg_title_bar_press" android:state_checked="true"/>
     <item android:color="@color/fg_title_bar_press" android:state_selected="true"/>
-    <item android:color="@color/fg_title_bar"/>
+    <item android:color="@color/fg_title_bar_normal"/>
 </selector>
