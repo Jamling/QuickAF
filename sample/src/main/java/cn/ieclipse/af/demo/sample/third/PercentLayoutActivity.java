@@ -37,6 +37,6 @@ public class PercentLayoutActivity extends BaseActivity {
 //        layout_marginTopPercent、layout_marginRightPercent、
 //        layout_marginBottomPercent、layout_marginStartPercent、layout_marginEndPercent。
 
-        return R.layout.smaple_3rd_percent_layout;
+        return R.layout.sample_3rd_percent_layout;
     }
 }

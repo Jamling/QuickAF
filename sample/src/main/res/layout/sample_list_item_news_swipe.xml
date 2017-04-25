@@ -28,6 +28,6 @@
     <!--支持侧滑菜单此处id必须smMenuView -->
     <include
         android:id="@id/smMenuView"
-        layout="@layout/sample_swipe_item_menu"/>
+        layout="@layout/sample_list_item_news_menu"/>
 
 </cn.ieclipse.af.view.recycle.SwipeMenuLayout>
