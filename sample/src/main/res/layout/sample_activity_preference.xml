@@ -1,36 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:divider="@drawable/divider_linear"
-    android:orientation="vertical"
-    android:showDividers="middle|end" >
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:divider="@drawable/divider_linear"
+              android:orientation="vertical"
+              android:showDividers="middle|end">
 
     <cn.ieclipse.af.view.Preference
         android:id="@+id/s01"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout="@layout/preference_item"
+        android:background="?android:attr/listChoiceBackgroundIndicator"
+        android:layout="@layout/common_pref_item"
         android:summary=""
-        android:title="普通的"/>
+        android:title="@string/app_name"/>
 
     <cn.ieclipse.af.view.Preference
         android:id="@+id/s02"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:icon="@android:drawable/ic_menu_help"
-        android:layout="@layout/preference_item"
+        android:layout="@layout/common_pref_item"
         android:summary=""
-        android:title="带图标的" />
+        android:title="带图标的"/>
 
     <cn.ieclipse.af.view.Preference
         android:id="@+id/s03"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:icon="@android:drawable/ic_menu_edit"
-        android:layout="@layout/preference_item"
+        android:layout="@layout/common_pref_item"
         android:summary="有描述的"
-        android:title="带图标的" />
+        android:title="带图标的"/>
 
     <cn.ieclipse.af.view.Preference
         android:id="@+id/s04"
@@ -38,9 +39,9 @@
         android:layout_height="wrap_content"
         android:drawableRight="@drawable/preference_arrow"
         android:icon="@android:drawable/ic_menu_share"
-        android:layout="@layout/preference_item"
+        android:layout="@layout/common_pref_item"
         android:summary="有描述的"
-        android:title="带图标, 带箭头的" />
+        android:title="带图标, 带箭头的"/>
 
     <cn.ieclipse.af.view.Preference
         android:id="@+id/s05"
@@ -48,8 +49,17 @@
         android:layout_height="wrap_content"
         android:drawableRight="@drawable/preference_arrow"
         android:icon="@android:drawable/ic_menu_view"
-        android:layout="@layout/preference_chk_item"
+        android:key="abc"
+        android:layout="@layout/common_pref_item_chk"
         android:persistent="true"
         android:summary="有描述的"
-        android:title="带图标，带Checkbox的" />
+        android:title="带图标，带Checkbox的"/>
+
+    <cn.ieclipse.af.view.Preference
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/preference_arrow"
+        android:layout="@layout/common_pref_item_two_line"
+        android:summary="我是summary"
+        android:title="两行的，我是Title"/>
 </LinearLayout>

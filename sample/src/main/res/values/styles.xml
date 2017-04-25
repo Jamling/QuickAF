@@ -33,6 +33,10 @@
 
     <style name="preference">
         <item name="android:background">?android:attr/listChoiceBackgroundIndicator</item>
+        <item name="android:paddingLeft">?android:attr/listPreferredItemPaddingLeft</item>
+        <item name="android:paddingRight">?android:attr/listPreferredItemPaddingLeft</item>
+        <item name="android:minHeight">@dimen/preference_height</item>
+        <item name="android:gravity">center_vertical</item>
     </style>
 
     <style name="preference_title">

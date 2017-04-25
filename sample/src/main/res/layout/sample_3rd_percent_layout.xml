@@ -38,7 +38,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/tv1"
             android:background="@android:color/holo_red_light"
             android:text="heightPercent20%\nwidthPercent=15%"
             app:layout_heightPercent="15%"
@@ -66,7 +65,6 @@
             android:id="@+id/tv2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/tv1"
             android:background="@android:color/holo_green_dark"
             android:text="heightPercent20%\nwidthPercent=15%"
             app:layout_heightPercent="15%"
