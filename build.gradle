@@ -15,18 +15,23 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven { url 'https://jitpack.io' }
     }
     ext {
         supportLibVersion = SDK_SUPPORT
     }
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.3'
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-task zip(type: Zip){
-    from (".") {
+task zip(type: Zip) {
+    from(".") {
         exclude("**/*.iml")
         exclude("**/*/.gradle")
         //exclude("**/*/gradle")
