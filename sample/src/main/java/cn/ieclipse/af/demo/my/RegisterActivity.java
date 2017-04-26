@@ -45,7 +45,7 @@ public class RegisterActivity extends BaseActivity implements RegisterController
 
     private TextView mEtPhone;
     private TextView mEtCode;
-    private Button mBtnLogin;
+    private Button mBtnSubmit;
     private CountDownButton mBtnCode;
 
     private View mLayoutCode;
@@ -83,10 +83,10 @@ public class RegisterActivity extends BaseActivity implements RegisterController
         mEtPwd = (TextView) view.findViewById(R.id.et_pwd);
         mEtPhone = (TextView) view.findViewById(R.id.et_phone);
         mEtCode = (TextView) view.findViewById(R.id.et_code);
-        mBtnLogin = (Button) view.findViewById(R.id.btn_login);
+        mBtnSubmit = (Button) view.findViewById(R.id.btn_submit);
         mBtnCode = (CountDownButton) view.findViewById(R.id.btn_get_code);
 
-        setOnClickListener(mBtnCode, mBtnLogin, mBtnForgot);
+        setOnClickListener(mBtnCode, mBtnSubmit, mBtnForgot);
 
         mLayoutPwd = mEtPwd;
         int radius = AppUtils.dp2px(view.getContext(), 8);
@@ -112,7 +112,7 @@ public class RegisterActivity extends BaseActivity implements RegisterController
                 mController.getCode(req);
             }
         }
-        else if (v == mBtnLogin) {
+        else if (v == mBtnSubmit) {
             if (validate()) {
                 RegisterRequest req = new RegisterRequest();
                 req.phone = mPhone;

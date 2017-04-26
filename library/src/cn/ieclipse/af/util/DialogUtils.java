@@ -87,7 +87,7 @@ public final class DialogUtils {
                                                 AlertDialogFragment.AlertInterceptor interceptor,
                                                 DialogInterface.OnClickListener... listeners) {
         AlertDialogFragment fragment = AlertDialogFragment.newInstance(icon, title, message, interceptor, listeners);
-        fragment.setStyle(fragment.STYLE_NORMAL, style);
+        fragment.setStyle(DialogFragment.STYLE_NORMAL, style);
         attachDialog(context, fragment);
         return fragment;
     }

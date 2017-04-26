@@ -36,7 +36,7 @@ public abstract class BasePagerTabFragment extends BaseFragment {
 
     @Override
     protected int getContentLayout() {
-        return R.layout.main_tab;
+        return R.layout.common_tab_strip;
     }
 
     @Override

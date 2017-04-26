@@ -48,7 +48,7 @@ public class LoginActivity extends BaseActivity implements LoginController.Login
     private RadioGroup mRgType;
     private TextView mEtPhone;
     private TextView mEtCode;
-    private Button mBtnLogin;
+    private Button mBtnSubmit;
     private CountDownButton mBtnCode;
 
     private View mLayoutCode;
@@ -90,10 +90,10 @@ public class LoginActivity extends BaseActivity implements LoginController.Login
         mEtPwd = (TextView) view.findViewById(R.id.et_pwd);
         mEtPhone = (TextView) view.findViewById(R.id.et_phone);
         mEtCode = (TextView) view.findViewById(R.id.et_code);
-        mBtnLogin = (Button) view.findViewById(R.id.btn_login);
+        mBtnSubmit = (Button) view.findViewById(R.id.btn_submit);
         mBtnCode = (CountDownButton) view.findViewById(R.id.btn_get_code);
 
-        setOnClickListener(mBtnCode, mBtnLogin, mBtnForgot, mBtnReg);
+        setOnClickListener(mBtnCode, mBtnSubmit, mBtnForgot, mBtnReg);
 
         mLayoutPwd = mEtPwd;
         int radius = AppUtils.dp2px(view.getContext(), 8);
@@ -102,13 +102,13 @@ public class LoginActivity extends BaseActivity implements LoginController.Login
         bg.setBorder(AppUtils.getColor(view.getContext(), R.color.divider), 1);
         bg.applyTo(mLayoutInput);
 
-        ((RoundButton) mBtnLogin).addStateBgColor(new int[]{-android.R.attr.state_enabled},
+        ((RoundButton) mBtnSubmit).addStateBgColor(new int[]{-android.R.attr.state_enabled},
             AppUtils.getColor(this, R.color.black_999999)).apply();
 
         ColorStateList csl = new ColorStateList(new int[][]{{android.R.attr.state_enabled}, {}},
             new int[]{0, 0});// the second color is disabled color, the enabled color
 
-        mBtnLogin.setEnabled(false);
+        mBtnSubmit.setEnabled(false);
         mEtPhone.addTextChangedListener(textWatcher);
         mEtPwd.addTextChangedListener(textWatcher);
     }
@@ -139,7 +139,7 @@ public class LoginActivity extends BaseActivity implements LoginController.Login
         if (view == mReg || view == mBtnReg) {
             RegisterActivity.go(this, REQ_REGISTER);
         }
-        else if (view == mBtnLogin) {
+        else if (view == mBtnSubmit) {
             LoginRequest req = new LoginRequest();
             req.username = mEtPhone.getText().toString().trim();
             req.pwd = mEtPwd.getText().toString();
@@ -197,7 +197,7 @@ public class LoginActivity extends BaseActivity implements LoginController.Login
         @Override
         public void afterTextChanged(Editable s) {
             boolean input = !TextUtils.isEmpty(mEtPhone.getText()) && !TextUtils.isEmpty(mEtPwd.getText());
-            mBtnLogin.setEnabled(input);
+            mBtnSubmit.setEnabled(input);
         }
     };
 }

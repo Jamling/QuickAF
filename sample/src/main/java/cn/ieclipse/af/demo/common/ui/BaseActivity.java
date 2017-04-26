@@ -66,8 +66,8 @@ public abstract class BaseActivity extends AfActivity implements View.OnClickLis
     }
 
     protected void initHeaderView() {
-        mTitleLeftView = (TextView) View.inflate(this, R.layout.title_left_tv, null);
-        mTitleTextView = (TextView) View.inflate(this, R.layout.title_middle_tv, null);
+        mTitleLeftView = (TextView) View.inflate(this, R.layout.common_title_left_tv, null);
+        mTitleTextView = (TextView) View.inflate(this, R.layout.common_title_middle_tv, null);
 
         mTitleBar.setLeft(mTitleLeftView);
         mTitleBar.setMiddle(mTitleTextView);
@@ -92,7 +92,7 @@ public abstract class BaseActivity extends AfActivity implements View.OnClickLis
 
     @Deprecated
     protected ImageView createRightIcon(int icon) {
-        ImageView iv = (ImageView) View.inflate(this, R.layout.title_right_iv, null);
+        ImageView iv = (ImageView) View.inflate(this, R.layout.common_title_right_iv, null);
         if (icon > 0) {
             iv.setImageResource(icon);
         }
@@ -110,7 +110,7 @@ public abstract class BaseActivity extends AfActivity implements View.OnClickLis
 
     @Deprecated
     protected TextView createRightText(String text) {
-        TextView tv = (TextView) View.inflate(this, R.layout.title_right_tv, null);
+        TextView tv = (TextView) View.inflate(this, R.layout.common_title_right_tv, null);
         tv.setText(text);
         return tv;
     }
@@ -214,7 +214,7 @@ public abstract class BaseActivity extends AfActivity implements View.OnClickLis
             // R.animator.fragment_slide_right_enter,
             // R.animator.fragment_slide_right_exit);
         }
-        ft.replace(R.id.main_content, fragment, tag);
+        ft.replace(R.id.content, fragment, tag);
         // ft.attach(fragment);
 
         if (shouldAdd) {

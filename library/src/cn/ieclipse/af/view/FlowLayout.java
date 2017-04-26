@@ -69,7 +69,6 @@ public class FlowLayout extends ViewGroup {
     private int mShowDividers = SHOW_DIVIDER_MIDDLE;
     
     private float mGridRatio = 0;
-    private int mChoiceMode = ListView.CHOICE_MODE_NONE;
     
     private Drawable mVerticalDivider;
     private int mVerticalDividerHeight = 0;
@@ -119,7 +118,7 @@ public class FlowLayout extends ViewGroup {
 
         try {
             mGridRatio = a.getFloat(R.styleable.FlowLayout_fl_gridRatio, mGridRatio);
-            mChoiceMode = a.getInt(R.styleable.FlowLayout_fl_choiceMode, mChoiceMode);
+            setChoiceMode(a.getInt(R.styleable.FlowLayout_fl_choiceMode, mSelectionMode));
             mNumColumns = a.getInt(R.styleable.FlowLayout_fl_columns, mNumColumns);
 
             // vertical
@@ -141,7 +140,7 @@ public class FlowLayout extends ViewGroup {
             if (a.hasValue(R.styleable.FlowLayout_android_numColumns)) {
                 mNumColumns = a.getInt(R.styleable.FlowLayout_android_numColumns, mNumColumns);
             }
-            mSelectionMode = a.getInt(R.styleable.FlowLayout_android_choiceMode, mSelectionMode);
+            // mSelectionMode = a.getInt(R.styleable.FlowLayout_android_choiceMode, mSelectionMode);
             if (a.hasValue(R.styleable.FlowLayout_android_divider)) {
                 setHorizontalDividerDrawable(a.getDrawable(R.styleable.FlowLayout_android_divider));
             }
@@ -1145,7 +1144,7 @@ public class FlowLayout extends ViewGroup {
          * @param group     the group in which the checked radio button has changed
          * @param checkedId the unique identifier of the newly checked radio button
          */
-        public void onCheckedChanged(FlowLayout group, int checkedId);
+        void onCheckedChanged(FlowLayout group, int checkedId);
     }
     
     // ----> adapter support

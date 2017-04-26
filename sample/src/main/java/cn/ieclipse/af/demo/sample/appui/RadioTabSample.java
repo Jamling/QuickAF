@@ -82,13 +82,13 @@ public class RadioTabSample extends BaseActivity implements RadioGroup.OnChecked
             FragmentTransaction ft = manager.beginTransaction();
             manager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             if (mCurrentFragment == null) {
-                ft.replace(R.id.main_content, fragment, fragment.getClass().getSimpleName()).commit();
+                ft.replace(R.id.content, fragment, fragment.getClass().getSimpleName()).commit();
             }
             else if (fragment.isAdded()) {
                 ft.hide(mCurrentFragment).show(fragment).commit();
             }
             else {
-                ft.hide(mCurrentFragment).add(R.id.main_content, fragment, fragment.getClass().getSimpleName())
+                ft.hide(mCurrentFragment).add(R.id.content, fragment, fragment.getClass().getSimpleName())
                     .commit();
             }
             mCurrentFragment = fragment;

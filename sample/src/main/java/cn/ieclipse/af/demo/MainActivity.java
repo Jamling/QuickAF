@@ -50,7 +50,7 @@ public class MainActivity extends BaseActivity implements CheckUpdateController.
 
     @Override
     protected int getContentLayout() {
-        return R.layout.main_viewpager;
+        return R.layout.base_viewpager;
     }
 
     @Override
@@ -96,7 +96,7 @@ public class MainActivity extends BaseActivity implements CheckUpdateController.
     @Override
     protected void initBottomView() {
         super.initBottomView();
-        mBottomTab = (MainBottomTab) View.inflate(this, R.layout.main_bottom_tab, null);
+        mBottomTab = (MainBottomTab) View.inflate(this, R.layout.common_bottom_tab, null);
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT);
         mBottomBar.addView(mBottomTab, params);

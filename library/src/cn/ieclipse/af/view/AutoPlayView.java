@@ -403,7 +403,11 @@ public class AutoPlayView extends FrameLayout
             }
         }
     }
-
+    
+    /**
+     * Set the height/width aspect ratio
+     * @param ratio height/width
+     */
     public void setRatio(float ratio) {
         this.mRatio = ratio;
     }

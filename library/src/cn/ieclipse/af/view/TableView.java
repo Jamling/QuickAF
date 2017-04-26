@@ -369,10 +369,7 @@ public class TableView extends View {
     }
 
     private boolean isVerticalCenter() {
-        if (((mGravity & Gravity.VERTICAL_GRAVITY_MASK) & Gravity.CENTER_VERTICAL) != 0) {
-            return true;
-        }
-        return false;
+        return ((mGravity & Gravity.VERTICAL_GRAVITY_MASK) & Gravity.CENTER_VERTICAL) != 0;
     }
 
     public int[] getWeights() {

@@ -71,7 +71,7 @@ public class RoundButtonActivity extends SampleBaseActivity {
 
         ColorStateList csl3 = new ColorStateList(new int[][]{{android.R.attr.state_pressed}, {}},
             new int[]{AppUtils.getColor(this, R.color.fg_title_bar_press), AppUtils.getColor(this,
-                R.color.fg_title_bar)});
+                R.color.fg_title_bar_normal)});
         ColorStateList csl3xml = AppUtils.getColorStateList(this, R.color.fg_main_titlebar_selector);
         btn3.setTextColor(csl3xml);
         //btn3.setHintTextColor(csl3);

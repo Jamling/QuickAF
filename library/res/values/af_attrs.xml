@@ -119,14 +119,18 @@
 
     <declare-styleable name="Preference">
         <attr name="android:key"/>
-        <attr name="android:title"/>
-        <attr name="android:summary"/>
+        <!--<attr name="android:title"/>-->
+        <!--<attr name="android:summary"/>-->
         <attr name="android:persistent"/>
-        <attr name="android:layout"/>
+        <!--<attr name="android:layout"/>-->
         <attr name="android:icon"/>
         <attr name="android:drawableRight"/>
-        <attr name="android:gravity"/>
-        <attr name="android:background"/>
+        <!--<attr name="android:gravity"/>-->
+        <!--<attr name="af_key" format="string"/>-->
+        <!--<attr name="af_persistent" format="boolean"/>-->
+        <!--<attr name="af_icon" format="reference"/>-->
+        <!--<attr name="af_drawableRight" format="reference"/>-->
+
     </declare-styleable>
 
     <declare-styleable name="ScrollLayout">
@@ -137,17 +141,15 @@
         <attr name="af_disableWipe" format="boolean"/>
     </declare-styleable>
 
-    <!-- AfSwipeRefreshLayout-->
-
     <!-- see https://github.com/TUBB/SwipeMenuRecyclerView -->
     <declare-styleable name="SwipeMenu">
         <attr name="anim_duration" format="integer"/>
     </declare-styleable>
 
     <declare-styleable name="RefreshLayout">
-        <attr name="ptr_content" format="reference" />
-        <attr name="ptr_empty" format="reference" />
-        <attr name="ptr_autoLoad" format="boolean" />
+        <attr name="ptr_content" format="reference"/>
+        <attr name="ptr_empty" format="reference"/>
+        <attr name="ptr_autoLoad" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="PagerSlidingTabStrip">
@@ -183,6 +185,6 @@
         <attr name="af_borderColor"/>
         <attr name="af_pressColor"/>
         <attr name="af_circle"/>
-        <attr name="android:radius" />
+        <attr name="android:radius"/>
     </declare-styleable>
 </resources>

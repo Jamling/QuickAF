@@ -45,7 +45,7 @@ public class FragmentActivity extends BaseActivity {
                 return;
             }
             Fragment f = Fragment.instantiate(this, fragmentName, getIntent().getExtras());
-            getFragmentManager().beginTransaction().add(R.id.main_content, f).commit();
+            getFragmentManager().beginTransaction().add(R.id.content, f).commit();
             if (f instanceof BaseFragment && isShowTitleBar()) {
                 setTitle(((BaseFragment) f).getTitle());
             }
@@ -54,7 +54,7 @@ public class FragmentActivity extends BaseActivity {
 
     @Override
     protected int getContentLayout() {
-        return R.layout.main_content;
+        return R.layout.base_content;
     }
 
     @Override

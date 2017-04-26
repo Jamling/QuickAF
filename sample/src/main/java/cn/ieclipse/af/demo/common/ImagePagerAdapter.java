@@ -31,7 +31,7 @@ public class ImagePagerAdapter extends AfPagerAdapter<ImagePagerAdapter.IImage> 
 
     @Override
     public int getLayout() {
-        return R.layout.main_pager_item_image;
+        return R.layout.common_pager_item_image;
     }
 
     @Override

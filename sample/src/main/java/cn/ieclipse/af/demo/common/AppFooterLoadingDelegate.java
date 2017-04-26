@@ -42,7 +42,7 @@ public class AppFooterLoadingDelegate<T> extends AdapterDelegate<T> implements V
 
     @Override
     public int getLayout() {
-        return R.layout.ptr_footer_view;
+        return R.layout.common_ptr_footer_view;
     }
 
     @Override

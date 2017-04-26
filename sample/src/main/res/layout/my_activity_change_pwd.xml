@@ -87,8 +87,8 @@
                 android:inputType="number"/>
 
             <cn.ieclipse.af.view.CountDownButton
-                style="@style/text_title"
                 android:id="@+id/btn_get_code"
+                style="@style/text_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
@@ -103,15 +103,12 @@
     </LinearLayout>
 
     <cn.ieclipse.af.view.RoundButton
-        android:id="@+id/btn_login"
+        android:id="@+id/btn_submit"
+        style="@style/btn_primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:background="@color/colorPrimary"
-        android:minHeight="48dp"
-        android:radius="8dp"
         android:text="@string/change_pwd_btn"
-        android:textColor="@color/white"
         android:textSize="18sp"/>
 
 </LinearLayout>

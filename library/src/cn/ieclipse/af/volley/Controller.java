@@ -361,10 +361,7 @@ public class Controller<Listener> {
         mQueue.cancelAll(new RequestQueue.RequestFilter() {
             @Override
             public boolean apply(Request<?> request) {
-                if (mTaskTags != null && mTaskTags.contains(request.getTag())) {
-                    return true;
-                }
-                return false;
+                return mTaskTags != null && mTaskTags.contains(request.getTag());
             }
         });
     }

@@ -86,13 +86,7 @@ public final class KeyboardUtils {
     private static boolean isShouldHideInput(View v, MotionEvent event) {
         if (v != null && (v instanceof EditText)) {
             Rect rect = getViewLocation(v);
-            if (rect.contains((int) event.getX(), (int) event.getY())) {
-                // 点击EditText的事件，忽略它。
-                return false;
-            }
-            else {
-                return true;
-            }
+            return !rect.contains((int) event.getX(), (int) event.getY());
         }
         // 如果焦点不是EditText则忽略，这个发生在视图刚绘制完，第一个焦点不在EditView上，和用户用轨迹球选择其他的焦点
         return false;

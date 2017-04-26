@@ -42,7 +42,7 @@ public class IntroActivity extends BaseActivity {
 
     @Override
     protected int getContentLayout() {
-        return R.layout.main_activity_intro;
+        return R.layout.common_activity_intro;
     }
 
     @Override

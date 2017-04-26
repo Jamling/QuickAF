@@ -30,7 +30,7 @@ public class AormActivity extends BaseActivity {
 
     @Override
     protected int getContentLayout() {
-        return R.layout.main_content;
+        return R.layout.base_content;
     }
 
     @Override

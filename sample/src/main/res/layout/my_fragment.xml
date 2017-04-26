@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/preference_arrow"
-            android:layout="@layout/preference_item"
+            android:layout="@layout/common_pref_item"
             android:summary=""
             android:title="个人信息"/>
 
@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/preference_arrow"
-            android:layout="@layout/preference_item"
+            android:layout="@layout/common_pref_item"
             android:summary=""
             android:title="修改密码"/>
         <cn.ieclipse.af.view.Preference
@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/preference_arrow"
-            android:layout="@layout/preference_item"
+            android:layout="@layout/common_pref_item"
             android:summary=""
             android:title="清空缓存"/>
 

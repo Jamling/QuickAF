@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:maxLines="1"
-    android:textColor="@color/fg_title_bar"
+    android:textColor="@color/fg_title_bar_normal"
     android:textSize="18sp"
     android:paddingLeft="0dp">
 

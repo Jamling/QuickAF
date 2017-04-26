@@ -34,10 +34,9 @@ import cn.ieclipse.af.util.SharedPrefsUtils;
 
 /**
  * 类/接口描述
- * 
+ *
  * @author Jamling
  * @date 2016年1月5日
- *       
  */
 public class Preference extends FrameLayout implements OnCheckedChangeListener {
     private String key;
@@ -71,7 +70,7 @@ public class Preference extends FrameLayout implements OnCheckedChangeListener {
      */
     public Preference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs);
+        init(context, attrs, defStyleAttr, 0);
     }
     
     /**
@@ -81,42 +80,51 @@ public class Preference extends FrameLayout implements OnCheckedChangeListener {
      * @param defStyleRes
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public Preference(Context context, AttributeSet attrs, int defStyleAttr,
-            int defStyleRes) {
+    public Preference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init(context, attrs);
+        init(context, attrs, defStyleAttr, defStyleRes);
     }
     
-    private void init(Context context, AttributeSet attrs) {
+    private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         if (attrs == null) {
             return;
         }
-        TypedArray a = context.obtainStyledAttributes(attrs,
-                R.styleable.Preference);
-        layout = a.getResourceId(R.styleable.Preference_android_layout, 0);
-        title = a.getText(R.styleable.Preference_android_title);
-        summary = a.getText(R.styleable.Preference_android_summary);
-        key = a.getString(R.styleable.Preference_android_key);
-        persistent = a.getBoolean(R.styleable.Preference_android_persistent, false);
-        gravity = a.getInt(R.styleable.Preference_android_gravity, gravity);
-        icon = a.getDrawable(R.styleable.Preference_android_icon);
-        icon2 = a.getDrawable(R.styleable.Preference_android_drawableRight);
-        if (!a.hasValue(R.styleable.Preference_android_background)) {
-//            ViewUtils.setBackground(this, AppUtils.getDrawable(getContext(),
-//                android.R.drawable.list_selector_background));
-            // TODO set default background
-//            TypedValue tv = new TypedValue();
-//            if(getContext().getTheme().resolveAttribute(, tv,true)){
-//                ViewUtils.setBackground(this, AppUtils.getDrawable(getContext(), tv.resourceId));
-//            }
+        int[] ATTRS
+            = new int[]{android.R.attr.layout, android.R.attr.icon, android.R.attr.title, android.R.attr.summary,
+            android.R.attr.drawableRight, android.R.attr.key, android.R.attr.persistent, android.R.attr.gravity,
+            android.R.attr.clickable, android.R.attr.focusable};
+        TypedArray a = context.obtainStyledAttributes(attrs, ATTRS, defStyleAttr, defStyleRes);
+        int i = 0;
+        layout = a.getResourceId(i++, 0);
+        icon = a.getDrawable(i++);
+        title = a.getText(i++);
+        summary = a.getText(i++);
+        icon2 = a.getDrawable(i++);
+        key = a.getString(i++);
+        persistent = a.getBoolean(i++, false);
+        gravity = a.getInt(i++, gravity);
+        setClickable(a.getBoolean(i++, true));
+        setFocusable(a.getBoolean(i++, true));
+        
+        a.recycle();
+        // load attribute
+        a = context.obtainStyledAttributes(attrs, R.styleable.Preference, defStyleAttr, defStyleRes);
+        if (a.hasValue(R.styleable.Preference_android_icon)) {
+            icon = a.getDrawable(R.styleable.Preference_android_icon);
+        }
+        if (a.hasValue(R.styleable.Preference_android_drawableRight)) {
+            icon2 = a.getDrawable(R.styleable.Preference_android_drawableRight);
+        }
+        if (a.hasValue(R.styleable.Preference_android_key)) {
+            key = a.getString(R.styleable.Preference_android_key);
+        }
+        if (a.hasValue(R.styleable.Preference_android_persistent)) {
+            persistent = a.getBoolean(R.styleable.Preference_android_persistent, false);
         }
         a.recycle();
         if (layout > 0) {
             LayoutInflater.from(context).inflate(layout, this, true);
         }
-        
-        setClickable(true);
-        setFocusable(true);
     }
     
     private TextView mTvTitle;
@@ -127,14 +135,14 @@ public class Preference extends FrameLayout implements OnCheckedChangeListener {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-
+        
         mTvTitle = (TextView) findViewById(android.R.id.title);
         mTvSummary = (TextView) findViewById(android.R.id.summary);
         mChk = (CompoundButton) findViewById(android.R.id.checkbox);
         mIvArrow = (ImageView) findViewById(android.R.id.icon2);
-
+        
         if (persistent) {
-            if (getId() <= 0 && TextUtils.isEmpty(key)) {
+            if (TextUtils.isEmpty(key)) {
                 throw new IllegalArgumentException(
                     "persistent preference but found empty key, did you forgot set 'android:key' attribute?");
             }
@@ -146,8 +154,7 @@ public class Preference extends FrameLayout implements OnCheckedChangeListener {
         if (mTvTitle != null) {
             mTvTitle.setText(title);
             if (icon != null) {
-                mTvTitle.setCompoundDrawablesWithIntrinsicBounds(icon, null,
-                        null, null);
+                mTvTitle.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
             }
             if (gravity > 0) {
                 mTvTitle.setGravity(gravity);
@@ -156,27 +163,26 @@ public class Preference extends FrameLayout implements OnCheckedChangeListener {
         if (mTvSummary != null) {
             mTvSummary.setText(summary);
             if (icon2 != null && mIvArrow == null) {
-                mTvSummary.setCompoundDrawablesWithIntrinsicBounds(null, null,
-                        icon2, null);
+                mTvSummary.setCompoundDrawablesWithIntrinsicBounds(null, null, icon2, null);
             }
         }
-
+        
         if (mIvArrow != null && icon2 != null) {
             mIvArrow.setImageDrawable(icon2);
         }
-
+        
         if (mChk != null) {
             mChk.setChecked(getBoolean());
             mChk.setOnCheckedChangeListener(this);
         }
     }
-
+    
     private boolean getBoolean() {
         boolean ret = false;
         try {
             ret = SharedPrefsUtils.getBoolean(key, false);
         } catch (Exception e) {
-
+            
         }
         return ret;
     }
@@ -191,7 +197,7 @@ public class Preference extends FrameLayout implements OnCheckedChangeListener {
     
     @Override
     public boolean performClick() {
-        if (mChk != null){
+        if (mChk != null) {
             mChk.performClick();
         }
         return super.performClick();
@@ -214,12 +220,10 @@ public class Preference extends FrameLayout implements OnCheckedChangeListener {
     /**
      * Sets the callback to be invoked when this Preference is changed by the
      * user (but before the internal state has been updated).
-     * 
-     * @param onPreferenceChangeListener
-     *            The callback to be invoked.
+     *
+     * @param onPreferenceChangeListener The callback to be invoked.
      */
-    public void setOnPreferenceChangeListener(
-            OnPreferenceChangeListener onPreferenceChangeListener) {
+    public void setOnPreferenceChangeListener(OnPreferenceChangeListener onPreferenceChangeListener) {
         mOnChangeListener = onPreferenceChangeListener;
     }
     
@@ -234,13 +238,12 @@ public class Preference extends FrameLayout implements OnCheckedChangeListener {
          * Called when a Preference has been changed by the user. This is called
          * before the state of the Preference is about to be updated and before
          * the state is persisted.
-         * 
-         * @param preference
-         *            The changed Preference.
-         * @param newValue
-         *            The new value of the Preference.
+         *
+         * @param preference The changed Preference.
+         * @param newValue   The new value of the Preference.
+         *
          * @return True to update the state of the Preference with the new
-         *         value.
+         * value.
          */
         boolean onPreferenceChange(Preference preference, Object newValue);
     }

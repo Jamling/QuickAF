@@ -270,44 +270,44 @@ public class TextShapeDrawable extends ShapeDrawable {
     }
 
     public interface IConfigBuilder {
-        public IConfigBuilder width(int width);
+        IConfigBuilder width(int width);
 
-        public IConfigBuilder height(int height);
+        IConfigBuilder height(int height);
 
-        public IConfigBuilder textColor(int color);
+        IConfigBuilder textColor(int color);
 
-        public IConfigBuilder withBorder(int thickness);
+        IConfigBuilder withBorder(int thickness);
 
-        public IConfigBuilder useFont(Typeface font);
+        IConfigBuilder useFont(Typeface font);
 
-        public IConfigBuilder fontSize(int size);
+        IConfigBuilder fontSize(int size);
 
-        public IConfigBuilder bold();
+        IConfigBuilder bold();
 
-        public IConfigBuilder toUpperCase();
+        IConfigBuilder toUpperCase();
 
-        public IShapeBuilder endConfig();
+        IShapeBuilder endConfig();
     }
 
-    public static interface IBuilder {
+    public interface IBuilder {
 
-        public TextShapeDrawable build(String text, int color);
+        TextShapeDrawable build(String text, int color);
     }
 
-    public static interface IShapeBuilder {
+    public interface IShapeBuilder {
 
-        public IConfigBuilder beginConfig();
+        IConfigBuilder beginConfig();
 
-        public IBuilder rect();
+        IBuilder rect();
 
-        public IBuilder round();
+        IBuilder round();
 
-        public IBuilder roundRect(int radius);
+        IBuilder roundRect(int radius);
 
-        public TextShapeDrawable buildRect(String text, int color);
+        TextShapeDrawable buildRect(String text, int color);
 
-        public TextShapeDrawable buildRoundRect(String text, int color, int radius);
+        TextShapeDrawable buildRoundRect(String text, int color, int radius);
 
-        public TextShapeDrawable buildRound(String text, int color);
+        TextShapeDrawable buildRound(String text, int color);
     }
 }

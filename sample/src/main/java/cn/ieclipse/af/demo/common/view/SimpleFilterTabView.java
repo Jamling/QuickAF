@@ -54,7 +54,7 @@ public class SimpleFilterTabView<T> extends FilterTabView implements AdapterView
 
     @Override
     protected int getContentLayout() {
-        return R.layout.base_filter_tab;
+        return R.layout.common_filter_tab_popup;
     }
 
     @Override

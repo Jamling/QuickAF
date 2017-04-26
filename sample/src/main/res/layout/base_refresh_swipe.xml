@@ -6,6 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:ptr_content="@layout/base_swipe_rv"
-    app:ptr_empty="@layout/ptr_empty_view">
+    app:ptr_empty="@layout/common_ptr_empty_view">
 
 </cn.ieclipse.af.view.refresh.RefreshLayout>
