@@ -71,7 +71,7 @@
             app:layout_marginLeftPercent="5%"
             app:layout_marginTopPercent="5%"
             app:layout_widthPercent="30%"
-            />
+            android:layout_alignParentRight="true"/>
 
     </android.support.percent.PercentRelativeLayout>
 
