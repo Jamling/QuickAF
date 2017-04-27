@@ -1,29 +1,16 @@
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.0.0'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.3'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.6'
-    }
-}
-Properties properties = new Properties()
-
-repositories {
-    jcenter()
-    maven {
-        url properties.getProperty("sdk.dir")+"/extras/android/m2repository"
-    }
-}
-apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
+//repositories {
+//    jcenter()
+//    maven {
+//        url "${android.sdkDirectory}/extras/android/m2repository"
+//    }
+//}
 
 project.ext {
+    name = project.property('ART_ARTIFACT')
     group = project.property('ART_GROUP')
     version = project.property('ART_VER')
-    archivesBaseName = ART_ARTIFACT
+    artifactId = project.property('ART_ARTIFACT')
+    archivesBaseName = project.property('ART_ARTIFACT')
 }
 
 tasks.withType(Jar) {
@@ -40,19 +27,6 @@ task sourcesJar(type: Jar) {
     classifier = 'sources'
 }
 
-//task javadoc(type: Javadoc) {
-//    source = android.sourceSets.main.java.srcDirs
-//    classpath += project.files(configurations.compile.files, android.getBootClasspath().join(File.pathSeparator))
-//    title PRJ_NAME + " " + ART_VER + " API"
-//    options.encoding 'utf-8'
-//    options.charSet 'utf-8'
-//    options.tags 'date:t:"Date:"'
-//}
-
-//task javadocJar(type: Jar, dependsOn: generateDebugJavadoc) {
-//    classifier = 'javadoc'
-//    from javadoc.destinationDir
-//}
 android.libraryVariants.all { variant ->
     // println variant.javaCompile.classpath.files
     if(variant.name == 'release') {
@@ -72,9 +46,9 @@ android.libraryVariants.all { variant ->
                 tags 'sample:t:Sample:'
                 tags 'attr:a:Attribute:'
             }
-            //exclude '**/BuildConfig.java'
-            //exclude '**/R.java'
-            exclude 'cn/ieclipse/af/view/wheelview/'
+            exclude 'android/**/*'
+            exclude 'com/**/*'
+            exclude '**/*'
         }
         task("javadocJar", type: Jar, dependsOn: "generate${variant.name.capitalize()}Javadoc") {
             classifier = 'javadoc'
@@ -95,6 +69,7 @@ task findConventions << {
 }
 
 install {
+    println(artifactId)
     repositories.mavenInstaller {
         // This generates POM.xml with proper parameters
         pom {

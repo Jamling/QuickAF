@@ -1,6 +1,9 @@
 ## QuickAF
 
 [![Build Status](https://travis-ci.org/Jamling/QuickAF.svg?branch=master)](https://travis-ci.org/Jamling/QuickAF)
+[![GitHub release](https://img.shields.io/github/release/jamling/QuickAF.svg?maxAge=3600)](https://github.com/Jamling/QuickAF)
+[![Bintray](https://img.shields.io/bintray/v/jamling/maven/cn.ieclipse.af.svg?maxAge=86400)](https://bintray.com/jamling/maven/cn.ieclipse.af)
+
 
 An Android framework library and demo to help you building your app quickly.
 
@@ -8,7 +11,7 @@ An Android framework library and demo to help you building your app quickly.
 
 
 ## Sample apk
-![sample apk](https://raw.githubusercontent.com/Jamling/QuickAF/master/screenshot/qr_quickaf.png)
+[![sample apk](https://raw.githubusercontent.com/Jamling/QuickAF/master/screenshot/qr_quickaf.png)](https://github.com/Jamling/QuickAF/releases/download/v2.0.2/QuickAF2.0.2(2)-release.apk)
 
 ## Install
 
@@ -16,7 +19,7 @@ An Android framework library and demo to help you building your app quickly.
 
 ```gradle
 dependencies {
-    compile 'cn.ieclipse.af:af-library:1.0.1'
+    compile 'cn.ieclipse.af:af-library:2.0.2'
 }
 android {
     // for target api >= 23 (Android 6.0)
@@ -28,48 +31,50 @@ android {
 ## Features
 ![architecture](https://raw.githubusercontent.com/Jamling/QuickAF/master/screenshot/struct.png)
 
-library:
+### library
 
 - Component
- - tab, tab+viewpager
- - cview, lots of custom views, e.g. Preference, FlowLayout, TableLayout, AutoPlayView
- - refresh, use RecycleView with pull to refresh, swipe menu, fix header features
+    - tab, tab+viewpager
+    - cview, lots of custom views, e.g. Preference, FlowLayout, TableLayout, AutoPlayView
+    - refresh, use RefreshLayout, support any RecyclerView, ListView and ScrollView
 - Network
- - Volley+Gson, base on volley for data tranfer, gson for json parsing
- - Common Task, common REST API request task
- - Upload Task, compressed image upload task
+    - Volley+Gson, base on volley for data tranfer, gson for json parsing
+    - Common Task, common REST API request task
+    - Upload Task, compressed image upload task
 - Utils, lots of utility tool class e.g.
- - DialogsUtils
- - AppUtils
- - FileUtils
- - SharedPrefsUtils
+    - DialogsUtils
+    - AppUtils
+    - FileUtils
+    - SharedPrefsUtils
 
-3rd library: (Use the existing wheels)
+### 3rd library: (Use the existing wheels)
 
 - DB, recommend to use orm library
- - Aorm see https://github.com/Jamling/Android-ORM
-- Image,
- - Universal-Image-Loader see https://github.com/nostra13/Android-Universal-Image-Loader
- - Fresco see https://github.com/facebook/fresco
+    - Aorm see https://github.com/Jamling/Android-ORM
+- Image
+    - Universal-Image-Loader see https://github.com/nostra13/Android-Universal-Image-Loader
+    - Fresco see https://github.com/facebook/fresco
+- Pay 
+    - af-pay see https://github.com/Jamling/af-pay
 
-In sample:
+### In sample:
 
 - Profile, sample user profile
- - login
- - register
- - forget
+    - login
+    - register
+    - forget password
 - Common, common activity
- - BaseActivity
- - BaseFragment
- - H5Activity
- - SelectPhotoActivity
+    - BaseActivity
+    - BaseFragment
+    - H5Activity
+    - BaseListFragment
 
 ## Change log
-###v2.0.0
+### v2.0.0
 - New refresh component.
 - Import recyclerview adapter delegate.
 - Lost of bug fix
-- ***Don't compatible to v1.x***
+- **Don't compatible to v1.x**
 
 ## Blog
 See http://www.ieclipse.cn/tags/QuickAF/
@@ -81,7 +86,6 @@ WheelView unkonwn
 BadgeView https://github.com/stefanjauker/BadgeView
 PagerSlidingTabStrip https://github.com/astuetz/PagerSlidingTabStrip
 ScrollLayout http://blog.csdn.net/Yao_GUET
-
 
 ## Contributors
 
