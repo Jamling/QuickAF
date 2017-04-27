@@ -11,12 +11,19 @@
         android:id="@+id/iv_profile"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
+        android:contentDescription="点击登录"
         android:scaleType="centerInside"
         android:src="@mipmap/logo"
-        android:contentDescription="点击登录"
-        app:af_circle="true"
-        android:layout_gravity="center_horizontal"/>
+        app:af_circle="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        style="@style/text_link"
+        android:text="点击上方头像登录/注册"/>
 
     <LinearLayout
         android:layout_width="match_parent"
