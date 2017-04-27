@@ -10,8 +10,8 @@ An Android framework library and demo to help you building your app quickly.
 ![screenshot](https://raw.githubusercontent.com/Jamling/QuickAF/master/screenshot/sample1.0.0.gif)
 
 
-## Sample apk
-[![sample apk](https://raw.githubusercontent.com/Jamling/QuickAF/master/screenshot/qr_quickaf.png)](https://github.com/Jamling/QuickAF/releases/download/v2.0.2/QuickAF2.0.2(2)-release.apk)
+## Sample apk (scan or click to download sample apk)
+[![sample apk](https://raw.githubusercontent.com/Jamling/QuickAF/master/screenshot/qr_quickaf.png)](https://github.com/Jamling/QuickAF/releases/download/v2.0.2/QuickAF2.0.2.2.-release.apk)
 
 ## Install
 
