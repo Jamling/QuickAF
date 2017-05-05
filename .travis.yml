@@ -23,10 +23,10 @@ android:
 
 before_install:
   # Gradle
-  - wget http://services.gradle.org/distributions/gradle-3.3-bin.zip
-  - unzip -n gradle-3.3-bin.zip
-  - export GRADLE_HOME=$PWD/gradle-3.3
-  - export PATH=$GRADLE_HOME/bin:$PATH
+  #- wget http://services.gradle.org/distributions/gradle-3.3-bin.zip
+  #- unzip -n gradle-3.3-bin.zip
+  #- export GRADLE_HOME=$PWD/gradle-3.3
+  #- export PATH=$GRADLE_HOME/bin:$PATH
   
-script: gradle sample:assembleRelease
+script: ./gradlew app:check
 
