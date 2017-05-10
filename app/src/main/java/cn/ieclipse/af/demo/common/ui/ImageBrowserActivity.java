@@ -39,6 +39,7 @@ import java.util.List;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.ImagePagerAdapter;
 import cn.ieclipse.af.util.AppUtils;
+import cn.ieclipse.af.util.RandomUtils;
 
 /**
  * 类/接口描述
@@ -57,7 +58,7 @@ public class ImageBrowserActivity extends BaseActivity implements ViewPager.OnPa
     protected TextView mDescTv;
     
     protected int getContentLayout() {
-        return R.layout.base_viewpager;
+        return R.layout.common_photo_view_pager;
     }
     
     @Override
@@ -76,7 +77,7 @@ public class ImageBrowserActivity extends BaseActivity implements ViewPager.OnPa
     }
     
     protected String getImageDesc(int index) {
-        return null;
+        return RandomUtils.genGBK(1, 200);
     }
     
     public static Intent go(Context context, List<ImagePagerAdapter.IImage> images, int index) {

@@ -69,25 +69,26 @@ android {
     - H5Activity
     - BaseListFragment
 
-## Change log
-### v2.0.0
-- New refresh component.
-- Import recyclerview adapter delegate.
-- Lost of bug fix
-- **Don't compatible to v1.x**
-
 ## Blog
 See http://www.ieclipse.cn/tags/QuickAF/
 
 ## Integrated library as source
 SystemBarTint https://github.com/hexiaochun/SystemBarTint
+
 SwipeMenuRecyclerView unkonwn
-WheelView unkonwn
+
+WheelView(@Deprecated) unkonwn
+
 BadgeView https://github.com/stefanjauker/BadgeView
+
 PagerSlidingTabStrip https://github.com/astuetz/PagerSlidingTabStrip
-ScrollLayout http://blog.csdn.net/Yao_GUET
+
+ScrollLayout(@Deprecated) http://blog.csdn.net/Yao_GUET
 
 ## Contributors
 
 - [wangjiandett](https://github.com/wangjiandett)
 - [HarryXR](https://github.com/HarryXR)
+
+## Discuss
+Join ![QQ群: 629153672](http://dl.ieclipse.cn/screenshots/quickaf_group.png)
