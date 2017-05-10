@@ -94,6 +94,17 @@
         <!--android:textColor="@color/white"-->
         <!--app:af_degree="-60"/>-->
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ScrollTextView"/>
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:text="I am simple ScrollTextView \n 1.textview.setMovementMethod(ScrollingMovementMethod.getInstance()); \n2 return true in onTouchEvent \n scrollbars=vertical; maxLines=3"
+            android:scrollbars="vertical"
+            android:maxLines="3"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
