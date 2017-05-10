@@ -187,4 +187,9 @@
         <attr name="af_circle"/>
         <attr name="android:radius"/>
     </declare-styleable>
+    <declare-styleable name="RoundMaskView">
+        <attr name="android:radius"/>
+        <attr name="af_borderColor"/>
+        <attr name="af_borderWidth"/>
+    </declare-styleable>
 </resources>

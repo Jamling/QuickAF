@@ -32,30 +32,30 @@ import java.util.List;
  */
 public class HotImageView extends ImageView implements GestureDetector.OnGestureListener {
     private GestureDetector mGestureDetector;
-
+    
     public HotImageView(Context context) {
         this(context, null);
     }
-
+    
     public HotImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mGestureDetector = new GestureDetector(context, this);
     }
-
+    
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         return mGestureDetector.onTouchEvent(ev);
     }
-
+    
     @Override
     public boolean onDown(MotionEvent e) {
         return true;
     }
-
+    
     @Override
     public void onShowPress(MotionEvent e) {
     }
-
+    
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
         if (regions != null && !regions.isEmpty()) {
@@ -73,33 +73,44 @@ public class HotImageView extends ImageView implements GestureDetector.OnGesture
         }
         return false;
     }
-
+    
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
         return false;
     }
-
+    
     @Override
     public void onLongPress(MotionEvent e) {
-
+        
     }
-
+    
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         return false;
     }
-
+    
     private List<Rect> regions = new ArrayList<>();
     private List<OnClickListener> listeners = new ArrayList<>();
-
-    public void addRegion(Rect rect, OnClickListener listener) {
+    
+    public void addRegion(int density, Rect rect, OnClickListener listener) {
         if (rect == null) {
             return;
         }
-        regions.add(rect);
+        if (density > 0) {
+            float t = getResources().getDisplayMetrics().density;
+            Rect r = new Rect();
+            r.left = (int) (rect.left * t / density);
+            r.top = (int) (rect.top * t / density);
+            r.right = (int) (rect.right * t / density);
+            r.bottom = (int) (rect.bottom * t / density);
+            regions.add(r);
+        }
+        else {
+            regions.add(rect);
+        }
         listeners.add(listener);
     }
-
+    
     public int getHotX(float ex) {
         int w = 0;
         if (getDrawable() != null) {
@@ -110,7 +121,7 @@ public class HotImageView extends ImageView implements GestureDetector.OnGesture
         }
         return (int) (ex);
     }
-
+    
     public int getHotY(float ey) {
         int w = 0;
         if (getDrawable() != null) {

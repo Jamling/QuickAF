@@ -20,6 +20,7 @@ import android.view.View;
 
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.sample.SampleBaseFragment;
+import cn.ieclipse.af.util.DialogUtils;
 import cn.ieclipse.af.view.HotImageView;
 import cn.ieclipse.af.view.RoundImageView;
 
@@ -48,10 +49,24 @@ public class CustomImageViewSample extends SampleBaseFragment {
         iv1.setImageResource(R.color.black_alpha_50);
         iv2.setImageResource(R.mipmap.logo);
         iv3 = (HotImageView) view.findViewById(R.id.iv3);
-        iv3.addRegion(new Rect(100, 150, 260, 230), new View.OnClickListener() {
+        iv3.addRegion(3, new Rect(41, 41, 117+41, 44+41), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.err.println("hit!");
+                DialogUtils.showToast(v.getContext(), "Quick Hit!");
+            }
+        });
+    
+        iv3.addRegion(3, new Rect(38, 104, 44+38, 44+104), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogUtils.showToast(v.getContext(), "A Hit!");
+            }
+        });
+    
+        iv3.addRegion(3, new Rect(118, 104, 44+118, 44+104), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogUtils.showToast(v.getContext(), "F Hit!");
             }
         });
     }

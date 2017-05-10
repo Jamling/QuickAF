@@ -1,98 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <cn.ieclipse.af.view.RatioImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@color/black_333333"
-            app:af_ratio="5"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:gravity="center"
-            android:text="cn.ieclipse.af.view.RatioImageView ratio(width/height) = 5"
-            android:textColor="@color/white"/>
-    </FrameLayout>
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp">
+        android:divider="?android:listDivider"
+        android:orientation="vertical"
+        android:showDividers="middle">
 
         <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <cn.ieclipse.af.view.RoundImageView
-                android:id="@+id/iv1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-
-                app:af_borderColor="@color/colorPrimary"
-                app:af_borderWidth="2dp"
-                app:af_circle="true"
-                android:radius="8dp"/>
+            <cn.ieclipse.af.view.RatioImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@color/black_333333"
+                app:af_ratio="5"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:gravity="center"
-                android:text="cn.ieclipse.af.view.RoundImageView circle=true"
-                android:textColor="@color/white"
-                android:shadowColor="@color/black_333333"
-                android:shadowDx="5"
-                android:shadowDy="5"
-                android:shadowRadius="5"/>
+                android:text="cn.ieclipse.af.view.RatioImageView ratio(width/height) = 5"
+                android:textColor="@color/white"/>
         </FrameLayout>
 
-        <FrameLayout
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:orientation="horizontal"
+            android:padding="10dp">
 
-            <cn.ieclipse.af.view.RoundImageView
-                android:id="@+id/iv2"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:shadowColor="@color/black_333333"
+                    android:shadowDx="5"
+                    android:shadowDy="5"
+                    android:shadowRadius="5"
+                    android:text="RoundImageView circle=true"
+                    android:textColor="@color/black_666666"/>
 
-                app:af_borderColor="@color/colorPrimary"
-                app:af_borderWidth="4dp"
-                app:af_ratio="2"
-                android:radius="8dp"/>
+                <cn.ieclipse.af.view.RoundImageView
+                    android:id="@+id/iv1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:radius="8dp"
+                    app:af_borderColor="@color/colorPrimary"
+                    app:af_borderWidth="2dp"
+                    app:af_circle="true"/>
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:shadowColor="@color/black_333333"
+                    android:shadowDx="5"
+                    android:shadowDy="5"
+                    android:shadowRadius="5"
+                    android:text="RoundImageView radius = 8dp"
+                    android:textColor="@color/black_666666"/>
+
+                <cn.ieclipse.af.view.RoundImageView
+                    android:id="@+id/iv2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerInside"
+                    android:radius="8dp"
+                    app:af_borderColor="@color/colorPrimary"
+                    app:af_borderWidth="4dp"
+                    app:af_ratio="2"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:text="cn.ieclipse.af.view.RoundImageView radius = 8dp"
-                android:textColor="@color/white"
-                android:shadowColor="@color/black_333333"
-                android:shadowDx="5"
-                android:shadowDy="5"
-                android:shadowRadius="5"/>
-        </FrameLayout>
+                android:text="HotImageView, try to tap the text in image"/>
+
+            <cn.ieclipse.af.view.HotImageView
+                android:id="@+id/iv3"
+                android:layout_width="192dp"
+                android:layout_height="96dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/logo"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Another round image view, with a round mask,"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:src="@color/colorAccent"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:background="@color/black_alpha_50"
+                        android:padding="12dp"
+                        android:text="I am text"/>
+                </LinearLayout>
+
+                <cn.ieclipse.af.view.RoundMaskView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:radius="10dp"
+                    app:af_borderColor="@color/white"
+                    app:af_borderWidth="1dp"/>
+            </FrameLayout>
+        </LinearLayout>
+
     </LinearLayout>
-    
-    <cn.ieclipse.af.view.HotImageView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:id="@+id/iv3"
-        android:src="@mipmap/hotimageview_test"
-        android:scaleType="fitXY"/>
-
-</LinearLayout>
+</ScrollView>
