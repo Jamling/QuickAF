@@ -84,4 +84,6 @@ dependencies {
     compile 'com.yanzhenjie:permission:1.0.5'
     // af-pay
     compile ('com.github.Jamling:af-pay:master-SNAPSHOT')
+    // photo view
+    compile 'com.github.chrisbanes:PhotoView:2.0.0'
 }

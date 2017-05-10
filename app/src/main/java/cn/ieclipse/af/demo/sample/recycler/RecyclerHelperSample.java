@@ -19,7 +19,9 @@ import android.graphics.Color;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
 
@@ -190,6 +192,7 @@ public class RecyclerHelperSample extends SampleBaseFragment implements NewsCont
     public void onLoadNewsSuccess(List<NewsController.NewsInfo> out, boolean fromCache) {
         adapter.setDataList(out);
         adapter.notifyDataSetChanged();
+        // listView.setAdapter(new NewsAdapter(out));
     }
 
     public static class NewsGridDelegate extends RefreshRecyclerSample.NewsDelegate {
@@ -203,6 +206,29 @@ public class RecyclerHelperSample extends SampleBaseFragment implements NewsCont
         @Override
         public int getLayout() {
             return R.layout.sample_stagger_item_news;
+        }
+    }
+    
+    public static class NewsAdapter extends RecyclerView.Adapter<NewsHolder> {
+        List<NewsController.NewsInfo> out;
+        public NewsAdapter(List<NewsController.NewsInfo> out){
+            this.out = out;
+        }
+        @Override
+        public NewsHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sample_list_item_news, parent, false);
+            NewsHolder holder = new NewsHolder(view);
+            return holder;
+        }
+    
+        @Override
+        public void onBindViewHolder(NewsHolder holder, int position) {
+            holder.setInfo(out.get(position));
+        }
+    
+        @Override
+        public int getItemCount() {
+            return out == null ? 0 : out.size();
         }
     }
 }

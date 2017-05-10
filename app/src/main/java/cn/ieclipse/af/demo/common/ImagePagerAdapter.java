@@ -19,6 +19,8 @@ import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import cn.ieclipse.af.adapter.AfPagerAdapter;
 import cn.ieclipse.af.demo.R;
 
@@ -28,12 +30,12 @@ import cn.ieclipse.af.demo.R;
  * @author Jamling
  */
 public class ImagePagerAdapter extends AfPagerAdapter<ImagePagerAdapter.IImage> implements View.OnClickListener {
-
+    
     @Override
     public int getLayout() {
         return R.layout.common_pager_item_image;
     }
-
+    
     @Override
     public void onUpdateView(View convertView, int position) {
         ImageView iv = (ImageView) convertView;
@@ -44,18 +46,18 @@ public class ImagePagerAdapter extends AfPagerAdapter<ImagePagerAdapter.IImage> 
                 iv.setImageURI(Uri.parse(url));
             }
             else {
-                // ImageLoader.getInstance().displayImage(url, iv);
+                ImageLoader.getInstance().displayImage(url, iv);
             }
         }
         iv.setOnClickListener(this);
     }
-
+    
     @Override
     public void onClick(View v) {
-
+        
     }
-
-    public interface IImage {
+    
+    public interface IImage extends java.io.Serializable {
         String getUrl();
     }
 }
