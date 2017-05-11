@@ -40,6 +40,7 @@ public class AppConfig {
     public static String token;
     public static UserInfo user;
     public static String uuid;
+    public static boolean debug;
 
     public static void init(Context context) {
         AppConfig.context = context;
@@ -55,7 +56,7 @@ public class AppConfig {
     }
 
     public static boolean isDebug(){
-        return true;
+        return debug || BuildConfig.DEBUG;
     }
     public static String getToken() {
         return token;

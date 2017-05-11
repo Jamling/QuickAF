@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 
 import cn.ieclipse.af.demo.common.BaseFragmentAdapter;
 import cn.ieclipse.af.demo.common.ui.BaseActivity;
+import cn.ieclipse.af.demo.common.ui.DevDialogFragment;
 import cn.ieclipse.af.demo.common.view.MainBottomTab;
 import cn.ieclipse.af.demo.my.CheckUpdateController;
 import cn.ieclipse.af.demo.my.MyFragment;
@@ -63,6 +64,7 @@ public class MainActivity extends BaseActivity implements CheckUpdateController.
     protected void initHeaderView() {
         super.initHeaderView();
         mTitleLeftView.setVisibility(View.INVISIBLE);
+        setOnClickListener(mTitleTextView);
     }
 
     @Override
@@ -111,6 +113,14 @@ public class MainActivity extends BaseActivity implements CheckUpdateController.
         // checkUpdate();
     }
 
+    @Override
+    public void onClick(View v) {
+        if (v == mTitleTextView) {
+            DevDialogFragment.detect(getFragmentManager());
+        }
+        super.onClick(v);
+    }
+
     public static Intent create(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
         return intent;
@@ -154,6 +164,24 @@ public class MainActivity extends BaseActivity implements CheckUpdateController.
                         }
                     }
                 });
+        }
+    }
+
+
+    private boolean confirmExit;
+    @Override
+    public void onBackPressed() {
+        if (confirmExit){
+            finish();
+        } else {
+            confirmExit = true;
+            mBottomTab.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    confirmExit = false;
+                }
+            }, 2000);
+            DialogUtils.showToast(this, getString(R.string.common_exit_tip));
         }
     }
 }

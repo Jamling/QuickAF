@@ -36,7 +36,7 @@ public final class URLConst {
 
     public static final String BASE_RELEASE = "http://";
 
-    public static final String BASE = AppConfig.isDebug() ? BASE_DEBUG : BASE_RELEASE;
+    public static String BASE = AppConfig.isDebug() ? BASE_DEBUG : BASE_RELEASE;
 
     /**
      * 用户相关接口定义

@@ -21,6 +21,7 @@
     <string name="common_add">添加</string>
     <string name="common_save_success">保存成功</string>
     <string name="common_exit">退出</string>
+    <string name="common_exit_tip">请再按一次退出</string>
     <string name="common_finish">完成</string>
     <string name="common_about">关于</string>
     <string name="common_tip">提示</string>
