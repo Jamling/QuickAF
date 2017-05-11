@@ -47,14 +47,14 @@ public class Preference extends FrameLayout implements OnCheckedChangeListener {
     private int gravity;
     private Drawable icon;
     private Drawable icon2;
-    
+
     /**
      * @param context
      */
     public Preference(Context context) {
         this(context, null);
     }
-    
+
     /**
      * @param context
      * @param attrs
@@ -62,7 +62,7 @@ public class Preference extends FrameLayout implements OnCheckedChangeListener {
     public Preference(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
-    
+
     /**
      * @param context
      * @param attrs
@@ -72,7 +72,7 @@ public class Preference extends FrameLayout implements OnCheckedChangeListener {
         super(context, attrs, defStyleAttr);
         init(context, attrs, defStyleAttr, 0);
     }
-    
+
     /**
      * @param context
      * @param attrs
@@ -84,7 +84,7 @@ public class Preference extends FrameLayout implements OnCheckedChangeListener {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs, defStyleAttr, defStyleRes);
     }
-    
+
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         if (attrs == null) {
             return;
@@ -105,7 +105,7 @@ public class Preference extends FrameLayout implements OnCheckedChangeListener {
         gravity = a.getInt(i++, gravity);
         setClickable(a.getBoolean(i++, true));
         setFocusable(a.getBoolean(i++, true));
-        
+
         a.recycle();
         // load attribute
         a = context.obtainStyledAttributes(attrs, R.styleable.Preference, defStyleAttr, defStyleRes);
@@ -126,31 +126,31 @@ public class Preference extends FrameLayout implements OnCheckedChangeListener {
             LayoutInflater.from(context).inflate(layout, this, true);
         }
     }
-    
+
     private TextView mTvTitle;
     private TextView mTvSummary;
     private ImageView mIvArrow;
     private CompoundButton mChk;
-    
+
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        
+
         mTvTitle = (TextView) findViewById(android.R.id.title);
         mTvSummary = (TextView) findViewById(android.R.id.summary);
         mChk = (CompoundButton) findViewById(android.R.id.checkbox);
         mIvArrow = (ImageView) findViewById(android.R.id.icon2);
-        
+
         if (persistent) {
             if (TextUtils.isEmpty(key)) {
                 throw new IllegalArgumentException(
                     "persistent preference but found empty key, did you forgot set 'android:key' attribute?");
             }
         }
-        if (TextUtils.isEmpty(key)) {
-            key = getClass().getSimpleName() + getId();
-        }
-        
+//        if (TextUtils.isEmpty(key)) {
+//            key = getClass().getSimpleName() + getId();
+//        }
+
         if (mTvTitle != null) {
             mTvTitle.setText(title);
             if (icon != null) {
@@ -166,35 +166,39 @@ public class Preference extends FrameLayout implements OnCheckedChangeListener {
                 mTvSummary.setCompoundDrawablesWithIntrinsicBounds(null, null, icon2, null);
             }
         }
-        
+
         if (mIvArrow != null && icon2 != null) {
             mIvArrow.setImageDrawable(icon2);
         }
-        
+
         if (mChk != null) {
-            mChk.setChecked(getBoolean());
+            if (persistent) {
+                mChk.setChecked(getBoolean());
+            }
             mChk.setOnCheckedChangeListener(this);
         }
     }
-    
+
     private boolean getBoolean() {
         boolean ret = false;
         try {
             ret = SharedPrefsUtils.getBoolean(key, false);
         } catch (Exception e) {
-            
+
         }
         return ret;
     }
-    
+
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        SharedPrefsUtils.putBoolean(key, isChecked);
+        if (persistent) {
+            SharedPrefsUtils.putBoolean(key, isChecked);
+        }
         if (mOnChangeListener != null) {
             mOnChangeListener.onPreferenceChange(this, isChecked);
         }
     }
-    
+
     @Override
     public boolean performClick() {
         if (mChk != null) {
@@ -202,21 +206,21 @@ public class Preference extends FrameLayout implements OnCheckedChangeListener {
         }
         return super.performClick();
     }
-    
+
     public TextView getTitleWidget() {
         return mTvTitle;
     }
-    
+
     public TextView getSummaryWidget() {
         return mTvSummary;
     }
-    
+
     public CompoundButton getCheckWidget() {
         return mChk;
     }
-    
+
     private OnPreferenceChangeListener mOnChangeListener;
-    
+
     /**
      * Sets the callback to be invoked when this Preference is changed by the
      * user (but before the internal state has been updated).
@@ -226,7 +230,7 @@ public class Preference extends FrameLayout implements OnCheckedChangeListener {
     public void setOnPreferenceChangeListener(OnPreferenceChangeListener onPreferenceChangeListener) {
         mOnChangeListener = onPreferenceChangeListener;
     }
-    
+
     /**
      * Interface definition for a callback to be invoked when the value of this
      * {@link Preference} has been changed by the user and is about to be set
