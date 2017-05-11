@@ -115,6 +115,7 @@ public class ChangePwdActivity extends BaseActivity implements ChangePwdControll
     @Override
     public void onChangePwdSuccess(BaseResponse out) {
         DialogUtils.showToast(this, out.getMessage());
+        finish();
     }
 
     public static Intent create(Context context){
