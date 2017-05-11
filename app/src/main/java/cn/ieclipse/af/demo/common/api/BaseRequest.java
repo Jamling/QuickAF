@@ -15,6 +15,10 @@
  */
 package cn.ieclipse.af.demo.common.api;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Description
  *
@@ -25,4 +29,24 @@ public class BaseRequest implements java.io.Serializable {
     public String secret;
     public String version;
     public String uuid;
+
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
+        Field[] field = getClass().getFields();
+
+        for (int i = 0; i < field.length && field.length > 0; ++i) {
+            field[i].setAccessible(true);
+            String name = field[i].getName();
+            Object val;
+            try {
+                val = field[i].get(this);
+                if (val != null) {
+                    map.put(name, val);
+                }
+            } catch (Exception var8) {
+                continue;
+            }
+        }
+        return map;
+    }
 }
