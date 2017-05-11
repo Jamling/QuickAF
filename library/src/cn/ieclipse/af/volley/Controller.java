@@ -29,7 +29,6 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import cn.ieclipse.af.BuildConfig;
 import cn.ieclipse.af.util.StringUtils;
@@ -109,6 +108,9 @@ public class Controller<Listener> {
             
             // get body
             String body = getBody(input);
+            if (Controller.DEBUG) {
+                Controller.log("request body: " + body);
+            }
             // get url
             IUrl url = buildUrl(body);
             if (Controller.DEBUG) {
@@ -199,31 +201,7 @@ public class Controller<Listener> {
             // String json = gson.toJson(input);
             // json = input.toString();
             // return json;
-            String body = null;
-            if (input == null) {
-                body = null;
-            }
-            else if (input instanceof Map) {
-                Map map = (Map) input;
-                StringBuilder sb = new StringBuilder();
-                for (Object key : map.keySet()) {
-                    sb.append(key);
-                    sb.append('=');
-                    sb.append(StringUtils.getRequestParamValue(map.get(key),
-                            getParamsEncoding()));
-                    sb.append('&');
-                }
-                if (sb.length() > 1) {
-                    sb.deleteCharAt(sb.length() - 1);
-                }
-                body = sb.toString();
-            }
-            else {
-                body = StringUtils.getRequestParam(input, getParamsEncoding());
-            }
-            if (Controller.DEBUG) {
-                Controller.log("request body: " + body);
-            }
+            String body = StringUtils.getRequestBody(input, getParamsEncoding(), true);
             return body;
         }
         

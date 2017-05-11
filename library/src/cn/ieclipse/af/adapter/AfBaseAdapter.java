@@ -68,7 +68,7 @@ public abstract class AfBaseAdapter<T> extends BaseAdapter {
         mDataHolder.add2Top(t);
     }
 
-    public void add2Top(List<T> list){
+    public void add2Top(List<T> list) {
         mDataHolder.addAll2Top(list);
     }
 
