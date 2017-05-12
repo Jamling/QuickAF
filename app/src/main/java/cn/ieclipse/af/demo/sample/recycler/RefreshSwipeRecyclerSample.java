@@ -101,6 +101,7 @@ public class RefreshSwipeRecyclerSample extends RefreshRecyclerSample {
                 super.onClick(itemView);
             }
             else if (btDelete == v) {
+                // http://stackoverflow.com/questions/30220771/recyclerview-inconsistency-detected-invalid-item-position
                 getAdapter().deleteItem(getLayoutPosition());
             }
             else {

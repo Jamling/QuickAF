@@ -24,6 +24,7 @@ import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import java.util.Calendar;
 import java.util.List;
 
 import cn.ieclipse.af.adapter.AfRecyclerAdapter;
@@ -36,6 +37,7 @@ import cn.ieclipse.af.demo.sample.SampleBaseFragment;
 import cn.ieclipse.af.util.DialogUtils;
 import cn.ieclipse.af.view.refresh.RefreshLayout;
 import cn.ieclipse.af.view.refresh.RefreshRecyclerHelper;
+import cn.ieclipse.af.volley.Controller;
 import cn.ieclipse.af.volley.RestError;
 
 /**
@@ -160,10 +162,12 @@ public class RefreshRecyclerSample extends SampleBaseFragment implements NewsCon
         }
     }
 
+    long startTime;
     private void load(boolean needCache) {
         NewsController.NewsRequest req = new NewsController.NewsRequest();
         req.page = helper.getCurrentPage();
         controller.loadNews(req, needCache);
+        startTime = Calendar.getInstance().getTimeInMillis();
     }
 
     @Override
@@ -173,6 +177,7 @@ public class RefreshRecyclerSample extends SampleBaseFragment implements NewsCon
 
     @Override
     public void onLoadNewsSuccess(List<NewsController.NewsInfo> out, boolean fromCache) {
+        Controller.log("load time: " + (Calendar.getInstance().getTimeInMillis() - startTime) + " ms");
         if (loadResult == 1) {
             helper.onLoadFinish(null, 0, 0);
         }

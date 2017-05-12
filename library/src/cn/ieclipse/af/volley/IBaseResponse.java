@@ -21,7 +21,6 @@ package cn.ieclipse.af.volley;
  * @author Jamling
  *       
  */
-public interface IBaseResponse {
-    
-    String getData();
+public interface IBaseResponse<Output> extends java.io.Serializable{
+    Output getData();
 }

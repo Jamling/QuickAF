@@ -16,21 +16,16 @@
 
 package cn.ieclipse.af.demo.sample.volley.upload;
 
-import com.google.gson.Gson;
-
 import cn.ieclipse.af.volley.IBaseResponse;
 
-public class UploadBaseResponse implements IBaseResponse {
+public class UploadBaseResponse<Output> implements IBaseResponse {
     
     public String status;
     public String message;
-    public Object data;
-    
+    public Output data;
+
     @Override
-    public String getData() {
-        if (data instanceof String) {
-            return (String) data;
-        }
-        return new Gson().toJson(data);
+    public Object getData() {
+        return data;
     }
 }

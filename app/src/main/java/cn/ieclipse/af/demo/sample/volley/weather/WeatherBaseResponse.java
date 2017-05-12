@@ -15,8 +15,6 @@
  */
 package cn.ieclipse.af.demo.sample.volley.weather;
 
-import com.google.gson.Gson;
-
 import cn.ieclipse.af.volley.IBaseResponse;
 
 /**
@@ -24,17 +22,14 @@ import cn.ieclipse.af.volley.IBaseResponse;
  *
  * @author Jamling
  */
-public class WeatherBaseResponse implements IBaseResponse {
+public class WeatherBaseResponse<Output> implements IBaseResponse {
     
     public int errNum;
     public String errMsg;
-    public Object retData;
+    public Output retData;
     
     @Override
-    public String getData() {
-        if (retData instanceof String) {
-            return (String) retData;
-        }
-        return new Gson().toJson(retData);
+    public Output getData() {
+        return retData;
     }
 }

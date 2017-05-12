@@ -15,11 +15,9 @@
  */
 package cn.ieclipse.af.demo.common.api;
 
-import com.google.gson.Gson;
-
 import cn.ieclipse.af.volley.IBaseResponse;
 
-public class BaseResponse implements java.io.Serializable, IBaseResponse {
+public class BaseResponse<Output> implements IBaseResponse {
     private static final long serialVersionUID = -3440061414071692254L;
 
     /**
@@ -35,7 +33,7 @@ public class BaseResponse implements java.io.Serializable, IBaseResponse {
     /**
      * 数据
      */
-    private Object data;
+    private Output data;
 
     public int getStatus() {
         return status;
@@ -53,14 +51,15 @@ public class BaseResponse implements java.io.Serializable, IBaseResponse {
         this.message = message;
     }
 
-    public String getData() {
-        if (data instanceof String){
-            return (String) data;
-        }
-        return new Gson().toJson(data);
+    public Output getData() {
+//        if (data instanceof String){
+//            return (String) data;
+//        }
+//        return new Gson().toJson(data);
+        return data;
     }
 
-    public void setData(String data) {
+    public void setData(Output data) {
         this.data = data;
     }
 

@@ -119,7 +119,17 @@ public class Controller<Listener> {
             // get request
             request = buildRequest(url, body);
             // set request
-            request.setOutputClass(getBaseResponseClass());
+            Type base = getBaseResponseClass();
+            Type type = null;
+            if (mDataClazz != null){
+                type = type(base, mDataClazz);
+            } else if (mDataItemClass != null){
+                type = type(base, type(List.class, mDataItemClass));
+            } else {
+                type = base;
+            }
+
+            request.setOutputClass(type);
             request.setShouldCache(needCache);
             request.setCacheTime(cacheTime);
             if (mTaskTags != null) {
@@ -258,7 +268,7 @@ public class Controller<Listener> {
             return false;
         }
         
-        public Class<? extends IBaseResponse> getBaseResponseClass() {
+        public Type getBaseResponseClass() {
             return VolleyManager.getConfig().getBaseResponseClass();
         }
         
@@ -276,16 +286,17 @@ public class Controller<Listener> {
                     out = ((Output) response);
                     return out;
                 }
-                String data = response.getData();
-                if (listOutput) {
-                    out = mGson.fromJson(data, type(List.class, itemClazz));
-                    if (out == null) {
-                        out = (Output) new ArrayList<>(0);
-                    }
-                }
-                else {
-                    out = mGson.fromJson(data, mDataClazz);
-                }
+                out = (Output) response.getData();
+//                String data = response.getData();
+//                if (listOutput) {
+//                    out = mGson.fromJson(data, type(List.class, itemClazz));
+//                    if (out == null) {
+//                        out = (Output) new ArrayList<>(0);
+//                    }
+//                }
+//                else {
+//                    out = mGson.fromJson(data, mDataClazz);
+//                }
             }
             return out;
         }
@@ -297,7 +308,7 @@ public class Controller<Listener> {
         public abstract void onError(RestError error);
     }
     
-    public static ParameterizedType type(final Class raw, final Type... args) {
+    public static ParameterizedType type(final Type raw, final Type... args) {
         return new ParameterizedType() {
             public Type getRawType() {
                 return raw;

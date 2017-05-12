@@ -17,7 +17,6 @@ package cn.ieclipse.af.demo.sample.recycler;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
-import com.google.gson.Gson;
 
 import java.io.Serializable;
 import java.util.List;
@@ -67,7 +66,7 @@ public class NewsController extends Controller<NewsController.NewsListener> {
         public String src;
     }
 
-    public static class NewsResponse implements java.io.Serializable, IBaseResponse {
+    public static class NewsResponse implements IBaseResponse<List<NewsInfo>> {
         // success
         public int code;
         public String msg;
@@ -78,9 +77,8 @@ public class NewsController extends Controller<NewsController.NewsListener> {
         public String errMsg;
 
         @Override
-
-        public String getData() {
-            return new Gson().toJson(newslist);
+        public List<NewsInfo> getData() {
+            return newslist;
         }
     }
 

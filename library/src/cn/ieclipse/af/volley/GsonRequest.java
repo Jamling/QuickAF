@@ -31,11 +31,12 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
 public class GsonRequest extends JsonRequest<IBaseResponse> {
-    protected Class<?> mClazz;
+    protected Type mClazz;
     protected Gson mGson = new Gson();
     protected boolean intermediate;
     protected long ttl = 365 * 24 * 60 * 60 * 1000;
@@ -81,7 +82,7 @@ public class GsonRequest extends JsonRequest<IBaseResponse> {
         return super.parseNetworkError(volleyError);
     }
 
-    public void setOutputClass(Class<?> clazz) {
+    public void setOutputClass(Type clazz) {
         this.mClazz = clazz;
     }
     
