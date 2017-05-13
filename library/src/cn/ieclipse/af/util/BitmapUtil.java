@@ -46,6 +46,7 @@ import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
@@ -78,13 +79,11 @@ public class BitmapUtil {
 
     /**
      * 图片压缩处理（使用Options的方法）
-     * <p>
      * <br>
      * <b>说明</b> 使用方法：
      * 首先你要将Options的inJustDecodeBounds属性设置为true，BitmapFactory.decode一次图片 。
      * 然后将Options连同期望的宽度和高度一起传递到到本方法中。
      * 之后再使用本方法的返回值做参数调用BitmapFactory.decode创建图片。
-     * <p>
      * <br>
      * <b>说明</b> BitmapFactory创建bitmap会尝试为已经构建的bitmap分配内存
      * ，这时就会很容易导致OOM出现。为此每一种创建方法都提供了一个可选的Options参数
@@ -101,15 +100,13 @@ public class BitmapUtil {
         final int height = options.outHeight;
         final int width = options.outWidth;
         int inSampleSize = 1;
-        if (height > 400 || width > 450) {
-            if (height > reqHeight || width > reqWidth) {
-                // 计算出实际宽高和目标宽高的比率
-                final int heightRatio = Math.round((float) height / (float) reqHeight);
-                final int widthRatio = Math.round((float) width / (float) reqWidth);
-                // 选择宽和高中最小的比率作为inSampleSize的值，这样可以保证最终图片的宽和高
-                // 一定都会大于等于目标的宽和高。
-                inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
-            }
+        if (height > reqHeight || width > reqWidth) {
+            // 计算出实际宽高和目标宽高的比率
+            final int heightRatio = Math.round((float) height / (float) reqHeight);
+            final int widthRatio = Math.round((float) width / (float) reqWidth);
+            // 选择宽和高中最小的比率作为inSampleSize的值，这样可以保证最终图片的宽和高
+            // 一定都会大于等于目标的宽和高。
+            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
         }
         // 设置压缩比例
         options.inSampleSize = inSampleSize;
@@ -177,6 +174,7 @@ public class BitmapUtil {
      * 把bitmap转化为bytes
      *
      * @param bitmap 源Bitmap
+     *
      * @return Byte数组
      */
     public static byte[] getBytesFromBitmap(Bitmap bitmap) {
@@ -189,6 +187,7 @@ public class BitmapUtil {
      * Stream转换成Byte
      *
      * @param inputStream InputStream
+     *
      * @return Byte数组
      */
     public static byte[] getBytesFromStream(InputStream inputStream) {
@@ -209,6 +208,7 @@ public class BitmapUtil {
      * 获取一个指定大小的bitmap
      *
      * @param b Byte数组
+     *
      * @return 需要的Bitmap
      */
     public static Bitmap getBitmapFromBytes(byte[] b) {
@@ -219,7 +219,6 @@ public class BitmapUtil {
             return null;
         }
     }
-
 
     /**
      * 获取一个指定大小的bitmap
@@ -243,6 +242,7 @@ public class BitmapUtil {
      * 从View获取Bitmap
      *
      * @param view View
+     *
      * @return Bitmap
      */
     public static Bitmap getBitmapFromView(View view) {
@@ -259,6 +259,7 @@ public class BitmapUtil {
      * 把一个View的对象转换成bitmap
      *
      * @param view View
+     *
      * @return Bitmap
      */
     public static Bitmap getBitmapFromView2(View view) {
@@ -294,12 +295,13 @@ public class BitmapUtil {
      * 将Drawable转化为Bitmap
      *
      * @param drawable Drawable
+     *
      * @return Bitmap
      */
     public static Bitmap getBitmapFromDrawable(Drawable drawable) {
         int width = drawable.getIntrinsicWidth();
         int height = drawable.getIntrinsicHeight();
-        if (width <=0 || height <= 0) {
+        if (width <= 0 || height <= 0) {
             return null;
         }
         Bitmap bitmap = Bitmap.createBitmap(width, height,
@@ -315,6 +317,7 @@ public class BitmapUtil {
      *
      * @param bgd 背景Bitmap
      * @param fg  前景Bitmap
+     *
      * @return 合成后的Bitmap
      */
     public static Bitmap combineImages(Bitmap bgd, Bitmap fg) {
@@ -339,6 +342,7 @@ public class BitmapUtil {
      *
      * @param bgd 后景Bitmap
      * @param fg  前景Bitmap
+     *
      * @return 合成后Bitmap
      */
     public static Bitmap combineImagesToSameSize(Bitmap bgd, Bitmap fg) {
@@ -371,6 +375,7 @@ public class BitmapUtil {
      * @param bitmap 源Bitmap
      * @param w      宽
      * @param h      高
+     *
      * @return 目标Bitmap
      */
     public static Bitmap zoom(Bitmap bitmap, int w, int h) {
@@ -389,6 +394,7 @@ public class BitmapUtil {
      *
      * @param bitmap  源Bitmap
      * @param roundPx 圆角大小
+     *
      * @return 期望Bitmap
      */
     public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, float roundPx) {
@@ -416,6 +422,7 @@ public class BitmapUtil {
      * 获得带倒影的图片方法
      *
      * @param bitmap 源Bitmap
+     *
      * @return 带倒影的Bitmap
      */
     public static Bitmap createReflectionBitmap(Bitmap bitmap) {
@@ -453,6 +460,7 @@ public class BitmapUtil {
      * 压缩图片大小
      *
      * @param image 源Bitmap
+     *
      * @return 压缩后的Bitmap
      */
     public static Bitmap compressImage(Bitmap image) {
@@ -474,6 +482,7 @@ public class BitmapUtil {
      * 将彩色图转换为灰度图
      *
      * @param img 源Bitmap
+     *
      * @return 返回转换好的位图
      */
     public static Bitmap convertGreyImg(Bitmap img) {
@@ -506,6 +515,7 @@ public class BitmapUtil {
      * 转换图片成圆形
      *
      * @param bitmap 传入Bitmap对象
+     *
      * @return 圆形Bitmap
      */
     public static Bitmap getRoundBitmap(Bitmap bitmap) {
@@ -563,12 +573,12 @@ public class BitmapUtil {
      * Returns a Bitmap representing the thumbnail of the specified Bitmap. The
      * size of the thumbnail is defined by the dimension
      * android.R.dimen.launcher_application_icon_size.
-     * <p>
      * This method is not thread-safe and should be invoked on the UI thread
      * only.
      *
      * @param bitmap  The bitmap to get a thumbnail of.
      * @param context The application's context.
+     *
      * @return A thumbnail for the specified bitmap or the bitmap itself if the
      * thumbnail could not be created.
      */
@@ -635,6 +645,7 @@ public class BitmapUtil {
      *
      * @param src       the bitmap object you want proecss
      * @param watermark the water mark above the src
+     *
      * @return return a bitmap object ,if paramter's length is 0,return null
      */
     public static Bitmap createWatermarkBitmap(Bitmap src, Bitmap watermark) {
@@ -666,6 +677,7 @@ public class BitmapUtil {
      * @param src     需要重新编码的Bitmap
      * @param format  编码后的格式（目前只支持png和jpeg这两种格式）
      * @param quality 重新生成后的bitmap的质量
+     *
      * @return 返回重新生成后的bitmap
      */
     public static Bitmap recodeBitmap(Bitmap src, Bitmap.CompressFormat format, int quality) {
@@ -678,7 +690,6 @@ public class BitmapUtil {
 
     /**
      * 图片压缩方法：（使用compress的方法）
-     * <p>
      * <br>
      * <b>说明</b> 如果bitmap本身的大小小于maxSize，则不作处理
      *
@@ -763,6 +774,7 @@ public class BitmapUtil {
      *
      * @param angle  旋转角度
      * @param bitmap 要旋转的图片
+     *
      * @return 旋转后的图片
      */
     public static Bitmap rotate(Bitmap bitmap, int angle) {
@@ -775,6 +787,7 @@ public class BitmapUtil {
      * 水平翻转处理
      *
      * @param bitmap 原图
+     *
      * @return 水平翻转后的图片
      */
     public static Bitmap reverseByHorizontal(Bitmap bitmap) {
@@ -787,6 +800,7 @@ public class BitmapUtil {
      * 垂直翻转处理
      *
      * @param bitmap 原图
+     *
      * @return 垂直翻转后的图片
      */
     public static Bitmap reverseByVertical(Bitmap bitmap) {
@@ -799,6 +813,7 @@ public class BitmapUtil {
      * 更改图片色系，变亮或变暗
      *
      * @param delta 图片的亮暗程度值，越小图片会越亮，取值范围(0,24)
+     *
      * @return
      */
     public static Bitmap adjustTone(Bitmap src, int delta) {
@@ -858,6 +873,7 @@ public class BitmapUtil {
      * 将彩色图转换为黑白图
      *
      * @param bmp 位图
+     *
      * @return 返回转换好的位图
      */
     public static Bitmap convertToBlackWhite(Bitmap bmp) {
@@ -889,6 +905,7 @@ public class BitmapUtil {
      * 读取图片属性：图片被旋转的角度
      *
      * @param path 图片绝对路径
+     *
      * @return 旋转的角度
      */
     public static int getImageDegree(String path) {
@@ -920,6 +937,7 @@ public class BitmapUtil {
      * @param context    Application context
      * @param sentBitmap Bitmap to be converted
      * @param radius     Desired Radius, 0 &lt; r &lt; 25
+     *
      * @return a copy of the image with a blur
      */
     @SuppressLint("InlinedApi")
@@ -1189,6 +1207,7 @@ public class BitmapUtil {
      *
      * @param bitmap          原图
      * @param saturationValue 新的饱和度值
+     *
      * @return 改变了饱和度值之后的图片
      */
     public static Bitmap saturation(Bitmap bitmap, int saturationValue) {
@@ -1214,6 +1233,7 @@ public class BitmapUtil {
      *
      * @param bitmap   原图
      * @param lumValue 新的亮度值
+     *
      * @return 改变了亮度值之后的图片
      */
     public static Bitmap lum(Bitmap bitmap, int lumValue) {
@@ -1239,6 +1259,7 @@ public class BitmapUtil {
      *
      * @param bitmap   原图
      * @param hueValue 新的色相值
+     *
      * @return 改变了色相值之后的图片
      */
     public static Bitmap hue(Bitmap bitmap, int hueValue) {
@@ -1270,6 +1291,7 @@ public class BitmapUtil {
      * @param lumValue        亮度值
      * @param hueValue        色相值
      * @param saturationValue 饱和度值
+     *
      * @return 亮度、色相、饱和度处理后的图片
      */
     public static Bitmap lumAndHueAndSaturation(Bitmap bitmap, int lumValue, int hueValue, int saturationValue) {
@@ -1309,6 +1331,7 @@ public class BitmapUtil {
      * 怀旧效果处理
      *
      * @param bitmap 原图
+     *
      * @return 怀旧效果处理后的图片
      */
     public static Bitmap nostalgic(Bitmap bitmap) {
@@ -1346,6 +1369,7 @@ public class BitmapUtil {
      * 柔化效果处理
      *
      * @param bitmap 原图
+     *
      * @return 柔化效果处理后的图片
      */
     public static Bitmap soften(Bitmap bitmap) {
@@ -1414,6 +1438,7 @@ public class BitmapUtil {
      * @param bitmap  原图
      * @param centerX 光源在X轴的位置
      * @param centerY 光源在Y轴的位置
+     *
      * @return 光照效果处理后的图片
      */
     public static Bitmap sunshine(Bitmap bitmap, int centerX, int centerY) {
@@ -1475,6 +1500,7 @@ public class BitmapUtil {
      * 底片效果处理
      *
      * @param bitmap 原图
+     *
      * @return 底片效果处理后的图片
      */
     public static Bitmap film(Bitmap bitmap) {
@@ -1526,6 +1552,7 @@ public class BitmapUtil {
      * 锐化效果处理
      *
      * @param bitmap 原图
+     *
      * @return 锐化效果处理后的图片
      */
     public static Bitmap sharpen(Bitmap bitmap) {
@@ -1586,6 +1613,7 @@ public class BitmapUtil {
      * 浮雕效果处理
      *
      * @param bitmap 原图
+     *
      * @return 浮雕效果处理后的图片
      */
     public static Bitmap emboss(Bitmap bitmap) {
@@ -1638,6 +1666,7 @@ public class BitmapUtil {
      * @param sourceData YUV格式的图片的源数据
      * @param width      源图片的宽
      * @param height     源图片的高
+     *
      * @return
      */
     public static final byte[] yuvLandscapeToPortrait(byte[] sourceData, int width, int height) {
@@ -1667,8 +1696,8 @@ public class BitmapUtil {
 
             if (context != null) {
                 try {
-                    MediaStore.Images.Media.insertImage(context.getContentResolver(),
-                        file.getAbsolutePath(), file.getName(), null);
+                    MediaStore.Images.Media.insertImage(context.getContentResolver(), file.getAbsolutePath(),
+                        file.getName(), null);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -1683,5 +1712,35 @@ public class BitmapUtil {
             e.printStackTrace();
         }
         return false;
+    }
+
+    /**
+     * Copy from fresco.
+     *
+     * @return size in bytes of the underlying bitmap
+     */
+    @SuppressLint("NewApi")
+    public static int getSizeInBytes(@Nullable Bitmap bitmap) {
+        if (bitmap == null) {
+            return 0;
+        }
+
+        // There's a known issue in KitKat where getAllocationByteCount() can throw an NPE. This was
+        // apparently fixed in MR1: http://bit.ly/1IvdRpd. So we do a version check here, and
+        // catch any potential NPEs just to be safe.
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+            try {
+                return bitmap.getAllocationByteCount();
+            } catch (NullPointerException npe) {
+                // Swallow exception and try fallbacks.
+            }
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
+            return bitmap.getByteCount();
+        }
+
+        // Estimate for earlier platforms.
+        return bitmap.getWidth() * bitmap.getRowBytes();
     }
 }

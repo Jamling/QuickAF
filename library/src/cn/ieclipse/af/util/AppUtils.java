@@ -175,6 +175,13 @@ public final class AppUtils {
     public static String getRes(Context context, String type, String name) {
         return String.format("android.resource://%s/%s/%s", context.getPackageName(), type, name);
     }
+
+    public static ActivityManager.MemoryInfo getMemory(Context context) {
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager.MemoryInfo info = new ActivityManager.MemoryInfo();
+        am.getMemoryInfo(info);
+        return info;
+    }
     
     public static boolean hasVirtualSoftKey(Context context) {
         return ViewConfiguration.get(context).hasPermanentMenuKey();
