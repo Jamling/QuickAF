@@ -53,9 +53,15 @@ public class AppUploadController<Listener> extends AppController<Listener> {
             return null;
         }
 
+        protected UploadRequest.UploadOption getUploadOption() {
+            UploadRequest.UploadOption option = new UploadRequest.UploadOption();
+            return option;
+        }
+
         @Override
         protected GsonRequest buildRequest(IUrl url, String body) {
             UploadRequest request = new UploadRequest(url.getMethod(), url.getUrl(), body, this, this, this);
+            request.setUploadOption(getUploadOption());
             upload(request);
             return request;
         }

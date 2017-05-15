@@ -25,7 +25,7 @@ public class UploadBaseResponse<Output> implements IBaseResponse {
     public Output data;
 
     @Override
-    public Object getData() {
+    public Output getData() {
         return data;
     }
 }

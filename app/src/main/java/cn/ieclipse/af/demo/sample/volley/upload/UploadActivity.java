@@ -145,7 +145,7 @@ public class UploadActivity extends BaseActivity
         et.setText(path);
         SharedPrefsUtils.putString("upload_path", path);
         MyUploadController controller = new MyUploadController(this);
-        controller.upload(new File(path));
+        controller.upload(null, new File(path));
         sb = new StringBuilder();
         dialog = new ProgressDialog(this);
         dialog.setCanceledOnTouchOutside(true);

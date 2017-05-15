@@ -48,18 +48,24 @@ public class MyUploadController
         void onProgress(long transferred, long total, int progress);
     }
     
-    public void upload(File file) {
+    public void upload(UploadRequest.UploadOption option, File file) {
         UploadTask task = new UploadTask();
+        task.setOption(option);
         task.load(file, UploadInfo.class, false);
     }
     
-    public void upload(File... file) {
+    public void upload(UploadRequest.UploadOption option, File... file) {
         MultiUploadTask task = new MultiUploadTask(file);
         task.load2List(file[0], UploadInfo.FileInfo.class, false);
     }
     
     private class UploadTask extends AppUploadTask<UploadInfo> {
-        
+        UploadRequest.UploadOption option;
+
+        public void setOption(UploadRequest.UploadOption option) {
+            this.option = option;
+        }
+
         @Override
         public void onProgress(long transferred, long total, int progress) {
             mListener.onProgress(transferred, total, progress);
@@ -90,6 +96,7 @@ public class MyUploadController
         
         @Override
         public void upload(UploadRequest request) {
+            request.setUploadOption(option);
             request.addBitmapBody("file", input);
             request.addHeader("api_key", "3e5fcdfb3aed7586fb8cba5f4cd9cf86");
             request.addHeader("api_secret", "q17PVbJtAP-HMgOY0M9k6U1wV4PcezsZ");

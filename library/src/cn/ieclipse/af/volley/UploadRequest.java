@@ -15,6 +15,11 @@
  */
 package cn.ieclipse.af.volley;
 
+import android.graphics.Bitmap;
+
+import com.android.volley.Response.ErrorListener;
+import com.android.volley.Response.Listener;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FilterOutputStream;
@@ -27,9 +32,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 
-import com.android.volley.Response.ErrorListener;
-import com.android.volley.Response.Listener;
-
+import cn.ieclipse.af.util.IOUtils;
 import cn.ieclipse.af.volley.content.AbstractContentBody;
 import cn.ieclipse.af.volley.content.BitmapBody;
 import cn.ieclipse.af.volley.content.ByteArrayBody;
@@ -41,32 +44,28 @@ public class UploadRequest extends GsonRequest {
      * The pool of ASCII chars to be used for generating a multipart boundary.
      */
     private final static char[] MULTIPART_CHARS = "-_1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-            .toCharArray();
+        .toCharArray();
     private static final String CR_LF = "\r\n";
     private String boundary = null;
     private static final String TWO_DASHES = "--";
     private final UploadProgressListener progressListener;
-    
+
     private Map<String, List<AbstractContentBody>> params = new TreeMap<>();
-    
-    public static final long PIC_MAX_LENGTH = 200 << 10; // 200K
-    public static final long PIC_LIMIT_LENGTH_OF_QUICK_COMPRESS = 1 << 20;
-    private long bitmapMaxLength = PIC_MAX_LENGTH;
-    
-    public UploadRequest(int method, String url, String body,
-            Listener<IBaseResponse> responseListener, ErrorListener listener,
-            UploadProgressListener progressListener) {
+
+    private UploadOption uploadOption;
+
+    public UploadRequest(int method, String url, String body, Listener<IBaseResponse> responseListener,
+                         ErrorListener listener, UploadProgressListener progressListener) {
         super(method, url, body, responseListener, listener);
         this.boundary = generateBoundary();
         this.progressListener = progressListener;
     }
-    
+
     @Override
     public String getBodyContentType() {
-        return generateContentType(boundary,
-                Charset.forName(getParamsEncoding()));
+        return generateContentType(boundary, Charset.forName(getParamsEncoding()));
     }
-    
+
     public List<AbstractContentBody> getParam(String name) {
         List<AbstractContentBody> v = params.get(name);
         if (v == null) {
@@ -75,41 +74,50 @@ public class UploadRequest extends GsonRequest {
         }
         return v;
     }
-    
+
     private void addBody(String name, AbstractContentBody body) {
         getParam(name).add(body);
     }
-    
+
     public void addParams(String name, String value) {
         StringBody body = new StringBody(value, null, null);
         addBody(name, body);
     }
-    
+
     public void addBody(String name, byte[] data, String mime, String fn) {
         ByteArrayBody body = new ByteArrayBody(data, mime, fn);
         addBody(name, body);
     }
-    
+
     public void addBody(String name, File file, String mime) {
         FileBody body = new FileBody(file, mime);
         addBody(name, body);
     }
-    
+
     public void addBitmapBody(String name, File file) {
         String ext = "*";
         int pos = file.getPath().lastIndexOf('.');
-        if (pos > 0){
+        if (pos > 0) {
             ext = file.getPath().substring(pos);
         }
         BitmapBody body = new BitmapBody(file, "image/" + ext);
-        body.setLimitThresholdSize(bitmapMaxLength);
+        body.setUploadOption(getUploadOption());
         addBody(name, body);
     }
-    
-    public void setBitmapMaxLength(long bitmapMaxLength) {
-        this.bitmapMaxLength = bitmapMaxLength;
+
+    public void setUploadOption(UploadOption uploadOption) {
+        if (uploadOption != null) {
+            this.uploadOption = uploadOption;
+        }
     }
-    
+
+    public UploadOption getUploadOption() {
+        if (uploadOption == null) {
+            uploadOption = new UploadOption();
+        }
+        return uploadOption;
+    }
+
     private long getTotalSize() {
         long sum = 0L;
         for (String key : params.keySet()) {
@@ -120,13 +128,12 @@ public class UploadRequest extends GsonRequest {
         }
         return sum;
     }
-    
+
     @Override
     public byte[] getBody() {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        
-        CountingOutputStream dos = new CountingOutputStream(bos, getTotalSize(),
-                progressListener);
+
+        CountingOutputStream dos = new CountingOutputStream(bos, getTotalSize(), progressListener);
         try {
             for (String key : params.keySet()) {
                 List<AbstractContentBody> v = params.get(key);
@@ -164,20 +171,20 @@ public class UploadRequest extends GsonRequest {
             // fos.write(ret);
             // fos.flush();
             // fos.close();
+            IOUtils.closeStream(bos);
+            IOUtils.closeStream(dos);
             return ret;
-            
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
-    
+
     public interface MultipartProgressListener {
         void transferred(long transfered, int progress);
     }
-    
-    private String generateContentType(final String boundary,
-            final Charset charset) {
+
+    private String generateContentType(final String boundary, final Charset charset) {
         final StringBuilder buffer = new StringBuilder();
         buffer.append("multipart/form-data; boundary=");
         buffer.append(boundary);
@@ -187,41 +194,38 @@ public class UploadRequest extends GsonRequest {
         }
         return buffer.toString();
     }
-    
+
     private String generateBoundary() {
         final StringBuilder buffer = new StringBuilder();
         final Random rand = new Random();
         final int count = rand.nextInt(11) + 30; // a random size from 30 to 40
         for (int i = 0; i < count; i++) {
-            buffer.append(
-                    MULTIPART_CHARS[rand.nextInt(MULTIPART_CHARS.length)]);
+            buffer.append(MULTIPART_CHARS[rand.nextInt(MULTIPART_CHARS.length)]);
         }
         return buffer.toString();
     }
-    
+
     public static class CountingOutputStream extends FilterOutputStream {
         private final UploadProgressListener progListener;
         private long transferred;
         private long fileLength;
-        
-        public CountingOutputStream(final OutputStream out, long fileLength,
-                final UploadProgressListener listener) {
+
+        public CountingOutputStream(final OutputStream out, long fileLength, final UploadProgressListener listener) {
             super(out);
             this.fileLength = fileLength;
             this.progListener = listener;
             this.transferred = 0;
         }
-        
+
         public void write(byte[] b, int off, int len) throws IOException {
             out.write(b, off, len);
             if (progListener != null) {
                 this.transferred += len;
-                int prog = fileLength <= 0 ? 0
-                        : (int) (transferred * 100 / fileLength);
+                int prog = fileLength <= 0 ? 0 : (int) (transferred * 100 / fileLength);
                 this.progListener.updateProgress(this.transferred, fileLength, prog);
             }
         }
-        
+
         public void write(int b) throws IOException {
             out.write(b);
             // if (progListener != null) {
@@ -232,7 +236,7 @@ public class UploadRequest extends GsonRequest {
             // prog);
             // }
         }
-        
+
         public final void writeBytes(String str) throws IOException {
             if (str.length() == 0) {
                 return;
@@ -242,6 +246,31 @@ public class UploadRequest extends GsonRequest {
                 bytes[index] = (byte) str.charAt(index);
             }
             out.write(bytes, 0, bytes.length);
+        }
+    }
+
+    public static class UploadOption implements java.io.Serializable {
+        public static final int PIC_MAX_WIDTH = 3840;
+        public static final int PIC_MAX_HEIGHT = 2160;
+        public static final long PIC_MAX_LENGTH = 300 << 10; // 200K
+        public static final long PIC_LIMIT_LENGTH_OF_QUICK_COMPRESS = 1 << 20; // 1M
+        public long bitmapMaxLength = PIC_MAX_LENGTH;
+        public long quickCompressLength = PIC_LIMIT_LENGTH_OF_QUICK_COMPRESS;
+        public int quickCompressQuality = 50;
+        public boolean quickCompressEnable = true;
+
+        public boolean scaleEnable = true;
+        public int scaleTargetWidth = 1440;
+        public int scaleTargetHeight = 1440;// over 2160 will be scaled
+
+        public Bitmap.CompressFormat compressFormat = Bitmap.CompressFormat.JPEG;
+        public int compressMinQuality = 20;
+        public int compressQualityStep = 10;
+        public Bitmap.Config bitmapConfig = Bitmap.Config.RGB_565;
+
+        public boolean isScaleEnable(int width, int height) {
+            boolean flag = (scaleEnable && scaleTargetWidth > 0 && scaleTargetHeight > 0);
+            return flag || (width * height > (PIC_MAX_HEIGHT * PIC_MAX_WIDTH));
         }
     }
 }

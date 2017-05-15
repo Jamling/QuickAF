@@ -24,33 +24,30 @@
  * <http://www.apache.org/>.
  *
  */
- 
+
 package cn.ieclipse.af.volley.content;
- 
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.charset.Charset;
- 
+
 /**
  * Binary body part backed by a file.
- *
  * #@see org.apache.http.entity.mime.MultipartEntityBuilder
  *
  * @since 4.0
  */
 public class FileBody extends AbstractContentBody {
- 
+
     private final File file;
     private final String filename;
- 
- 
+
     public FileBody(final File file) {
         this(file, "application/octet-stream", file != null ? file.getName() : null);
     }
- 
+
     /**
      * @since 4.3
      */
@@ -59,20 +56,24 @@ public class FileBody extends AbstractContentBody {
         this.file = file;
         this.filename = filename;
     }
- 
+
     /**
      * @since 4.3
      */
     public FileBody(final File file, final String contentType) {
         this(file, contentType, null);
     }
- 
+
     public InputStream getInputStream() throws IOException {
         return new FileInputStream(this.file);
     }
- 
+
     public void writeTo(final OutputStream out) throws IOException {
-        final InputStream in = new FileInputStream(this.file);
+        writeTo(out, this.file);
+    }
+
+    protected void writeTo(final OutputStream out, File file) throws IOException {
+        final InputStream in = new FileInputStream(file);
         try {
             final byte[] tmp = new byte[4096];
             int l;
@@ -84,21 +85,20 @@ public class FileBody extends AbstractContentBody {
             in.close();
         }
     }
- 
+
     public String getTransferEncoding() {
         return ENC_BINARY;
     }
- 
+
     public long getContentLength() {
         return this.file.length();
     }
- 
+
     public String getFilename() {
         return filename;
     }
- 
+
     public File getFile() {
         return this.file;
     }
- 
 }

@@ -92,7 +92,7 @@ public class UploadActivity2 extends UploadActivity {
         }
         MyUploadController controller = new MyUploadController(this);
         controller.setListener(this);
-        controller.upload(files);
+        controller.upload(null, files);
         sb = new StringBuilder();
         dialog = new ProgressDialog(this);
         dialog.setCanceledOnTouchOutside(true);

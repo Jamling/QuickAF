@@ -34,12 +34,12 @@ import cn.ieclipse.af.BuildConfig;
 import cn.ieclipse.af.util.StringUtils;
 
 /**
- * 类/接口描述
+ * Volley controller to load data(json) from server. The delegate must be extends it.
  *
  * @author Jamling
- * @date 2015年11月7日
+ * @date 2015/11/07
  */
-public class Controller<Listener> {
+public abstract class Controller<Listener> {
     protected RequestQueue mQueue;
     protected List<String> mTaskTags;
     protected Listener mListener;
@@ -47,65 +47,61 @@ public class Controller<Listener> {
     public static boolean DEBUG = Log.isLoggable(TAG, Log.VERBOSE) || BuildConfig.DEBUG;
     public static long CACHE_ADAY = 24 * 3600000;
     public static long CACHE_AMONTH = 30 * 24 * 3600000;
-    
+
     public static void log(String msg) {
         Log.i(TAG, msg);
     }
-    
+
     public static void log(String msg, Throwable t) {
         Log.w(TAG, msg, t);
     }
-    
+
     public Controller() {
         if (VolleyManager.getInstance() == null) {
-            throw new NullPointerException(
-                    "did you forget initialize the VolleyManager?");
+            throw new NullPointerException("did you forget initialize the VolleyManager?");
         }
         mTaskTags = new ArrayList<>();
         mQueue = VolleyManager.getInstance().getQueue();
     }
-    
+
     public void setListener(Listener l) {
         this.mListener = l;
     }
-    
+
     public Controller(Listener l) {
         this();
         setListener(l);
     }
-    
-    protected abstract class RequestObjectTask<Input, Output> implements
-            Response.ErrorListener, Response.Listener<IBaseResponse> {
+
+    protected abstract class RequestObjectTask<Input, Output> implements Response.ErrorListener,
+        Response.Listener<IBaseResponse> {
         protected Class<Output> mDataClazz;
         protected Class<?> mDataItemClass;
         protected Gson mGson = new Gson();
-        
+
         protected Input input;
         private long cacheTime;
         protected GsonRequest request;
-        
+
         /**
          * @param cacheTime
          */
         public void setCacheTime(long cacheTime) {
             this.cacheTime = cacheTime;
         }
-        
+
         /**
          * Perform REST request and convert response 'data' json to an object.
-         * 
-         * @param input
-         *            request object
-         * @param clazz
-         *            response 'data' object class
-         * @param needCache
-         *            need load from cache or not
+         *
+         * @param input     request object
+         * @param clazz     response 'data' object class
+         * @param needCache need load from cache or not
          */
         public void load(Input input, Class<Output> clazz, boolean needCache) {
             assert mListener != null;
             this.input = input;
             this.mDataClazz = clazz;
-            
+
             // get body
             String body = getBody(input);
             if (Controller.DEBUG) {
@@ -121,11 +117,13 @@ public class Controller<Listener> {
             // set request
             Type base = getBaseResponseClass();
             Type type = null;
-            if (mDataClazz != null){
+            if (mDataClazz != null) {
                 type = type(base, mDataClazz);
-            } else if (mDataItemClass != null){
+            }
+            else if (mDataItemClass != null) {
                 type = type(base, type(List.class, mDataItemClass));
-            } else {
+            }
+            else {
                 type = base;
             }
 
@@ -138,30 +136,27 @@ public class Controller<Listener> {
             request.setTag(getClass().getName());
             mQueue.add(request);
         }
-        
+
         /**
          * Perform REST request and convert response 'data' json to
          * {@linkplain java.util.List java.util.List} object.
-         * 
-         * @param input
-         *            request object
-         * @param itemClass
-         *            entity class of {@linkplain java.util.List java.util.List}
-         * @param needCache
-         *            need load from cache or not
+         *
+         * @param input     request object
+         * @param itemClass entity class of {@linkplain java.util.List java.util.List}
+         * @param needCache need load from cache or not
          */
-        public void load2List(Input input, Class<?> itemClass,
-                boolean needCache) {
+        public void load2List(Input input, Class<?> itemClass, boolean needCache) {
             this.mDataItemClass = itemClass;
             load(input, null, needCache);
         }
-        
+
         /**
          * Build full URL, for HTTP GET, we append the request body to URL
          * typically. if your HTTP GET don't is a full URL, need to override and
          * return {@link #getUrl()}
-         * 
+         *
          * @param body
+         *
          * @return full URL, maybe append query to origin {@link #getUrl()}
          */
         protected IUrl buildUrl(String body) {
@@ -171,24 +166,22 @@ public class Controller<Listener> {
             }
             return url;
         }
-        
+
         /**
          * Create volley request, default is {@link GsonRequest}
-         * 
-         * @param url
-         *            full URL see {@link #buildUrl(String)}
-         * @param body
-         *            request body see {@link #getBody(Object)}
+         *
+         * @param url  full URL see {@link #buildUrl(String)}
+         * @param body request body see {@link #getBody(Object)}
+         *
          * @return volley request instance
          */
         protected GsonRequest buildRequest(IUrl url, String body) {
-            return new GsonRequest(url.getMethod(), url.getUrl(), body, this,
-                    this);
+            return new GsonRequest(url.getMethod(), url.getUrl(), body, this, this);
         }
-        
+
         /**
          * Get parameter encoding
-         * 
+         *
          * @return request parameter encoding
          * @see com.android.volley.Request#getParamsEncoding
          */
@@ -197,12 +190,12 @@ public class Controller<Listener> {
             // return request.getParamsEncoding();
             return "UTF-8";
         }
-        
+
         /**
          * Get request body.
-         * 
-         * @param input
-         *            request entity
+         *
+         * @param input request entity
+         *
          * @return encoded body string
          * @see #getParamsEncoding()
          */
@@ -214,7 +207,7 @@ public class Controller<Listener> {
             String body = StringUtils.getRequestBody(input, getParamsEncoding(), true);
             return body;
         }
-        
+
         @Override
         public final void onResponse(IBaseResponse response) {
             Output out = null;
@@ -223,8 +216,7 @@ public class Controller<Listener> {
                     Controller.log("from cache : " + request.intermediate);
                 }
                 if (response == null) {
-                    throw new NullPointerException(
-                        "base response is null, please check your http response.");
+                    throw new NullPointerException("base response is null, please check your http response.");
                 }
                 out = convertData(response, mDataClazz, mDataItemClass);
             } catch (InterceptorError e) {
@@ -245,35 +237,32 @@ public class Controller<Listener> {
             try {
                 onSuccess(out, request.intermediate);
             } catch (Exception e) {
-                onError((e instanceof RestError) ? (RestError) e
-                        : new RestError(new ClientError(e)));
+                onError((e instanceof RestError) ? (RestError) e : new RestError(new ClientError(e)));
             }
         }
-        
+
         @Override
         public void onErrorResponse(VolleyError error) {
             onError(new RestError(error));
         }
-        
+
         /**
          * Intercept 'data' json parser
-         * 
-         * @param response
-         *            the whole response object ({@link IBaseResponse} instance)
+         *
+         * @param response the whole response object ({@link IBaseResponse} instance)
+         *
          * @return true if you want to skip convert 'data' json to object.
          * @throws Exception
          */
-        protected boolean onInterceptor(IBaseResponse response)
-                throws Exception {
+        protected boolean onInterceptor(IBaseResponse response) throws Exception {
             return false;
         }
-        
+
         public Type getBaseResponseClass() {
             return VolleyManager.getConfig().getBaseResponseClass();
         }
-        
-        protected Output convertData(IBaseResponse response, Class<?> clazz,
-                Class<?> itemClazz) throws Exception {
+
+        protected Output convertData(IBaseResponse response, Class<?> clazz, Class<?> itemClazz) throws Exception {
             Output out = null;
             if (!onInterceptor(response)) {
                 boolean baseOutput = false;
@@ -300,36 +289,36 @@ public class Controller<Listener> {
             }
             return out;
         }
-        
+
         public abstract IUrl getUrl();
-        
+
         public abstract void onSuccess(Output out, boolean fromCache);
-        
+
         public abstract void onError(RestError error);
     }
-    
+
     public static ParameterizedType type(final Type raw, final Type... args) {
         return new ParameterizedType() {
             public Type getRawType() {
                 return raw;
             }
-            
+
             public Type[] getActualTypeArguments() {
                 return args;
             }
-            
+
             public Type getOwnerType() {
                 return null;
             }
         };
     }
-    
+
     public static List<Class<?>> getSuperType(Class<?> clazz) {
         List<Class<?>> set = new ArrayList<>();
         getSuperType(clazz, set);
         return set;
     }
-    
+
     private static void getSuperType(Class<?> clazz, List<Class<?>> set) {
         set.add(clazz);
         if (clazz.getSuperclass() != null) {
@@ -340,12 +329,12 @@ public class Controller<Listener> {
             getSuperType(c, set);
         }
     }
-    
+
     private static boolean isIBaseResponse(Class<?> clazz) {
         List<Class<?>> list = getSuperType(clazz);
         return list.contains(IBaseResponse.class);
     }
-    
+
     public void onDestroy() {
         mQueue.cancelAll(new RequestQueue.RequestFilter() {
             @Override

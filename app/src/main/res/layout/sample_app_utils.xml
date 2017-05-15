@@ -13,10 +13,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="System info"/>
+            android:text="System info"
+            android:textColor="@color/colorPrimary"/>
 
         <TextView
             android:id="@+id/tv1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Screen info"
+            android:textColor="@color/colorPrimary"/>
+
+        <TextView
+            android:id="@+id/tv2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
