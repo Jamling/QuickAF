@@ -1,3 +1,2 @@
 include ':app'
-include ':af-library'
-project(':af-library').projectDir = new File(rootDir, 'library')
+include ':library'
