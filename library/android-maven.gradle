@@ -102,10 +102,10 @@ install {
             }
         }
     }
-    repositories.mavenDeployer() {
-        // repository(url: ART_LOCAL_URL)
-        pom.groupId = ART_GROUP
-        pom.artifactId = ART_ARTIFACT
-        pom.version = ART_VER
-    }
+//    repositories.mavenDeployer() {
+//        repository(url: ART_LOCAL_URL)
+//        pom.groupId = ART_GROUP
+//        pom.artifactId = ART_ARTIFACT
+//        pom.version = ART_VER
+//    }
 }
