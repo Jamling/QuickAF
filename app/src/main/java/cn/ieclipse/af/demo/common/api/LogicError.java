@@ -20,28 +20,28 @@ import com.android.volley.VolleyError;
 
 public class LogicError extends VolleyError {
     private static final long serialVersionUID = 7739186324576518504L;
-    private String status;
+    private int code;
     private String desc;
-    
-    public LogicError(NetworkResponse response, String status, String message) {
+
+    public LogicError(NetworkResponse response, int code, String desc) {
         super(response);
-        this.desc = message;
-        this.status = status;
+        this.desc = desc;
+        this.code = code;
     }
-    
+
     /**
-     * 获取服务端返回的status
-     * 
-     * @return
+     * 获取服务端返回的status code
+     *
+     * @return code
      */
-    public String getStatus() {
-        return status;
+    public int getCode() {
+        return code;
     }
-    
+
     /**
      * 获取服务端返回的message
-     * 
-     * @return
+     *
+     * @return message
      */
     public String getDesc() {
         return desc == null ? "null" : desc;

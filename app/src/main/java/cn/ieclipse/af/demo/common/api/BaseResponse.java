@@ -23,49 +23,25 @@ public class BaseResponse<Output> implements IBaseResponse {
     /**
      * 状态码
      */
-    private int status;
+    public int code;
 
     /**
      * 消息
      */
-    private String message;
+    public String message;
 
     /**
      * 数据
      */
-    private Output data;
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
+    public Output data;
 
     public Output getData() {
-//        if (data instanceof String){
-//            return (String) data;
-//        }
-//        return new Gson().toJson(data);
         return data;
-    }
-
-    public void setData(Output data) {
-        this.data = data;
     }
 
     @Override
     public String toString() {
-        return String.format("status=%s, message=%s, data=%s", getStatus(), getMessage(), getData());
+        return String.format("code=%s, message=%s, data=%s", code, message, data);
     }
 
     @Override
@@ -80,5 +56,10 @@ public class BaseResponse<Output> implements IBaseResponse {
             }
         }
         return false;
+    }
+
+    public void mock(){
+        code = 0;
+        message = "Success";
     }
 }

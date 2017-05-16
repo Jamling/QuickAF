@@ -141,7 +141,7 @@ public class NewsController extends Controller<NewsController.NewsListener> {
             if (response instanceof NewsResponse) {
                 NewsResponse resp = (NewsResponse) response;
                 if (resp.code != 200) {
-                    throw new LogicError(null, String.valueOf(resp.errNum), resp.errMsg);
+                    throw new LogicError(null, resp.errNum, resp.errMsg);
                 }
             }
             return false;

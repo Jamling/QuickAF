@@ -168,8 +168,8 @@ public class LoginActivity extends BaseActivity implements LoginController.Login
     @Override
     public void onLoginCodeSuccess(BaseResponse out) {
         String msg = getString(R.string.reg_code_sent);
-        if (out != null && !TextUtils.isEmpty(out.getMessage())) {
-            msg = out.getMessage();
+        if (out != null && !TextUtils.isEmpty(out.message)) {
+            msg = out.message;
         }
         DialogUtils.showToast(this, msg);
     }
