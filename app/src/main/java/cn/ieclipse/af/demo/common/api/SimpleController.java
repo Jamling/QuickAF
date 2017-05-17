@@ -15,6 +15,9 @@
  */
 package cn.ieclipse.af.demo.common.api;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+
 import cn.ieclipse.af.volley.IUrl;
 import cn.ieclipse.af.volley.RestError;
 
@@ -24,15 +27,31 @@ import cn.ieclipse.af.volley.RestError;
  * @author Jamling
  */
 
-public class SimpleController<Output> extends AppController<SimpleController.SimpleListener> {
-    public SimpleController(SimpleListener l) {
+public class SimpleController<Output> extends AppController<SimpleController.SimpleListener<Output>> {
+    private Class<Output> clazz;
+
+    public SimpleController(SimpleListener<Output> l) {
         super(l);
+        ParameterizedType type = (ParameterizedType) l.getClass().getGenericInterfaces()[0];
+        Type atype = type.getActualTypeArguments()[0];
+        if (atype instanceof Class) {
+            clazz = (Class<Output>) atype;
+        }
+        else if (atype instanceof ParameterizedType) {
+            clazz = (Class<Output>) ((ParameterizedType) atype).getActualTypeArguments()[0];
+        }
     }
 
-    public void load(URLConst.Url url, Object req, Class<Output> outputClass) {
+    private void load(URLConst.Url url, Object req, Class<Output> outputClass) {
         SimpleTask task = new SimpleTask();
         task.setUrl(url);
         task.load(req, outputClass, false);
+    }
+
+    private void load(URLConst.Url url, Object req) {
+        SimpleTask task = new SimpleTask();
+        task.setUrl(url);
+        task.load(req, false);
     }
 
     public interface SimpleListener<Output> {
@@ -66,12 +85,38 @@ public class SimpleController<Output> extends AppController<SimpleController.Sim
 
         @Override
         protected void mock() {
-            mListener.onSuccess(mockOutput(0));
+            mListener.onSuccess(mockOutput(10));
         }
     }
 
-    public static <Output> void request(URLConst.Url url, Object req, Class<Output> clazz, SimpleListener listener) {
-        SimpleController<Output> controller = new SimpleController<>(listener);
-        controller.load(url, req, clazz);
+//    public static <Output> void request(URLConst.Url url, Object req, Class<Output> clazz, SimpleListener listener) {
+//        SimpleController controller = new SimpleController(listener);
+//        controller.setUrl(url);
+//        controller.load(url, req, clazz);
+//    }
+//
+//    public static <Output> SimpleController request(URLConst.Url url, SimpleListener<Output> listener){
+//        SimpleController controller = new SimpleController(listener);
+//        controller.setUrl(url);
+//        return controller;
+//    }
+
+    private URLConst.Url url;
+
+    public SimpleController<Output> setUrl(URLConst.Url url) {
+        this.url = url;
+        return this;
+    }
+
+    public void load(Object req) {
+        SimpleTask task = new SimpleTask();
+        task.setUrl(url);
+        task.load(req, clazz, false);
+    }
+
+    public void load2List(Object req) {
+        SimpleTask task = new SimpleTask();
+        task.setUrl(url);
+        task.load2List(req, clazz, false);
     }
 }

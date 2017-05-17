@@ -68,7 +68,7 @@ public class WeatherController extends AppController<WeatherController.WeatherLi
             if (response instanceof WeatherBaseResponse) {
                 WeatherBaseResponse resp = (WeatherBaseResponse) response;
                 if (resp.errNum != 0) {
-                    throw new LogicError(null, String.valueOf(resp.errNum), resp.errMsg);
+                    throw new LogicError(null, resp.errNum, resp.errMsg);
                 }
             }
             return false;
@@ -104,7 +104,7 @@ public class WeatherController extends AppController<WeatherController.WeatherLi
             if (response instanceof WeatherBaseResponse) {
                 WeatherBaseResponse resp = (WeatherBaseResponse) response;
                 if (resp.errNum != 0) {
-                    throw new LogicError(null, String.valueOf(resp.errNum), resp.errMsg);
+                    throw new LogicError(null, resp.errNum, resp.errMsg);
                 }
             }
             return false;

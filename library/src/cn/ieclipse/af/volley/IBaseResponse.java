@@ -17,10 +17,14 @@ package cn.ieclipse.af.volley;
 
 /**
  * The REST response top object interface.
- * 
+ *
  * @author Jamling
- *       
  */
-public interface IBaseResponse<Output> extends java.io.Serializable{
+public interface IBaseResponse<Output> extends java.io.Serializable {
+    /**
+     * Return the business data object
+     *
+     * @return concrete business data
+     */
     Output getData();
 }

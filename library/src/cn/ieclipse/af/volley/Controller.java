@@ -138,6 +138,40 @@ public abstract class Controller<Listener> {
         }
 
         /**
+         * Perform REST request and convert response 'data' json to an object or list.
+         *
+         * @param input     request object
+         * @param needCache need load from cache or not
+         *
+         * @see #load(Object, Class, boolean)
+         * @see #load2List(Object, Class, boolean)
+         * @since 2.1.0
+         */
+        public void load(Input input, boolean needCache) {
+            Type type = this.getClass().getGenericSuperclass();
+            if (type instanceof ParameterizedType) {
+                type = ((ParameterizedType) type).getActualTypeArguments()[1];
+                if (type instanceof Class) {
+                    load(input, (Class<Output>) type, needCache);
+                }
+                else if (type instanceof ParameterizedType) {
+                    type = ((ParameterizedType) type).getActualTypeArguments()[0];
+                    load2List(input, (Class<?>) type, needCache);
+                }
+                else {
+                    Controller.log(String
+                            .format("The type(%s) defined in task(%s) is not a concrete class type", type, getClass()),
+                        null);
+                }
+            }
+            else {
+                Controller.log(
+                    String.format("The type(%s) defined in task(%s) is not a concrete class type", type, getClass()),
+                    null);
+            }
+        }
+
+        /**
          * Perform REST request and convert response 'data' json to
          * {@linkplain java.util.List java.util.List} object.
          *

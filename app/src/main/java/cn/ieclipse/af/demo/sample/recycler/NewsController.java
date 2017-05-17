@@ -48,7 +48,9 @@ public class NewsController extends Controller<NewsController.NewsListener> {
 
     public void loadNews(NewsRequest req, boolean needCache) {
         ListTask task = new ListTask();
-        task.load2List(req, NewsInfo.class, needCache);
+        // task.load2List(req, NewsInfo.class, needCache);
+        // since 2.1.0 use new API
+        task.load(req, needCache);
     }
 
     public interface NewsListener {

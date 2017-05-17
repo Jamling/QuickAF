@@ -45,7 +45,7 @@ public class VolleyFragment extends ButtonListFragment {
     @Override
     protected Class[] getActivities() {
         return new Class[]{WeatherActivity.class, UploadActivity.class, UploadActivity2.class, AdapterDemoActivity
-            .class};
+            .class, SimpleControllerSample.class};
     }
 
     @Override
