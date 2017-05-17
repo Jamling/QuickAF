@@ -32,10 +32,7 @@ public final class VolleyConfig {
     private RetryPolicy mRetryPolicy;
     
     private VolleyConfig(Builder builder) {
-        if (builder.mHttpStack == null) {
-            // TODO set default http stack
-            mHttpStack = null;
-        }
+        mHttpStack = builder.mHttpStack;
         mMaxDiskCacheBytes = builder.mMaxDiskCacheBytes;
         mBaseResponseClass = builder.mBaseResponseClass;
         mRetryPolicy = builder.mRetryPolicy;
