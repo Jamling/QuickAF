@@ -5,10 +5,10 @@
 //    }
 //}
 
+group = project.property('ART_GROUP')
+version = project.property('ART_VER')
 project.ext {
     name = project.property('ART_ARTIFACT')
-    group = project.property('ART_GROUP')
-    version = project.property('ART_VER')
     artifactId = project.property('ART_ARTIFACT')
     archivesBaseName = project.property('ART_ARTIFACT')
 }
@@ -69,12 +69,13 @@ task findConventions << {
 }
 
 install {
-    println(artifactId)
     repositories.mavenInstaller {
         // This generates POM.xml with proper parameters
         pom {
             project {
-                // artifactId project.property('ART_ARTIFACT')
+                groupId project.property('ART_GROUP')
+                artifactId project.property('ART_ARTIFACT')
+                version project.property('ART_VER')
                 packaging ART_PKG
                 // Add your description here
                 name project.property('PRJ_NAME')
@@ -102,10 +103,10 @@ install {
             }
         }
     }
-//    repositories.mavenDeployer() {
-//        repository(url: ART_LOCAL_URL)
-//        pom.groupId = ART_GROUP
-//        pom.artifactId = ART_ARTIFACT
-//        pom.version = ART_VER
-//    }
+    repositories.mavenDeployer() {
+        repository(url: ART_LOCAL_URL)
+        pom.groupId = ART_GROUP
+        pom.artifactId = ART_ARTIFACT
+        pom.version = ART_VER
+    }
 }

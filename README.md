@@ -19,7 +19,7 @@ An Android framework library and demo to help you building your app quickly.
 
 ```gradle
 dependencies {
-    compile 'cn.ieclipse.af:af-library:2.0.2'
+    compile 'cn.ieclipse.af:af-library:2.1.0'
 }
 android {
     // for target api >= 23 (Android 6.0)
