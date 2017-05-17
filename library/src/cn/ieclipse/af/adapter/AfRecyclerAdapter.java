@@ -113,12 +113,16 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
 
     public void add(T data) {
         mDataHolder.add(data);
-        notifyItemInserted(getHeaderCount() + mDataHolder.getCount());
+        int pos = getHeaderCount() + mDataHolder.getCount();
+        notifyItemInserted(pos);
+        notifyItemChanged(pos);
     }
 
     public void add2Top(T data) {
         mDataHolder.add2Top(data);
-        notifyItemInserted(getHeaderCount());
+        int pos = getHeaderCount();
+        notifyItemInserted(pos);
+        notifyDataSetChanged();
     }
 
     public void add2Top(List<T> list) {
@@ -161,7 +165,9 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
         // 删除后不为空，更新item
         if (mDataHolder.getCount() > 0) {
             if (obj != null) {
-                notifyItemRemoved(isLayoutPosition ? position : position + getHeaderCount());
+                int pos = isLayoutPosition ? position : position + getHeaderCount();
+                notifyItemRemoved(pos);
+                notifyItemRangeChanged(pos, getItemCount());
             }
         }
         else {
