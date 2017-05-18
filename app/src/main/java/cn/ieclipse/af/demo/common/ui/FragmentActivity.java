@@ -61,9 +61,12 @@ public class FragmentActivity extends BaseActivity {
     protected void initIntent(Bundle bundle) {
         super.initIntent(bundle);
         setShowTitleBar(bundle.getBoolean(EXTRA_SHOW_TITLE, true));
-        //fragmentClass = (Class<?>) bundle.getSerializable(EXTRA_FRAGMENT);
-        //bundle.remove(EXTRA_FRAGMENT);
-        //fragmentName = getIntent().getAction();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean(EXTRA_SHOW_TITLE, isShowTitleBar());
+        super.onSaveInstanceState(outState);
     }
 
     public static void startFragment(Context context, @NonNull Class<? extends Fragment> fragmentClass) {
@@ -79,5 +82,13 @@ public class FragmentActivity extends BaseActivity {
         }
         intent.setClass(context, FragmentActivity.class);
         context.startActivity(intent);
+    }
+
+    public static Intent create(Context context, @NonNull Class<? extends Fragment> fragmentClass, boolean
+        showTitleBar) {
+        Intent intent = new Intent(context, FragmentActivity.class);
+        intent.setAction(fragmentClass.getName());
+        intent.putExtra(EXTRA_SHOW_TITLE, showTitleBar);
+        return intent;
     }
 }

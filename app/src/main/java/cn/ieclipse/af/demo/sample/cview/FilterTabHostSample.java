@@ -16,6 +16,8 @@
 package cn.ieclipse.af.demo.sample.cview;
 
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -90,5 +92,21 @@ public class FilterTabHostSample extends SampleBaseFragment {
 
         mFilterLayout.init(mFilterViews);
         mFilterLayout.setAnimationStyle(R.style.anim_slide_top);
+    }
+
+    @Override
+    protected void initBottomView() {
+        super.initBottomView();
+        CheckBox btn = new CheckBox(getActivity());
+        btn.setText("Dim window?");
+        btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (mFilterLayout != null) {
+                    mFilterLayout.setDimWindow(isChecked);
+                }
+            }
+        });
+        mBottomBar.addView(btn);
     }
 }

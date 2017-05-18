@@ -299,8 +299,9 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
             int c2 = (int) (mDimAlpha * 0xff);
             c2 = c2 << 24;
             bgTransitionDrawable = new TransitionDrawable(
-                new Drawable[]{new ColorDrawable(0x0), new ColorDrawable(c2)});
+                new Drawable[]{new ColorDrawable(0), new ColorDrawable(c2)});
             mPopupWindow.setBackgroundDrawable(bgTransitionDrawable);
+            mPopupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
         }
         // PopupUtils.setModal(mPopupWindow, false);
     }
@@ -354,7 +355,9 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
             PopupUtils.showAsDropDown(mPopupWindow, mSelectedTab, mOffset.x, mOffset.y);
             if (enterAnimation != null) {
                 content.startAnimation(enterAnimation);
-                bgTransitionDrawable.startTransition((int) enterAnimation.getDuration());
+                if (bgTransitionDrawable != null) {
+                    bgTransitionDrawable.startTransition((int) enterAnimation.getDuration());
+                }
             }
         }
     }
@@ -364,7 +367,9 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
      */
     public void hidePopup() {
         if (exitAnimation != null) {
-            bgTransitionDrawable.reverseTransition((int) enterAnimation.getDuration());
+            if (bgTransitionDrawable != null) {
+                bgTransitionDrawable.reverseTransition((int) enterAnimation.getDuration());
+            }
             if (mContent != null) {
                 mContent.startAnimation(exitAnimation);
                 exitAnimation.setAnimationListener(new Animation.AnimationListener() {

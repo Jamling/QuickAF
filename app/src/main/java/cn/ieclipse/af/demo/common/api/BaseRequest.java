@@ -15,8 +15,9 @@
  */
 package cn.ieclipse.af.demo.common.api;
 
+import android.os.Build;
+
 import java.lang.reflect.Field;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -30,8 +31,17 @@ public class BaseRequest implements java.io.Serializable {
     public String version;
     public String uuid;
 
+    private Map<String, Object> generateMap() {
+        if (Build.VERSION.SDK_INT >= 19) {
+            return new android.util.ArrayMap<>();
+        }
+        else {
+            return new android.support.v4.util.ArrayMap<>();
+        }
+    }
+
     public Map<String, Object> toMap() {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = generateMap();
         Field[] field = getClass().getFields();
 
         for (int i = 0; i < field.length && field.length > 0; ++i) {

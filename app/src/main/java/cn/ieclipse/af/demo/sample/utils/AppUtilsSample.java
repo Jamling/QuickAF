@@ -1,6 +1,7 @@
 package cn.ieclipse.af.demo.sample.utils;
 
 import android.app.ActivityManager;
+import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.View;
 
@@ -34,7 +35,10 @@ public class AppUtilsSample extends SampleBaseFragment {
         String amMem = String.format("os memory, total=%s,available=%s, used=%s%%",
             FileUtil.formatFileSize(memoryInfo.totalMem), FileUtil.formatFileSize(memoryInfo.availMem),
             (memoryInfo.totalMem - memoryInfo.availMem) * 100 / memoryInfo.totalMem);
-        tv1.setText(String.format("%s\n%s\n%s", sys, runtime, amMem));
+        ActivityManager am = (ActivityManager) view.getContext().getSystemService(Context.ACTIVITY_SERVICE);
+        String memClass = String.format("memoryClass=%dM, largeMemoryClass=%dM", am.getMemoryClass(), am
+            .getLargeMemoryClass());
+        tv1.setText(String.format("%s\n%s\n%s\n%s", sys, runtime, amMem, memClass));
 
         DisplayMetrics dm = AppUtils.getDisplayMetrics(getActivity());
         String screen = String.format(
