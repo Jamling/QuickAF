@@ -1,5 +1,6 @@
 package cn.ieclipse.af.volley;
 
+import com.android.volley.toolbox.HurlStack;
 import com.google.gson.Gson;
 
 import junit.framework.Assert;
@@ -24,7 +25,7 @@ public class ControllerTest {
     @Test
     public void testLoad() {
         VolleyManager.init(new MockContext(), new VolleyConfig.Builder().setBaseResponseClass(BaseResponse.class)
-            .setHttpStack(new OkHttpStack()).build());
+            .setHttpStack(new HurlStack()).build());
         MockController.MockListener listener = new MockController.MockListener() {
 
             @Override
