@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.ieclipse.af.volley;
+package cn.ieclipse.af.demo.sample.third;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -40,24 +40,24 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
 /**
- * Volley + OKHttp, need new {@link OkHttpStack} and set to {@link VolleyConfig}
+ * Volley + OKHttp, need new {@link OkHttp3Stack} and set to {@link cn.ieclipse.af.volley.VolleyConfig}
  *
  * @author Jamling
  * @date 2015/10/28.
  */
-public class OkHttpStack implements HttpStack {
+public class OkHttp3Stack implements HttpStack {
     private final OkHttpClient mClient;
 
-    public OkHttpStack(OkHttpClient client) {
+    public OkHttp3Stack(OkHttpClient client) {
         this.mClient = client;
     }
 
-    public OkHttpStack() {
+    public OkHttp3Stack() {
         this(new OkHttpClient());
     }
 
     @Override
-    public HttpResponse performRequest(com.android.volley.Request<?> request,
+    public HttpResponse performRequest(Request<?> request,
                                        Map<String, String> additionalHeaders) throws IOException, AuthFailureError {
 
         OkHttpClient client = mClient;
@@ -115,7 +115,7 @@ public class OkHttpStack implements HttpStack {
 
     @SuppressWarnings("deprecation")
     private static void setConnectionParametersForRequest(okhttp3.Request.Builder builder,
-                                                          com.android.volley.Request<?> request) throws IOException, AuthFailureError {
+                                                          Request<?> request) throws IOException, AuthFailureError {
         switch (request.getMethod()) {
             case Request.Method.DEPRECATED_GET_OR_POST:
                 // Ensure backwards compatibility.  Volley assumes a request with a null body is a GET.

@@ -68,7 +68,7 @@ dependencies {
     compile("com.timehop.stickyheadersrecyclerview:library:0.4.3") {
         exclude group: 'com.android.support'//, module: 'support-v4'
     }
-    compile ('com.google.android:flexbox:0.1.2') {
+    compile('com.google.android:flexbox:0.1.2') {
         exclude group: 'com.android.support'
     }
     compile "com.android.support:design:${supportLibVersion}"
@@ -82,7 +82,9 @@ dependencies {
     // target sdk >= 23
     compile 'com.yanzhenjie:permission:1.0.5'
     // af-pay
-    compile ('com.github.Jamling:af-pay:master-SNAPSHOT')
+    compile('com.github.Jamling:af-pay:master-SNAPSHOT')
     // photo view
     compile 'com.github.chrisbanes:PhotoView:2.0.0'
+    // ok http
+    // compile 'com.squareup.okhttp3:okhttp:3.8.0'
 }

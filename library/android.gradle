@@ -37,13 +37,14 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
+    // used for test
     useLibrary('org.apache.http.legacy')
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    testCompile 'com.squareup.okhttp3:okhttp:3.8.0'
+//    testCompile 'com.squareup.okhttp3:okhttp:3.8.0'
     compile "com.android.support:recyclerview-v7:${supportLibVersion}"
     compile "com.android.support:support-core-ui:${supportLibVersion}"
     compile 'com.google.code.gson:gson:2.3.1'
