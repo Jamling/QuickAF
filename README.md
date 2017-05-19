@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/Jamling/QuickAF.svg?branch=master)](https://travis-ci.org/Jamling/QuickAF)
 [![GitHub release](https://img.shields.io/github/release/jamling/QuickAF.svg?maxAge=3600)](https://github.com/Jamling/QuickAF)
 [![Bintray](https://img.shields.io/bintray/v/jamling/maven/cn.ieclipse.af.svg?maxAge=86400)](https://bintray.com/jamling/maven/cn.ieclipse.af)
+[![Release](https://jitpack.io/v/Jamling/QuickAF.svg)](https://jitpack.io/#Jamling/QuickAF)
 
 
 An Android framework library and demo to help you building your app quickly.

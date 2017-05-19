@@ -40,7 +40,7 @@ import java.lang.reflect.Method;
 /**
  * Class to manage status and navigation bar tint effects when using KitKat
  * translucent system UI modes.
- * see <a href="https://github.com/hexiaochun/SystemBarTint">https://github.com/hexiaochun/SystemBarTint</a>
+ * see <a href="https://github.com/jgilfelt/SystemBarTint">https://github.com/jgilfelt/SystemBarTint</a>
  */
 public class SystemBarTintManager {
     
