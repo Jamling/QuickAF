@@ -16,8 +16,8 @@
 package cn.ieclipse.af.demo.common.ui;
 
 import android.app.DialogFragment;
+import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -41,6 +41,7 @@ public abstract class BaseFragment extends AfFragment implements View.OnClickLis
 
     protected TextView mTitleLeftView;
     protected TextView mTitleTextView;
+
     protected abstract int getContentLayout();
 
     @Override
@@ -72,6 +73,14 @@ public abstract class BaseFragment extends AfFragment implements View.OnClickLis
     }
 
     @Override
+    protected void initInitData() {
+        super.initInitData();
+        if (!getBaseActivity().isShowTitleBar()) {
+            setShowTitleBar(true);
+        }
+    }
+
+    @Override
     protected void initIntent(Bundle bundle) {
         super.initIntent(bundle);
     }
@@ -87,11 +96,11 @@ public abstract class BaseFragment extends AfFragment implements View.OnClickLis
 
         int padding = AppUtils.dp2px(mTitleBar.getContext(), 8);
         mTitleBar.setPadding(padding, 0, padding, 0);
-        if (!isOverlay())
-        {
+        if (!isOverlay()) {
             mTitleBar.setBackgroundColor(AppUtils.getColor(mTitleBar.getContext(), R.color.colorPrimary));
             mTitleBar.setBottomDrawable(AppUtils.getColor(mTitleBar.getContext(), R.color.divider));
         }
+        mTitleTextView.setText(getTitle());
         setOnClickListener(mTitleLeftView);
     }
 
@@ -106,6 +115,7 @@ public abstract class BaseFragment extends AfFragment implements View.OnClickLis
     public void showLoadingDialog() {
         showLoadingDialog(getString(R.string.common_loading));
     }
+
     public void showLoadingDialog(final String message) {
         hideLoadingDialog();
         mLoadingDialog = DialogUtils.showProgress(getActivity(), android.R.style.Widget_Holo_Light_ProgressBar_Large,
@@ -118,7 +128,7 @@ public abstract class BaseFragment extends AfFragment implements View.OnClickLis
         }
     }
 
-    public void toastError(RestError error){
+    public void toastError(RestError error) {
         hideLoadingDialog();
         VolleyUtils.toastError(getActivity(), error);
     }
@@ -129,9 +139,9 @@ public abstract class BaseFragment extends AfFragment implements View.OnClickLis
         return activity.createRightIcon(icon);
     }
 
-    protected ImageView createRightIcon(int icon, boolean add){
+    protected ImageView createRightIcon(int icon, boolean add) {
         ImageView iv = createRightIcon(icon);
-        if (add){
+        if (add) {
             mTitleBar.addRight(iv);
         }
         setOnClickListener(iv);
@@ -146,29 +156,25 @@ public abstract class BaseFragment extends AfFragment implements View.OnClickLis
 
     protected TextView createRightText(String text, boolean add) {
         TextView tv = createRightText(text);
-        if (add){
+        if (add) {
             mTitleBar.addRight(tv);
         }
         setOnClickListener(tv);
         return tv;
     }
 
-    protected BaseActivity getBaseActivity(){
-        if (getActivity() instanceof BaseActivity){
+    protected BaseActivity getBaseActivity() {
+        if (getActivity() instanceof BaseActivity) {
             return (BaseActivity) getActivity();
         }
         return null;
     }
 
-    public CharSequence getTitle(){
+    public CharSequence getTitle() {
         return getClass().getSimpleName();
     }
 
-    public void startFragment(String fragmentClass){
+    public void startFragment(Class<? extends Fragment> fragmentClass) {
         getBaseActivity().startFragment(fragmentClass);
-    }
-
-    public void startFragment(Intent intent){
-        getBaseActivity().startFragment(intent);
     }
 }

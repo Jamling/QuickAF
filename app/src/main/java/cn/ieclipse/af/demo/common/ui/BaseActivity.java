@@ -74,12 +74,11 @@ public abstract class BaseActivity extends AfActivity implements View.OnClickLis
 
         int padding = AppUtils.dp2px(this, 8);
         mTitleBar.setPadding(padding, 0, padding, 0);
-        if(!isOverlay()){
+        if (!isOverlay()) {
             mTitleBar.setBackgroundColor(getStatusBarColor());
             // mTitleBar.setBottomDrawable(AppUtils.getColor(this, R.color.divider));
         }
         setOnClickListener(mTitleLeftView);
-
     }
 
     protected void initData() {
@@ -99,9 +98,9 @@ public abstract class BaseActivity extends AfActivity implements View.OnClickLis
         return iv;
     }
 
-    protected ImageView createRightIcon(int icon, boolean add){
+    protected ImageView createRightIcon(int icon, boolean add) {
         ImageView iv = createRightIcon(icon);
-        if (add){
+        if (add) {
             mTitleBar.addRight(iv);
         }
         setOnClickListener(iv);
@@ -117,7 +116,7 @@ public abstract class BaseActivity extends AfActivity implements View.OnClickLis
 
     protected TextView createRightText(String text, boolean add) {
         TextView tv = createRightText(text);
-        if (add){
+        if (add) {
             mTitleBar.addRight(tv);
         }
         setOnClickListener(tv);
@@ -184,18 +183,21 @@ public abstract class BaseActivity extends AfActivity implements View.OnClickLis
         }
     }
 
-    public void toastError(RestError error){
+    public void toastError(RestError error) {
         hideLoadingDialog();
         VolleyUtils.toastError(this, error);
     }
 
-    public void startFragment(String fragmentClass){
-        Intent intent = new Intent(fragmentClass);
-        startFragment(intent);
-    }
-
-    public void startFragment(Intent intent){
-        FragmentActivity.startFragment(this, intent);
+    /**
+     * Start {@link cn.ieclipse.af.demo.common.ui.FragmentActivity} with a {@link android.app.Fragment}
+     *
+     * @param fragmentClass class of {@link android.app.Fragment}
+     *
+     * @since 2.1.1
+     */
+    public void startFragment(Class<? extends Fragment> fragmentClass) {
+        Intent intent = FragmentActivity.create(this, fragmentClass, false);
+        startActivity(intent);
     }
 
     /**
@@ -204,8 +206,7 @@ public abstract class BaseActivity extends AfActivity implements View.OnClickLis
      * tAct = (TagsActivity)getActivity(); tAct.pushFragments(newFragment, true,
      * true, null);
      */
-    public void pushFragments(Fragment fragment, boolean shouldAnimate,
-                              boolean shouldAdd, String tag) {
+    public void pushFragments(Fragment fragment, boolean shouldAnimate, boolean shouldAdd, String tag) {
         FragmentManager manager = getFragmentManager();// getFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
         if (shouldAnimate) {
@@ -223,7 +224,8 @@ public abstract class BaseActivity extends AfActivity implements View.OnClickLis
              * ft.addToBackStack("name of your backstack");
              */
             ft.addToBackStack(null);
-        } else {
+        }
+        else {
             /*
              * and remove named backstack:
              * manager.popBackStack("name of your backstack",

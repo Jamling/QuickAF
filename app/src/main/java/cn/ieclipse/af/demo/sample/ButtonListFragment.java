@@ -100,7 +100,7 @@ public class ButtonListFragment extends BaseFragment {
                 if (getActivity() instanceof SampleBaseActivity){
                     ((SampleBaseActivity) getActivity()).pushFragments(f, true, true, null);
                 } else {
-                    startFragment(cls.getName());
+                    startFragment(cls);
                 }
             } catch (Exception e){
                 DialogUtils.showToast(getActivity(), "can't add fragment:" + cls);

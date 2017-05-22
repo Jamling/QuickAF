@@ -71,6 +71,10 @@ public abstract class SampleBaseFragment extends BaseFragment implements Adapter
     protected CompoundButton chk5;
     protected CompoundButton chk6;
 
+    @Override
+    public CharSequence getTitle() {
+        return super.getTitle();
+    }
 
     @Override
     protected void initContentView(View view) {

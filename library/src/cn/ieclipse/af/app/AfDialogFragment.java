@@ -15,6 +15,7 @@
  */
 package cn.ieclipse.af.app;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -22,6 +23,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -149,6 +151,35 @@ public abstract class AfDialogFragment<DialogListener> extends DialogFragment im
 
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         show(ft, tag);
+    }
+
+    /**
+     * Show {@link android.app.DialogFragment} to a fragment
+     *
+     * @param fragment {@link android.app.Fragment}
+     * @param showAdd  add to {@link android.app.FragmentManager.BackStackEntry } or not, default false
+     *
+     * @since 2.1.1
+     */
+    public void show(Fragment fragment, boolean showAdd) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            show(fragment.getChildFragmentManager(), showAdd);
+        }
+        else {
+            show(fragment.getFragmentManager(), showAdd);
+        }
+    }
+
+    /**
+     * Show {@link android.app.DialogFragment} to an activity
+     *
+     * @param activity {@link android.app.Activity}
+     * @param showAdd  add to {@link android.app.FragmentManager.BackStackEntry } or not, default false
+     *
+     * @since 2.1.1
+     */
+    public void show(Activity activity, boolean showAdd) {
+        show(activity.getFragmentManager(), showAdd);
     }
 
     protected void setOnClickListener(View... views) {

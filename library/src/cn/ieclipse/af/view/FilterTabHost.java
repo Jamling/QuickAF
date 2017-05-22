@@ -26,6 +26,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,19 +54,19 @@ import cn.ieclipse.af.util.PopupUtils;
  * @author Jamling
  */
 public class FilterTabHost extends FlowLayout implements View.OnClickListener, PopupWindow.OnDismissListener {
-    
+
     private static final String TAG_TAB = "FilterTabView.Tab";
     private static final String TAG_PW_BG = "FilterTabView.PW.BG";
     /**
      * Current selected tab item.
      */
     private View mSelectedTab;
-    
+
     /**
      * The tab item layout resource
      */
     private int mTabLayoutRes;
-    
+
     /**
      * The {@link cn.ieclipse.af.view.FilterTabView} (as the content view of popup window) collections.
      */
@@ -74,7 +75,7 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
      * The popup window to show the {@link cn.ieclipse.af.view.FilterTabView}.
      */
     private PopupWindow mPopupWindow;
-    
+
     /**
      * The {@link android.widget.PopupWindow} content view ({@link cn.ieclipse.af.view.FilterTabView})
      * show/hide animation style.
@@ -82,30 +83,30 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
     private int mAnimationStyle;
     private Animation enterAnimation;
     private Animation exitAnimation;
-    
+
     private Animator bgEnterAnimator;
     private Animation bgExitAnimator;
     private TransitionDrawable bgTransitionDrawable;
-    
+
     private boolean mDimWindow;
     private float mDimAlpha = .5f;
     private Point mOffset = new Point(0, 0);
     private ViewGroup mContentWrapper;
     private View mContent;
-    
+
     public FilterTabHost(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
-    
+
     public FilterTabHost(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
-    
+
     public FilterTabHost(Context context) {
         this(context, null);
     }
-    
+
     private void init(Context context, AttributeSet attrs) {
         if (attrs != null) {
             TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.FilterTabHost);
@@ -114,7 +115,7 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
         }
         mOffset.y = getVerticalDividerHeight();
     }
-    
+
     /**
      * Initialize with the {@link cn.ieclipse.af.view.FilterTabView} collections
      *
@@ -129,7 +130,7 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
         for (int i = 0; i < filterTabViews.size(); i++) {
             FilterTabView filterTabView = filterTabViews.get(i);
             mFilterTabViews.add(filterTabView);
-            
+
             // 设置tab
             if (mTabLayoutRes > 0) {
                 View tabItem = inflater.inflate(mTabLayoutRes, this, false);
@@ -137,20 +138,20 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
             }
         }
     }
-    
+
     public void addTab(FilterTabView tabView, View tabItem) {
         mFilterTabViews.add(tabView);
         addChild(tabItem, tabView.getTitle());
         setNumColumns(mFilterTabViews.size());
     }
-    
+
     protected void addChild(View tabItem, CharSequence title) {
         tabItem.setTag(TAG_TAB);
         tabItem.setOnClickListener(this);
         setTabText(tabItem, title);
         addView(tabItem);
     }
-    
+
     /**
      * Set the text of tab
      *
@@ -162,7 +163,7 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
             ((TextView) view).setText(text);
         }
     }
-    
+
     @Override
     public void onClick(View view) {
         Object tag = view.getTag();
@@ -174,11 +175,11 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
             hidePopup();
         }
     }
-    
+
     public void setTabLayout(int layoutId) {
         this.mTabLayoutRes = layoutId;
     }
-    
+
     public void setAnimationStyle(int style) {
         this.mAnimationStyle = style;
         if (mAnimationStyle > 0) {
@@ -196,7 +197,7 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
             }
             array.recycle();
         }
-        
+
         if (enterAnimation != null) {
             bgEnterAnimator = ValueAnimator.ofInt(255, (int) (255 * mDimAlpha));
             bgEnterAnimator.setDuration(enterAnimation.getDuration());
@@ -206,13 +207,13 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
             bgExitAnimator.setDuration(exitAnimation.getDuration());
         }
     }
-    
+
     protected void setTabChecked(boolean checked) {
         if (mSelectedTab != null && mSelectedTab instanceof Checkable) {
             ((Checkable) mSelectedTab).setChecked(checked);
         }
     }
-    
+
     public void setTabChecked(int index, boolean checked) {
         if (mFilterTabViews == null) {
             return;
@@ -225,7 +226,7 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
             }
         }
     }
-    
+
     public void setTabChecked(FilterTabView tabView, boolean checked) {
         if (mFilterTabViews == null) {
             return;
@@ -237,7 +238,7 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
             }
         }
     }
-    
+
     protected void setWindowAlpha(float alpha) {
         if (mDimWindow && getContext() instanceof Activity) {
             Window window = ((Activity) getContext()).getWindow();
@@ -247,7 +248,7 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
             window.setAttributes(lp);
         }
     }
-    
+
     /**
      * Set dim window or not, if dim
      *
@@ -256,7 +257,7 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
     public void setDimWindow(boolean dim) {
         this.mDimWindow = dim;
     }
-    
+
     /**
      * Set dim alpha when {@link #setDimWindow(boolean)} set true
      *
@@ -265,12 +266,12 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
     public void setDimAlpha(float alpha) {
         this.mDimAlpha = alpha;
     }
-    
+
     public void setPopupOffset(int x, int y) {
         mOffset.x = x;
         mOffset.y = y;
     }
-    
+
     @Override
     public void onDismiss() {
         for (int i = 0; i < getChildCount(); i++) {
@@ -282,14 +283,14 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
         // setTabChecked(false);
         setWindowAlpha(1f);
     }
-    
+
     protected void initPopupWindow(View contentView) {
         mPopupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT);
         /** 监听popupWindow的收缩*/
         mPopupWindow.setOnDismissListener(this);
         // mPopupWindow.setAnimationStyle(0);
-        
+
         mPopupWindow.setFocusable(true);
         mPopupWindow.setOutsideTouchable(true);
         if (mDimWindow) {
@@ -298,14 +299,13 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
         else {
             int c2 = (int) (mDimAlpha * 0xff);
             c2 = c2 << 24;
-            bgTransitionDrawable = new TransitionDrawable(
-                new Drawable[]{new ColorDrawable(0), new ColorDrawable(c2)});
+            bgTransitionDrawable = new TransitionDrawable(new Drawable[]{new ColorDrawable(0), new ColorDrawable(c2)});
             mPopupWindow.setBackgroundDrawable(bgTransitionDrawable);
             mPopupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
         }
         // PopupUtils.setModal(mPopupWindow, false);
     }
-    
+
     /**
      * 显示popupWindow
      */
@@ -342,7 +342,7 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
         else {
             mPopupWindow.setContentView(wrapper);
         }
-        
+
         if (mPopupWindow.isShowing()) {
             hidePopup();
         }
@@ -355,13 +355,27 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
             PopupUtils.showAsDropDown(mPopupWindow, mSelectedTab, mOffset.x, mOffset.y);
             if (enterAnimation != null) {
                 content.startAnimation(enterAnimation);
-                if (bgTransitionDrawable != null) {
-                    bgTransitionDrawable.startTransition((int) enterAnimation.getDuration());
-                }
+            }
+            if (bgTransitionDrawable != null) {
+                bgTransitionDrawable.startTransition((int) getShowDuration());
             }
         }
     }
-    
+
+    private long getShowDuration() {
+        long dur = 0;
+        if (enterAnimation != null) {
+            dur = enterAnimation.getDuration();
+        }
+        if (dur <= 0) {
+            // TODO for sdk lover than 24
+            if (Build.VERSION.SDK_INT >= 24 && mPopupWindow.getEnterTransition() != null) {
+                dur = mPopupWindow.getEnterTransition().getDuration();
+            }
+        }
+        return dur;
+    }
+
     /**
      * 隐藏PopupWindow，并且重置Tab状态
      */
@@ -375,19 +389,19 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
                 exitAnimation.setAnimationListener(new Animation.AnimationListener() {
                     @Override
                     public void onAnimationStart(Animation animation) {
-                        
+
                     }
-                    
+
                     @Override
                     public void onAnimationEnd(Animation animation) {
                         if (mPopupWindow != null) {
                             mPopupWindow.dismiss();
                         }
                     }
-                    
+
                     @Override
                     public void onAnimationRepeat(Animation animation) {
-                        
+
                     }
                 });
             }
@@ -398,19 +412,19 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
             }
         }
     }
-    
+
     public void setSelectTabText(CharSequence text) {
         if (null != mSelectedTab) {
             setTabText(mSelectedTab, text);
         }
     }
-    
+
     public void clearChoice(int index) {
         if (index >= 0 && index < mFilterTabViews.size()) {
             mFilterTabViews.get(index).clearChoice();
         }
     }
-    
+
     public void clearChoice(FilterTabView tabView) {
         if (mFilterTabViews != null) {
             for (int i = 0; i < mFilterTabViews.size(); i++) {
@@ -421,7 +435,7 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
             }
         }
     }
-    
+
     public void clearAllChoice() {
         int size = mFilterTabViews.size();
         for (int i = 0; i < size; i++) {

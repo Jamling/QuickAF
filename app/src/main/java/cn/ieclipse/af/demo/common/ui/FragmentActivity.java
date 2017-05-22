@@ -30,10 +30,10 @@ import cn.ieclipse.af.demo.R;
  */
 public class FragmentActivity extends BaseActivity {
 
-    private static final String EXTRA_FRAGMENT = "cn.ieclipse.af.fragment";
     public static final String EXTRA_SHOW_TITLE = "showActivityTitleBar";
-    //private Class<?> fragmentClass = null;
     private String fragmentName;
+    protected Fragment fragment;
+    private boolean initHeaderView = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +44,10 @@ public class FragmentActivity extends BaseActivity {
                 finish();
                 return;
             }
-            Fragment f = Fragment.instantiate(this, fragmentName, getIntent().getExtras());
-            getFragmentManager().beginTransaction().add(R.id.content, f).commit();
-            if (f instanceof BaseFragment && isShowTitleBar()) {
-                setTitle(((BaseFragment) f).getTitle());
+            fragment = Fragment.instantiate(this, fragmentName, getIntent().getExtras());
+            getFragmentManager().beginTransaction().add(R.id.content, fragment).commit();
+            if (fragment instanceof BaseFragment && isShowTitleBar()) {
+                setTitle(((BaseFragment) fragment).getTitle());
             }
         }
     }
@@ -58,9 +58,21 @@ public class FragmentActivity extends BaseActivity {
     }
 
     @Override
+    public void setShowTitleBar(boolean showTitleBar) {
+        super.setShowTitleBar(showTitleBar);
+        if (showTitleBar && mTitleBar != null && !initHeaderView) {
+            initHeaderView = true;
+            initHeaderView();
+            if (fragment != null && fragment instanceof BaseFragment) {
+                setTitle(((BaseFragment) fragment).getTitle());
+            }
+        }
+    }
+
+    @Override
     protected void initIntent(Bundle bundle) {
         super.initIntent(bundle);
-        setShowTitleBar(bundle.getBoolean(EXTRA_SHOW_TITLE, true));
+        setShowTitleBar(bundle.getBoolean(EXTRA_SHOW_TITLE, false));
     }
 
     @Override
@@ -69,23 +81,8 @@ public class FragmentActivity extends BaseActivity {
         super.onSaveInstanceState(outState);
     }
 
-    public static void startFragment(Context context, @NonNull Class<? extends Fragment> fragmentClass) {
-        // Intent target = new Intent(fragmentClass.getName());
-        Intent intent = new Intent(context, FragmentActivity.class);
-        intent.setAction(fragmentClass.getName());
-        context.startActivity(intent);
-    }
-
-    public static void startFragment(Context context, Intent intent) {
-        if (intent.getAction() == null) {
-            throw new NullPointerException("can't start fragment with null action");
-        }
-        intent.setClass(context, FragmentActivity.class);
-        context.startActivity(intent);
-    }
-
-    public static Intent create(Context context, @NonNull Class<? extends Fragment> fragmentClass, boolean
-        showTitleBar) {
+    public static Intent create(Context context, @NonNull Class<? extends Fragment> fragmentClass,
+                                boolean showTitleBar) {
         Intent intent = new Intent(context, FragmentActivity.class);
         intent.setAction(fragmentClass.getName());
         intent.putExtra(EXTRA_SHOW_TITLE, showTitleBar);
