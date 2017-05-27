@@ -30,7 +30,7 @@ public class DateUtils {
     public static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
     public static final String DATE_FORMAT_SHORT = "HH:mm:ss";
     public static final String DATE_FORMAT_HM = "HH:mm";
-    
+
     /**
      * Returns the current date in the default format.
      *
@@ -41,13 +41,14 @@ public class DateUtils {
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
         return sdf.format(cal.getTime());
     }
-    
+
     /**
      * Returns the current date in a given format.
      * DateUtils.now("dd MMMMM yyyy") DateUtils.now("yyyyMMdd")
      * DateUtils.now("dd.MM.yy") DateUtils.now("MM/dd/yy")
      *
      * @param dateFormat a date format (See examples)
+     *
      * @return the current formatted date/time
      */
     public static String now(String dateFormat) {
@@ -55,50 +56,51 @@ public class DateUtils {
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
         return sdf.format(cal.getTime());
     }
-    
+
     public static String format(String dateFormat, Date time) {
-        
+
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
         return sdf.format(time);
     }
-    
+
     public static String format(String dateFormat, Long time) {
-        
+
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
         return sdf.format(time);
     }
-    
+
     public static String format(Date time) {
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
         return sdf.format(time);
     }
-    
+
     public static String format(long timeMs) {
         return format(timeMs, DATE_FORMAT_NOW);
     }
-    
+
     public static String formatShort(long timeMs) {
         return format(timeMs, DATE_FORMAT_SHORT);
     }
-    
+
     public static String format(long timeMs, String format) {
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         return sdf.format(timeMs);
     }
-    
+
     /**
      * Formats milliseconds to a friendly form
      *
      * @param millis ms
      * @param format sample %02d:%02d:%02d
+     *
      * @return the formated string
      */
     public static String formatDuration(long millis, String format) {
         String ret = "";
         int size = format.split("%").length - 1;
-        
+
         int seconds = (int) Math.ceil((double) millis / 1000);
-        
+
         int days = 0, hours = 0, minutes = 0;
         if (seconds > 86400) {
             days = seconds / 86400;
@@ -126,22 +128,44 @@ public class DateUtils {
         }
         return ret;
     }
-    
+
+    /**
+     * Get GMT time to UTC time
+     *
+     * @param millis ms unit
+     *
+     * @return UTC time
+     * @since 2.1.1
+     */
+    public static Date getUTCTime(long millis) {
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(millis);
+        // 取得时间偏移量：
+        int zoneOffset = c.get(java.util.Calendar.ZONE_OFFSET);
+        // 取得夏令时差：
+        int dstOffset = c.get(java.util.Calendar.DST_OFFSET);
+        c.add(java.util.Calendar.MILLISECOND, -(zoneOffset + dstOffset));
+        return c.getTime();
+    }
+
+    // ---------------------->
+
     /**
      * Get a friendly string format time over, such as a year ago etc.
      *
      * @param serverTime the server time
      * @param current    client current time
+     *
      * @return friendly string
      */
     public static String getTimeOver(long serverTime, long current) {
         if (serverTime >= current) {
             throw new IllegalArgumentException();
         }
-        
+
         Calendar time01 = Calendar.getInstance();
         time01.setTimeInMillis(serverTime);
-        
+
         Calendar time02 = Calendar.getInstance();
         time02.setTimeInMillis(current);
         int t = time02.get(Calendar.YEAR) - time01.get(Calendar.YEAR);
@@ -178,6 +202,7 @@ public class DateUtils {
      * 根据不同时间段，显示不同时间
      *
      * @param date
+     *
      * @return
      */
     public static String getTodayTimeBucket(Date date) {
@@ -205,6 +230,7 @@ public class DateUtils {
      * 根据日期获得星期
      *
      * @param date
+     *
      * @return
      */
     public static String getWeekOfDate(Date date) {
@@ -220,6 +246,7 @@ public class DateUtils {
      * 日期变量转成对应的星期字符串
      *
      * @param milliseconds data
+     *
      * @return 日期变量转成对应的星期字符串
      */
     public static String getWeekOfMillis(long milliseconds) {
@@ -254,6 +281,7 @@ public class DateUtils {
      *
      * @param milliseconds milliseconds
      * @param isShowWeek   是否采用周的形式显示  true 显示为3周前，false 则显示为时间格式mm-dd
+     *
      * @return 如三周前，上午，昨天等
      */
 
@@ -319,7 +347,5 @@ public class DateUtils {
         }
         Log.v("sb---", sb.toString() + "");
         return sb.toString();
-
     }
-
 }

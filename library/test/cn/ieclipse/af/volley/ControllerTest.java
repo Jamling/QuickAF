@@ -60,4 +60,36 @@ public class ControllerTest {
         json = new Gson().toJson(response2);
         controller.mockRequestList(null, json);
     }
+
+    @Test
+    public void testTypeConvert() {
+        VolleyManager.init(new MockContext(), new VolleyConfig.Builder().setBaseResponseClass(BaseResponse.class)
+            .setHttpStack(new HurlStack()).build());
+        MockController.MockListener listener = new MockController.MockListener() {
+
+            @Override
+            public void onLoadSuccess(BaseInfo out) {
+                System.out.println(out);
+                Assert.assertTrue(out != null);
+                Assert.assertEquals(out.id, 1);
+                Assert.assertEquals(out.name, "111");
+            }
+
+            @Override
+            public void onLoadSuccess(List<BaseInfo> out) {
+                System.out.println(out);
+                Assert.assertEquals(out.size(), 1);
+                Assert.assertEquals(out.get(0).id, 1);
+                Assert.assertEquals(out.get(0).name, "111");
+            }
+        };
+        MockController controller = new MockController(listener);
+
+        // String id, int name
+        String json = "{\"code\":0,\"data\":{\"id\":\"1\",\"name\":111,\"weight\":2,\"age\":0}}";
+        controller.mockRequestObject(null, json);
+
+        json = "{\"code\":0,\"data\":[{\"id\":\"1\",\"name\":111,\"weight\":2,\"age\":0}]}";
+        controller.mockRequestList(null, json);
+    }
 }

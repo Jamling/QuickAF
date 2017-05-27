@@ -19,8 +19,8 @@ import android.app.Activity;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.tencent.mm.sdk.modelbase.BaseResp;
-import com.tencent.mm.sdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.modelpay.PayReq;
 
 import java.util.Map;
 
