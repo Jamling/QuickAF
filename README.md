@@ -34,7 +34,7 @@ android {
 
 ### library
 
-- Component
+- [Component](component.md)
     - tab, tab+viewpager
     - cview, lots of custom views, e.g. Preference, FlowLayout, TableLayout, AutoPlayView
     - refresh, use RefreshLayout, support any RecyclerView, ListView and ScrollView
