@@ -60,7 +60,7 @@ import cn.ieclipse.af.adapter.AfViewHolder;
 import cn.ieclipse.af.adapter.delegate.AdapterDelegate;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.ui.BaseActivity;
-import cn.ieclipse.af.util.CharacterParser;
+import cn.ieclipse.af.util.PinYinUtils;
 import cn.ieclipse.af.view.SideBar;
 import cn.ieclipse.af.view.refresh.RefreshLayout;
 import cn.ieclipse.af.view.refresh.RefreshRecyclerHelper;
@@ -73,7 +73,7 @@ import cn.ieclipse.af.view.refresh.RefreshRecyclerHelper;
  */
 public class SortRecyclerActivity extends BaseActivity {
 
-    private CharacterParser characterParser;
+    private PinYinUtils characterParser;
     private SideBar mSideBar;
     private TextView mUserDialog;
     private RefreshLayout mRefreshLayout;
@@ -92,7 +92,7 @@ public class SortRecyclerActivity extends BaseActivity {
     @Override
     protected void initContentView(View view) {
         super.initContentView(view);
-        characterParser = CharacterParser.getInstance();
+        characterParser = PinYinUtils.getInstance();
         mSideBar = (SideBar) findViewById(R.id.contact_sidebar);
         mUserDialog = (TextView) findViewById(R.id.contact_dialog);
         mSideBar.setTextView(mUserDialog);

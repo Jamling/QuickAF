@@ -22,10 +22,10 @@ import java.security.MessageDigest;
  *
  * @author Jamling
  */
-public final class EncodeUtil {
+public final class EncodeUtils {
     public static final char[] HEX_CHAR = "0123456789abcdef".toCharArray();
 
-    private EncodeUtil() {
+    private EncodeUtils() {
 
     }
 

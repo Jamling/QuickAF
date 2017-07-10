@@ -23,7 +23,7 @@ import java.io.File;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.ui.BaseFragment;
 import cn.ieclipse.af.util.DialogUtils;
-import cn.ieclipse.af.util.FileUtil;
+import cn.ieclipse.af.util.FileUtils;
 import cn.ieclipse.aorm.Aorm;
 
 /**
@@ -62,7 +62,7 @@ public class AormFragment extends BaseFragment {
             getActivity().startActivity(StudentListActivity.create(getActivity()));
         }
         else if (v == btnClear) {
-            File f = new File(FileUtil.getInternal(getActivity()).getParentFile(), "databases/example.db");
+            File f = new File(FileUtils.getInternal(getActivity()).getParentFile(), "databases/example.db");
             if(f.delete()){
                 DialogUtils.showToast(getActivity(), "The old data is cleared successfully!");
             }

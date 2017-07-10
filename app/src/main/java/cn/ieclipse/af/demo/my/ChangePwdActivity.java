@@ -28,7 +28,7 @@ import cn.ieclipse.af.demo.common.ui.BaseActivity;
 import cn.ieclipse.af.graphics.RoundedColorDrawable;
 import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.util.DialogUtils;
-import cn.ieclipse.af.util.EncodeUtil;
+import cn.ieclipse.af.util.EncodeUtils;
 import cn.ieclipse.af.volley.RestError;
 
 /**
@@ -102,8 +102,8 @@ public class ChangePwdActivity extends BaseActivity implements ChangePwdControll
             return;
         }
         ChangePwdRequest req = new ChangePwdRequest();
-        req.oldpwd = EncodeUtil.getMd5(oldpwd);
-        req.newpwd = EncodeUtil.getMd5(newpwd);
+        req.oldpwd = EncodeUtils.getMd5(oldpwd);
+        req.newpwd = EncodeUtils.getMd5(newpwd);
         mChangePwdController.changePwd(req);
     }
 

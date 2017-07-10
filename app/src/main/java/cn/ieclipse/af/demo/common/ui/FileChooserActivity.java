@@ -46,7 +46,7 @@ import java.util.Map;
 import cn.ieclipse.af.adapter.AfBaseAdapter;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.view.FileItemLayout;
-import cn.ieclipse.af.util.FileUtil;
+import cn.ieclipse.af.util.FileUtils;
 import cn.ieclipse.af.util.SDUtils;
 
 /**
@@ -185,7 +185,7 @@ public class FileChooserActivity extends BaseActivity implements AbsListView.OnI
     }
 
     protected void openFile(File f) {
-        String ext = FileUtil.getExtensionFromUrl(f.getName());
+        String ext = FileUtils.getExtensionFromUrl(f.getName());
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.fromFile(f));
         intent.setType(MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext));
@@ -427,7 +427,7 @@ public class FileChooserActivity extends BaseActivity implements AbsListView.OnI
         }
 
         private boolean matchExt(File pathname) {
-            String ext = FileUtil.getExtension(pathname.getName()).toLowerCase();
+            String ext = FileUtils.getExtension(pathname.getName()).toLowerCase();
             for (String tmp : exts) {
                 if (ext.equals(tmp)) {
                     return true;

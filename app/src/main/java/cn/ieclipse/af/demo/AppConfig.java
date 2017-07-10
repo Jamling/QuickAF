@@ -23,8 +23,8 @@ import android.text.TextUtils;
 import cn.ieclipse.af.demo.common.api.BaseResponse;
 import cn.ieclipse.af.demo.my.UserInfo;
 import cn.ieclipse.af.util.AppUtils;
-import cn.ieclipse.af.util.EncodeUtil;
-import cn.ieclipse.af.util.FileUtil;
+import cn.ieclipse.af.util.EncodeUtils;
+import cn.ieclipse.af.util.FileUtils;
 import cn.ieclipse.af.util.SharedPrefsUtils;
 import cn.ieclipse.af.volley.IBaseResponse;
 
@@ -46,7 +46,7 @@ public class AppConfig {
         AppConfig.context = context;
         SharedPrefsUtils.init(context, null);
         token = SharedPrefsUtils.getString(AppConstants.Prefs.KEY_USER_TOKEN);
-        user = (UserInfo) FileUtil.readObject(FileUtil.getInternal(context), AppConstants.Prefs.KEY_USER_INFO);
+        user = (UserInfo) FileUtils.readObject(FileUtils.getInternal(context), AppConstants.Prefs.KEY_USER_INFO);
         uuid = SharedPrefsUtils.getString(AppConstants.Prefs.KEY_UUID);
         if (TextUtils.isEmpty(uuid)) {
             // need android.permission.READ_PHONE_STATE permission
@@ -77,7 +77,7 @@ public class AppConfig {
 
     public static void setUser(UserInfo user) {
         AppConfig.user = user;
-        FileUtil.writeObject(FileUtil.getInternal(context), AppConstants.Prefs.KEY_USER_TOKEN, user);
+        FileUtils.writeObject(FileUtils.getInternal(context), AppConstants.Prefs.KEY_USER_TOKEN, user);
     }
 
     public static void login(String token, UserInfo user) {
@@ -131,6 +131,6 @@ public class AppConfig {
         if (TextUtils.isEmpty(uuid)) {
             uuid = String.valueOf(new java.util.Random().nextDouble());
         }
-        return EncodeUtil.getMd5(uuid);
+        return EncodeUtils.getMd5(uuid);
     }
 }

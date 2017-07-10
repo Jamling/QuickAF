@@ -8,7 +8,7 @@ import android.view.View;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.sample.SampleBaseFragment;
 import cn.ieclipse.af.util.AppUtils;
-import cn.ieclipse.af.util.FileUtil;
+import cn.ieclipse.af.util.FileUtils;
 
 /**
  * Description
@@ -28,12 +28,12 @@ public class AppUtilsSample extends SampleBaseFragment {
         String sys = String.format("model:%s,sdk:%s", AppUtils.getModel(), AppUtils.getSDKVersion());
 
         String runtime = String.format("runtime/heap memory,max(app max memory)=%s,total(app use from os)=%s,free=%s",
-            FileUtil.formatFileSize(Runtime.getRuntime().maxMemory()),
-            FileUtil.formatFileSize(Runtime.getRuntime().totalMemory()),
-            FileUtil.formatFileSize(Runtime.getRuntime().freeMemory()));
+            FileUtils.formatFileSize(Runtime.getRuntime().maxMemory()),
+            FileUtils.formatFileSize(Runtime.getRuntime().totalMemory()),
+            FileUtils.formatFileSize(Runtime.getRuntime().freeMemory()));
         ActivityManager.MemoryInfo memoryInfo = AppUtils.getMemory(getActivity());
         String amMem = String.format("os memory, total=%s,available=%s, used=%s%%",
-            FileUtil.formatFileSize(memoryInfo.totalMem), FileUtil.formatFileSize(memoryInfo.availMem),
+            FileUtils.formatFileSize(memoryInfo.totalMem), FileUtils.formatFileSize(memoryInfo.availMem),
             (memoryInfo.totalMem - memoryInfo.availMem) * 100 / memoryInfo.totalMem);
         ActivityManager am = (ActivityManager) view.getContext().getSystemService(Context.ACTIVITY_SERVICE);
         String memClass = String.format("memoryClass=%dM, largeMemoryClass=%dM", am.getMemoryClass(), am

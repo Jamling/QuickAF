@@ -29,7 +29,7 @@ import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
-import cn.ieclipse.af.util.BitmapUtil;
+import cn.ieclipse.af.util.BitmapUtils;
 
 /**
  * Description
@@ -75,7 +75,7 @@ public class RoundedDrawable extends Drawable {
             bitmap = ((BitmapDrawable) drawable).getBitmap();
         }
         else {
-            bitmap = BitmapUtil.getBitmapFromDrawable(drawable);
+            bitmap = BitmapUtils.getBitmapFromDrawable(drawable);
         }
         if (bitmap == null) {
             return;

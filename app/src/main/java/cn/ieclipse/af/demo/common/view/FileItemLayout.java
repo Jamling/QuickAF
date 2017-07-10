@@ -29,7 +29,7 @@ import java.text.SimpleDateFormat;
 
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.util.AppUtils;
-import cn.ieclipse.af.util.FileUtil;
+import cn.ieclipse.af.util.FileUtils;
 import cn.ieclipse.af.view.checkable.CheckableLinearLayout;
 
 /**
@@ -85,7 +85,7 @@ public class FileItemLayout extends CheckableLinearLayout implements View.OnClic
             size.setText(null);
         }
         else {
-            size.setText(FileUtil.formatFileSize(file.length()));
+            size.setText(FileUtils.formatFileSize(file.length()));
             icon.setImageDrawable(getFileDrawable(file));
             // icon.setImageResource(R.drawable.ic_file);
         }
@@ -140,7 +140,7 @@ public class FileItemLayout extends CheckableLinearLayout implements View.OnClic
     }
 
     private Drawable getFileDrawable(File file) {
-        String ext = FileUtil.getExtension(file.getName());
+        String ext = FileUtils.getExtension(file.getName());
         return AppUtils.tintDrawable(getContext(), R.drawable.ic_file, R.color.colorAccent);
         // return AppUtils.getDrawable(getContext(), R.drawable.ic_file);
     }

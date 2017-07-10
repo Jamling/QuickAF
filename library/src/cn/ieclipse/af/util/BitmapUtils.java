@@ -65,15 +65,15 @@ import java.io.InputStream;
  * @author wangjian
  * @date 2016/5/10 .
  */
-public class BitmapUtil {
+public class BitmapUtils {
 
     private static final boolean DEBUG = false;
-    private static final String TAG = BitmapUtil.class.getSimpleName();
+    private static final String TAG = BitmapUtils.class.getSimpleName();
 
     /**
      * Don't let anyone instantiate this class.
      */
-    private BitmapUtil() {
+    private BitmapUtils() {
         throw new Error("Do not need instantiate!");
     }
 
@@ -1688,9 +1688,9 @@ public class BitmapUtil {
             if (!file.exists()) {
                 file.createNewFile();
             }
-
+            String ext = FileUtils.getExtension(file.getName());
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
-            bm.compress(Bitmap.CompressFormat.PNG, 100, bos);
+            bm.compress("png".equals(ext.toLowerCase()) ? Bitmap.CompressFormat.PNG : Bitmap.CompressFormat.JPEG, 100, bos);
             bos.flush();
             bos.close();
 

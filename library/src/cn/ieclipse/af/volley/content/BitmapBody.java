@@ -35,7 +35,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import cn.ieclipse.af.util.FileUtil;
+import cn.ieclipse.af.util.FileUtils;
 import cn.ieclipse.af.util.IOUtils;
 import cn.ieclipse.af.volley.Controller;
 import cn.ieclipse.af.volley.UploadRequest;
@@ -171,8 +171,8 @@ public class BitmapBody extends FileBody {
                 bitmap.recycle();
                 if (debug) {
                     log(String.format("picture (%s) length is %s exceed the limit(%s) compressed to %s",
-                        src.getAbsolutePath(), FileUtil.formatFileSize(length),
-                        FileUtil.formatFileSize(uploadOption.bitmapMaxLength), FileUtil.formatFileSize(temp.length())));
+                        src.getAbsolutePath(), FileUtils.formatFileSize(length),
+                        FileUtils.formatFileSize(uploadOption.bitmapMaxLength), FileUtils.formatFileSize(temp.length())));
                 }
                 return bos;
             } catch (OutOfMemoryError error) {
@@ -194,14 +194,14 @@ public class BitmapBody extends FileBody {
         bitmap.compress(option.compressFormat, quality, fos);
         int i = 1;
         dumpMemory(String
-            .format("%d times compress to %s (quality=%d)", i++, FileUtil.formatFileSize(this.temp.length()), quality));
+            .format("%d times compress to %s (quality=%d)", i++, FileUtils.formatFileSize(this.temp.length()), quality));
         while (temp.length() > option.bitmapMaxLength && quality > option.compressMinQuality) {
             IOUtils.closeStream(fos);
             fos = createCache();
             quality = quality - uploadOption.compressQualityStep;
             bitmap.compress(uploadOption.compressFormat, quality, fos);
             dumpMemory(String
-                .format("%d times compress to %s (quality=%d)", i++, FileUtil.formatFileSize(this.temp.length()),
+                .format("%d times compress to %s (quality=%d)", i++, FileUtils.formatFileSize(this.temp.length()),
                     quality));
             System.gc();
         }
@@ -214,8 +214,8 @@ public class BitmapBody extends FileBody {
             long xmx = Runtime.getRuntime().maxMemory();
             long xms = Runtime.getRuntime().totalMemory();
             long free = Runtime.getRuntime().freeMemory();
-            String msg = String.format("xmx=%s,xms=%s,free=%s", FileUtil.formatFileSize(xmx),
-                FileUtil.formatFileSize(xms), FileUtil.formatFileSize(free));
+            String msg = String.format("xmx=%s,xms=%s,free=%s", FileUtils.formatFileSize(xmx),
+                FileUtils.formatFileSize(xms), FileUtils.formatFileSize(free));
             log(msg);
         }
     }

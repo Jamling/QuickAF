@@ -28,7 +28,7 @@ import cn.ieclipse.af.demo.common.api.BaseResponse;
 import cn.ieclipse.af.demo.common.ui.BaseFragment;
 import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.util.DialogUtils;
-import cn.ieclipse.af.util.FileUtil;
+import cn.ieclipse.af.util.FileUtils;
 import cn.ieclipse.af.view.Preference;
 import cn.ieclipse.af.view.RoundButton;
 import cn.ieclipse.af.volley.RestError;
@@ -140,7 +140,7 @@ public class MyFragment extends BaseFragment implements LogoutController.LogoutL
     }
 
     private long calcSync() {
-        long ret = FileUtil.getCacheSize(getActivity(), true, true);
+        long ret = FileUtils.getCacheSize(getActivity(), true, true);
         return ret;
     }
 
@@ -149,7 +149,7 @@ public class MyFragment extends BaseFragment implements LogoutController.LogoutL
         AsyncTask task = new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] params) {
-                return FileUtil.formatFileSize(calcSync());
+                return FileUtils.formatFileSize(calcSync());
             }
 
             @Override
@@ -167,8 +167,8 @@ public class MyFragment extends BaseFragment implements LogoutController.LogoutL
             @Override
             protected Object doInBackground(Object[] params) {
                 // TODO
-                FileUtil.clearCache(getActivity(), true, true);
-                return FileUtil.formatFileSize(calcSync());
+                FileUtils.clearCache(getActivity(), true, true);
+                return FileUtils.formatFileSize(calcSync());
             }
 
             @Override

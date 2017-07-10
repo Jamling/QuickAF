@@ -12,7 +12,7 @@ import java.util.List;
  * @author Jamling
  * 
  */
-public class ProcessUtil {
+public class ProcessUtils {
 
     public static Process exec(String program, List<String> args) {
         ProcessBuilder builder = new ProcessBuilder();

@@ -15,10 +15,10 @@ import cn.ieclipse.af.common.Logger;
 /**
  * @author Jamling
  */
-public final class FileUtil {
-    private static Logger mLogger = Logger.getLogger(FileUtil.class);
+public final class FileUtils {
+    private static Logger mLogger = Logger.getLogger(FileUtils.class);
 
-    private FileUtil() {
+    private FileUtils() {
         
     }
     
@@ -152,11 +152,11 @@ public final class FileUtil {
         File dir = null;
         if (includeInternal) {
             dir = context.getCacheDir();
-            size += FileUtil.getFileSize(dir);
+            size += FileUtils.getFileSize(dir);
         }
         if (includeExternal) {
             dir = context.getExternalCacheDir();
-            size += FileUtil.getFileSize(dir);
+            size += FileUtils.getFileSize(dir);
         }
         return size;
     }
@@ -168,11 +168,11 @@ public final class FileUtil {
         File dir = null;
         if (includeInternal) {
             dir = context.getCacheDir();
-            FileUtil.rmdir(dir, true);
+            FileUtils.rmdir(dir, true);
         }
         if (includeExternal) {
             dir = context.getExternalCacheDir();
-            FileUtil.rmdir(dir, true);
+            FileUtils.rmdir(dir, true);
         }
     }
 

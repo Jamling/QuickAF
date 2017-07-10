@@ -34,7 +34,7 @@ import java.util.Locale;
 import cn.ieclipse.af.adapter.AfBaseAdapter;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.ui.BaseActivity;
-import cn.ieclipse.af.util.CharacterParser;
+import cn.ieclipse.af.util.PinYinUtils;
 import cn.ieclipse.af.view.SideBar;
 
 
@@ -46,7 +46,7 @@ import cn.ieclipse.af.view.SideBar;
  */
 public class SortListViewActivity extends BaseActivity {
 
-    private CharacterParser characterParser;
+    private PinYinUtils characterParser;
     private SideBar mSideBar;
     private TextView mUserDialog;
     private ListView listview;
@@ -63,7 +63,7 @@ public class SortListViewActivity extends BaseActivity {
     @Override
     protected void initContentView(View view) {
         super.initContentView(view);
-        characterParser = CharacterParser.getInstance();
+        characterParser = PinYinUtils.getInstance();
         mSideBar = (SideBar) findViewById(R.id.contact_sidebar);
         mUserDialog = (TextView) findViewById(R.id.contact_dialog);
         mSideBar.setTextView(mUserDialog);

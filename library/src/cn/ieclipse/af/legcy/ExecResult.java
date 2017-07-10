@@ -14,7 +14,7 @@
  * limitations under the License. 
  */
 
-package cn.ieclipse.af.util;
+package cn.ieclipse.af.legcy;
 
 import java.util.ArrayList;
 
