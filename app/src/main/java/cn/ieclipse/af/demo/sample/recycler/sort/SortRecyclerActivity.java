@@ -73,7 +73,6 @@ import cn.ieclipse.af.view.refresh.RefreshRecyclerHelper;
  */
 public class SortRecyclerActivity extends BaseActivity {
 
-    private PinYinUtils characterParser;
     private SideBar mSideBar;
     private TextView mUserDialog;
     private RefreshLayout mRefreshLayout;
@@ -92,7 +91,6 @@ public class SortRecyclerActivity extends BaseActivity {
     @Override
     protected void initContentView(View view) {
         super.initContentView(view);
-        characterParser = PinYinUtils.getInstance();
         mSideBar = (SideBar) findViewById(R.id.contact_sidebar);
         mUserDialog = (TextView) findViewById(R.id.contact_dialog);
         mSideBar.setTextView(mUserDialog);
@@ -139,7 +137,7 @@ public class SortRecyclerActivity extends BaseActivity {
             for (ContactModel.HouseItemInfo at : houseList) {
                 if (at.title.length() > 0) {
                     // 解析出对应的拼音
-                    String a = characterParser.getSelling(at.title).toUpperCase(Locale.US);
+                    String a = PinYinUtils.getPinYin(at.title).toUpperCase(Locale.US);
                     at.setSpelling(a);
                     // 获得第一个字符
                     if (a.length() > 1) {
