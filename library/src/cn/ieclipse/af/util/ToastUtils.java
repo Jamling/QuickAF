@@ -29,6 +29,9 @@ public class ToastUtils {
     private static Toast mToast;
 
     public static void showToast(Context context, CharSequence desc) {
+        if (context == null) {
+            return;
+        }
         // 防止多次点击出现多个toast
         if (mToast == null) {
             mToast = Toast.makeText(context, desc, Toast.LENGTH_LONG);
