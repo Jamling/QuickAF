@@ -177,13 +177,22 @@ public class PopupUtils {
     }
 
     public static void showAsDropDown(PopupWindow popupWindow, View anchorView, int offsetX, int offsetY) {
-        if (Build.VERSION.SDK_INT == 24) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             int[] a = new int[2];
             anchorView.getLocationInWindow(a);
             if (anchorView.getContext() instanceof Activity) {
                 View decorView = ((Activity) anchorView.getContext()).getWindow().getDecorView();
-                popupWindow.showAtLocation(decorView, Gravity.NO_GRAVITY, offsetX,
-                    a[1] + anchorView.getHeight() + offsetY);
+                int y = a[1] + anchorView.getHeight() + offsetY;
+                int ph = popupWindow.getHeight();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1 && ph < 0) {
+                    int screenHeight = AppUtils.getScreenHeight(anchorView.getContext());
+                    /*
+                     * PopupWindow height for match_parent,
+                     * will occupy the entire screen, it needs to do special treatment in Android 7.1
+                    */
+                    popupWindow.setHeight(screenHeight - y);
+                }
+                popupWindow.showAtLocation(decorView, Gravity.NO_GRAVITY, offsetX, y);
                 return;
             }
         }

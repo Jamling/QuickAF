@@ -87,7 +87,11 @@ public abstract class AsyncTimeoutTask<Params, Progress, Result> extends AsyncTa
         }
         else {
             if (finish) {
-                onSuccess(result);
+                try {
+                    onSuccess(result);
+                } catch (Exception e) {
+                    onError(e);
+                }
             }
             else {
                 String msg = String.format("the async task (%s) not responded in %s", toString(), timeout);
