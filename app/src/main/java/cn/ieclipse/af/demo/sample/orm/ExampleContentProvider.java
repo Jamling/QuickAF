@@ -149,6 +149,10 @@ public class ExampleContentProvider extends ContentProvider {
             
             public void onUpgrade(SQLiteDatabase db, int oldVersion,
                     int newVersion) {
+
+                Aorm.updateTable(db, Grade.class);
+                Aorm.updateTable(db, Student.class);
+                Aorm.updateTable(db, Course.class);
             }
         };
         session = new Session(mOpenHelper, getContext().getContentResolver());
