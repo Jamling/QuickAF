@@ -74,7 +74,7 @@ dependencies {
     compile "com.android.support:design:${supportLibVersion}"
     compile "com.android.support:percent:${supportLibVersion}"
     // import ORM for SQLite database
-    compile 'cn.ieclipse.aorm:aorm-core:1.1.4'
+    compile 'cn.ieclipse.aorm:aorm-core:1.1.5'
     // import ImageLoader for display image
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     // import EventBus for event notify
