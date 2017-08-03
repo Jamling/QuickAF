@@ -31,46 +31,49 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.ieclipse.af.adapter.AfPagerAdapter;
+import cn.ieclipse.af.common.Logger;
 import cn.ieclipse.af.graphics.RoundedColorDrawable;
 import cn.ieclipse.af.util.AppUtils;
 
 /**
  * An auto play container.
  * <p>
- *     AutoPlayView default child views
+ * AutoPlayView default child views
  * </p>
  * <ol>
- *     <li>{@linkplain android.support.v4.view.ViewPager ViewPager}</li>
- *     <li>Indicator layout (if has), it's a horizontal {@linkplain android.widget.LinearLayout LinearLayout}</li>
- *     <li>Indicator text widget (if has) to show "current/total" text</li>
+ * <li>{@linkplain android.support.v4.view.ViewPager ViewPager}</li>
+ * <li>Indicator layout (if has), it's a horizontal {@linkplain android.widget.LinearLayout LinearLayout}</li>
+ * <li>Indicator text widget (if has) to show "current/total" text</li>
  * </ol>
  * <p>
- *     You can call {@link #setIndicatorItemLayout(int)} to set indicator item layout and call {@link
- *     #setIndicatorItemPadding(int)} to set item padding. the page indicator will changed dynamically.
+ * You can call {@link #setIndicatorItemLayout(int)} to set indicator item layout and call {@link
+ * #setIndicatorItemPadding(int)} to set item padding. the page indicator will changed dynamically.
  * </p>
  *
  * @author Jamling
  * @date 2015/7/15.
  */
-public class AutoPlayView extends FrameLayout
-        implements ViewPager.OnPageChangeListener, View.OnTouchListener {
-        
+public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
+
     public AutoPlayView(Context context) {
         this(context, null);
     }
-    
+
     public AutoPlayView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
-    
+
     public AutoPlayView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
-    
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public AutoPlayView(Context context, AttributeSet attrs, int defStyleAttr,
-            int defStyleRes) {
+    public AutoPlayView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs);
     }
@@ -92,25 +95,32 @@ public class AutoPlayView extends FrameLayout
     private int mIndicatorBorderColor;
     private int mIndicatorBorderWidth;
     private int mPosition;
-    
+    public static Logger mLogger = Logger.getLogger(AutoPlayView.class);
+
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            int current = mViewPager.getCurrentItem();
-            int size = mViewPager.getAdapter() == null ? 0
-                    : mViewPager.getAdapter().getCount();
-            if (current + 1 < size) {// can next
-                mViewPager.setCurrentItem(++current, mSmoothScroll);
+            if (msg.what == 0) {
+                int current = mViewPager.getCurrentItem();
+                int size = mViewPager.getAdapter() == null ? 0 : mViewPager.getAdapter().getCount();
+                if (current + 1 < size) {// can next
+                    mLogger.v(String.format("from %d to %d", current, current + 1));
+                    mViewPager.setCurrentItem(current + 1, mSmoothScroll);
+                }
+                else if (current + 1 == size && (mLoop && !isAdapterLoop())) {
+                    mLogger.v(String.format("from %d to %d", current, 0));
+                    mViewPager.setCurrentItem(0, mSmoothScroll);
+                }
+                if (mPlaying) {
+                    mHandler.sendEmptyMessageDelayed(0, mInterval);
+                }
             }
-            else if (current + 1 == size && mLoop) {
-                mViewPager.setCurrentItem(0, mSmoothScroll);
-            }
-            if (mPlaying) {
-                mHandler.sendEmptyMessageDelayed(0, mInterval);
+            else if (msg.what == 1) {
+                mViewPager.setCurrentItem(1, false);
             }
         }
     };
-    
+
     private void init(Context context, AttributeSet attrs) {
         // mViewPager = new ViewPager(context);
         // addView(mViewPager);
@@ -118,18 +128,18 @@ public class AutoPlayView extends FrameLayout
         this.mIndicatorSelectedColor = AppUtils.getColor(context, android.R.color.holo_blue_dark);
         this.mIndicatorItemSize = AppUtils.dp2px(context, 8);
     }
-    
+
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
         mIndicatorItemPadding = AppUtils.dp2px(getContext(), 4); // default 4
-                                                                 // dip
+        // dip
         int size = getChildCount();
         for (int i = 0; i < size; i++) {
             if (getChildAt(i) instanceof ViewPager) {
                 mViewPager = (ViewPager) getChildAt(i);
                 mViewPager.setFadingEdgeLength(0);
-                addOnPageChangedListener(this);
+                addOnPageChangedListener(mPageIndicatorListener);
                 if (mAutoStart) {
                     start();
                 }
@@ -155,9 +165,13 @@ public class AutoPlayView extends FrameLayout
             }
         }
     }
-    
+
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        if (isAdapterLoop() && mPosition == getCount() - 1) {
+            mLogger.v(String.format("onTouch from %d to %d", mPosition, 1));
+            mViewPager.setCurrentItem(1, false);
+        }
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
@@ -176,7 +190,10 @@ public class AutoPlayView extends FrameLayout
     }
 
     public void setLoop(boolean loop) {
-        this.mLoop = loop;
+        if (mLoop != loop) {
+            this.mLoop = loop;
+            setAdapterLoop(mLoop);
+        }
     }
 
     /**
@@ -188,15 +205,19 @@ public class AutoPlayView extends FrameLayout
             mHandler.sendEmptyMessageDelayed(0, mInterval);
         }
         if (getCount() > 0) {
+            if (isAdapterLoop()) {
+                mViewPager.setCurrentItem(mPosition + 1, false);
+                return;
+            }
             if (mPosition > 0) {// 非初次开启从当前位置开启
-                mViewPager.setCurrentItem(mPosition);
+                mViewPager.setCurrentItem(mPosition, false);
             }
             else {// 初次开启从0位置循环
-                mViewPager.setCurrentItem(0);
+                mViewPager.setCurrentItem(0, false);
             }
         }
     }
-    
+
     /**
      * 停止循环播放
      */
@@ -204,28 +225,31 @@ public class AutoPlayView extends FrameLayout
         mPlaying = false;
         mHandler.removeMessages(0);
     }
-    
-    private void addOnPageChangedListener(
-            ViewPager.OnPageChangeListener listener) {
+
+    private void addOnPageChangedListener(ViewPager.OnPageChangeListener listener) {
         if (listener != null) {
             mViewPager.addOnPageChangeListener(listener);
         }
     }
-    
+
     /**
      * Set a PagerAdapter that will supply views for this pager as needed.
+     *
      * @param adapter adapter to use
+     *
      * @see android.support.v4.view.ViewPager#setAdapter(android.support.v4.view.PagerAdapter)
      */
     public void setAdapter(PagerAdapter adapter) {
         if (mViewPager != null) {
             mViewPager.setAdapter(adapter);
+            setAdapterLoop(mLoop);
         }
         initIndicatorLayout();
     }
-    
+
     /**
      * Set layout resource of the page indicator item
+     *
      * @param layoutId xml layout id
      */
     public void setIndicatorItemLayout(int layoutId) {
@@ -241,21 +265,21 @@ public class AutoPlayView extends FrameLayout
         this.mIndicatorBorderColor = color;
         this.mIndicatorBorderWidth = width;
     }
-    
+
     /**
      * Set page indicator layout
      *
-     * @param layout
-     *            indicator layout
+     * @param layout indicator layout
      */
     public void setIndicatorLayout(LinearLayout layout) {
         if (layout != null) {
             mIndicatorLayout = layout;
         }
     }
-    
+
     /**
      * Set page indicator text widget
+     *
      * @param tv TextView widget
      */
     public void setIndicatorTextView(TextView tv) {
@@ -263,7 +287,7 @@ public class AutoPlayView extends FrameLayout
             mIndicatorTv = tv;
         }
     }
-    
+
     public void setIndicatorItemPadding(int padding) {
         if (padding > 0) {
             this.mIndicatorItemPadding = padding;
@@ -275,26 +299,30 @@ public class AutoPlayView extends FrameLayout
             this.mIndicatorItemSize = size;
         }
     }
-    
+
     public ViewPager getViewPager() {
         return mViewPager;
     }
-    
+
     public TextView getIndicatorText() {
         return mIndicatorTv;
     }
-    
+
     public int getCurrent() {
         return mViewPager.getCurrentItem();
     }
-    
+
     public int getCount() {
         if (mViewPager.getAdapter() != null) {
+//            if (mViewPager.getAdapter() instanceof LoopPagerAdapter) {
+//                LoopPagerAdapter aa = (LoopPagerAdapter) mViewPager.getAdapter();
+//                return aa.getRealCount();
+//            }
             return mViewPager.getAdapter().getCount();
         }
         return 0;
     }
-    
+
     /**
      * 设置图片循环切换时间
      *
@@ -305,39 +333,11 @@ public class AutoPlayView extends FrameLayout
             this.mInterval = interval;
         }
     }
-    
-    @Override
-    public void onPageScrolled(int position, float positionOffset,
-            int positionOffsetPixels) {
-    }
-    
-    @Override
-    public void onPageSelected(int position) {
-        // 显示数字指示器
-        if (mIndicatorTv != null) {
-            mIndicatorTv.setText(getCurrent() + 1 + "/" + getCount());
-        }
-        // 显示图片指示器
-        if (mIndicatorLayout != null) {
-            if (getCount() > 0) {
-                // 更新小点点颜色
-                updateIndicatorItem(mPosition, getCurrent());
-                mPosition = getCurrent();
-            }
-            else {
-                mIndicatorLayout.setVisibility(View.GONE);
-            }
-        }
-    }
-    
-    @Override
-    public void onPageScrollStateChanged(int state) {
-    }
-    
+
     /**
      * Initialize the indicator layout, it will generate indicator item view dynamically.
      * <p>
-     *     Please call the method after your pager adapter changed.
+     * Please call the method after your pager adapter changed.
      * </p>
      */
     public void initIndicatorLayout() {
@@ -345,10 +345,14 @@ public class AutoPlayView extends FrameLayout
             if (mIndicatorLayout.getChildCount() > 0) {
                 mIndicatorLayout.removeAllViews();
             }
-            if (getCount() <= 1) {
+            int count = getCount();
+            if (isAdapterLoop()) {
+                count = count - 2;
+            }
+            if (count <= 1) {
                 return;
             }
-            for (int i = 0; i < getCount(); i++) {
+            for (int i = 0; i < count; i++) {
                 View item = getIndicatorItemView(i);
                 ViewGroup.LayoutParams params = item.getLayoutParams();
                 if (item.getLayoutParams() == null) {
@@ -362,7 +366,24 @@ public class AutoPlayView extends FrameLayout
             updateIndicatorItem(mPosition, getCurrent());
         }
     }
-    
+
+    /**
+     * Set indicator visible or not.
+     *
+     * @param visibility see [{@link android.view.View#VISIBLE}|{@link android.view.View#INVISIBLE
+     *                   }|{@link android.view.View#GONE}]
+     *
+     * @since 2.1.1
+     */
+    public void setIndicatorVisibility(int visibility) {
+        if (mIndicatorLayout != null) {
+            mIndicatorLayout.setVisibility(visibility);
+        }
+        if (mIndicatorTv != null) {
+            mIndicatorTv.setVisibility(visibility);
+        }
+    }
+
     protected View getIndicatorItemView(int position) {
         if (mIndicatorItemLayout > 0) {
             View v = LayoutInflater.from(getContext()).inflate(mIndicatorItemLayout, mIndicatorLayout, false);
@@ -378,10 +399,9 @@ public class AutoPlayView extends FrameLayout
         bg.applyTo(v);
         return v;
     }
-    
+
     /**
      * 改变小点
-     *
      */
     private void updateIndicatorItem(int oldPosition, int newPosition) {
         if (mIndicatorLayout != null) {
@@ -403,9 +423,10 @@ public class AutoPlayView extends FrameLayout
             }
         }
     }
-    
+
     /**
      * Set the height/width aspect ratio
+     *
      * @param ratio height/width
      */
     public void setRatio(float ratio) {
@@ -422,6 +443,202 @@ public class AutoPlayView extends FrameLayout
         }
         else {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        }
+    }
+
+    // adapter loop
+    public void setAdapterLoop(boolean loop) {
+        if (getViewPager() != null && getViewPager().getAdapter() != null) {
+            if (getViewPager().getAdapter() instanceof LoopPagerAdapter) {
+                LoopPagerAdapter adapter = ((LoopPagerAdapter) getViewPager().getAdapter());
+                adapter.setLoop(loop);
+                if (isAdapterLoop()) {
+                    if (mLoopListener == null) {
+                        mLoopListener = new LoopOnPageChangeListener(getViewPager());
+                    }
+                    getViewPager().addOnPageChangeListener(mLoopListener);
+                }
+                else if (mLoopListener != null) {
+                    getViewPager().removeOnPageChangeListener(mLoopListener);
+                }
+            }
+        }
+    }
+
+    /**
+     * Whether the adapter is {@link cn.ieclipse.af.view.AutoPlayView.LoopPagerAdapter} and whether
+     * {@link cn.ieclipse.af.view.AutoPlayView.LoopPagerAdapter#isLoop()}
+     *
+     * @return true if {@link cn.ieclipse.af.view.AutoPlayView.LoopPagerAdapter} is loop.
+     */
+    public boolean isAdapterLoop() {
+        if (getViewPager().getAdapter() instanceof LoopPagerAdapter) {
+            return ((LoopPagerAdapter) getViewPager().getAdapter()).isLoop();
+        }
+        return false;
+    }
+
+    private ViewPager.OnPageChangeListener mPageIndicatorListener = new ViewPager.SimpleOnPageChangeListener() {
+        @Override
+        public void onPageSelected(int position) {
+            int count = getCount();
+            int current = getCurrent();
+            if (isAdapterLoop()) {
+                if (current == count - 1) {
+                    current = 0;
+                }
+                else {
+                    current = getCurrent() - 1;
+                }
+                count = count - 2;
+            }
+            // 显示数字指示器
+            if (mIndicatorTv != null) {
+                mIndicatorTv.setText(current + 1 + "/" + count);
+            }
+            // 显示图片指示器
+            if (mIndicatorLayout != null) {
+                if (getCount() > 0) {
+                    // 更新小点点颜色
+                    updateIndicatorItem(mPosition, current);
+                }
+                else {
+                    mIndicatorLayout.setVisibility(View.GONE);
+                }
+            }
+            mPosition = current;
+        }
+    };
+
+    private LoopOnPageChangeListener mLoopListener;
+
+    /**
+     * The internal loop listener when {@link #setLoop(boolean)} true
+     *
+     * @since 2.1.1
+     */
+    public class LoopOnPageChangeListener extends ViewPager.SimpleOnPageChangeListener {
+        private ViewPager mViewPager;
+
+        public LoopOnPageChangeListener(ViewPager viewPager) {
+            this.mViewPager = viewPager;
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            mLogger.v(String.format("onPageSelected %d", position));
+            doLoop(position);
+        }
+
+        private void doLoop(int position) {
+            PagerAdapter adapter = mViewPager.getAdapter();
+            if (adapter instanceof LoopPagerAdapter) {
+                LoopPagerAdapter aa = (LoopPagerAdapter) adapter;
+                boolean loop = aa.isLoop();
+                if (loop) {
+                    int count = adapter.getCount();
+                    //mViewPager.removeOnPageChangeListener(this);
+                    if (position == 0) {
+                        mViewPager.setCurrentItem(count - 2, false);
+                    }
+                    else if (position + 1 == count) {
+                        // mViewPager.setCurrentItem(1, false);
+                        mHandler.sendEmptyMessageDelayed(1, 100);
+                    }
+                    //mViewPager.addOnPageChangeListener(this);
+                }
+            }
+        }
+    }
+
+    /**
+     * Loop {@link android.support.v4.view.PagerAdapter}
+     *
+     * @param <T> data parameter type
+     *
+     * @since 2.1.1
+     */
+    public static abstract class LoopPagerAdapter<T> extends AfPagerAdapter<T> {
+        private boolean mLoop = true;
+
+        @Override
+        public void setDataList(List<T> list) {
+            // super.setDataList(list);
+            mDataList = new ArrayList<>();
+            if (list != null) {
+                mDataList.addAll(list);
+            }
+            if (mLoop) {
+                setLoopInternal();
+            }
+        }
+
+        /**
+         * Return the real actual count for data list
+         *
+         * @return real count
+         * @since 2.1.1
+         */
+        public int getRealCount() {
+            if (mLoop && getCount() > 0) {
+                return getCount() - 2;
+            }
+            return getCount();
+        }
+
+        public int getRealPosition(int position) {
+            if (mLoop && getCount() > 0) {
+                return position - 1;
+            }
+            return position;
+        }
+
+        /**
+         * Set whether the adapter is playing loop
+         *
+         * @param loop loop
+         *
+         * @see cn.ieclipse.af.view.AutoPlayView
+         * @see #getRealCount()
+         * @since 2.1.1
+         */
+        public void setLoop(boolean loop) {
+            if (getCount() == 0) {
+                return;
+            }
+            if (mLoop != loop) {
+                mLoop = loop;
+                setLoopInternal();
+                notifyDataSetChanged();
+            }
+        }
+
+        /**
+         * Return whether loop option
+         *
+         * @return loop
+         * @see #setLoop(boolean)
+         * @since 2.1.1
+         */
+        public boolean isLoop() {
+            return mLoop;
+        }
+
+        private void setLoopInternal() {
+            int count = getCount();
+            if (count < 1) {
+                return;
+            }
+            if (mLoop) {
+                T first = mDataList.get(0);
+                T last = mDataList.get(mDataList.size() - 1);
+                mDataList.add(0, last);
+                mDataList.add(first);
+            }
+            else {
+                mDataList.remove(mDataList.size() - 1);
+                mDataList.remove(0);
+            }
         }
     }
 }

@@ -1,17 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<cn.ieclipse.af.view.VScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:orientation="vertical">
+
+    <CheckBox
+        android:id="@+id/chk1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="use LoopPagerAdapter"/>
 
     <cn.ieclipse.af.view.AutoPlayView
         android:id="@+id/auto_play"
         android:layout_width="match_parent"
-        android:layout_height="200dp" >
+        android:layout_height="100dp">
 
         <cn.ieclipse.af.view.ViewPagerV4
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
+
         <LinearLayout
             android:id="@+id/indicator_layout"
             android:layout_width="wrap_content"
@@ -21,7 +34,7 @@
             android:background="#ffeeeeaa"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="6dp" >
+            android:padding="6dp">
         </LinearLayout>
 
         <TextView
@@ -30,26 +43,65 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right|bottom"
             android:background="@color/colorPrimary"
-            android:padding="10dp" />
+            android:padding="10dp"/>
 
     </cn.ieclipse.af.view.AutoPlayView>
 
-
-    <cn.ieclipse.af.demo.common.view.PercentLinearLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:clipChildren="false"
-        android:layout_marginTop="20dp"
-        android:gravity="center">
+        android:layout_height="wrap_content"
+        android:text="Use Vertical ViewPager"/>
+    <CheckBox
+        android:id="@+id/chk2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="use LoopPagerAdapter"/>
+    <cn.ieclipse.af.view.AutoPlayView
+        android:id="@+id/auto_play2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/black_alpha_50">
 
+        <cn.ieclipse.af.view.VerticalViewPager
+            android:layout_width="match_parent"
+            android:layout_height="48dp"/>
+    </cn.ieclipse.af.view.AutoPlayView>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Another infinite loop ViewPager"/>
+
+    <cn.ieclipse.af.view.AutoPlayView
+        android:id="@+id/auto_play3"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:clipChildren="false">
         <android.support.v4.view.ViewPager
-            android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_widthPercent="70%"
-            android:clipChildren="false"/>
-    </cn.ieclipse.af.demo.common.view.PercentLinearLayout>
+            android:layout_gravity="center"
+            android:clipChildren="false"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
+    </cn.ieclipse.af.view.AutoPlayView>
+    <!--<cn.ieclipse.af.demo.common.view.PercentLinearLayout-->
+        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:clipChildren="false"-->
+        <!--android:gravity="center">-->
 
-
+        <!--<android.support.v4.view.ViewPager-->
+            <!--android:id="@+id/view_pager"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:clipChildren="false"-->
+            <!--app:layout_widthPercent="70%"/>-->
+    <!--</cn.ieclipse.af.demo.common.view.PercentLinearLayout>-->
 </LinearLayout>
+
+</cn.ieclipse.af.view.VScrollView>

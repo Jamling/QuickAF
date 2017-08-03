@@ -34,7 +34,7 @@ public class CustomViewFragment extends ButtonListFragment {
     protected Class[] getActivities() {
         return new Class[]{FlowLayoutActivity.class, TableLayoutActivity.class, TitleBarActivity.class,
             RoundButtonActivity.class, ColumnLayoutActivity.class, PreferenceActivity.class,
-            StaggeredGridViewActivity.class, AutoPlayViewActivity.class, RadioButtonBadgeViewActivity.class,
+            StaggeredGridViewActivity.class, AutoPlayViewSample.class, RadioButtonBadgeViewActivity.class,
             AutoHeightViewPagerActivity.class, CheckableLayoutActivity.class, FilterTabHostSample.class,
             WheelViewActivity.class, SimpleMonthPickerActivity.class,
             CustomImageViewSample.class, TextViewSample.class, TableViewSample.class};

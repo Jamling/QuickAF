@@ -109,7 +109,6 @@
         <activity android:name=".sample.cview.RadioButtonBadgeViewActivity" />
         <activity android:name=".sample.cview.AutoHeightViewPagerActivity" />
         <activity android:name=".sample.cview.CheckableLayoutActivity" />
-        <activity android:name=".sample.cview.AutoPlayViewActivity" />
         <activity android:name=".sample.third.PercentLayoutActivity" />
         <activity android:name=".sample.cview.WheelViewActivity"
                   android:windowSoftInputMode="stateHidden"/>
