@@ -20,6 +20,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -171,7 +172,16 @@ public abstract class BaseFragment extends AfFragment implements View.OnClickLis
     }
 
     public CharSequence getTitle() {
+        if (mTitleTextView != null && !TextUtils.isEmpty(mTitleTextView.getText())) {
+            return mTitleTextView.getText();
+        }
         return getClass().getSimpleName();
+    }
+
+    public void setTitle(CharSequence title) {
+        if (mTitleTextView != null) {
+            mTitleTextView.setText(title);
+        }
     }
 
     public void startFragment(Class<? extends Fragment> fragmentClass) {
