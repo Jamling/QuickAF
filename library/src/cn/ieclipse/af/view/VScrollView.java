@@ -21,6 +21,9 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ScrollView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * listening ScrollView vertical scroll instances
  *
@@ -47,6 +50,11 @@ public class VScrollView extends ScrollView {
                 mOnScrollChangeListener.onScrollChange(this, l, t, oldl, oldt);
             }
         }
+        if (mOnScrollChangeListeners != null) {
+            for (OnScrollChangeListener listener : mOnScrollChangeListeners) {
+                listener.onScrollChange(this, l, t, oldl, oldt);
+            }
+        }
     }
 
     public boolean isScroll2Bottom() {
@@ -66,8 +74,27 @@ public class VScrollView extends ScrollView {
 
     private OnScrollChangeListener mOnScrollChangeListener;
 
+    private List<OnScrollChangeListener> mOnScrollChangeListeners;
+
     public void setOnScrollChangeListener(OnScrollChangeListener onScrollChangeListener) {
         this.mOnScrollChangeListener = onScrollChangeListener;
+    }
+
+    /**
+     * Add {@link cn.ieclipse.af.view.VScrollView.OnScrollChangeListener}
+     *
+     * @param onScrollChangeListener {@link cn.ieclipse.af.view.VScrollView.OnScrollChangeListener}
+     *
+     * @since 2.1.1
+     */
+    public void addOnScrollChangeListener(OnScrollChangeListener onScrollChangeListener) {
+        if (mOnScrollChangeListeners == null) {
+            mOnScrollChangeListeners = new ArrayList<>();
+            mOnScrollChangeListeners.add(onScrollChangeListener);
+        }
+        else if (!mOnScrollChangeListeners.contains(onScrollChangeListener)) {
+            mOnScrollChangeListeners.add(onScrollChangeListener);
+        }
     }
 
     /**
@@ -85,9 +112,9 @@ public class VScrollView extends ScrollView {
         /**
          * Called when the scroll position of a view changes.
          *
-         * @param v The view whose scroll position has changed.
-         * @param scrollX Current horizontal scroll origin.
-         * @param scrollY Current vertical scroll origin.
+         * @param v          The view whose scroll position has changed.
+         * @param scrollX    Current horizontal scroll origin.
+         * @param scrollY    Current vertical scroll origin.
          * @param oldScrollX Previous horizontal scroll origin.
          * @param oldScrollY Previous vertical scroll origin.
          */
