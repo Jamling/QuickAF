@@ -35,6 +35,6 @@ public class RecyclerFragment extends ButtonListFragment {
         return new Class[]{RecyclerHelperSample.class, RefreshRecyclerSample.class, RefreshSwipeRecyclerSample.class,
             RefreshScrollViewSample
             .class, RefreshListViewSample.class, CheckableRecyclerSample.class, SortRecyclerActivity.class,
-            SortListViewActivity.class};
+            SortListViewActivity.class, RefreshWebViewSample.class};
     }
 }

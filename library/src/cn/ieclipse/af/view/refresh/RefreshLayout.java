@@ -23,6 +23,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.AbsListView;
 import android.widget.FrameLayout;
 
@@ -130,6 +131,7 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
         internalRegisterDetector(VScrollView.class, new RefreshVScrollDetector());
         internalRegisterDetector(RecyclerView.class, new RefreshRecyclerDetector());
         internalRegisterDetector(AbsListView.class, new RefreshListViewDetector());
+        internalRegisterDetector(WebView.class, new RefreshWebViewDetector());
         findDetector();
     }
 
@@ -158,7 +160,8 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
                 RefreshDetector detector = mDetectorMap.get(key);
                 if (detector != null) {
                     this.mDetector = detector;
-                    detector.setEnabled(true);
+                    this.mDetector.setView(mContentView);
+                    this.mDetector.setEnabled(true);
                 }
                 break;
             }
@@ -450,6 +453,7 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
             }
             mContentView = view;
             mContentViewWrapper.addView(mContentView);
+            findDetector();
         }
     }
 
