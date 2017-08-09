@@ -94,6 +94,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
     private int mIndicatorSelectedColor;
     private int mIndicatorBorderColor;
     private int mIndicatorBorderWidth;
+    private boolean mIndicatorAlwaysShow = false;
     private int mPosition;
     public static Logger mLogger = Logger.getLogger(AutoPlayView.class);
 
@@ -248,6 +249,26 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
     }
 
     /**
+     * Set adapter data
+     *
+     * @param list data
+     *
+     * @since 2.1.1
+     */
+    public void setAdapterData(List list) {
+        if (getViewPager() != null) {
+            PagerAdapter adapter = getViewPager().getAdapter();
+            if (adapter != null) {
+                if (adapter instanceof AfPagerAdapter) {
+                    ((AfPagerAdapter) adapter).setDataList(list);
+                }
+                initIndicatorLayout();
+                adapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+    /**
      * Set layout resource of the page indicator item
      *
      * @param layoutId xml layout id
@@ -335,6 +356,17 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
     }
 
     /**
+     * Set whether always show indicator or not, default is false (when count is less than 2, the indicator is hidden).
+     *
+     * @param show show
+     *
+     * @since 2.1.1
+     */
+    public void setIndicatorAlwaysShow(boolean show) {
+        this.mIndicatorAlwaysShow = show;
+    }
+
+    /**
      * Initialize the indicator layout, it will generate indicator item view dynamically.
      * <p>
      * Please call the method after your pager adapter changed.
@@ -349,7 +381,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
             if (isAdapterLoop()) {
                 count = count - 2;
             }
-            if (count <= 1) {
+            if (count <= 1 && !mIndicatorAlwaysShow) {
                 return;
             }
             for (int i = 0; i < count; i++) {
