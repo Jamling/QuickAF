@@ -1,6 +1,7 @@
 package cn.ieclipse.af.view.refresh;
 
 import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.webkit.WebView;
 
@@ -12,6 +13,7 @@ import android.webkit.WebView;
  */
 public class RefreshWebViewDetector extends RefreshLayout.RefreshDetector<WebView> {
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private View.OnScrollChangeListener mOnScrollChangeListener = new View.OnScrollChangeListener() {
         @Override
         public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
