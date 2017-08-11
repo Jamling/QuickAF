@@ -77,7 +77,7 @@ public class AppConfig {
 
     public static void setUser(UserInfo user) {
         AppConfig.user = user;
-        FileUtils.writeObject(FileUtils.getInternal(context), AppConstants.Prefs.KEY_USER_TOKEN, user);
+        FileUtils.writeObject(FileUtils.getInternal(context), AppConstants.Prefs.KEY_USER_INFO, user);
     }
 
     public static void login(String token, UserInfo user) {
