@@ -25,16 +25,15 @@ import android.widget.TextView;
 import cn.ieclipse.af.app.AfDialogFragment;
 import cn.ieclipse.af.app.AlertDialogFragment.AlertInterceptor;
 import cn.ieclipse.af.demo.R;
-import cn.ieclipse.af.demo.sample.SampleBaseActivity;
+import cn.ieclipse.af.demo.sample.SampleBaseFragment;
 import cn.ieclipse.af.util.DialogUtils;
 
 /**
  * 类/接口描述
- * 
+ *
  * @author Jamling
- *       
  */
-public class DialogsActivity extends SampleBaseActivity {
+public class DialogsSample extends SampleBaseFragment {
 
     @Override
     protected void initHeaderView() {
@@ -46,36 +45,66 @@ public class DialogsActivity extends SampleBaseActivity {
     protected int getContentLayout() {
         return R.layout.sample_activity_dialogs;
     }
-    
+
+    @Override
+    protected void initContentView(View view) {
+        super.initContentView(view);
+        view.findViewById(R.id.btn_submit).setOnClickListener(this);
+    }
+
     public void showToast(View view) {
         DialogUtils.showToast(this, "DialogUtils.showToast(context, msg)");
     }
-    
+
     @Override
     public void onClick(View v) {
+        if (btn1 == v){
+            showToast(v);
+        }
+        else if (btn2 == v) {
+            showSimplestAlert(v);
+        }
+        else if (btn3 == v) {
+            showCommonAlertWithListener(v);
+        }
+        else if (btn4 == v) {
+            showCustomAlert(v);
+        }
+        else if (btn5 == v) {
+            showAlertWithStyle(v);
+        }
+        else if (btn6 == v) {
+            View view = View.inflate(getActivity(), R.layout.sample_dialog_alert, null);
+            DialogUtils.showDialog(getSubFragmentManager(), view);
+        }
+        else if (v.getId() == R.id.btn_submit) {
+            showDialog1(v);
+        }
         super.onClick(v);
     }
-    
+
     public void showSimplestAlert(View view) {
-        DialogUtils.showAlert(this, android.R.drawable.ic_dialog_alert, null, "我是最简单的警告对话框, 没有图标，没有标题, 没有Button");
+        DialogUtils.showAlert(this.getActivity(), android.R.drawable.ic_dialog_alert, null,
+            "我是最简单的警告对话框, 没有图标，没有标题, 没有Button");
     }
-    
+
     public void showCommonAlertWithListener(View view) {
-        DialogUtils.showAlert(this, android.R.drawable.ic_dialog_alert, getString(android.R.string.dialog_alert_title),
-            "我是常用的警告对话框, 带两个Button", new DialogInterface.OnClickListener() {
+        DialogUtils.showAlert(this.getActivity(), android.R.drawable.ic_dialog_alert,
+            getString(android.R.string.dialog_alert_title), "我是常用的警告对话框, 带两个Button",
+            new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    DialogUtils.showToast(DialogsActivity.this, "我点击的是确定");
+                    DialogUtils.showToast(DialogsSample.this, "我点击的是确定");
                 }
             }, DialogUtils.defaultOnClick());
     }
 
     public void showCustomAlert(View view) {
-        DialogUtils.showAlert(this, new AlertInterceptor() {
+        DialogUtils.showAlert(getActivity(), new AlertInterceptor() {
 
             @Override
             public void onCreated(Builder builder) {
-                TextView view = new TextView(DialogsActivity.this);
+                TextView view = new TextView(getActivity());
                 view.setText(Html.fromHtml(
                     "I am use <font color='blue'>cn.ieclipse.af.util.DialogUtils.showAlert(Activity context, "
                         + "AlertInterceptor interceptor)</font> to show an alert Dialog, you can access all method of"
@@ -88,11 +117,11 @@ public class DialogsActivity extends SampleBaseActivity {
     }
 
     public void showStyleAlert(View view) {
-        DialogUtils.showAlert(this, new AlertInterceptor() {
+        DialogUtils.showAlert(getActivity(), new AlertInterceptor() {
 
             @Override
             public void onCreated(Builder builder) {
-                TextView view = new TextView(DialogsActivity.this);
+                TextView view = new TextView(getActivity());
                 view.setText(Html.fromHtml(
                     "I am use <font color='blue'>cn.ieclipse.af.util.DialogUtils.showAlert(Activity context, "
                         + "AlertInterceptor interceptor)</font> to show an alert Dialog, you can access all method of"
@@ -106,7 +135,7 @@ public class DialogsActivity extends SampleBaseActivity {
 
     public void showAlertWithStyle(View view) {
         int style = android.R.style.Theme_Holo_Dialog;
-        DialogUtils.showAlert(this, style, 0, "title", "message", null, DialogUtils.defaultOnClick(),
+        DialogUtils.showAlert(getActivity(), style, 0, "title", "message", null, DialogUtils.defaultOnClick(),
             DialogUtils.defaultOnClick());
     }
 
@@ -170,7 +199,5 @@ public class DialogsActivity extends SampleBaseActivity {
             super.onCancel(dialog);
             DialogUtils.showToast(getActivity(), "cancel");
         }
-
-
     }
 }

@@ -40,6 +40,7 @@ public abstract class AfDialogFragment<DialogListener> extends DialogFragment im
     protected DialogListener listener;
     private boolean isAlert = false;
     private boolean canceledOnTouchOutside = true;
+    private View contentView;
 
     public static final String EXTRA_ALERT = "AlertDialog";
     public static final String EXTRA_CANCEL_OUTSIDE = "CanceledOnTouchOutside";
@@ -61,9 +62,11 @@ public abstract class AfDialogFragment<DialogListener> extends DialogFragment im
         if (isAlert) {
             return null;
         }
-        View view = inflater.inflate(getContentLayout(), container, false);
-        initContentView(view);
-        return view;
+        if (contentView == null) {
+            contentView = inflater.inflate(getContentLayout(), container, false);
+            initContentView(contentView);
+        }
+        return contentView;
     }
 
     @Override
@@ -89,6 +92,17 @@ public abstract class AfDialogFragment<DialogListener> extends DialogFragment im
     }
 
     protected abstract int getContentLayout();
+
+    /**
+     * Set content view for dialog
+     *
+     * @param contentView root content view
+     *
+     * @since 2.1.1
+     */
+    public void setContentView(View contentView) {
+        this.contentView = contentView;
+    }
 
     @Override
     public void onClick(View v) {
@@ -192,11 +206,38 @@ public abstract class AfDialogFragment<DialogListener> extends DialogFragment im
         }
     }
 
+    /**
+     * New a simple dialog fragment
+     *
+     * @param view content view
+     *
+     * @return a simple {@link cn.ieclipse.af.app.AfDialogFragment}
+     * @since 2.1.1
+     */
+    public static AfDialogFragment newSimple(View view) {
+        AfDialogFragment fragment = new AfDialogFragment.Simple();
+        fragment.setContentView(view);
+        return fragment;
+    }
+
     public interface DefaultDialogListener {
         void onDialogResult(AfDialogFragment dialogFragment, Bundle bundle);
     }
 
     public interface CancelDialogListner {
         void onCancel(AfDialogFragment dialogFragment);
+    }
+
+    /**
+     * A simple {@link cn.ieclipse.af.app.AfDialogFragment}
+     *
+     * @since 2.1.1
+     */
+    public static class Simple extends AfDialogFragment<AfDialogFragment.DefaultDialogListener> {
+
+        @Override
+        protected int getContentLayout() {
+            return 0;
+        }
     }
 }

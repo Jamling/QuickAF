@@ -7,43 +7,63 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:divider="@drawable/divider_linear"
+        android:showDividers="middle|end">
 
-        <Button
+        <cn.ieclipse.af.view.Preference
+            android:id="@+id/btn1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="showToast"
-            android:text="showToast"/>
+            android:layout="@layout/common_pref_item"
+            android:title="Toast"
+            android:summary="Toast.LENGTH_LONG"/>
 
-        <Button
+        <cn.ieclipse.af.view.Preference
+            android:id="@+id/btn2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="showSimplestAlert"
-            android:text="showSimplestAlert"/>
+            android:layout="@layout/common_pref_item"
+            android:title="Alert"
+            android:summary="Simple"/>
 
-        <Button
+        <cn.ieclipse.af.view.Preference
+            android:id="@+id/btn3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="showCommonAlertWithListener"
-            android:text="showCommonAlertWithListener"/>
+            android:layout="@layout/common_pref_item"
+            android:title="Alert"
+            android:summary="with listeners"/>
 
-        <Button
+        <cn.ieclipse.af.view.Preference
+            android:id="@+id/btn4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="showCustomAlert"
-            android:text="showCustomAlert"/>
+            android:layout="@layout/common_pref_item"
+            android:title="Alert"
+            android:summary="custom"/>
 
-        <Button
+        <cn.ieclipse.af.view.Preference
+            android:id="@+id/btn5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="showAlertWithStyle"
-            android:text="showAlertWithStyle"/>
+            android:layout="@layout/common_pref_item"
+            android:title="Alert"
+            android:summary="with style"/>
+
+        <cn.ieclipse.af.view.Preference
+            android:id="@+id/btn6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout="@layout/common_pref_item"
+            android:title="Dialog"
+            android:summary="simple dialog fragment"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Advance dialog"/>
+            android:text="Advance dialog fragment"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -64,10 +84,11 @@
                 android:text="shouldAdd"/>
 
             <Button
+                android:textAllCaps="false"
+                android:id="@+id/btn_submit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="showDialog1"
-                android:text="showDialog"/>
+                android:text="showDialogFragment"/>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

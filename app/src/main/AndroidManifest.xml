@@ -124,9 +124,6 @@
         <activity android:name=".sample.volley.upload.UploadActivity2" />
         <activity android:name=".sample.volley.AdapterDemoActivity" />
 
-        <!-- utils -->
-        <activity android:name=".sample.utils.DialogsActivity" />
-
         <!-- aorm -->
         <activity android:name=".sample.orm.AormActivity" />
         <activity android:name=".sample.orm.StudentListActivity" />

@@ -18,11 +18,14 @@ package cn.ieclipse.af.util;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.view.View;
 
+import cn.ieclipse.af.app.AfDialogFragment;
 import cn.ieclipse.af.app.AlertDialogFragment;
 import cn.ieclipse.af.app.ProgressDialogFragment;
 import cn.ieclipse.af.app.ProgressDialogFragment.ProgressInterceptor;
@@ -47,6 +50,12 @@ public final class DialogUtils {
      */
     public static void showToast(Context context, CharSequence msg) {
         ToastUtils.showToast(context, msg);
+    }
+
+    public static void showToast(Fragment fragment, CharSequence msg) {
+        if (fragment != null) {
+            showToast(fragment.getActivity(), msg);
+        }
     }
 
     public static void showToast(Context context, int res) {
@@ -136,6 +145,36 @@ public final class DialogUtils {
         ProgressDialogFragment fragment = ProgressDialogFragment.newInstance(style, msg, null, listener);
         attachDialog(context, fragment);
         return fragment;
+    }
+
+    /**
+     * Show dialog ({@link android.app.DialogFragment} implementation
+     *
+     * @param fm    {@link android.app.FragmentManager}
+     * @param view  dialog content view
+     * @param style see dialog style
+     * @param theme see dialog theme
+     *
+     * @since 2.1.1
+     */
+    public static void showDialog(FragmentManager fm, View view, int style, int theme) {
+        AfDialogFragment fragment = AfDialogFragment.newSimple(view);
+        fragment.setStyle(style, theme);
+        fragment.show(fm, false);
+    }
+
+    /**
+     * Show dialog, with {@link android.app.DialogFragment#STYLE_NO_TITLE} and android.R.style
+     * .Theme_Holo_Light_Dialog_MinWidth theme
+     *
+     * @param fm   {@link android.app.FragmentManager}
+     * @param view dialog content view
+     *
+     * @see cn.ieclipse.af.util.DialogUtils#showDialog(android.app.FragmentManager, android.view.View, int, int)
+     * @since 2.1.1
+     */
+    public static void showDialog(FragmentManager fm, View view) {
+        DialogUtils.showDialog(fm, view, DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog_MinWidth);
     }
 
     public static void close(DialogFragment fragment, boolean allowStateLost) {

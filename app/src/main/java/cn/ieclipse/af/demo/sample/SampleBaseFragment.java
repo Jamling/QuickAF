@@ -19,7 +19,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -57,12 +56,12 @@ public abstract class SampleBaseFragment extends BaseFragment implements Adapter
     protected TextView tv3;
     protected TextView tv4;
 
-    protected Button btn1;
-    protected Button btn2;
-    protected Button btn3;
-    protected Button btn4;
-    protected Button btn5;
-    protected Button btn6;
+    protected View btn1;
+    protected View btn2;
+    protected View btn3;
+    protected View btn4;
+    protected View btn5;
+    protected View btn6;
 
     protected CompoundButton chk1;
     protected CompoundButton chk2;
@@ -91,12 +90,12 @@ public abstract class SampleBaseFragment extends BaseFragment implements Adapter
         fl2 = (FlowLayout) view.findViewById(R.id.fl2);
         fl3 = (FlowLayout) view.findViewById(R.id.fl3);
 
-        btn1 = (Button) view.findViewById(R.id.btn1);
-        btn2 = (Button) view.findViewById(R.id.btn2);
-        btn3 = (Button) view.findViewById(R.id.btn3);
-        btn4 = (Button) view.findViewById(R.id.btn4);
-        btn5 = (Button) view.findViewById(R.id.btn5);
-        btn6 = (Button) view.findViewById(R.id.btn6);
+        btn1 = view.findViewById(R.id.btn1);
+        btn2 = view.findViewById(R.id.btn2);
+        btn3 = view.findViewById(R.id.btn3);
+        btn4 = view.findViewById(R.id.btn4);
+        btn5 = view.findViewById(R.id.btn5);
+        btn6 = view.findViewById(R.id.btn6);
         setOnClickListener(btn1, btn2, btn3, btn4, btn5, btn6);
 
         tv1 = (TextView) view.findViewById(R.id.tv1);
