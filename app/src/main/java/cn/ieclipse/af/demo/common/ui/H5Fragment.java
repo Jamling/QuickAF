@@ -18,6 +18,8 @@ package cn.ieclipse.af.demo.common.ui;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.os.Handler;
@@ -129,6 +131,14 @@ public class H5Fragment extends BaseFragment {
 
         mWebView.getSettings().setDomStorageEnabled(true);
         mWebView.setDownloadListener(new H5Activity.SystemDownloadListener(getActivity()));
+
+        // 设置可以支持缩放
+        mWebView.getSettings().setSupportZoom(true);
+        //扩大比例的缩放
+        mWebView.getSettings().setUseWideViewPort(true);
+        //自适应屏幕
+        mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        mWebView.getSettings().setLoadWithOverviewMode(true);
     }
 
     protected void load() {
@@ -178,8 +188,29 @@ public class H5Fragment extends BaseFragment {
     }
 
     protected boolean shouldOverrideUrlLoading(WebView webView, String url) {
+        if (url.startsWith("tel:")) {
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse(url));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            //webView.reload();
+            return true;
+        }
+        else if (url.startsWith("mailto:")) {
+            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse(url));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            return true;
+        }
         webView.loadUrl(url);
         return true;
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (mWebView != null) {
+            mWebView.destroy();
+        }
+        super.onDestroyView();
     }
 
     protected class H5WebChromeClient extends WebChromeClient {
@@ -203,7 +234,7 @@ public class H5Fragment extends BaseFragment {
         public boolean shouldOverrideUrlLoading(WebView webView, String s) {
             return H5Fragment.this.shouldOverrideUrlLoading(webView, s);
         }
-    
+
         @Override
         public void onReceivedSslError(WebView view, final SslErrorHandler handler, SslError error) {
             AlertDialog dialog = new AlertDialog.Builder(view.getContext()).setTitle("SSL证书错误").setMessage(
@@ -221,7 +252,7 @@ public class H5Fragment extends BaseFragment {
             }).create();
             dialog.show();
         }
-    
+
         private String getSSLErrorMsg(SslError error) {
             String msg = "";
             switch (error.getPrimaryError()) {
