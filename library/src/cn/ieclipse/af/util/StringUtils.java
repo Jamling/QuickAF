@@ -23,6 +23,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.math.RoundingMode;
 import java.net.URLEncoder;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.List;
@@ -228,5 +229,23 @@ public class StringUtils {
             sb.append(o == null ? "" : o.toString());
         }
         return sb.toString();
+    }
+
+    public static String getDistance(double latitude1, double longitude1, double latitude2, double longitude2) {
+        double pi = (Math.PI / 180);
+        double lat1 = pi * latitude1;
+        double lat2 = pi * latitude2;
+
+        double lon1 = pi * longitude1;
+        double lon2 = pi * longitude2;
+
+        // 地球半径
+        double R = 6371;
+
+        // 两点间距离 km，如果想要米的话，结果*1000就可以了
+        double d = Math.acos(Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1))
+            * R;
+        DecimalFormat df1 = new DecimalFormat("0.0");// 格式化小数，不足的补0
+        return df1.format(d * 1000);
     }
 }

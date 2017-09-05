@@ -250,13 +250,13 @@ public class RoundedColorDrawable extends Drawable {
         }
         RoundedColorDrawable self = new RoundedColorDrawable(mRadii, color);
         self.setCircle(this.mIsCircle);
-        self.setBorder(borderColor > 0 ? borderColor : mBorderColor, mBorderWidth);
+        self.setBorder(borderColor, mBorderWidth);
         sld.addState(stateSet, self);
         return this;
     }
 
     public RoundedColorDrawable addStateColor(int[] stateSet, int color){
-        return addStateColor(stateSet, color, 0);
+        return addStateColor(stateSet, color, mBorderColor);
     }
 
     public RoundedColorDrawable addStateColor(int state, int color){
