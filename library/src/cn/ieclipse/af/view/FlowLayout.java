@@ -520,7 +520,9 @@ public class FlowLayout extends ViewGroup {
                 if (lf == 0) {
                     x = left;
                     y += lineHeight;
-                    y += getVerticalSpacing();
+                    if (getNextChild(i) != null) {
+                        y += getVerticalSpacing();
+                    }
                     lineHeight = 0;
                     mLines.add(new ArrayList<View>());
                     mLineHeights.add(lineHeight);
@@ -542,6 +544,16 @@ public class FlowLayout extends ViewGroup {
             }
         }
         setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), height);
+    }
+
+    private View getNextChild(int index) {
+        for (int i = index + 1; i < getChildCount(); i++) {
+            View v = getChildAt(i);
+            if (v.getVisibility() != View.GONE) {
+                return v;
+            }
+        }
+        return null;
     }
     
     protected int getChildWidthMeasureSpec(View child, int width, int rest) {
