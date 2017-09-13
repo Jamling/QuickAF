@@ -68,7 +68,12 @@ public class AppConfig {
 
     public static void setToken(String token) {
         AppConfig.token = token;
-        SharedPrefsUtils.putString(AppConstants.Prefs.KEY_USER_TOKEN, token);
+        if (token == null) {
+            SharedPrefsUtils.remove(AppConstants.Prefs.KEY_USER_TOKEN);
+        }
+        else {
+            SharedPrefsUtils.putString(AppConstants.Prefs.KEY_USER_TOKEN, token);
+        }
     }
 
     public static UserInfo getUser() {
@@ -87,7 +92,7 @@ public class AppConfig {
 
     public static void logout(){
         AppConfig.setToken(null);
-        SharedPrefsUtils.remove(AppConstants.Prefs.KEY_USER_TOKEN);
+        AppConfig.setUser(null);
     }
 
     public static String getUid() {

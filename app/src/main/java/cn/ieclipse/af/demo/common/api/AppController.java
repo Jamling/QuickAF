@@ -17,12 +17,16 @@ package cn.ieclipse.af.demo.common.api;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.ieclipse.af.demo.AppConfig;
+import cn.ieclipse.af.demo.my.LoginActivity;
 import cn.ieclipse.af.util.RandomUtils;
 import cn.ieclipse.af.volley.Controller;
 import cn.ieclipse.af.volley.IBaseResponse;
@@ -42,6 +46,7 @@ public abstract class AppController<Listener> extends cn.ieclipse.af.volley.Cont
     }
 
     protected abstract class AppBaseTask<Input, Output> extends RequestObjectTask<Input, Output> {
+        protected Context context;
 
         @Override
         public boolean onInterceptor(IBaseResponse response) throws Exception {
@@ -73,6 +78,7 @@ public abstract class AppController<Listener> extends cn.ieclipse.af.volley.Cont
                     }
                     return false;
                 }
+                context = (Context) mListener;
             }
             else if (mListener instanceof Fragment) {
                 if (!((Fragment) mListener).isAdded() || ((Fragment) mListener).isDetached()) {
@@ -86,11 +92,17 @@ public abstract class AppController<Listener> extends cn.ieclipse.af.volley.Cont
         }
 
         public void onLogicError(LogicError error) {
+            onError(new RestError(error));
             if (404 == error.getCode() || 104 == error.getCode()) {
-                // LoginActivity.go(MyApplication.instance);
+                AppConfig.logout();
+                // EventBus.getDefault().post(new LogoutEvent());
+                if (context != null) {
+                    Intent intent = LoginActivity.create(context);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    context.startActivity(intent);
+                }
                 return;
             }
-            onError(new RestError(error));
         }
 
         int count;

@@ -47,16 +47,16 @@ public final class URLConst {
         Url LOGIN_CODE = new Url("sendCode").get();
 
         //登录
-        Url LOGIN_WITH_CODE = new Url("login").post();
+        Url LOGIN_WITH_CODE = new Url("user/login").post();
 
         // 登录(使用密码)
-        Url LOGIN_WITH_PWD = new Url("login").post();
+        Url LOGIN_WITH_PWD = new Url("user/login").post();
 
-        Url REG = new Url("addStaff").post();
+        Url REG = new Url("user/register").post();
 
         Url REG_CODE = new Url("sendCode").get();
 
-        Url INFO = new Url("userInfo").post();
+        Url INFO = new Url("user/info").get();
 
         //退出
         Url LOGOUT = new Url("logout").post();

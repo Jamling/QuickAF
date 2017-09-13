@@ -14,6 +14,7 @@ import cn.ieclipse.af.util.RandomUtils;
 
 public abstract class BaseListInfo<T> extends BaseInfo {
     public int count;
+    public int total;
     public List<T> list;
 
     @Override

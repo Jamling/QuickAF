@@ -48,9 +48,9 @@ public abstract class AfFragment extends Fragment implements View.OnClickListene
     protected TitleBar mTitleBar;
     private FrameLayout mContentView;
     protected FrameLayout mBottomBar;
-    
+
     protected abstract int getContentLayout();
-    
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 //        if (Build.VERSION.SDK_INT >= 15 && container != null && container instanceof ViewPager) {
@@ -84,12 +84,12 @@ public abstract class AfFragment extends Fragment implements View.OnClickListene
         initData();
         return mRootView;
     }
-    
+
     @Override
     public void onClick(View v) {
 
     }
-    
+
     protected void setOnClickListener(View... views) {
         if (views != null) {
             for (View view : views) {
@@ -99,7 +99,7 @@ public abstract class AfFragment extends Fragment implements View.OnClickListene
             }
         }
     }
-    
+
     protected void initIntent(Bundle bundle) {
 
     }
@@ -111,7 +111,7 @@ public abstract class AfFragment extends Fragment implements View.OnClickListene
     protected void initHeaderView() {
 
     }
-    
+
     protected void initContentView(View view) {
 
     }
@@ -119,23 +119,20 @@ public abstract class AfFragment extends Fragment implements View.OnClickListene
     protected void initBottomView() {
 
     }
-    
+
     protected void initData() {
 
     }
 
-//    protected AfActivity getAfActivity() {
-//        Activity context = getActivity();
-//        if (context == null) {
-//            if (getView() != null && getView().getContext() instanceof Activity) {
-//                context = (Activity) getView().getContext();
-//            }
-//        }
-//        if (context instanceof AfActivity) {
-//            return (AfActivity) context;
-//        }
-//        return null;
-//    }
+    @Override
+    public Context getContext() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return super.getContext();
+        }
+        else {
+            return getActivity();
+        }
+    }
 
     public boolean isOverlay() {
         return overlay;
