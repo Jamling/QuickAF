@@ -26,10 +26,15 @@ import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
+import java.io.File;
+
 import cn.ieclipse.af.app.AfDialogFragment;
 import cn.ieclipse.af.demo.AppConfig;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.api.URLConst;
+import cn.ieclipse.af.util.DialogUtils;
+import cn.ieclipse.af.util.FileUtils;
+import cn.ieclipse.af.util.SDUtils;
 import cn.ieclipse.af.volley.Controller;
 
 /**
@@ -45,6 +50,7 @@ public class DevDialogFragment extends AfDialogFragment implements CompoundButto
     private View mBtnDown;
     private CheckBox mChkDebug;
     private CheckBox mChkAfDebug;
+    private View mBtnDump;
 
     private static long time = System.currentTimeMillis();
     private static int count = 0;
@@ -88,6 +94,7 @@ public class DevDialogFragment extends AfDialogFragment implements CompoundButto
         mEtUrl.setOnItemClickListener(this);
 
         mBtnDown = view.findViewById(R.id.btn_submit);
+        mBtnDump = view.findViewById(android.R.id.button1);
 
         mChkAfDebug = (CheckBox) view.findViewById(R.id.chk1);
         mChkAfDebug.setChecked(Controller.DEBUG);
@@ -97,7 +104,7 @@ public class DevDialogFragment extends AfDialogFragment implements CompoundButto
         mChkDebug.setChecked(AppConfig.isDebug());
         mChkDebug.setOnCheckedChangeListener(this);
 
-        setOnClickListener(mBtnDown);
+        setOnClickListener(mBtnDown, mBtnDump);
     }
 
     protected String[] getUrls() {
@@ -108,6 +115,9 @@ public class DevDialogFragment extends AfDialogFragment implements CompoundButto
     public void onClick(View v) {
         if (v == mBtnDown) {
             mEtUrl.showDropDown();
+        }
+        else if (v == mBtnDump) {
+            dump();
         }
         super.onClick(v);
     }
@@ -135,5 +145,18 @@ public class DevDialogFragment extends AfDialogFragment implements CompoundButto
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+    }
+
+    public void dump() {
+        String type = getActivity().getPackageName();
+        try {
+            File src = FileUtils.getInternal(getActivity()).getParentFile();
+            File dest = SDUtils.getRootDirectory();
+            FileUtils.copyDirectoryToDirectory(src, dest, null);
+            DialogUtils.showToast(getActivity(), "已复制到" + dest.getAbsolutePath());
+        } catch (Exception e) {
+            e.printStackTrace();
+            DialogUtils.showToast(getActivity(), e.toString());
+        }
     }
 }

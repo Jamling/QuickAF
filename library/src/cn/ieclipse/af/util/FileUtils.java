@@ -5,10 +5,13 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.channels.FileChannel;
 
 import cn.ieclipse.af.common.Logger;
 
@@ -19,9 +22,9 @@ public final class FileUtils {
     private static Logger mLogger = Logger.getLogger(FileUtils.class);
 
     private FileUtils() {
-        
+
     }
-    
+
     /**
      * Get file name from file path
      *
@@ -42,7 +45,7 @@ public final class FileUtils {
         }
         return path;
     }
-    
+
     public static String getExtension(String path) {
         String name = path;//getName(path);
         int pos = name.lastIndexOf('.');
@@ -51,19 +54,19 @@ public final class FileUtils {
         }
         return "";
     }
-    
+
     public static String getExtensionFromUrl(String url) {
         if (url != null && url.length() > 0) {
             int fragment = url.lastIndexOf('#');
             if (fragment > 0) {
                 url = url.substring(0, fragment);
             }
-            
+
             int query = url.lastIndexOf('?');
             if (query > 0) {
                 url = url.substring(0, query);
             }
-            
+
             int filenamePos = url.lastIndexOf('/');
             String filename = 0 <= filenamePos ? url.substring(filenamePos + 1) : url;
             // if the filename contains special characters, we don't
@@ -79,10 +82,10 @@ public final class FileUtils {
                 }
             }
         }
-        
+
         return "";
     }
-    
+
     public static File getCopyDestFile(File file) {
         if (!file.exists()) {
             return file;
@@ -263,5 +266,59 @@ public final class FileUtils {
             return length / (1 << 10) + "K";
         }
         return length + "B";
+    }
+
+    public static void copyFileToDirectory(File srcFile, File destDir) throws IOException {
+        if (destDir != null && srcFile != null) {
+            if (!destDir.exists()) {
+                destDir.mkdirs();
+            }
+            if (srcFile.isFile()) {
+                File target = new File(destDir, srcFile.getName());
+                copyFile(srcFile, target);
+            }
+        }
+    }
+
+    public static void copyDirectoryToDirectory(File srcDir, File destDir, FileFilter filter) throws IOException {
+        if (srcDir != null && destDir != null) {
+            if (srcDir.isDirectory()) {
+                if (!destDir.exists()) {
+                    destDir.mkdirs();
+                }
+                File target = new File(destDir, srcDir.getName());
+                if (!target.exists()) {
+                    target.mkdirs();
+                    target.setLastModified(srcDir.lastModified());
+                }
+                target.setWritable(true);
+                File[] files = srcDir.listFiles(filter);
+                if (files != null) {
+                    for (File file : files) {
+                        if (file.isFile()) {
+                            copyFileToDirectory(file, target);
+                        }
+                        else {
+                            copyDirectoryToDirectory(file, target, filter);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public static void copyFile(File srcFile, File destFile) throws IOException {
+        if (!destFile.exists()) {
+            destFile.createNewFile();
+        }
+        destFile.setWritable(true);
+        FileInputStream fis = new FileInputStream(srcFile);
+        FileOutputStream fos = new FileOutputStream(destFile);
+        FileChannel in = fis.getChannel();
+        FileChannel out = fos.getChannel();
+        in.transferTo(0, in.size(), out);
+        IOUtils.closeStream(fos);
+        IOUtils.closeStream(fis);
+        destFile.setLastModified(srcFile.lastModified());
     }
 }
