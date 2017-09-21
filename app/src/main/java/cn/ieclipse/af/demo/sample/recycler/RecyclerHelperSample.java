@@ -16,6 +16,7 @@
 package cn.ieclipse.af.demo.sample.recycler;
 
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -65,7 +66,14 @@ public class RecyclerHelperSample extends SampleBaseFragment implements NewsCont
         helper.setRecyclerView(listView);
 
         adapter = new AfRecyclerAdapter<>();
-        mDefaultDivider = new DividerItemDecoration(listView.getContext(), getOrientation());
+        mDefaultDivider = new DividerItemDecoration(listView.getContext(), getOrientation()){
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                super.getItemOffsets(outRect, view, parent, state);
+                outRect.left = AppUtils.dp2px(listView.getContext(), 20);
+                outRect.right = AppUtils.dp2px(listView.getContext(), 20);
+            }
+        };
         mAfDivider = new ListDividerItemDecoration(listView.getContext(), getOrientation());
         onItemSelected(spn3, null, 0, 0);
 
