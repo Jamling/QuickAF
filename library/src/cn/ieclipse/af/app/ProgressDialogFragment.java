@@ -49,7 +49,7 @@ public class ProgressDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         ProgressDialog dialog = new ProgressDialog(getActivity());
         int style = getArguments().getInt("style");
-        CharSequence msg = getArguments().getString("msg");
+        CharSequence msg = getArguments().getCharSequence("msg");
         if (style > 0) {
             dialog.setProgressStyle(style);
         }

@@ -48,9 +48,9 @@ public class AlertDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle args = getArguments();
-        CharSequence title = args.getString("title");
+        CharSequence title = args.getCharSequence("title");
         int icon = args.getInt("icon");
-        CharSequence msg = args.getString("msg");
+        CharSequence msg = args.getCharSequence("msg");
         
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), getTheme());
         
