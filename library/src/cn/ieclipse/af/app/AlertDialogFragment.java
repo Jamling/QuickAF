@@ -32,13 +32,13 @@ public class AlertDialogFragment extends DialogFragment {
     private DialogInterface.OnClickListener[] mListeners;
     private AlertInterceptor mInterceptor;
     
-    public static AlertDialogFragment newInstance(int icon, String title, String msg, AlertInterceptor interceptor,
+    public static AlertDialogFragment newInstance(int icon, CharSequence title, CharSequence msg, AlertInterceptor interceptor,
                                                   DialogInterface.OnClickListener... listeners) {
         AlertDialogFragment frag = new AlertDialogFragment();
         Bundle args = new Bundle();
         args.putInt("icon", icon);
-        args.putString("title", title);
-        args.putString("msg", msg);
+        args.putCharSequence("title", title);
+        args.putCharSequence("msg", msg);
         frag.setArguments(args);
         frag.setListeners(listeners);
         frag.setInterceptor(interceptor);
@@ -48,9 +48,9 @@ public class AlertDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle args = getArguments();
-        String title = args.getString("title");
+        CharSequence title = args.getString("title");
         int icon = args.getInt("icon");
-        String msg = args.getString("msg");
+        CharSequence msg = args.getString("msg");
         
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), getTheme());
         

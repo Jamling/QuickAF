@@ -178,8 +178,9 @@ public class RoundedColorDrawable extends Drawable {
      *            of the border
      * @param width
      *            of the border
+     * @return this
      */
-    public void setBorder(int color, float width) {
+    public RoundedColorDrawable setBorder(int color, float width) {
         if (mBorderColor != color) {
             mBorderColor = color;
             invalidateSelf();
@@ -190,6 +191,7 @@ public class RoundedColorDrawable extends Drawable {
             updatePath();
             invalidateSelf();
         }
+        return this;
     }
     
     /**

@@ -84,7 +84,7 @@ public final class DialogUtils {
      * @param interceptor dialog display interceptor see {@link AlertDialogFragment.AlertInterceptor}
      * @param listeners   dialog button onclick listeners see {@link android.content.DialogInterface.OnClickListener}
      */
-    public static AlertDialogFragment showAlert(Activity context, int icon, String title, String message,
+    public static AlertDialogFragment showAlert(Activity context, int icon, CharSequence title, CharSequence message,
                                                 AlertDialogFragment.AlertInterceptor interceptor,
                                                 DialogInterface.OnClickListener... listeners) {
         AlertDialogFragment fragment = AlertDialogFragment.newInstance(icon, title, message, interceptor, listeners);
@@ -93,7 +93,7 @@ public final class DialogUtils {
         return fragment;
     }
 
-    public static AlertDialogFragment showAlert(Activity context, int style, int icon, String title, String message,
+    public static AlertDialogFragment showAlert(Activity context, int style, int icon, CharSequence title, CharSequence message,
                                                 AlertDialogFragment.AlertInterceptor interceptor,
                                                 DialogInterface.OnClickListener... listeners) {
         AlertDialogFragment fragment = AlertDialogFragment.newInstance(icon, title, message, interceptor, listeners);
@@ -102,7 +102,7 @@ public final class DialogUtils {
         return fragment;
     }
 
-    public static AlertDialogFragment showAlert(Activity context, int icon, String title, String message,
+    public static AlertDialogFragment showAlert(Activity context, int icon, CharSequence title, CharSequence message,
                                                 DialogInterface.OnClickListener... listeners) {
         return showAlert(context, icon, title, message, null, listeners);
     }
@@ -140,7 +140,7 @@ public final class DialogUtils {
         return fragment;
     }
 
-    public static ProgressDialogFragment showProgress(Activity context, int style, String msg,
+    public static ProgressDialogFragment showProgress(Activity context, int style, CharSequence msg,
                                                       OnCancelListener listener) {
         ProgressDialogFragment fragment = ProgressDialogFragment.newInstance(style, msg, null, listener);
         attachDialog(context, fragment);

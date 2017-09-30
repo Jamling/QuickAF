@@ -33,12 +33,12 @@ public class ProgressDialogFragment extends DialogFragment {
     private ProgressInterceptor interceptor;
     private OnCancelListener onCancelListener;
     
-    public static ProgressDialogFragment newInstance(int style, String msg, ProgressInterceptor interceptor,
+    public static ProgressDialogFragment newInstance(int style, CharSequence msg, ProgressInterceptor interceptor,
                                                      OnCancelListener listener) {
         ProgressDialogFragment frag = new ProgressDialogFragment();
         Bundle args = new Bundle();
         args.putInt("style", style);
-        args.putString("msg", msg);
+        args.putCharSequence("msg", msg);
         frag.setArguments(args);
         frag.setInterceptor(interceptor);
         frag.setOnCancelListener(listener);
@@ -49,7 +49,7 @@ public class ProgressDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         ProgressDialog dialog = new ProgressDialog(getActivity());
         int style = getArguments().getInt("style");
-        String msg = getArguments().getString("msg");
+        CharSequence msg = getArguments().getString("msg");
         if (style > 0) {
             dialog.setProgressStyle(style);
         }
