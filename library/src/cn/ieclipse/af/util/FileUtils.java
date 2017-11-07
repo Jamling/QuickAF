@@ -220,6 +220,30 @@ public final class FileUtils {
         return ret;
     }
 
+    public static boolean mkDir(File dir, boolean create) {
+        if (dir != null && !dir.exists()) {
+            return dir.mkdirs();
+        }
+        return false;
+    }
+
+    public static boolean mkFile(File file, boolean create) {
+        if (file != null && !file.exists()) {
+            File dir = file.getParentFile();
+            if (dir != null && !dir.exists()) {
+                dir.mkdirs();
+            }
+            if (create) {
+                try {
+                    return dir.createNewFile();
+                } catch (IOException e) {
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+
     public static void rmdir(File dir, boolean recursive) {
         if (dir != null && dir.exists()) {
             File[] fs = dir.listFiles();
