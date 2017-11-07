@@ -195,6 +195,9 @@ public class AfDataHolder<T> {
     }
 
     public int getIndexOf(T t){
+        if (mDataList == null || mDataList.isEmpty()) {
+            return -1;
+        }
         return mDataList.indexOf(t);
     }
     
