@@ -84,6 +84,14 @@ public class UploadRequest extends GsonRequest {
         addBody(name, body);
     }
 
+    public void addParams(Map<String, Object> map) {
+        if (map != null) {
+            for (String key : map.keySet()) {
+                addParams(key, String.valueOf(map.get(key)));
+            }
+        }
+    }
+
     public void addBody(String name, byte[] data, String mime, String fn) {
         ByteArrayBody body = new ByteArrayBody(data, mime, fn);
         addBody(name, body);

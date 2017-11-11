@@ -107,8 +107,10 @@ public class AppUploadController<Listener> extends AppController<Listener> {
 
         @Override
         protected void upload(UploadRequest request) {
-            for (File f : files) {
-                request.addBitmapBody("file[]", f);
+            if (files != null) {
+                for (File f : files) {
+                    request.addBitmapBody("file[]", f);
+                }
             }
         }
     }
