@@ -101,7 +101,12 @@ public class RoundedDrawable extends Drawable {
     @Override
     public void draw(Canvas canvas) {
         Rect bounds = getBounds();
+        canvas.save();
+        if (mBorderWidth > 0) {
+            canvas.translate(mBorderWidth / 2, mBorderWidth / 2);
+        }
         canvas.drawRoundRect(fillRect, radius, radius, paint);
+        canvas.restore();
         if (mBorderWidth > 0) {
             if (mIsCircle) {
                 canvas.drawCircle(bounds.width() / 2, bounds.height() / 2, radius, strokePaint);

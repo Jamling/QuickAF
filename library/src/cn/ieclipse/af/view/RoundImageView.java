@@ -20,6 +20,11 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Build;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 
 import cn.ieclipse.af.R;
@@ -44,6 +49,12 @@ public class RoundImageView extends RatioImageView {
         init(context, attrs);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public RoundImageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        init(context, attrs);
+    }
+
     private void init(Context context, AttributeSet attrs) {
         if (attrs != null) {
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RoundImageView);
@@ -53,8 +64,10 @@ public class RoundImageView extends RatioImageView {
             mRadius = a.getDimensionPixelOffset(R.styleable.RoundImageView_android_radius, mRadius);
             a.recycle();
         }
-        // mInit = true;
-        // setImageDrawable(getDrawable());
+        mInit = true;
+        if (getDrawable() != null) {
+            setImageDrawable(getDrawable());
+        }
     }
 
     boolean mIsCircle = false;
@@ -65,29 +78,45 @@ public class RoundImageView extends RatioImageView {
 
     @Override
     public void setImageDrawable(Drawable drawable) {
+        super.setImageDrawable(drawable);
         if (mInit) {
-            // TODO parent updateDrawable is private
+            updateRoundDrawable();
+        }
+    }
+
+    @Override
+    public void setImageResource(@DrawableRes int resId) {
+        super.setImageResource(resId);
+        updateRoundDrawable();
+    }
+
+    @Override
+    public void setImageURI(@Nullable Uri uri) {
+        super.setImageURI(uri);
+        updateRoundDrawable();
+    }
+
+    protected void updateRoundDrawable() {
+        Drawable src = getDrawable();
+        if (src != null && !(src instanceof RoundedDrawable)) {
             RoundedDrawable target = new RoundedDrawable(mRadius);
             target.setCircle(mIsCircle);
             target.setBorder(mBorderColor, mBorderWidth);
-            target.setDrawable(drawable);
-            super.setImageDrawable(target);
-        }
-        else {
-            super.setImageDrawable(drawable);
+            target.setDrawable(src);
+            setImageDrawable(target);
         }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (!(getDrawable() instanceof RoundedDrawable)) {
-            RoundedDrawable target = new RoundedDrawable(mRadius);
-            target.setCircle(mIsCircle);
-            target.setBorder(mBorderColor, mBorderWidth);
-            target.setDrawable(getDrawable());
-            super.setImageDrawable(target);
-            return;
-        }
+//        if (!(getDrawable() instanceof RoundedDrawable)) {
+//            RoundedDrawable target = new RoundedDrawable(mRadius);
+//            target.setCircle(mIsCircle);
+//            target.setBorder(mBorderColor, mBorderWidth);
+//            target.setDrawable(getDrawable());
+//            super.setImageDrawable(target);
+//            return;
+//        }
         super.onDraw(canvas);
     }
 
