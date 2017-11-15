@@ -45,9 +45,9 @@ public class CustomImageViewSample extends SampleBaseFragment {
         super.initContentView(view);
 
         iv1 = (RoundImageView) view.findViewById(R.id.iv1);
-        iv2 = (RoundImageView) view.findViewById(R.id.iv2);
-        iv1.setImageResource(R.color.black_alpha_50);
-        iv2.setImageResource(R.mipmap.logo);
+        //iv2 = (RoundImageView) view.findViewById(R.id.iv2);
+        //iv1.setImageResource(R.color.black_alpha_50);
+        //iv2.setImageResource(R.mipmap.logo);
         iv3 = (HotImageView) view.findViewById(R.id.iv3);
         iv3.addRegion(3, new Rect(41, 41, 117+41, 44+41), new View.OnClickListener() {
             @Override

@@ -75,6 +75,7 @@ public class RoundImageView extends RatioImageView {
     int mBorderColor = Color.TRANSPARENT;
     int mRadius;
     boolean mInit = false;
+    RoundedDrawable mTargetDrawable;
 
     @Override
     public void setImageDrawable(Drawable drawable) {
@@ -99,11 +100,17 @@ public class RoundImageView extends RatioImageView {
     protected void updateRoundDrawable() {
         Drawable src = getDrawable();
         if (src != null && !(src instanceof RoundedDrawable)) {
-            RoundedDrawable target = new RoundedDrawable(mRadius);
-            target.setCircle(mIsCircle);
-            target.setBorder(mBorderColor, mBorderWidth);
-            target.setDrawable(src);
-            setImageDrawable(target);
+            if (mTargetDrawable == null) {
+                RoundedDrawable target = new RoundedDrawable(mRadius);
+                target.setCircle(mIsCircle);
+                target.setBorder(mBorderColor, mBorderWidth);
+                target.setDrawable(src);
+                mTargetDrawable = target;
+                setImageDrawable(target);
+            } else {
+                mTargetDrawable.setDrawable(src);
+                mTargetDrawable.invalidateSelf();
+            }
         }
     }
 

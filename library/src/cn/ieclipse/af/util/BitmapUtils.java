@@ -1680,6 +1680,10 @@ public class BitmapUtils {
     }
 
     public static boolean saveBitmap(Context context, Bitmap bm, File file) {
+        return BitmapUtils.saveBitmap(context, bm, file, 100);
+    }
+
+    public static boolean saveBitmap(Context context, Bitmap bm, File file, int quality) {
         try {
             File p = file.getParentFile();
             if (!p.exists()) {
@@ -1690,7 +1694,8 @@ public class BitmapUtils {
             }
             String ext = FileUtils.getExtension(file.getName());
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
-            bm.compress("png".equals(ext.toLowerCase()) ? Bitmap.CompressFormat.PNG : Bitmap.CompressFormat.JPEG, 100, bos);
+            bm.compress("png".equals(ext.toLowerCase()) ? Bitmap.CompressFormat.PNG : Bitmap.CompressFormat.JPEG,
+                quality, bos);
             bos.flush();
             bos.close();
 

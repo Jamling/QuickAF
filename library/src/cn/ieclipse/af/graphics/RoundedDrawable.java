@@ -27,6 +27,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 
 import cn.ieclipse.af.util.BitmapUtils;
@@ -38,7 +39,7 @@ import cn.ieclipse.af.util.BitmapUtils;
  */
 public class RoundedDrawable extends Drawable {
 
-    protected Paint strokePaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
+    protected Paint mBorderPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
     float mBorderWidth = 0;
     int mBorderColor = Color.TRANSPARENT;
     boolean mIsCircle = false;
@@ -51,16 +52,16 @@ public class RoundedDrawable extends Drawable {
     protected RectF fillRect;
 
     public RoundedDrawable(float radius) {
-        strokePaint.setStyle(Paint.Style.STROKE);
-        strokePaint.setStrokeJoin(Paint.Join.ROUND);
-        strokePaint.setStrokeCap(Paint.Cap.ROUND);
+        mBorderPaint.setStyle(Paint.Style.STROKE);
+        mBorderPaint.setStrokeJoin(Paint.Join.ROUND);
+        mBorderPaint.setStrokeCap(Paint.Cap.ROUND);
         this.radius = radius;
     }
 
     public RoundedDrawable(Drawable drawable) {
-        strokePaint.setStyle(Paint.Style.STROKE);
-        strokePaint.setStrokeJoin(Paint.Join.ROUND);
-        strokePaint.setStrokeCap(Paint.Cap.ROUND);
+        mBorderPaint.setStyle(Paint.Style.STROKE);
+        mBorderPaint.setStrokeJoin(Paint.Join.ROUND);
+        mBorderPaint.setStrokeCap(Paint.Cap.ROUND);
         setDrawable(drawable);
     }
 
@@ -78,6 +79,10 @@ public class RoundedDrawable extends Drawable {
             bitmap = BitmapUtils.getBitmapFromDrawable(drawable);
         }
         if (bitmap == null) {
+            if (drawable instanceof ColorDrawable) {
+                paint.setColor(((ColorDrawable) drawable).getColor());
+            }
+            // TODO other drawable.
             return;
         }
         bitmapShader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
@@ -92,7 +97,9 @@ public class RoundedDrawable extends Drawable {
     protected void onBoundsChange(Rect bounds) {
         super.onBoundsChange(bounds);
         fillRect = new RectF(bounds);
-        fillRect.inset(mBorderWidth, mBorderWidth);
+        if (mBorderWidth > 0) {
+            fillRect.inset(mBorderWidth, mBorderWidth);
+        }
 
         computeBitmapShaderSize();
         computeRadius();
@@ -101,18 +108,13 @@ public class RoundedDrawable extends Drawable {
     @Override
     public void draw(Canvas canvas) {
         Rect bounds = getBounds();
-        canvas.save();
-        if (mBorderWidth > 0) {
-            canvas.translate(mBorderWidth / 2, mBorderWidth / 2);
-        }
         canvas.drawRoundRect(fillRect, radius, radius, paint);
-        canvas.restore();
         if (mBorderWidth > 0) {
             if (mIsCircle) {
-                canvas.drawCircle(bounds.width() / 2, bounds.height() / 2, radius, strokePaint);
+                canvas.drawCircle(bounds.width() / 2, bounds.height() / 2, radius, mBorderPaint);
             }
             else {
-                canvas.drawRoundRect(fillRect, radius, radius, strokePaint);
+                canvas.drawRoundRect(fillRect, radius, radius, mBorderPaint);
             }
         }
     }
@@ -149,6 +151,10 @@ public class RoundedDrawable extends Drawable {
         float scaleY = (fillRect.height()) / (float) bitmap.getHeight();
         float scale = scaleX > scaleY ? scaleX : scaleY;
         matrix.postScale(scale, scale);
+        float offx = (fillRect.width() - bitmap.getWidth() * scale + 1) * 0.5f + fillRect.left;
+        float offy = (fillRect.height() - bitmap.getHeight() * scale + 1) * 0.5f + fillRect.top;
+
+        matrix.postTranslate(offx, offy);
         bitmapShader.setLocalMatrix(matrix);
     }
 
@@ -180,8 +186,8 @@ public class RoundedDrawable extends Drawable {
         if (mBorderColor != color || mBorderWidth != width) {
             mBorderColor = color;
             mBorderWidth = width;
-            strokePaint.setColor(mBorderColor);
-            strokePaint.setStrokeWidth(mBorderWidth);
+            mBorderPaint.setColor(mBorderColor);
+            mBorderPaint.setStrokeWidth(mBorderWidth);
             invalidateSelf();
         }
     }
