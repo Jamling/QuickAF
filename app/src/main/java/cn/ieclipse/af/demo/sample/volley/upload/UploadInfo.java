@@ -19,36 +19,16 @@ package cn.ieclipse.af.demo.sample.volley.upload;
 import java.io.Serializable;
 
 public class UploadInfo implements Serializable {
-    public FileInfo file;
-    
-    public static class FileInfo {
-        /**
-         * name : 1445305026535.jpg type : image/jpeg size : 28724 key : file
-         * ext : jpg md5 : dc829c394060dfd78c24b11247ea777f sha1 :
-         * bb523a90e5caeab1198197320eda034c98cc300e savename : 5695b070338b7.jpg
-         * savepath : file/2016-01-13/ file_path :
-         * /uploads/file/2016-01-13/5695b070338b7.jpg
-         */
-        
-        public String name;
-        public String type;
-        public int size;
-        public String key;
-        public String ext;
-        public String md5;
-        public String sha1;
-        public String savename;
-        public String savepath;
-        public String file_path;
-        
-        @Override
-        public String toString() {
-            return "FileInfo@[" + file_path + "]";
-        }
-    }
-    
+    public String name;
+    public String type;
+    public int size;
+    public String key;
+    public String ext;
+    public String md5;
+    public String file_path;
+
     @Override
     public String toString() {
-        return file.toString();
+        return "UploadInfo@[url=" + file_path + "]";
     }
 }

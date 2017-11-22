@@ -66,25 +66,46 @@
         android:id="@+id/et_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Please click &apos;Browse...&apos; to pick an image"/>
+        android:hint="Please click &apos;Image&apos; or &apos;File&apos; to pick an image/file"/>
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/et5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="http://192.168.133.15/test/upload.php"/>
+
+    <cn.ieclipse.af.view.FlowLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="3"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Browse..."/>
+            android:text="Image"/>
 
         <Button
             android:id="@+id/btn2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Retry upload..."/>
-    </LinearLayout>
+            android:text="Retry..."/>
+
+        <Button
+            android:id="@+id/btn3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="File"/>
+    </cn.ieclipse.af.view.FlowLayout>
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:hint="url after upload successfully is here"
+        android:padding="@dimen/activity_horizontal_margin"/>
 
     <ImageView
         android:id="@+id/iv"

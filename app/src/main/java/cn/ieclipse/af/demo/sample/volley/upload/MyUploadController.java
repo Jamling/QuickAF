@@ -16,11 +16,12 @@
 package cn.ieclipse.af.demo.sample.volley.upload;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 import cn.ieclipse.af.demo.common.api.AppUploadController;
 import cn.ieclipse.af.demo.common.api.URLConst;
-import cn.ieclipse.af.volley.IBaseResponse;
+import cn.ieclipse.af.util.FileUtils;
 import cn.ieclipse.af.volley.IUrl;
 import cn.ieclipse.af.volley.RestError;
 import cn.ieclipse.af.volley.UploadRequest;
@@ -43,23 +44,26 @@ public class MyUploadController
 
         void onUploadSuccess(File file, UploadInfo out);
 
-        void onUploadSuccess(File[] files, List<UploadInfo.FileInfo> out);
+        void onUploadSuccess(File[] files, List<UploadInfo> out);
 
         void onProgress(long transferred, long total, int progress);
     }
     
-    public void upload(UploadRequest.UploadOption option, File file) {
+    public void upload(String url, UploadRequest.UploadOption option, File file) {
         UploadTask task = new UploadTask();
         task.setOption(option);
+        task.url = url;
         task.load(file, UploadInfo.class, false);
     }
     
-    public void upload(UploadRequest.UploadOption option, File... file) {
+    public void upload(String url, UploadRequest.UploadOption option, File... file) {
         MultiUploadTask task = new MultiUploadTask(file);
-        task.load2List(file[0], UploadInfo.FileInfo.class, false);
+        task.url = url;
+        task.load2List(file[0], UploadInfo.class, false);
     }
     
     private class UploadTask extends AppUploadTask<UploadInfo> {
+        String url;
         UploadRequest.UploadOption option;
 
         public void setOption(UploadRequest.UploadOption option) {
@@ -85,25 +89,25 @@ public class MyUploadController
         public IUrl getUrl() {
             // return new URLConst.AbsoluteUrl(
             // "http://apicn.faceplusplus.com/v2/detection/detect");
-            return new URLConst.AbsoluteUrl(
-                    "http://test.mainaer.com/open.php/File/addInfo").post();
-        }
-        
-        @Override
-        public Class<? extends IBaseResponse> getBaseResponseClass() {
-            return UploadBaseResponse.class;
+            return new URLConst.AbsoluteUrl(url).post();
         }
         
         @Override
         public void upload(UploadRequest request) {
             request.setUploadOption(option);
-            request.addBitmapBody("file", input);
+            String ext = FileUtils.getExtension(input.getName()).toLowerCase();
+            if (Arrays.asList("png", "jpg", "jpeg").contains(ext)) {
+                request.addBitmapBody("file", input);
+            }else {
+                request.addBody("file", input, null);
+            }
             request.addHeader("api_key", "3e5fcdfb3aed7586fb8cba5f4cd9cf86");
             request.addHeader("api_secret", "q17PVbJtAP-HMgOY0M9k6U1wV4PcezsZ");
         }
     }
     
-    private class MultiUploadTask extends AppMultiUploadTask<List<UploadInfo.FileInfo>> {
+    private class MultiUploadTask extends AppMultiUploadTask<List<UploadInfo>> {
+        String url;
         public MultiUploadTask(File... files) {
             super(files);
         }
@@ -119,7 +123,7 @@ public class MyUploadController
         }
         
         @Override
-        public void onUploadSuccess(File file, List<UploadInfo.FileInfo> out) {
+        public void onUploadSuccess(File file, List<UploadInfo> out) {
             mListener.onUploadSuccess(files, out);
         }
         
@@ -127,13 +131,7 @@ public class MyUploadController
         public IUrl getUrl() {
             // return new URLConst.AbsoluteUrl(
             // "http://apicn.faceplusplus.com/v2/detection/detect");
-            return new URLConst.AbsoluteUrl(
-                    "http://test.mainaer.com/open.php/File/addInfo").post();
-        }
-        
-        @Override
-        public Class<? extends IBaseResponse> getBaseResponseClass() {
-            return UploadBaseResponse.class;
+            return new URLConst.AbsoluteUrl(url).post();
         }
     }
 }

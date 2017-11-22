@@ -47,13 +47,13 @@ public class UploadActivity2 extends UploadActivity {
     @Override
     protected void initContentView(View view) {
         super.initContentView(view);
-        btn.setText("add image");
+        btnImg.setText("add image");
         retry.setText("upload files");
     }
     
     @Override
     public void onClick(View v) {
-        if (v == btn) {
+        if (v == btnImg) {
             Intent intent = new Intent();
             /* 开启Pictures画面Type设定为image */
             intent.setType("image/*");
@@ -92,7 +92,7 @@ public class UploadActivity2 extends UploadActivity {
         }
         MyUploadController controller = new MyUploadController(this);
         controller.setListener(this);
-        controller.upload(null, files);
+        controller.upload(etTarget.getText().toString(), null, files);
         sb = new StringBuilder();
         dialog = new ProgressDialog(this);
         dialog.setCanceledOnTouchOutside(true);
