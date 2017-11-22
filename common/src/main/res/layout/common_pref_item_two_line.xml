@@ -36,5 +36,5 @@
         android:id="@android:id/icon2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:src="@drawable/preference_arrow"/>
+        tools:src="@drawable/common_ic_arrow_right"/>
 </LinearLayout>

@@ -28,7 +28,7 @@
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
-                android:background="@drawable/bg_rb_tab"
+                android:background="@drawable/common_bg_rb_tab"
                 android:checked="true"
                 android:text="Tab1"
                 android:textSize="16sp"/>
@@ -39,7 +39,7 @@
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
-                android:background="@drawable/bg_rb_tab"
+                android:background="@drawable/common_bg_rb_tab"
                 android:text="Tab2"
                 android:textSize="16sp"/>
 
@@ -49,7 +49,7 @@
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
-                android:background="@drawable/bg_rb_tab"
+                android:background="@drawable/common_bg_rb_tab"
                 android:text="Tab3"
                 android:textSize="16sp"/>
         </RadioGroup>

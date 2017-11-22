@@ -3,6 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="8dp"
     android:layout_height="8dp"
-    android:background="@drawable/page_indicator_circle">
+    android:background="@drawable/common_bg_page_indicator_item">
 
 </View>
