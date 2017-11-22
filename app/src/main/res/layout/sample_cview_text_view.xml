@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -98,13 +97,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ScrollTextView"/>
+
         <TextView
             android:id="@+id/tv1"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:text="I am simple ScrollTextView \n 1.textview.setMovementMethod(ScrollingMovementMethod.getInstance()); \n2 return true in onTouchEvent \n scrollbars=vertical; maxLines=3"
+            android:maxLines="3"
             android:scrollbars="vertical"
-            android:maxLines="3"/>
+            android:text="I am simple ScrollTextView \n 1.textview.setMovementMethod(ScrollingMovementMethod.getInstance()); \n2 return true in onTouchEvent \n scrollbars=vertical; maxLines=3"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -112,5 +113,17 @@
             android:orientation="horizontal">
 
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Text view clickable"/>
+
+        <cn.ieclipse.af.view.TextViewFixTouchConsume
+            android:id="@+id/tv2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp"/>
     </LinearLayout>
 </ScrollView>

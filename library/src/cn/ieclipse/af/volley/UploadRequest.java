@@ -16,6 +16,7 @@
 package cn.ieclipse.af.volley;
 
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
@@ -98,7 +99,7 @@ public class UploadRequest extends GsonRequest {
     }
 
     public void addBody(String name, File file, String mime) {
-        FileBody body = new FileBody(file, mime);
+        FileBody body = TextUtils.isEmpty(mime) ? new FileBody(file) : new FileBody(file, mime);
         addBody(name, body);
     }
 
