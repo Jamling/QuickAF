@@ -38,7 +38,7 @@ android {
         unitTests.returnDefaultValues = true
     }
     // used for test
-    useLibrary('org.apache.http.legacy')
+    // useLibrary('org.apache.http.legacy')
 }
 
 dependencies {
@@ -48,5 +48,5 @@ dependencies {
     compile "com.android.support:recyclerview-v7:${supportLibVersion}"
     compile "com.android.support:support-core-ui:${supportLibVersion}"
     compile 'com.google.code.gson:gson:2.3.1'
-    compile 'com.android.volley:volley:1.0.0'
+    compile 'com.android.volley:volley:1.1.0'
 }

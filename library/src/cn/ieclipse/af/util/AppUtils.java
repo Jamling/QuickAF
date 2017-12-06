@@ -34,10 +34,12 @@ import android.os.Parcelable;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
 
 import java.io.File;
+import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -49,7 +51,7 @@ import java.util.List;
 public final class AppUtils {
     private AppUtils() {
     }
-    
+
     public static DisplayMetrics getDisplayMetrics(Context context) {
         Resources res;
         if (context == null) {
@@ -60,29 +62,29 @@ public final class AppUtils {
         }
         return res.getDisplayMetrics();
     }
-    
+
     public static int getScreenWidth(Context context) {
         return getDisplayMetrics(context).widthPixels;
     }
-    
+
     public static int getScreenHeight(Context context) {
         return getDisplayMetrics(context).heightPixels;
     }
-    
+
     public static int dp2px(Context context, float dip) {
         DisplayMetrics dm = getDisplayMetrics(context);
         return (int) (dip * dm.density + .5);
     }
-    
+
     public static int dp2px(Context context, int dip) {
         DisplayMetrics dm = getDisplayMetrics(context);
         return (int) (dip * dm.density + .5);
     }
-    
+
     public static int dimen2px(Context context, int dimenId) {
         return context.getResources().getDimensionPixelOffset(dimenId);
     }
-    
+
     public static int sp2px(Context context, int sp) {
         DisplayMetrics dm = getDisplayMetrics(context);
         return (int) (sp * dm.scaledDensity + .5);
@@ -93,6 +95,7 @@ public final class AppUtils {
      *
      * @param context Context
      * @param colorId color defined in colors.xml
+     *
      * @return color
      * @see android.content.res.Resources#getColor(int)
      */
@@ -182,11 +185,38 @@ public final class AppUtils {
         am.getMemoryInfo(info);
         return info;
     }
-    
+
+    @Deprecated
     public static boolean hasVirtualSoftKey(Context context) {
         return ViewConfiguration.get(context).hasPermanentMenuKey();
     }
-    
+
+    public static boolean hasNavigationBar(Context context) {
+        boolean isHave = false;
+        Resources rs = context.getResources();
+        int id = rs.getIdentifier("config_showNavigationBar", "bool", "android");
+        if (id > 0) {
+            isHave = rs.getBoolean(id);
+        }
+        else {
+            try {
+                Class systemPropertiesClass = Class.forName("android.os.SystemProperties");
+                Method m = systemPropertiesClass.getMethod("get", String.class);
+                String navBarOverride = (String) m.invoke(systemPropertiesClass, "qemu.hw.mainkeys");
+                if ("1".equals(navBarOverride)) {
+                    isHave = false;
+                }
+                else if ("0".equals(navBarOverride)) {
+                    isHave = true;
+                }
+            } catch (Exception e) {
+                Log.w("TAG", e);
+            }
+        }
+
+        return isHave;
+    }
+
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public static int getSoftKeyBarHeight(Context context) {
         // getRealMetrics is only available with API 17 and +
@@ -206,7 +236,7 @@ public final class AppUtils {
         }
         return 0;
     }
-    
+
     public static int getStatusBarHeight(Context context) {
         int result = 0;
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
@@ -215,19 +245,20 @@ public final class AppUtils {
         }
         return result;
     }
-    
+
     public static String getModel() {
         return Build.MODEL;
     }
-    
+
     public static String getSDKVersion() {
         return Build.VERSION.RELEASE;
     }
-    
+
     /**
      * Get app version info.
      *
      * @param context
+     *
      * @return
      */
     public static String getAppVersion(Context context) {
@@ -237,7 +268,7 @@ public final class AppUtils {
         }
         return null;
     }
-    
+
     public static PackageInfo getPackageInfo(Context context) {
         // Get packagemanager
         PackageManager packageManager = context.getPackageManager();
@@ -250,11 +281,12 @@ public final class AppUtils {
         }
         return packInfo;
     }
-    
+
     /**
      * @param activity
      * @param bitmap
      * @param nameId
+     *
      * @see android.Manifest.permission#INSTALL_SHORTCUT
      */
     public static void createShortCut(Activity activity, Bitmap bitmap, int nameId) {
@@ -298,6 +330,7 @@ public final class AppUtils {
      * </ul>
      *
      * @param context 上下文
+     *
      * @return if application is in background return true, otherwise return
      * false
      * @deprecated Fail from Android L
