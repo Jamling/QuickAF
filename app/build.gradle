@@ -32,7 +32,7 @@ android {
             signingConfig signingConfigs.config
         }
     }
-    useLibrary('org.apache.http.legacy')
+    //useLibrary('org.apache.http.legacy')
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             def oldFile = output.outputFile
