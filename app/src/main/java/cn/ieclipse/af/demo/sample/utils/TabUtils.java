@@ -31,6 +31,7 @@ public class TabUtils extends ButtonListFragment {
 
     @Override
     protected Class[] getActivities() {
-        return new Class[]{AppUtilsSample.class, DialogsSample.class, AsyncTimeoutTaskSample.class};
+        return new Class[]{AppUtilsSample.class, DialogsSample.class, AsyncTimeoutTaskSample.class,
+            PermissionUtilsSample.class};
     }
 }
