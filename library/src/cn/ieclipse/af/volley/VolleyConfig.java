@@ -17,7 +17,6 @@ package cn.ieclipse.af.volley;
 
 import com.android.volley.RetryPolicy;
 import com.android.volley.toolbox.BaseHttpStack;
-import com.android.volley.toolbox.HttpStack;
 
 /**
  * 类/接口描述
@@ -31,15 +30,17 @@ public final class VolleyConfig {
     private int mMaxDiskCacheBytes;
     private Class<? extends IBaseResponse> mBaseResponseClass;
     private RetryPolicy mRetryPolicy;
+    private boolean mDebug;
     
     private VolleyConfig(Builder builder) {
         mHttpStack = builder.mHttpStack;
         mMaxDiskCacheBytes = builder.mMaxDiskCacheBytes;
         mBaseResponseClass = builder.mBaseResponseClass;
         mRetryPolicy = builder.mRetryPolicy;
+        mDebug = builder.mDebug;
     }
     
-    public HttpStack getHttpStack() {
+    public BaseHttpStack getHttpStack() {
         return mHttpStack;
     }
     
@@ -54,12 +55,17 @@ public final class VolleyConfig {
     public RetryPolicy getRetryPolicy(){
         return mRetryPolicy;
     }
+
+    public boolean isDebug() {
+        return mDebug;
+    }
     
     public static final class Builder {
         private BaseHttpStack mHttpStack;
         private int mMaxDiskCacheBytes;
         private Class<? extends IBaseResponse> mBaseResponseClass;
         private RetryPolicy mRetryPolicy;
+        private boolean mDebug;
         
         public Builder setHttpStack(BaseHttpStack httpStack) {
             this.mHttpStack = httpStack;
@@ -81,7 +87,12 @@ public final class VolleyConfig {
             this.mRetryPolicy = retryPolicy;
             return this;
         }
-        
+
+        public Builder setDebug(boolean debug) {
+            this.mDebug = debug;
+            return this;
+        }
+
         public VolleyConfig build() {
             return new VolleyConfig(this);
         }
