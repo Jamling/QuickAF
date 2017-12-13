@@ -43,9 +43,17 @@ public abstract class Controller<Listener> {
     protected List<String> mTaskTags;
     protected Listener mListener;
     protected static final String TAG = "QuickAF";
-    public static boolean DEBUG = Log.isLoggable(TAG, Log.VERBOSE) || VolleyManager.getConfig().isDebug();
+    public static boolean DEBUG = isDebug();
     public static long CACHE_ADAY = 24 * 3600000;
     public static long CACHE_AMONTH = 30 * 24 * 3600000;
+
+    private static boolean isDebug() {
+        boolean debug = Log.isLoggable(TAG, Log.VERBOSE);
+        if (!debug && VolleyManager.getConfig() != null) {
+            debug = VolleyManager.getConfig().isDebug();
+        }
+        return debug;
+    }
 
     public static void log(String msg) {
         Log.i(TAG, msg);

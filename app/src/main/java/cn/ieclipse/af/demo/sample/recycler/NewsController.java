@@ -119,8 +119,7 @@ public class NewsController extends Controller<NewsController.NewsListener> {
 
         @Override
         public IUrl getUrl() {
-            //return new URLConst.AbsoluteUrl("http://apis.baidu.com/txapi/weixin/wxhot").get();
-            return new URLConst.AbsoluteUrl("http://api.huceo.com/wxnew").get();
+            return new URLConst.AbsoluteUrl("http://api.tianapi.com/wxnew").get();
         }
 
         @Override
