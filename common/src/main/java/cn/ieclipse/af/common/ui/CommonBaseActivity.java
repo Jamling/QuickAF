@@ -20,6 +20,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -64,8 +65,8 @@ public abstract class CommonBaseActivity extends AfActivity implements View.OnCl
     }
 
     protected void initHeaderView() {
-        mTitleLeftView = (TextView) View.inflate(this, R.layout.common_title_left_tv, null);
-        mTitleTextView = (TextView) View.inflate(this, R.layout.common_title_middle_tv, null);
+        mTitleLeftView = (TextView) mTitleBar.createItem(R.layout.common_title_left_tv);
+        mTitleTextView = (TextView) mTitleBar.createItem(R.layout.common_title_middle_tv);
 
         mTitleBar.setLeft(mTitleLeftView);
         mTitleBar.setMiddle(mTitleTextView);
@@ -88,16 +89,17 @@ public abstract class CommonBaseActivity extends AfActivity implements View.OnCl
     }
 
     @Deprecated
-    protected ImageView createRightIcon(int icon) {
-        ImageView iv = (ImageView) View.inflate(this, R.layout.common_title_right_iv, null);
+    protected ImageView createRightIcon(@DrawableRes int icon) {
+        ImageView iv = (ImageView) mTitleBar.createItem(R.layout.common_title_right_iv);
         if (icon > 0) {
             iv.setImageResource(icon);
         }
         return iv;
     }
 
-    protected ImageView createRightIcon(int icon, boolean add) {
-        ImageView iv = createRightIcon(icon);
+    protected ImageView createRightIcon(@DrawableRes int icon, boolean add) {
+        ImageView iv = (ImageView) mTitleBar.createItem(R.layout.common_title_right_iv);
+        iv.setImageResource(icon);
         if (add) {
             mTitleBar.addRight(iv);
         }
@@ -107,13 +109,13 @@ public abstract class CommonBaseActivity extends AfActivity implements View.OnCl
 
     @Deprecated
     protected TextView createRightText(String text) {
-        TextView tv = (TextView) View.inflate(this, R.layout.common_title_right_tv, null);
+        TextView tv = (TextView) mTitleBar.createItem(R.layout.common_title_right_tv);
         tv.setText(text);
         return tv;
     }
 
     protected TextView createRightText(String text, boolean add) {
-        TextView tv = createRightText(text);
+        TextView tv = (TextView) mTitleBar.createItem(R.layout.common_title_right_tv);
         if (add) {
             mTitleBar.addRight(tv);
         }

@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.sample.SampleBaseActivity;
+import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.util.RandomUtils;
 import cn.ieclipse.af.view.TitleBar;
 
@@ -58,6 +59,7 @@ public class TitleBarActivity extends SampleBaseActivity {
         super.initHeaderView();
         bar = mTitleBar;
         setTitle("Title Bar");
+        mTitleLeftView.setBackgroundColor(AppUtils.getColor(this, R.color.colorAccent));
     }
 
     @Override
@@ -74,6 +76,7 @@ public class TitleBarActivity extends SampleBaseActivity {
         bar2.setBackgroundColor(0xffff9966);
         TextView tv = new TextView(context);
         tv.setText("返回");
+        tv.setBackgroundColor(AppUtils.getColor(this, R.color.colorAccent));
         bar2.addLeft(tv);
         
         tv = new TextView(context);
@@ -118,8 +121,9 @@ public class TitleBarActivity extends SampleBaseActivity {
             bar.addLeft(btn);
             
             btn = new Button(context);
-            btn = (TextView)View.inflate(context, android.R.layout.simple_list_item_1, null);
+            btn = (TextView)View.inflate(context, R.layout.common_title_left_tv, null);
             btn.setText("left");
+            btn.setBackgroundColor(AppUtils.getColor(this, R.color.colorAccent));
             bar2.addLeft(btn);
         }
         else if (v.getId() == R.id.btn2) {
@@ -132,12 +136,14 @@ public class TitleBarActivity extends SampleBaseActivity {
             bar2.setLeft(btn);
         }
         else if (v.getId() == R.id.btn3) {
-            View rv = View.inflate(this, R.layout.common_title_right_iv, null);
-            bar.addRight(rv);
+            View rv = createRightIcon(R.mipmap.search, true);
+            rv.setBackgroundColor(AppUtils.getColor(this, R.color.colorAccent));
+            //bar.addRight(rv);
 
-            TextView tv = (TextView) View.inflate(this, R.layout.common_title_right_tv, null);
+            TextView tv = (TextView) bar2.addRight(R.layout.common_title_right_tv);
             tv.setText(s);
-            bar2.addRight(tv);
+            tv.setBackgroundColor(AppUtils.getColor(this, R.color.colorAccent));
+            //bar2.addRight(tv);
         }
         else if (v.getId() == R.id.btn4) {
             View rv = View.inflate(this, R.layout.common_title_right_iv, null);

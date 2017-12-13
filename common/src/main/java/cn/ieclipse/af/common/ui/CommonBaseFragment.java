@@ -46,18 +46,9 @@ public abstract class CommonBaseFragment extends AfFragment implements View.OnCl
     @Override
     public void onClick(View v) {
         if (v == mTitleLeftView) {
-            FragmentManager fm;
-            if (Build.VERSION.SDK_INT >= 17) {
-                fm = getChildFragmentManager();
-                if (fm.popBackStackImmediate()) {
-                    return;
-                }
+            if (!handleBack()) {
+                getActivity().finish();
             }
-            fm = getFragmentManager();
-            if (fm.popBackStackImmediate()) {
-                return;
-            }
-            getActivity().finish();
         }
     }
 
@@ -87,17 +78,17 @@ public abstract class CommonBaseFragment extends AfFragment implements View.OnCl
     @Override
     protected void initHeaderView() {
         super.initHeaderView();
-        mTitleLeftView = (TextView) View.inflate(mTitleBar.getContext(), R.layout.common_title_left_tv, null);
-        mTitleTextView = (TextView) View.inflate(mTitleBar.getContext(), R.layout.common_title_middle_tv, null);
+        mTitleLeftView = (TextView) mTitleBar.createItem(R.layout.common_title_left_tv);
+        mTitleTextView = (TextView) mTitleBar.createItem(R.layout.common_title_middle_tv);
 
         mTitleBar.setLeft(mTitleLeftView);
         mTitleBar.setMiddle(mTitleTextView);
 
-        int padding = AppUtils.dp2px(mTitleBar.getContext(), 8);
+        int padding = AppUtils.dp2px(getContext(), 8);
         mTitleBar.setPadding(padding, 0, padding, 0);
         if (!isOverlay()) {
-            mTitleBar.setBackgroundColor(AppUtils.getColor(mTitleBar.getContext(), R.color.colorPrimary));
-            mTitleBar.setBottomDrawable(AppUtils.getColor(mTitleBar.getContext(), R.color.divider));
+            mTitleBar.setBackgroundColor(AppUtils.getColor(getContext(), R.color.colorPrimary));
+            // mTitleBar.setBottomDrawable(AppUtils.getColor(this, R.color.divider));
         }
         mTitleTextView.setText(getTitle());
         setOnClickListener(mTitleLeftView);
@@ -134,7 +125,7 @@ public abstract class CommonBaseFragment extends AfFragment implements View.OnCl
     @Deprecated
     protected ImageView createRightIcon(int icon) {
         CommonBaseActivity activity = getBaseActivity();
-        return activity.createRightIcon(icon);
+        return activity.createRightIcon(icon, false);
     }
 
     protected ImageView createRightIcon(int icon, boolean add) {
@@ -149,7 +140,7 @@ public abstract class CommonBaseFragment extends AfFragment implements View.OnCl
     @Deprecated
     protected TextView createRightText(String text) {
         CommonBaseActivity activity = getBaseActivity();
-        return activity.createRightText(text);
+        return activity.createRightText(text, false);
     }
 
     protected TextView createRightText(String text, boolean add) {
@@ -179,5 +170,20 @@ public abstract class CommonBaseFragment extends AfFragment implements View.OnCl
         if (mTitleTextView != null) {
             mTitleTextView.setText(title);
         }
+    }
+
+    public boolean handleBack() {
+        FragmentManager fm;
+        if (Build.VERSION.SDK_INT >= 17) {
+            fm = getChildFragmentManager();
+            if (fm.popBackStackImmediate()) {
+                return true;
+            }
+        }
+        fm = getFragmentManager();
+        if (fm.popBackStackImmediate()) {
+            return true;
+        }
+        return false;
     }
 }
