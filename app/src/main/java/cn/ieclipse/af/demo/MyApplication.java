@@ -43,7 +43,7 @@ public class MyApplication extends Application {
 
         VolleyConfig vc = new VolleyConfig.Builder().setBaseResponseClass(AppConfig.VOLLEY_RESPONSE_CLASS)
             .setRetryPolicy(new DefaultRetryPolicy(AppConfig.VOLLEY_TIMEOUT, DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)).build();
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)).setDebug(AppConfig.isDebug()).build();
         VolleyManager.init(getApplicationContext(), vc);
     }
 }

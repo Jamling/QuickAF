@@ -64,7 +64,7 @@ public abstract class RefreshHelper<T> {
      */
     private int mPageSize = PAGE_SIZE;
 
-    protected Logger mLogger = Logger.getLogger(getClass());
+    protected Logger mLogger = Logger.getLogger(RefreshHelper.class);
 
     public RefreshHelper(RefreshLayout refreshLayout) {
         this.refreshLayout = refreshLayout;

@@ -30,7 +30,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.ieclipse.af.BuildConfig;
 import cn.ieclipse.af.util.StringUtils;
 
 /**
@@ -44,7 +43,7 @@ public abstract class Controller<Listener> {
     protected List<String> mTaskTags;
     protected Listener mListener;
     protected static final String TAG = "QuickAF";
-    public static boolean DEBUG = Log.isLoggable(TAG, Log.VERBOSE) || BuildConfig.DEBUG;
+    public static boolean DEBUG = Log.isLoggable(TAG, Log.VERBOSE) || VolleyManager.getConfig().isDebug();
     public static long CACHE_ADAY = 24 * 3600000;
     public static long CACHE_AMONTH = 30 * 24 * 3600000;
 

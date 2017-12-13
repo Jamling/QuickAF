@@ -50,8 +50,10 @@ public class GsonRequest extends JsonRequest<IBaseResponse> {
     
     @Override
     protected void deliverResponse(IBaseResponse response) {
-        this.intermediate = this.response.intermediate;
-        this.response = null;
+        if (this.response != null) {
+            this.intermediate = this.response.intermediate;
+            this.response = null;
+        }
         super.deliverResponse(response);
     }
     
@@ -59,8 +61,9 @@ public class GsonRequest extends JsonRequest<IBaseResponse> {
     protected Response<IBaseResponse> parseNetworkResponse(NetworkResponse response) {
         try {
             String json = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
-            Response<IBaseResponse> ret = Response.success(getData(json.trim(), response), parseCacheHeaders(response,
-                ttl));
+            IBaseResponse jsonInfoObject = getData(json.trim(), response);
+            Cache.Entry cache = parseCacheHeaders(response, ttl);
+            Response<IBaseResponse> ret = Response.success(jsonInfoObject, cache);
             this.response = ret;
             return ret;
         } catch (UnsupportedEncodingException e) {
