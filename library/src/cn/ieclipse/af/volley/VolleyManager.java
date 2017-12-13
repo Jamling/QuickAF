@@ -63,6 +63,9 @@ public final class VolleyManager {
     }
     
     public static VolleyConfig getConfig() {
+		if (getInstance() == null) {
+	        return null;
+		}
         return getInstance().mConfig;
     }
 }
