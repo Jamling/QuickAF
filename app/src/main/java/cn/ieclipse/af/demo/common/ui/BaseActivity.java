@@ -17,6 +17,7 @@ package cn.ieclipse.af.demo.common.ui;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.os.Bundle;
 
 import cn.ieclipse.af.common.ui.CommonBaseActivity;
 import cn.ieclipse.af.demo.common.api.VolleyUtils;
@@ -44,5 +45,13 @@ public abstract class BaseActivity extends CommonBaseActivity {
     public void startFragment(Class<? extends Fragment> fragmentClass) {
         Intent intent = FragmentActivity.create(this, fragmentClass, false);
         startActivity(intent);
+    }
+
+    public void startFragment(Class<? extends Fragment> fragmentClass, Bundle args, int reqCode) {
+        Intent intent = FragmentActivity.create(this, fragmentClass, false);
+        if (args != null) {
+            intent.putExtras(args);
+        }
+        startActivityForResult(intent, reqCode);
     }
 }

@@ -116,6 +116,7 @@ public abstract class CommonBaseActivity extends AfActivity implements View.OnCl
 
     protected TextView createRightText(String text, boolean add) {
         TextView tv = (TextView) mTitleBar.createItem(R.layout.common_title_right_tv);
+        tv.setText(text);
         if (add) {
             mTitleBar.addRight(tv);
         }
