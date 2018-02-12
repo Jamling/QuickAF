@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    android:background="@drawable/list_selector_white">
+    android:background="@drawable/common_list_selector_white">
 
     <cn.ieclipse.af.view.RatioImageView
         android:id="@+id/icon"

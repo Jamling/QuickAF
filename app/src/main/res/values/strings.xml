@@ -1,50 +1,6 @@
 <resources>
     <string name="app_name">QuickAF</string>
 
-    <!-- 通用 -->
-    <string name="common_submit">提交</string>
-    <string name="common_back">返回</string>
-    <string name="common_edit">编辑</string>
-    <string name="common_delete">删除</string>
-    <string name="common_cancel">取消</string>
-    <string name="common_ok">确定</string>
-    <string name="common_retry">重试</string>
-    <string name="common_select">选择</string>
-    <string name="common_search">搜索</string>
-    <string name="common_loading">正在加载, 请稍候...</string>
-    <string name="common_footer_loading">@string/common_loading</string>
-    <string name="common_footer_loading_hint">点击或上拉加载更多</string>
-    <string name="common_footer_loading_empty">没有更多的数据了</string>
-    <string name="common_no_data">暂无数据, 请下拉重试</string>
-    <string name="common_click_load_more">点击加载更多</string>
-    <string name="common_save">保存</string>
-    <string name="common_add">添加</string>
-    <string name="common_save_success">保存成功</string>
-    <string name="common_exit">退出</string>
-    <string name="common_exit_tip">请再按一次退出</string>
-    <string name="common_finish">完成</string>
-    <string name="common_about">关于</string>
-    <string name="common_tip">提示</string>
-    <string name="common_yes">是</string>
-    <string name="common_no">否</string>
-    <string name="common_all">全部</string>
-    <string name="common_checked_num">已选%1$s</string>
-
-    <!--error -->
-    <string name="error_type_auth">身份验证失败</string>
-    <string name="error_type_no_network">网络未连接</string>
-    <string name="error_type_network">网络错误</string>
-    <string name="error_type_timeout">连接超时</string>
-    <string name="error_type_parse">数据解析错误</string>
-    <string name="error_type_server">服务暂时不可用, 请稍后再试</string>
-    <string name="error_type_logic">服务暂时不可用, 请稍后再试</string>
-    <string name="error_type_unknown">操作失败</string>
-    <string name="error_loading">网络不给力</string>
-    <string name="error_loading_retry">请点击重新加载</string>
-    <string name="error_loading_with_retry">加载失败, 请点击重试</string>
-
-    <!-- 全局 -->
-
     <!-- 注册和登录 -->
     <string name="login_title">登录</string>
     <string name="login_type_code">手机登录</string>

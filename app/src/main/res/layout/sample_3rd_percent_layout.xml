@@ -22,7 +22,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <cn.ieclipse.af.demo.common.view.PercentLinearLayout
+    <cn.ieclipse.af.demo.sample.third.PercentLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -45,7 +45,7 @@
             app:layout_widthPercent="35%"
             />
 
-    </cn.ieclipse.af.demo.common.view.PercentLinearLayout>
+    </cn.ieclipse.af.demo.sample.third.PercentLinearLayout>
 
     <android.support.percent.PercentRelativeLayout
         android:layout_width="match_parent"

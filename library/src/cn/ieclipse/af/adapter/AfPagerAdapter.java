@@ -3,14 +3,13 @@
  */
 package cn.ieclipse.af.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.ieclipse.af.common.Logger;
 
@@ -75,7 +74,10 @@ public abstract class AfPagerAdapter<T> extends PagerAdapter {
         if (mDataList == null) {
             return null;
         }
-        return mDataList.get(position);
+        if (position >= 0 && position < mDataList.size()) {
+            mDataList.get(position);
+        }
+        return null;
     }
     
     @Override

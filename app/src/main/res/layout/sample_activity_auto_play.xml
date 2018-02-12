@@ -87,7 +87,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"/>
     </cn.ieclipse.af.view.AutoPlayView>
-    <!--<cn.ieclipse.af.demo.common.view.PercentLinearLayout-->
+    <!--<cn.ieclipse.af.demo.sample.third.PercentLinearLayout-->
         <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="100dp"-->
@@ -101,7 +101,7 @@
             <!--android:layout_height="match_parent"-->
             <!--android:clipChildren="false"-->
             <!--app:layout_widthPercent="70%"/>-->
-    <!--</cn.ieclipse.af.demo.common.view.PercentLinearLayout>-->
+    <!--</cn.ieclipse.af.demo.sample.third.PercentLinearLayout>-->
 </LinearLayout>
 
 </cn.ieclipse.af.view.VScrollView>

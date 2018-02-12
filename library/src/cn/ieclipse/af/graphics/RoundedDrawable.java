@@ -69,8 +69,10 @@ public class RoundedDrawable extends Drawable {
         if (drawable == null) {
             return;
         }
+        // TODO use recycled bitmap issue
         if (bitmap != null) {
-            bitmap.recycle();
+            // Fix use recycled bitmap issue
+            // bitmap.recycle();
         }
         if (drawable instanceof BitmapDrawable) {
             bitmap = ((BitmapDrawable) drawable).getBitmap();
