@@ -75,7 +75,7 @@ public abstract class AfPagerAdapter<T> extends PagerAdapter {
             return null;
         }
         if (position >= 0 && position < mDataList.size()) {
-            mDataList.get(position);
+            return mDataList.get(position);
         }
         return null;
     }
