@@ -17,12 +17,14 @@ package cn.ieclipse.af.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
@@ -97,34 +99,35 @@ public class RoundImageView extends RatioImageView {
         updateRoundDrawable();
     }
 
+    @Override
+    public void setImageBitmap(Bitmap bm) {
+        super.setImageBitmap(bm);
+    }
+
     protected void updateRoundDrawable() {
         Drawable src = getDrawable();
-        if (src != null && !(src instanceof RoundedDrawable)) {
-            if (mTargetDrawable == null) {
-                RoundedDrawable target = new RoundedDrawable(mRadius);
-                target.setCircle(mIsCircle);
-                target.setBorder(mBorderColor, mBorderWidth);
-                target.setDrawable(src);
-                mTargetDrawable = target;
-                setImageDrawable(target);
-            } else {
-                mTargetDrawable.setDrawable(src);
-                mTargetDrawable.invalidateSelf();
-            }
+        if (src != mTargetDrawable) {
+            RoundedDrawable target = new RoundedDrawable(mRadius);
+            target.setCircle(mIsCircle);
+            target.setBorder(mBorderColor, mBorderWidth);
+            target.setDrawable(src);
+            mTargetDrawable = target;
+            setImageDrawable(target);
         }
     }
 
     @Override
+    protected boolean verifyDrawable(@NonNull Drawable dr) {
+        return super.verifyDrawable(dr) || mTargetDrawable != null;
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
-//        if (!(getDrawable() instanceof RoundedDrawable)) {
-//            RoundedDrawable target = new RoundedDrawable(mRadius);
-//            target.setCircle(mIsCircle);
-//            target.setBorder(mBorderColor, mBorderWidth);
-//            target.setDrawable(getDrawable());
-//            super.setImageDrawable(target);
-//            return;
-//        }
-        super.onDraw(canvas);
+        try {
+            super.onDraw(canvas);
+        } catch (Exception e) {
+            // TODO catch bitmap recycled issue.
+        }
     }
 
     @Override

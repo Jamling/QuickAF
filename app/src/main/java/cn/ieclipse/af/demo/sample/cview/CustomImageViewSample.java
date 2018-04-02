@@ -17,6 +17,9 @@ package cn.ieclipse.af.demo.sample.cview;
 
 import android.graphics.Rect;
 import android.view.View;
+import android.widget.ImageView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.sample.SampleBaseFragment;
@@ -34,6 +37,11 @@ public class CustomImageViewSample extends SampleBaseFragment {
     private RoundImageView iv1;
     private RoundImageView iv2;
     private HotImageView iv3;
+    private ImageView iv4;
+
+    private View mChange;
+    private String[] imgs = {"https://avatars3.githubusercontent.com/u/5350591?s=460&v=4", "https://raw.githubusercontent.com/Jamling/QuickAF/master/screenshot/struct.png"};
+    private int imgIndex = 0;
 
     @Override
     protected int getContentLayout() {
@@ -45,24 +53,26 @@ public class CustomImageViewSample extends SampleBaseFragment {
         super.initContentView(view);
 
         iv1 = (RoundImageView) view.findViewById(R.id.iv1);
-        //iv2 = (RoundImageView) view.findViewById(R.id.iv2);
+        iv2 = (RoundImageView) view.findViewById(R.id.iv2);
         //iv1.setImageResource(R.color.black_alpha_50);
         //iv2.setImageResource(R.mipmap.logo);
         iv3 = (HotImageView) view.findViewById(R.id.iv3);
+        iv4 = (ImageView) view.findViewById(R.id.iv4);
+
         iv3.addRegion(3, new Rect(41, 41, 117+41, 44+41), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogUtils.showToast(v.getContext(), "Quick Hit!");
             }
         });
-    
+
         iv3.addRegion(3, new Rect(38, 104, 44+38, 44+104), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogUtils.showToast(v.getContext(), "A Hit!");
             }
         });
-    
+
         iv3.addRegion(3, new Rect(118, 104, 44+118, 44+104), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,5 +85,17 @@ public class CustomImageViewSample extends SampleBaseFragment {
     protected void initHeaderView() {
         super.initHeaderView();
         mTitleTextView.setText("CustomImageViewSample");
+        mChange = createRightText("换图", true);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == mChange) {
+            int i = imgIndex++ % imgs.length;
+            ImageLoader.getInstance().displayImage(imgs[i], iv1);
+            ImageLoader.getInstance().displayImage(imgs[i], iv2);
+            ImageLoader.getInstance().displayImage(imgs[i], iv4);
+        }
+        super.onClick(v);
     }
 }

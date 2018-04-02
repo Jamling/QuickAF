@@ -66,7 +66,8 @@
                     tools:src="@mipmap/logo"
                     android:src="@mipmap/logo"
                     android:padding="0dp"
-                    android:background="@color/bg_main"/>
+                    android:background="@color/bg_main"
+                    android:scaleType="centerCrop"/>
             </LinearLayout>
 
             <LinearLayout
@@ -91,7 +92,7 @@
                     android:id="@+id/iv2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:scaleType="centerInside"
+                    android:scaleType="fitXY"
                     android:radius="8dp"
                     app:af_borderColor="@color/colorPrimary"
                     app:af_borderWidth="4dp"
@@ -136,9 +137,11 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:id="@+id/iv4"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        android:src="@color/colorAccent"/>
+                        android:src="@color/colorAccent"
+                        android:scaleType="fitXY"/>
 
                     <TextView
                         android:layout_width="match_parent"

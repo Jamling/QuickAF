@@ -69,10 +69,16 @@ public class RoundedDrawable extends Drawable {
         if (drawable == null) {
             return;
         }
-        // TODO use recycled bitmap issue
+        // TODO need to opt to fix use recycled bitmap issue
         if (bitmap != null) {
             // Fix use recycled bitmap issue
             // bitmap.recycle();
+            if (!bitmap.isRecycled()) {
+                if (drawable instanceof BitmapDrawable && bitmap != ((BitmapDrawable) drawable).getBitmap()) {
+                    bitmap.recycle();
+                }
+            }
+            bitmap = null;
         }
         if (drawable instanceof BitmapDrawable) {
             bitmap = ((BitmapDrawable) drawable).getBitmap();
@@ -91,7 +97,7 @@ public class RoundedDrawable extends Drawable {
         paint.setShader(bitmapShader);
     }
 
-    public void setCircle(boolean circle){
+    public void setCircle(boolean circle) {
         this.mIsCircle = circle;
     }
 
