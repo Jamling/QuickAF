@@ -66,7 +66,7 @@ import java.util.List;
  * <strong>Note</strong> padding top and padding bottom is not supported.
  *
  * @author Jamling
- * @deprecated will deleted in future
+ * @deprecated will deleted in future, please use {@link cn.ieclipse.af.view.TableView} instead
  */
 public class ColumnLayout extends View {
     
