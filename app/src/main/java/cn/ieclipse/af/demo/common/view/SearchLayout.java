@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +31,7 @@ import cn.ieclipse.af.graphics.RoundedColorDrawable;
 import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.util.FileUtils;
 import cn.ieclipse.af.util.KeyboardUtils;
+import cn.ieclipse.af.util.PopupUtils;
 import cn.ieclipse.af.view.FlowLayout;
 
 /**
@@ -79,8 +79,8 @@ public class SearchLayout extends LinearLayout implements View.OnClickListener {
     /**
      * Search popups
      */
-    public static class SearchPopupWindow<T> implements View.OnKeyListener, View.OnClickListener,
-        AdapterView.OnItemClickListener, TextWatcher, PopupWindow.OnDismissListener {
+    public static class SearchPopupWindow<T> implements OnKeyListener, OnClickListener, AdapterView.OnItemClickListener,
+        TextWatcher, PopupWindow.OnDismissListener {
         public static final String HISTORY_FILE = "search_history";
         protected Context context;
         protected SearchLayout mSearchLayout;
@@ -95,11 +95,12 @@ public class SearchLayout extends LinearLayout implements View.OnClickListener {
         protected View mCancelView;
         protected View mClearHistory;
         protected FlowLayout mFlHotTags;
-        protected AfBaseAdapter mAdapter;
+        protected SearchAdapter<T> mAdapter;
         protected String mHintText;
 
         protected boolean mInitialized = false;
         protected View mAnchor;
+        protected SearchCallback<T> mSearchCallback;
 
         public SearchPopupWindow(SearchLayout searchLayout) {
             context = searchLayout.getContext();
@@ -155,7 +156,7 @@ public class SearchLayout extends LinearLayout implements View.OnClickListener {
 
             mEmptyText = (TextView) layout.findViewById(android.R.id.empty);
             if (mEmptyText != null) {
-                mEmptyText.setText("无历史记录");
+                mEmptyText.setText("无记录");
             }
             if (mListView != null) {
                 mListView.setEmptyView(mEmptyText);
@@ -181,6 +182,7 @@ public class SearchLayout extends LinearLayout implements View.OnClickListener {
 
         @Override
         public void afterTextChanged(Editable s) {
+            mAdapter.setInputString(s.toString());
             if (!TextUtils.isEmpty(s)) {
                 mEmptyText.setText("无搜索结果");
                 mClearInput.setVisibility(View.VISIBLE);
@@ -222,17 +224,14 @@ public class SearchLayout extends LinearLayout implements View.OnClickListener {
             clearInput();
             KeyboardUtils.hideSoftInput(mEditInput);
             mPopupWindows.dismiss();
-            if (callback != null) {
-                callback.onCancel(this);
+            if (mSearchCallback != null) {
+                mSearchCallback.onCancel(this);
             }
         }
 
         public void showWindow() {
             View anchor = mAnchor == null ? mSearchBar : mAnchor;
-            int h = mPopupWindows.getMaxAvailableHeight(anchor);
-            int sh = AppUtils.getScreenHeight(context);
-            mPopupWindows.setHeight(h);
-            mPopupWindows.showAtLocation(anchor, Gravity.NO_GRAVITY, 0, 0);
+            PopupUtils.showAsDropDown(mPopupWindows, anchor, 0, 0);
             if (!TextUtils.isEmpty(mHintText)) {
                 mEditInput.setHint(mHintText);
             }
@@ -261,57 +260,17 @@ public class SearchLayout extends LinearLayout implements View.OnClickListener {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+            if (mSearchCallback != null) {
+                mSearchCallback.onItemClick(mAdapter.getItem(position), position);
+            }
         }
 
         public void setAnchor(View parent) {
             this.mAnchor = parent;
         }
 
-        protected class SearchAdapter<T> extends AfBaseAdapter<T> {
-
-            @Override
-            public int getLayout() {
-                return R.layout.common_pref_item;
-            }
-
-            @Override
-            public void onUpdateView(View convertView, int position) {
-                TextView tv = null;
-                if (tv instanceof TextView) {
-                    tv = (TextView) convertView;
-                }
-                else {
-                    tv = (TextView) convertView.findViewById(android.R.id.title);
-                }
-                String text = getDisplayName(getItem(position));
-                String kw = mEditInput.getText().toString();
-                SpannableString ss = new SpannableString(text);
-                Matcher m = Pattern.compile(kw).matcher(text);
-                while (m.find()) {
-                    ss.setSpan(new ForegroundColorSpan(getHighlightColor(convertView.getContext())), m.start(), m.end(),
-                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                }
-                tv.setText(ss);
-            }
-
-            protected String getDisplayName(T info) {
-                return info.toString();
-            }
-
-            protected int getHighlightColor(Context context) {
-                return AppUtils.getColor(context, R.color.colorAccent);
-            }
-        }
-
-        Callback callback;
-
-        public void setCallback(Callback callback) {
-            this.callback = callback;
-        }
-
-        public interface Callback {
-            void onCancel(SearchPopupWindow popupWindow);
+        public void setSearchCallback(SearchCallback<T> searchCallback) {
+            this.mSearchCallback = searchCallback;
         }
 
         /**
@@ -349,6 +308,55 @@ public class SearchLayout extends LinearLayout implements View.OnClickListener {
         protected void clearSearchHistory() {
             saveSearchHistory(null);
             loadSearchHistory();
+        }
+    }
+
+    public interface SearchCallback<T> {
+        void onCancel(SearchPopupWindow popupWindow);
+
+        void onItemClick(T info, int position);
+    }
+
+    public static class SearchAdapter<T> extends AfBaseAdapter<T> {
+
+        protected String mInputString;
+
+        public void setInputString(String inputString) {
+            this.mInputString = inputString;
+        }
+
+        @Override
+        public int getLayout() {
+            return R.layout.common_pref_item;
+        }
+
+        @Override
+        public void onUpdateView(View convertView, int position) {
+            TextView tv = null;
+            if (tv instanceof TextView) {
+                tv = (TextView) convertView;
+            }
+            else {
+                tv = (TextView) convertView.findViewById(android.R.id.title);
+            }
+            String text = getDisplayName(getItem(position));
+            SpannableString ss = new SpannableString(text);
+            if (!TextUtils.isEmpty(mInputString)) {
+                Matcher m = Pattern.compile(mInputString, Pattern.CASE_INSENSITIVE).matcher(text);
+                while (m.find()) {
+                    ss.setSpan(new ForegroundColorSpan(getHighlightColor(convertView.getContext())), m.start(), m.end(),
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+            }
+            tv.setText(ss);
+        }
+
+        protected String getDisplayName(T info) {
+            return info.toString();
+        }
+
+        protected int getHighlightColor(Context context) {
+            return AppUtils.getColor(context, R.color.colorAccent);
         }
     }
 }

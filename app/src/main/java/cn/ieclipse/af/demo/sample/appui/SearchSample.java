@@ -1,6 +1,5 @@
 package cn.ieclipse.af.demo.sample.appui;
 
-import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
@@ -15,6 +14,7 @@ import cn.ieclipse.af.demo.sample.SampleBaseFragment;
 import cn.ieclipse.af.demo.sample.recycler.NewsController;
 import cn.ieclipse.af.graphics.RoundedColorDrawable;
 import cn.ieclipse.af.util.AppUtils;
+import cn.ieclipse.af.util.PopupUtils;
 import cn.ieclipse.af.volley.RestError;
 
 /**
@@ -77,7 +77,8 @@ public class SearchSample extends SampleBaseFragment {
             if (content != null) {
                 mPopupWindows.setContentView(content);
             }
-            mPopupWindows.showAtLocation(parent, Gravity.NO_GRAVITY, 0, 0);
+            //mPopupWindows.showAtLocation(parent, Gravity.NO_GRAVITY, 0, 0);
+            PopupUtils.showAsDropDown(mPopupWindows, parent, 0, 0);
         }
 
         @Override
@@ -151,7 +152,7 @@ public class SearchSample extends SampleBaseFragment {
             VolleyUtils.showError(mEmptyText, error);
         }
 
-        private class MySearchAdapter extends SearchAdapter<NewsController.NewsInfo> {
+        private class MySearchAdapter extends SearchLayout.SearchAdapter<NewsController.NewsInfo> {
             @Override
             protected String getDisplayName(NewsController.NewsInfo info) {
                 return info.title;
