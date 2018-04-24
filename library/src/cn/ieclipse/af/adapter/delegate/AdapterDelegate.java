@@ -96,7 +96,16 @@ public abstract class AdapterDelegate<T> implements Comparable<AdapterDelegate> 
         return viewHolder;
     }
 
-    private RecyclerView.ViewHolder instanceViewHolder(View itemView) {
+    /**
+     * Instance ViewHolder with reflection, you can override to new concrete ViewHolder
+     * @see #onCreateViewHolder(android.view.ViewGroup)
+     * @see #getViewHolderClass()
+     * @param itemView item view of ViewHolder
+     *
+     * @return ViewHolder
+     * @since 3.0.1
+     */
+    protected RecyclerView.ViewHolder instanceViewHolder(View itemView) {
         Class<?> cls = getViewHolderClass();
         if (cls != null) {
             try {
@@ -104,8 +113,9 @@ public abstract class AdapterDelegate<T> implements Comparable<AdapterDelegate> 
                 c.setAccessible(true);
                 return (RecyclerView.ViewHolder) c.newInstance(itemView);
             } catch (Exception e) {
-                throw new NullPointerException("Can't instance ViewHolder(" + cls + ") in " + getClass()
-                    + " is it an assessable (public/static) class?");
+                String msg = String.format("Can't instance ViewHolder(%s) in %s, is it an assessable (public/static) "
+                    + "class? \nPlease see more info in https://github.com/Jamling/QuickAF/issues/41", cls, getClass());
+                throw new IllegalAccessError(msg);
             }
         }
         return null;

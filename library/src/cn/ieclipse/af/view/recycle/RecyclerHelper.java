@@ -22,7 +22,9 @@ import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.helper.ItemTouchHelper;
 
+import static android.support.v7.widget.helper.ItemTouchHelper.Callback.makeMovementFlags;
 import cn.ieclipse.af.adapter.AfRecyclerAdapter;
 
 /**
@@ -225,5 +227,45 @@ public final class RecyclerHelper {
 //                }
 //            }
         }
+    }
+
+    /**
+     * Common implements of ItemTouchHelper.Callback{@link #getMovementFlags(android.support.v7.widget.RecyclerView, android.support.v7.widget.RecyclerView.ViewHolder)}
+     * @param recyclerView {@link android.support.v7.widget.RecyclerView}
+     * @param viewHolder {@link android.support.v7.widget.RecyclerView.ViewHolder}
+     *
+     * @return movement flags
+     * @since 3.0.1
+     */
+    public static int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+        RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+        // linearLayoutManager
+        if (layoutManager instanceof LinearLayoutManager) {
+            LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
+            int orientation = linearLayoutManager.getOrientation();
+
+            int dragFlag = 0;
+            int swipeFlag = 0;
+
+            // 为了方便理解，相当于分为横着的ListView和竖着的ListView
+            if (orientation == LinearLayoutManager.HORIZONTAL) {// 如果是横向的布局
+                swipeFlag = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+                dragFlag = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
+            }
+            else if (orientation == LinearLayoutManager.VERTICAL) {// 如果是竖向的布局，相当于ListView
+                dragFlag = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+                swipeFlag = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
+            }
+            return makeMovementFlags(dragFlag, swipeFlag);
+        }
+        // GridLayoutManager
+        else if (layoutManager instanceof GridLayoutManager || layoutManager instanceof StaggeredGridLayoutManager) {
+            // flag如果值是0，相当于这个功能被关闭
+            int dragFlag = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+            int swipeFlag = 0;
+            // create make
+            return makeMovementFlags(dragFlag, swipeFlag);
+        }
+        return 0;
     }
 }

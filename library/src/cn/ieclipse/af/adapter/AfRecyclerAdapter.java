@@ -324,10 +324,12 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
         return ITEM_VIEW_TYPE_NORMAL;
     }
 
+    @Deprecated
     public View getHeaderView() {
         return mHeaderView;
     }
 
+    @Deprecated
     public void setHeaderView(View headerView) {
         this.mHeaderView = headerView;
         if (mHeaderView != null) {
@@ -335,10 +337,12 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
+    @Deprecated
     public View getFooterView() {
         return mFooterView;
     }
 
+    @Deprecated
     public void setFooterView(View footerView) {
         this.mFooterView = footerView;
         if (mFooterView != null) {
@@ -358,12 +362,14 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
+    @Deprecated
     protected ViewGroup.LayoutParams getHeaderLayoutParams() {
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT);
         return params;
     }
 
+    @Deprecated
     protected ViewGroup.LayoutParams getFooterLayoutParams() {
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -451,7 +457,7 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
          * @param view item view
          * @param position position
          */
-        void onItemLongClick(AfRecyclerAdapter adapter, View view, int position);
+        boolean onItemLongClick(AfRecyclerAdapter adapter, View view, int position);
     }
 
     private OnItemClickListener mOnItemClickListener;
