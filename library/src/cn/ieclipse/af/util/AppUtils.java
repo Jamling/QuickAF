@@ -37,6 +37,8 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
+import android.webkit.ValueCallback;
+import android.webkit.WebView;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -390,5 +392,18 @@ public final class AppUtils {
         Uri packageURI = Uri.parse("package:" + packageName);
         intent.setData(packageURI);
         context.startActivity(intent);
+    }
+
+    public static void executeJs(WebView webView, String js, ValueCallback callback) {
+        if (webView != null && js != null) {
+            if (!js.startsWith("javascript:")) {
+                js = "javascript:" + js;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    webView.evaluateJavascript(js, callback);
+                } else {
+                    webView.loadUrl(js);
+                }
+            }
+        }
     }
 }
