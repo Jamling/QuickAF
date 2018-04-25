@@ -24,8 +24,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 /**
- * Description
+ * 基于设置RecyclerView背景色的另类分隔线方式。
  *
+ * @deprecated
  * @author Jamling
  */
 public class GridSpaceDecoration extends RecyclerView.ItemDecoration {

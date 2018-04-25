@@ -28,6 +28,7 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Checkable;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
@@ -841,7 +842,7 @@ public class FlowLayout extends ViewGroup {
     private CompoundButton.OnCheckedChangeListener mChildOnCheckedChangeListener;
     // when true, mOnCheckedChangeListener discards events
     private boolean mProtectFromCheckedChange = false;
-    private OnCheckedChangeListener mOnCheckedChangeListener;
+    private FlowLayout.OnCheckedChangeListener mOnCheckedChangeListener;
     private PassThroughHierarchyChangeListener mPassThroughListener = new PassThroughHierarchyChangeListener();
     private int mSelectionMode = ListView.CHOICE_MODE_NONE;
     
@@ -870,15 +871,15 @@ public class FlowLayout extends ViewGroup {
     @Override
     public void addView(View child, int index, ViewGroup.LayoutParams params) {
         if (isSingleChoice()) {
-            if (child instanceof CompoundButton) {
-                final CompoundButton button = (CompoundButton) child;
+            if (child instanceof Checkable) {
+                final Checkable button = (Checkable) child;
                 if (button.isChecked()) {
                     mProtectFromCheckedChange = true;
                     if (mCheckedId != -1) {
                         setCheckedStateForView(mCheckedId, false);
                     }
                     mProtectFromCheckedChange = false;
-                    setCheckedId(button.getId());
+                    setCheckedId(child.getId());
                 }
             }
         }
@@ -941,8 +942,8 @@ public class FlowLayout extends ViewGroup {
 //            }
 //        }
         // end fix api issue
-        if (checkedView != null && checkedView instanceof CompoundButton) {
-            ((CompoundButton) checkedView).setChecked(checked);
+        if (checkedView != null && checkedView instanceof Checkable) {
+            ((Checkable) checkedView).setChecked(checked);
         }
     }
     
@@ -1011,7 +1012,7 @@ public class FlowLayout extends ViewGroup {
          */
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
         public void onChildViewAdded(View parent, View child) {
-            if (parent == FlowLayout.this && child instanceof CompoundButton) {
+            if (parent == FlowLayout.this) {
                 int id = child.getId();
                 // generates an id if it's missing
                 if (id == View.NO_ID) {
@@ -1020,7 +1021,12 @@ public class FlowLayout extends ViewGroup {
                         child.setId(id);
                     }
                 }
-                ((CompoundButton) child).setOnCheckedChangeListener(mChildOnCheckedChangeListener);
+                if (child instanceof CompoundButton) {
+                    ((CompoundButton) child).setOnCheckedChangeListener(mChildOnCheckedChangeListener);
+                }
+                else if (child instanceof Checkable) {
+                    // TODO
+                }
             }
             
             if (mOnHierarchyChangeListener != null) {
@@ -1099,8 +1105,8 @@ public class FlowLayout extends ViewGroup {
                 int size = getChildCount();
                 for (int i = 0; i < size; i++) {
                     View c = getChildAt(i);
-                    if (c instanceof CompoundButton) {
-                        ((CompoundButton) c).setChecked(false);
+                    if (c instanceof Checkable) {
+                        ((Checkable) c).setChecked(false);
                     }
                 }
             }
@@ -1113,8 +1119,8 @@ public class FlowLayout extends ViewGroup {
         int size = getChildCount();
         for (int i = 0; i < size; i++) {
             View c = getChildAt(i);
-            if (c instanceof CompoundButton) {
-                if (((CompoundButton) c).isChecked()) {
+            if (c instanceof Checkable) {
+                if (((Checkable) c).isChecked()) {
                     list.add(c);
                 }
             }
@@ -1122,16 +1128,57 @@ public class FlowLayout extends ViewGroup {
         return list;
     }
 
+    /**
+     * Get checked views tag
+     * @param <T> General type
+     *
+     * @return checked views tag
+     * @see {@link android.widget.ListView#CHOICE_MODE_MULTIPLE}
+     * @since 3.0.1
+     */
+    public <T> List<T> getCheckedValues() {
+        List<T> list = new ArrayList<>();
+        int size = getChildCount();
+        for (int i = 0; i < size; i++) {
+            View c = getChildAt(i);
+            if (c instanceof Checkable) {
+                if (((Checkable) c).isChecked()) {
+                    Object v = c.getTag();
+                    if (v != null) {
+                        list.add((T)v);
+                    }
+                }
+            }
+        }
+        return list;
+    }
+
+    /**
+     * Get checked view tag
+     * @param <T> General type
+     *
+     * @return checked view tag
+     * @see {@link android.widget.ListView#CHOICE_MODE_SINGLE}
+     * @since 3.0.1
+     */
+    public <T> T getCheckedValue() {
+        List<T> list = getCheckedValues();
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
+    }
+
     public void setCheckedViews(Object... tag) {
         if (tag != null) {
             int size = getChildCount();
             for (int i = 0; i < size; i++) {
                 View c = getChildAt(i);
-                if (c instanceof CompoundButton) {
+                if (c instanceof Checkable) {
                     if (c.getTag() != null) {
                         for (Object t : tag) {
                             if (c.getTag() == t) {
-                                ((CompoundButton) c).setChecked(true);
+                                ((Checkable) c).setChecked(true);
                             }
                         }
                     }
