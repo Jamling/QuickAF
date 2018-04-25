@@ -8,6 +8,9 @@
         <item name="android:colorAccent">@color/colorAccent</item>
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
 
-        <item name="android:textColorPrimary">@color/black_666666</item>
+        <!--<item name="android:textColorPrimary">@color/black_666666</item>-->
+
+        <!--<item name="android:actionModeBackground">@color/colorPrimary</item>-->
+        <item name="android:windowActionModeOverlay">true</item>
     </style>
 </resources>

@@ -11,6 +11,8 @@
         <!--<item name="textAppearanceListItemSmall">@dimen/text_size_title</item>-->
         <item name="android:listPreferredItemPaddingLeft">@dimen/activity_horizontal_margin</item>
         <item name="android:listPreferredItemPaddingRight">@dimen/activity_horizontal_margin</item>
+        <!--<item name="android:actionModeBackground">@color/colorPrimary</item>-->
+        <item name="android:windowActionModeOverlay">true</item>
     </style>
 
     <!-- radio button tab item -->
