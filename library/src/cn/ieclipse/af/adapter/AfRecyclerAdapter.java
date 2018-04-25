@@ -35,16 +35,16 @@ import cn.ieclipse.af.common.Logger;
  * @author Jamling
  */
 public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    protected Logger mLogger = Logger.getLogger(getClass());
 
     public static final int ITEM_VIEW_TYPE_NORMAL = 0;
     public static final int ITEM_VIEW_TYPE_HEADER = -2;
     public static final int ITEM_VIEW_TYPE_FOOTER = -3;
 
+    protected Logger mLogger = Logger.getLogger(getClass());
+    protected LayoutInflater mInflater;
+    protected RecyclerView mRecyclerView;
+
     private AfDataHolder<T> mDataHolder = new AfDataHolder<>();
-    private LayoutInflater mInflater;
-    private RecyclerView mRecyclerView;
-    private GridLayoutManager.SpanSizeLookup mSpanSizeLookup;
     private View mHeaderView;
     private View mFooterView;
 
@@ -183,7 +183,7 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
-    public void updateItem(int position){
+    public void updateItem(int position) {
         // int idx = position - getHeaderCount();
         notifyItemChanged(position);
     }
@@ -385,6 +385,12 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
     }
 
     @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        mRecyclerView = null;
+    }
+
+    @Override
     public void onViewAttachedToWindow(final RecyclerView.ViewHolder holder) {
         super.onViewAttachedToWindow(holder);
         // do in sub
@@ -442,8 +448,8 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
         /**
          * 对item做点击监听
          *
-         * @param adapter AfRecyclerAdapter
-         * @param view item view
+         * @param adapter  AfRecyclerAdapter
+         * @param view     item view
          * @param position position
          */
         void onItemClick(AfRecyclerAdapter adapter, View view, int position);
@@ -453,8 +459,8 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
         /**
          * 对item做长按监听
          *
-         * @param adapter AfRecyclerAdapter
-         * @param view item view
+         * @param adapter  AfRecyclerAdapter
+         * @param view     item view
          * @param position position
          */
         boolean onItemLongClick(AfRecyclerAdapter adapter, View view, int position);

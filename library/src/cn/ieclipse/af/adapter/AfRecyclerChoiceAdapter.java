@@ -22,7 +22,6 @@ import android.widget.Checkable;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -80,6 +79,10 @@ public class AfRecyclerChoiceAdapter<T> extends AfRecyclerAdapter<T> {
                 mSelections = new SparseBooleanArray(0);
             }
         }
+    }
+
+    public int getChoiceMode() {
+        return mChoiceMode;
     }
 
     /**
@@ -251,26 +254,33 @@ public class AfRecyclerChoiceAdapter<T> extends AfRecyclerAdapter<T> {
         return false;
     }
 
-    private void updateCheckedHolder(int position, boolean check) {
-        if (mHolderMap != null) {
-            WeakReference<RecyclerView.ViewHolder> holder = mHolderMap.get(position);
-            if (holder != null) {
-                RecyclerView.ViewHolder viewHolder = holder.get();
-                if (viewHolder != null) {
-                    if (viewHolder.itemView instanceof Checkable) {
-                        ((Checkable) viewHolder.itemView).setChecked(check);
-                    }
-                }
+    protected void updateCheckedHolder(int position, boolean check) {
+        // 18.04.25 use RecyclerView.findViewHolderForAdapterPosition instead WeakReference<ViewHolder>
+//        if (mHolderMap != null) {
+//            WeakReference<RecyclerView.ViewHolder> holder = mHolderMap.get(position);
+//            if (holder != null) {
+//                RecyclerView.ViewHolder viewHolder = holder.get();
+//                if (viewHolder != null) {
+//                    if (viewHolder.itemView instanceof Checkable) {
+//                        ((Checkable) viewHolder.itemView).setChecked(check);
+//                    }
+//                }
+//            }
+//        }
+        if (mRecyclerView != null) {
+            RecyclerView.ViewHolder holder = mRecyclerView.findViewHolderForAdapterPosition(position);
+            if (holder != null && holder.itemView instanceof Checkable) {
+                ((Checkable) holder.itemView).setChecked(check);
             }
         }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        if (mHolderMap == null) {
-            mHolderMap = new HashMap<>();
-        }
-        mHolderMap.put(position, new WeakReference<>(viewHolder));
+//        if (mHolderMap == null) {
+//            mHolderMap = new HashMap<>();
+//        }
+//        mHolderMap.put(position, new WeakReference<>(viewHolder));
         super.onBindViewHolder(viewHolder, position);
         boolean select = mSelections.get(position);
         if (viewHolder.itemView instanceof Checkable) {
