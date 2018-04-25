@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CheckedTextView;
+import android.widget.ListView;
 
 import java.util.Arrays;
 import java.util.List;
@@ -58,6 +59,9 @@ public class CheckableRecyclerSample extends RefreshRecyclerSample {
         adapter.setOnItemClickListener(new AfRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(AfRecyclerAdapter adapter1, View view, int position) {
+                if (adapter2.getChoiceMode() == ListView.CHOICE_MODE_NONE) {
+                    DialogUtils.showToast(getContext(), "Please select an choice mode");
+                }
                 adapter2.toggleItemChecked(position);
                 if (adapter2.getCheckedItemCount() > 0) {
                     showMode();
@@ -137,7 +141,6 @@ public class CheckableRecyclerSample extends RefreshRecyclerSample {
 
     private void showMode() {
         if (mActionMode == null) {
-            getBaseActivity().setShowTitleBar(false);
             mActionMode = getActivity().startActionMode(mActionCallback);
         }
     }
@@ -183,7 +186,6 @@ public class CheckableRecyclerSample extends RefreshRecyclerSample {
             mActionMode = null;
             adapter2.clearChoices();
             adapter2.notifyDataSetChanged();
-            getBaseActivity().setShowTitleBar(true);
         }
     };
 }

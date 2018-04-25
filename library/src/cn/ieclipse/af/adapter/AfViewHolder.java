@@ -43,9 +43,9 @@ public class AfViewHolder extends RecyclerView.ViewHolder implements View.OnClic
         if (!hasOnLongClickListener(view)) {
             itemView.setOnLongClickListener(this);
         }
-        if (itemView.getBackground() == null) {
-            itemView.setBackgroundResource(android.R.drawable.list_selector_background);
-        }
+//        if (itemView.getBackground() == null) {
+//            itemView.setBackgroundResource(android.R.drawable.list_selector_background);
+//        }
     }
 
     public Context getContext() {
