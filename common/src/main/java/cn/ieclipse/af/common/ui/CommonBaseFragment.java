@@ -78,6 +78,7 @@ public abstract class CommonBaseFragment extends AfFragment implements View.OnCl
     @Override
     protected void initHeaderView() {
         super.initHeaderView();
+        mTitleBar.getConfig().setMinHeight(AppUtils.dimen2px(getContext(), R.dimen.title_bar_height));
         mTitleLeftView = (TextView) mTitleBar.createItem(R.layout.common_title_left_tv);
         mTitleTextView = (TextView) mTitleBar.createItem(R.layout.common_title_middle_tv);
 

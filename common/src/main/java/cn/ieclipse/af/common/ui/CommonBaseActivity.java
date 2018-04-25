@@ -65,6 +65,7 @@ public abstract class CommonBaseActivity extends AfActivity implements View.OnCl
     }
 
     protected void initHeaderView() {
+        mTitleBar.getConfig().setMinHeight(AppUtils.dimen2px(this, R.dimen.title_bar_height));
         mTitleLeftView = (TextView) mTitleBar.createItem(R.layout.common_title_left_tv);
         mTitleTextView = (TextView) mTitleBar.createItem(R.layout.common_title_middle_tv);
 
