@@ -160,7 +160,11 @@ public abstract class AfDialogFragment<DialogListener> extends DialogFragment im
             ft.addToBackStack(null);
         }
         else {
-            manager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            try {
+                manager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            } catch (Exception e) {
+                // java.lang.IllegalStateException: Can not perform this action after onSaveInstanceState
+            }
         }
 
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
