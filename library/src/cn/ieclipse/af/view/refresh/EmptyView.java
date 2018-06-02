@@ -107,7 +107,7 @@ public class EmptyView extends FrameLayout implements View.OnClickListener {
         mDataEmptyLayout.setVisibility(View.VISIBLE);
     }
 
-    public void setDesc(int layer, String desc) {
+    public void setDesc(int layer, CharSequence desc) {
         if (layer == LAYER_LOADING) {
             if (mTvLoading != null) {
                 mTvLoading.setText(desc);

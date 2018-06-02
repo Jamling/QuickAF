@@ -50,11 +50,11 @@ public class FooterView extends FrameLayout {
 
     }
 
-    public void setLoading(String text) {
+    public void setLoading(CharSequence text) {
 
     }
 
-    public void setEmpty(String text) {
+    public void setEmpty(CharSequence text) {
         
     }
 

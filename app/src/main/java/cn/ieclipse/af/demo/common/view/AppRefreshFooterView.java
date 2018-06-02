@@ -63,7 +63,7 @@ public class AppRefreshFooterView extends FooterView {
     }
 
     @Override
-    public void setEmpty(String text) {
+    public void setEmpty(CharSequence text) {
         progressBar.setVisibility(GONE);
         if (!TextUtils.isEmpty(text)) {
             tvDesc.setText(text);
@@ -80,7 +80,7 @@ public class AppRefreshFooterView extends FooterView {
     }
 
     @Override
-    public void setLoading(String text) {
+    public void setLoading(CharSequence text) {
         progressBar.setVisibility(VISIBLE);
         tvDesc.setText(R.string.common_footer_loading);
     }

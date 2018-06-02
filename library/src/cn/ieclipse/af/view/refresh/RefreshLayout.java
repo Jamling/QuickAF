@@ -414,7 +414,7 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
      *
      * @param message error message
      */
-    public void setEmptyError(String message) {
+    public void setEmptyError(CharSequence message) {
         if (mEmptyView != null) {
             mEmptyView.setDesc(EmptyView.LAYER_ERROR, message);
         }
@@ -425,7 +425,7 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
      *
      * @param message empty message
      */
-    public void setEmptyText(String message) {
+    public void setEmptyText(CharSequence message) {
         if (mEmptyView != null) {
             mEmptyView.setDesc(EmptyView.LAYER_EMPTY, message);
         }
