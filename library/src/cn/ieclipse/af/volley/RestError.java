@@ -42,6 +42,10 @@ public class RestError extends Exception {
         super(error);
         initType();
     }
+
+    public RestError(String message) {
+        super(message);
+    }
     
     private void initType() {
         Throwable error = getCause();

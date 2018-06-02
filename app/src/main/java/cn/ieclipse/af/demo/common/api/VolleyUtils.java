@@ -49,11 +49,14 @@ public final class VolleyUtils {
     }
     
     public static String getError(Context context, RestError error) {
-        if (error.getCause() instanceof LogicError) {
-            return ((LogicError) error.getCause()).getDesc();
-        }
         if (context == null) {
             return "";
+        }
+        if (error.getCause() == null) {
+            return error.getMessage();
+        }
+        if (error.getCause() instanceof LogicError) {
+            return ((LogicError) error.getCause()).getDesc();
         }
         int type = error.getType();
         int resId;
