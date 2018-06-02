@@ -164,7 +164,12 @@ public abstract class AfDialogFragment<DialogListener> extends DialogFragment im
         }
 
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        show(ft, tag);
+        try {
+            show(ft, tag);
+        } catch (IllegalStateException e) {
+            // java.lang.IllegalStateException: Can not perform this action after onSaveInstanceState
+            ft.commitAllowingStateLoss();
+        }
     }
 
     /**
