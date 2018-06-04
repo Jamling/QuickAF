@@ -30,6 +30,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.lang.reflect.Method;
+
 /**
  * Abstract dialog fragment to build complex dialog.
  *
@@ -162,18 +164,34 @@ public abstract class AfDialogFragment<DialogListener> extends DialogFragment im
         else {
             try {
                 manager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            } catch (Exception e) {
+            } catch (IllegalStateException e) {
                 // java.lang.IllegalStateException: Can not perform this action after onSaveInstanceState
+                try {
+                    showAllowingStateLossReflect(manager, tag);
+                    return;
+                } catch (Exception ex) {
+
+                }
             }
         }
 
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+
         try {
             show(ft, tag);
         } catch (IllegalStateException e) {
             // java.lang.IllegalStateException: Can not perform this action after onSaveInstanceState
-            ft.commitAllowingStateLoss();
+        } catch (Exception e) {
+            // TODO
         }
+    }
+
+    private void showAllowingStateLossReflect(FragmentManager manager, String tag) throws Exception {
+        if (tag == null) {
+            tag = getClass().getName();
+        }
+        Method m = DialogFragment.class.getDeclaredMethod("showAllowingStateLoss", FragmentManager.class, String.class);
+        m.invoke(this, manager, tag);
     }
 
     /**

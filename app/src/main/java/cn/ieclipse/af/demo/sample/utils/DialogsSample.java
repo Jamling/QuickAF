@@ -18,6 +18,7 @@ package cn.ieclipse.af.demo.sample.utils;
 import android.app.AlertDialog.Builder;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
@@ -58,7 +59,16 @@ public class DialogsSample extends SampleBaseFragment {
 
     @Override
     public void onClick(View v) {
-        if (btn1 == v){
+        if (chk6.isChecked()) {
+            req(v.getId());
+            return;
+        }
+        dispatchClick(v);
+        super.onClick(v);
+    }
+
+    private void dispatchClick(View v) {
+        if (btn1 == v) {
             showToast(v);
         }
         else if (btn2 == v) {
@@ -80,7 +90,6 @@ public class DialogsSample extends SampleBaseFragment {
         else if (v.getId() == R.id.btn_submit) {
             showDialog1(v);
         }
-        super.onClick(v);
     }
 
     public void showSimplestAlert(View view) {
@@ -144,6 +153,20 @@ public class DialogsSample extends SampleBaseFragment {
         fragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
         fragment.setAlert(chk1.isChecked());
         fragment.show(getFragmentManager(), chk2.isChecked());
+    }
+
+    private void req(int id) {
+        Intent intent = DialogsTargetFragment.create(getActivity());
+        startActivityForResult(intent, id);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        View v = getView().findViewById(requestCode);
+        if (v != null) {
+            dispatchClick(v);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     public static class AlertFragment extends AfDialogFragment<Void> {

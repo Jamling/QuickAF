@@ -41,7 +41,8 @@
 
             <TextView
                 android:id="@android:id/text1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 tools:text="2014-01-20  hh:ss:ss"/>
 
