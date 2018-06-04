@@ -71,7 +71,11 @@ public final class DialogUtils {
         // ft.addToBackStack(null);
 
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        fragment.show(ft, "dialog");
+        try {
+            fragment.show(ft, "dialog");
+        } catch (Exception e) {
+            // TODO java.lang.IllegalStateException: Can not perform this action after onSaveInstanceState
+        }
     }
 
     /**
