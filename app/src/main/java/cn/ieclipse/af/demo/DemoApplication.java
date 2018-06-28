@@ -30,7 +30,7 @@ import cn.ieclipse.af.volley.VolleyManager;
  *
  * @author Jamling
  */
-public class MyApplication extends Application {
+public class DemoApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
