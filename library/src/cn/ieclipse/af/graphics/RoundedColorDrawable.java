@@ -27,15 +27,25 @@ import java.util.Arrays;
 import cn.ieclipse.af.util.ViewUtils;
 
 public class RoundedColorDrawable extends Drawable {
-    final float[] mRadii = new float[8];
-    final Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
-    boolean mIsCircle = false;
-    float mBorderWidth = 0;
-    int mBorderColor = Color.TRANSPARENT;
-    final Path mPath = new Path();
+    private final float[] mRadii = new float[8];
+    private final Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
+    private boolean mIsCircle = false;
+    private float mBorderWidth = 0;
+    private int mBorderColor = Color.TRANSPARENT;
+    private final Path mPath = new Path();
     private int mColor = Color.TRANSPARENT;
     private final RectF mTempRect = new RectF();
-    
+
+    public static final int CORNER_TOP_LEFT = 1;
+    public static final int CORNER_TOP_RIGHT = 2;
+    public static final int CORNER_BOTTOM_LEFT = 8;
+    public static final int CORNER_BOTTOM_RIGHT = 4;
+    public static final int CORNER_TOP = CORNER_TOP_LEFT | CORNER_TOP_RIGHT;
+    public static final int CORNER_BOTTOM = CORNER_BOTTOM_LEFT | CORNER_BOTTOM_RIGHT;
+    public static final int CORNER_LEFT = CORNER_TOP_LEFT | CORNER_BOTTOM_LEFT;
+    public static final int CORNER_RIGHT = CORNER_TOP_RIGHT | CORNER_BOTTOM_RIGHT;
+
+
     /**
      * Creates a RoundedColorDrawable.
      *
@@ -45,11 +55,11 @@ public class RoundedColorDrawable extends Drawable {
     public RoundedColorDrawable(int color) {
         setColor(color);
     }
-    
+
     /**
      * Creates a new instance of RoundedColorDrawable from the given
      * ColorDrawable.
-     * 
+     *
      * @param colorDrawable
      *            color drawable to extract the color from
      * @return a new RoundedColorDrawable
@@ -58,7 +68,7 @@ public class RoundedColorDrawable extends Drawable {
             ColorDrawable colorDrawable) {
         return new RoundedColorDrawable(colorDrawable.getColor());
     }
-    
+
     /**
      * Creates a new instance of RoundedColorDrawable.
      *
@@ -72,7 +82,7 @@ public class RoundedColorDrawable extends Drawable {
         this(color);
         setRadii(radii);
     }
-    
+
     /**
      * Creates a new instance of RoundedColorDrawable.
      *
@@ -85,13 +95,13 @@ public class RoundedColorDrawable extends Drawable {
         this(color);
         setRadius(radius);
     }
-    
+
     @Override
     protected void onBoundsChange(Rect bounds) {
         super.onBoundsChange(bounds);
         updatePath();
     }
-    
+
     @Override
     public void draw(Canvas canvas) {
         mPaint.setColor(mColor);
@@ -106,7 +116,7 @@ public class RoundedColorDrawable extends Drawable {
             canvas.drawPath(mPath, mPaint);
         }
     }
-    
+
     /**
      * Sets whether to round as circle.
      *
@@ -118,7 +128,7 @@ public class RoundedColorDrawable extends Drawable {
         updatePath();
         invalidateSelf();
     }
-    
+
     /**
      * Sets the rounding radii.
      *
@@ -137,7 +147,7 @@ public class RoundedColorDrawable extends Drawable {
         updatePath();
         invalidateSelf();
     }
-    
+
     /**
      * Sets the rounding radius.
      *
@@ -149,10 +159,38 @@ public class RoundedColorDrawable extends Drawable {
         updatePath();
         invalidateSelf();
     }
-    
+
+    /**
+     * Set the rounding conner radius
+     * @param radius radius
+     * @param corners corners
+     */
+    public void setRadius(float radius, int corners) {
+        assert(radius >= 0);
+        assert(corners >=0);
+        float[] radii = new float[8];
+        if ((corners & 1) == 1){
+            radii[0] = radius;
+            radii[1] = radius;
+        }
+        if ((corners & 2) == 2){
+            radii[2] = radius;
+            radii[3] = radius;
+        }
+        if ((corners & 4) == 4){
+            radii[4] = radius;
+            radii[5] = radius;
+        }
+        if ((corners & 8) == 8){
+            radii[6] = radius;
+            radii[7] = radius;
+        }
+        setRadii(radii);
+    }
+
     /**
      * Sets the color.
-     * 
+     *
      * @param color ARGB color
      */
     public void setColor(int color) {
@@ -161,19 +199,19 @@ public class RoundedColorDrawable extends Drawable {
             invalidateSelf();
         }
     }
-    
+
     /**
      * Gets the color.
-     * 
+     *
      * @return color
      */
     public int getColor() {
         return mColor;
     }
-    
+
     /**
      * Sets the border
-     * 
+     *
      * @param color
      *            of the border
      * @param width
@@ -185,7 +223,7 @@ public class RoundedColorDrawable extends Drawable {
             mBorderColor = color;
             invalidateSelf();
         }
-        
+
         if (mBorderWidth != width) {
             mBorderWidth = width;
             updatePath();
@@ -193,7 +231,7 @@ public class RoundedColorDrawable extends Drawable {
         }
         return this;
     }
-    
+
     /**
      * Setting a color filter on a ColorDrawable has no effect. This has been
      * inspired by Android ColorDrawable.
@@ -204,7 +242,7 @@ public class RoundedColorDrawable extends Drawable {
     @Override
     public void setColorFilter(ColorFilter colorFilter) {
     }
-    
+
     private void updatePath() {
         mPath.reset();
         mTempRect.set(getBounds());
@@ -219,16 +257,16 @@ public class RoundedColorDrawable extends Drawable {
         }
         mTempRect.inset(-mBorderWidth / 2, -mBorderWidth / 2);
     }
-    
+
     @Override
     public void setAlpha(int alpha) {
         // TODO Auto-generated method stub
-        
+
     }
-    
+
     @Override
     public int getOpacity() {
-        return PixelFormat.TRANSLUCENT;        
+        return PixelFormat.TRANSLUCENT;
     }
 
     private StateListDrawable sld;

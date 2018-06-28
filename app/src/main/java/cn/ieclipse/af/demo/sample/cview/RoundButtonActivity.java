@@ -21,6 +21,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
 
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.sample.SampleBaseActivity;
@@ -125,4 +126,21 @@ public class RoundButtonActivity extends SampleBaseActivity {
         super.onClick(v);
     }
 
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        super.onCheckedChanged(buttonView, isChecked);
+        int corners = 0;
+        if (chk1.isChecked()) {
+            corners |= 9;
+        }
+        if (chk2.isChecked()) {
+            corners |= 6;
+        }
+        if (chk3.isChecked()) {
+            corners |= 3;
+        }
+        int r = Integer.parseInt(getResources().getStringArray(R.array.sample_round_radius)[spn2.getSelectedItemPosition()]);
+        int radius = AppUtils.dp2px(this, r);
+        myBtn1.setRadius(radius, corners);
+    }
 }

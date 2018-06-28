@@ -87,7 +87,7 @@
                 android:inputType="number"/>
 
             <cn.ieclipse.af.view.CountDownButton
-                android:id="@+id/btn_get_code"
+                android:id="@+id/btn_code"
                 style="@style/text_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

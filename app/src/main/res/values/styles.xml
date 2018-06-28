@@ -1,7 +1,9 @@
 <resources>
     <style name="et_login" parent="text_title">
-        <item name="android:minHeight">50dp</item>
-        <item name="android:textColorHint">@color/black_999999</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:textColorHint">@color/fg_hint</item>
         <item name="android:textColor">@color/black_333333</item>
         <item name="android:padding">6dp</item>
         <item name="android:background">@null</item>

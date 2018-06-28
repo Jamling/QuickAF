@@ -71,9 +71,7 @@ public class LoginActivity extends BaseActivity implements LoginController.Login
         mTitleTextView.setText(R.string.login_title);
         mTitleTextView.setTextColor(getResources().getColor(R.color.white));
 
-        mReg = createRightText(getString(R.string.reg_title));
-        mTitleBar.addRight(mReg);
-        setOnClickListener(mReg);
+        mReg = createRightText(getString(R.string.reg_title), true);
     }
 
     @Override
@@ -91,7 +89,7 @@ public class LoginActivity extends BaseActivity implements LoginController.Login
         mEtPhone = (TextView) view.findViewById(R.id.et_phone);
         mEtCode = (TextView) view.findViewById(R.id.et_code);
         mBtnSubmit = (Button) view.findViewById(R.id.btn_submit);
-        mBtnCode = (CountDownButton) view.findViewById(R.id.btn_get_code);
+        mBtnCode = (CountDownButton) view.findViewById(R.id.btn_code);
 
         setOnClickListener(mBtnCode, mBtnSubmit, mBtnForgot, mBtnReg);
 
@@ -145,6 +143,9 @@ public class LoginActivity extends BaseActivity implements LoginController.Login
             req.pwd = mEtPwd.getText().toString();
             req.pwd = EncodeUtils.getMd5(req.pwd);
             mLoginController.login(req);
+        }
+        else if (view == mBtnForgot) {
+            startFragment(ForgetPwdFragment.class);
         }
     }
 

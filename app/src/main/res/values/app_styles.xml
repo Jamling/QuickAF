@@ -1,3 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="login_item">
+        <item name="android:background">@drawable/bg_login_item</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="login_input" parent="text_normal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@null</item>
+        <item name="android:textColorHint">@color/fg_hint</item>
+        <item name="android:paddingLeft">@dimen/activity_horizontal_margin</item>
+        <item name="android:paddingRight">@dimen/activity_horizontal_margin</item>
+    </style>
+
+    <style name="login_phone" parent="login_input">
+        <item name="android:inputType">phone</item>
+        <item name="android:maxLength">11</item>
+    </style>
+
 </resources>

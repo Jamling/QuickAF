@@ -18,19 +18,19 @@ package cn.ieclipse.af.demo.my;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import static android.app.Activity.RESULT_OK;
+import cn.ieclipse.af.demo.DemoUtils;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.api.BaseResponse;
-import cn.ieclipse.af.demo.common.ui.BaseActivity;
+import cn.ieclipse.af.demo.common.ui.BaseFragment;
 import cn.ieclipse.af.graphics.RoundedColorDrawable;
 import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.util.DialogUtils;
 import cn.ieclipse.af.util.EncodeUtils;
-import cn.ieclipse.af.util.StringUtils;
 import cn.ieclipse.af.view.CountDownButton;
 import cn.ieclipse.af.volley.RestError;
 
@@ -39,7 +39,7 @@ import cn.ieclipse.af.volley.RestError;
  *
  * @author Jamling
  */
-public class RegisterActivity extends BaseActivity implements RegisterController.RegisterListener {
+public class ForgetPwdFragment extends BaseFragment implements RegisterController.RegisterListener {
 
     private RegisterController mController;
 
@@ -61,13 +61,13 @@ public class RegisterActivity extends BaseActivity implements RegisterController
 
     @Override
     protected int getContentLayout() {
-        return R.layout.my_activity_register;
+        return R.layout.my_activity_forget;
     }
 
     @Override
     protected void initHeaderView() {
         super.initHeaderView();
-        mTitleTextView.setText(R.string.reg_title);
+        mTitleTextView.setText(R.string.login_forgot);
         mTitleTextView.setTextColor(getResources().getColor(R.color.white));
     }
 
@@ -93,7 +93,13 @@ public class RegisterActivity extends BaseActivity implements RegisterController
         RoundedColorDrawable bg = new RoundedColorDrawable(AppUtils.getColor(view.getContext(), R.color.white));
         bg.setRadius(radius);
         bg.setBorder(AppUtils.getColor(view.getContext(), R.color.divider), 1);
-        bg.applyTo(mLayoutInput);
+        //bg.applyTo(mLayoutInput);
+
+        RoundedColorDrawable bg2 = new RoundedColorDrawable(AppUtils.getColor(getContext(), R.color.colorPrimary));
+        bg2.setRadius(radius>>1, RoundedColorDrawable.CORNER_RIGHT);
+        bg2.setBorder(0, AppUtils.dp2px(getContext(), 1));
+        bg2.addStateColor(-android.R.attr.state_enabled, AppUtils.getColor(getContext(), R.color.black_f0f0f0));
+        bg2.applyTo(mBtnCode);
     }
 
     @Override
@@ -105,60 +111,38 @@ public class RegisterActivity extends BaseActivity implements RegisterController
     @Override
     public void onClick(View v) {
         if (v == mBtnCode) {
-            if (validatePhone()) {
-                mBtnCode.start();
-                VerifyCodeRequest req = new VerifyCodeRequest();
-                req.phone = mEtPhone.getText().toString();
-                mController.getCode(req);
-            }
+           doCode();
         }
         else if (v == mBtnSubmit) {
-            if (validate()) {
-                RegisterRequest req = new RegisterRequest();
-                req.phone = mPhone;
-                req.code = mEtCode.getText().toString();
-                req.password = EncodeUtils.getMd5(mEtPwd.getText().toString());
-                mController.register(req);
-            }
+            doSubmit();
         }
         else if (v == mBtnForgot) {
-            finish();
+
         }
         super.onClick(v);
     }
 
-    private boolean validatePhone() {
-        if (TextUtils.isEmpty(mEtPhone.getText())) {
-            DialogUtils.showToast(this, mEtPhone.getHint());
-            return false;
+    private void doCode() {
+        if (DemoUtils.validatePhone(mEtPhone)) {
+            mBtnCode.start();
+            VerifyCodeRequest req = new VerifyCodeRequest();
+            req.phone = mEtPhone.getText().toString();
+            mController.getCode(req);
         }
-        mPhone = mEtPhone.getText().toString();
-        if (!StringUtils.isMobileNO(mPhone)) {
-            DialogUtils.showToast(this, R.string.reg_hint_phone);
-            return false;
-        }
-        return true;
     }
 
-    private boolean validate() {
-        if (!validatePhone()) {
-            return false;
+    private void doSubmit() {
+        if (DemoUtils.validatePhone(mEtPhone)) {
+            if (DemoUtils.validateRequire(mEtCode)) {
+                if (DemoUtils.validatePwd(mEtPwd)) {
+                    RegisterRequest req = new RegisterRequest();
+                    req.phone = mPhone;
+                    req.code = mEtCode.getText().toString();
+                    req.password = EncodeUtils.getMd5(mEtPwd.getText().toString());
+                    mController.register(req);
+                }
+            }
         }
-        if (TextUtils.isEmpty(mEtCode.getText())) {
-            DialogUtils.showToast(this, mEtCode.getHint());
-            return false;
-        }
-        if (TextUtils.isEmpty(mEtPwd.getText())) {
-            DialogUtils.showToast(this, mEtPwd.getHint());
-            return false;
-        }
-
-        String pwd = mEtPwd.getText().toString();
-        if (pwd.length() < 6 || pwd.length() > 16) {
-            DialogUtils.showToast(this, "密码长度不正确");
-            return false;
-        }
-        return true;
     }
 
     private void autoLogin() {
@@ -170,13 +154,13 @@ public class RegisterActivity extends BaseActivity implements RegisterController
 
     @Override
     public void onCodeSuccess(BaseResponse out) {
-        DialogUtils.showToast(this, R.string.reg_code_sent);
+        DialogUtils.showToast(getContext(), R.string.reg_code_sent);
     }
 
     @Override
     public void onRegisterSuccess(RegisterResponse out) {
         hideLoadingDialog();
-        DialogUtils.showToast(this, R.string.reg_ok);
+        DialogUtils.showToast(getContext(), R.string.reg_ok);
 
     }
 
@@ -195,7 +179,7 @@ public class RegisterActivity extends BaseActivity implements RegisterController
     public void onLoginFail(RestError error) {
         hideLoadingDialog();
         toastError(error);
-        finish();
+        getActivity().finish();
     }
 
     @Override
@@ -206,7 +190,7 @@ public class RegisterActivity extends BaseActivity implements RegisterController
     }
 
     public static void go(Context context, int code) {
-        Intent intent = new Intent(context, RegisterActivity.class);
+        Intent intent = new Intent(context, ForgetPwdFragment.class);
         if (context instanceof Activity) {
             ((Activity) context).startActivityForResult(intent, code);
         }
@@ -222,7 +206,7 @@ public class RegisterActivity extends BaseActivity implements RegisterController
     }
 
     private void goLogin() {
-        setResult(RESULT_OK);
-        finish();
+        getActivity().setResult(RESULT_OK);
+        getActivity().finish();
     }
 }

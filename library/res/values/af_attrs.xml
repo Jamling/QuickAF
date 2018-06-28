@@ -46,6 +46,16 @@
     <!-- is circle -->
     <attr name="af_circle" format="boolean"/>
     <attr name="af_pressColor" format="reference|color"/>
+    <attr name="af_corners" format="integer">
+        <flag name="top_left" value="1"/>
+        <flag name="top_right" value="2"/>
+        <flag name="bottom_right" value="4" />
+        <flag name="bottom_left" value="8" />
+        <flag name="left" value="9"/>
+        <flag name="right" value="6" />
+        <flag name="top" value="3" />
+        <flag name="bottom" value="12" />
+    </attr>
 
     <!-- ============== -->
     <!-- AF Component define -->
@@ -112,6 +122,7 @@
         <attr name="android:radius"/>
         <attr name="af_borderColor"/>
         <attr name="af_borderWidth"/>
+        <attr name="af_corners" />
         <!--<attr name="pressedBgColor" format="reference|color"/>-->
         <!--<attr name="checkedBgColor" format="reference|color"/>-->
         <!--<attr name="selectedBgColor" format="reference|color"/>-->

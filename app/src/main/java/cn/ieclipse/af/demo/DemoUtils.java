@@ -21,6 +21,14 @@ import cn.ieclipse.af.util.StringUtils;
 
 public class DemoUtils {
 
+    public static boolean validateRequire(TextView widget) {
+        if (TextUtils.isEmpty(widget.getText())) {
+            DialogUtils.showToast(widget.getContext(), widget.getHint());
+            return false;
+        }
+        return true;
+    }
+
     public static boolean validatePhone(TextView mEtPhone) {
         if (TextUtils.isEmpty(mEtPhone.getText())) {
             DialogUtils.showToast(mEtPhone.getContext(), mEtPhone.getHint());

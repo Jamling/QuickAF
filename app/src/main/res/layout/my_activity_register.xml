@@ -51,7 +51,6 @@
         android:showDividers="none">
 
         <LinearLayout
-            android:id="@+id/ll_code"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -68,9 +67,34 @@
                 android:hint="@string/login_hint_name"
                 android:inputType="phone"
                 android:maxLength="11"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="0dp"
+            android:background="@color/divider"/>
+
+        <LinearLayout
+            android:id="@+id/ll_code"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <EditText
+                android:id="@+id/et_code"
+                style="@style/et_login"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="16dp"
+                android:hint="@string/login_hint_code"
+                android:inputType="number"/>
 
             <cn.ieclipse.af.view.CountDownButton
-                android:id="@+id/btn_get_code"
+                android:id="@+id/btn_code"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@null"
@@ -80,23 +104,6 @@
                 android:textSize="16sp"
                 android:visibility="visible"/>
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="0dp"
-            android:background="@color/divider"/>
-
-        <EditText
-            android:id="@+id/et_code"
-            style="@style/et_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:drawablePadding="16dp"
-            android:hint="@string/login_hint_code"
-            android:inputType="number"/>
-
 
         <View
             android:layout_width="match_parent"

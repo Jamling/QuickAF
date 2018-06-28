@@ -83,6 +83,7 @@ public class RoundButton extends Button {
     private int mRadius;
     private int borderWidth;
     private int borderColor;
+    private int corners;
     
     private void init(Context context, AttributeSet attrs) {
         Drawable bg = getBackground();
@@ -115,7 +116,13 @@ public class RoundButton extends Button {
                     Color.TRANSPARENT);
             borderWidth = a.getDimensionPixelOffset(
                     R.styleable.RoundButton_af_borderWidth, borderWidth);
-            setRadius(mRadius);
+            corners = a.getInt(R.styleable.RoundButton_af_corners, 0);
+            if (corners > 0) {
+                setRadius(mRadius, corners);
+            }
+            else {
+                setRadius(mRadius);
+            }
             setBorder(borderColor, borderWidth);
 //            if (a.hasValue(R.styleable.RoundButton_pressedBgColor)) {
 //                setStateBgColor(new int[]{android.R.attr.state_pressed},
@@ -131,13 +138,20 @@ public class RoundButton extends Button {
 //            }
             a.recycle();
         }
-        
-        ViewUtils.setBackground(this, mRoundBg);
+        if (mRoundBg != null) {
+            ViewUtils.setBackground(this, mRoundBg);
+        }
     }
     
     public void setRadius(int radius) {
         if (mRoundBg != null) {
             mRoundBg.setRadius(radius);
+        }
+    }
+
+    public void setRadius(int radius, int corners) {
+        if (mRoundBg != null) {
+            mRoundBg.setRadius(radius, corners);
         }
     }
     
