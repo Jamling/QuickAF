@@ -54,4 +54,41 @@ public final class EncodeUtils {
         }
         return getMd5(source.getBytes());
     }
+
+    private static String decodeUnicodeInternal1(String src) {
+        char ch;
+        StringBuilder sb = new StringBuilder(src);
+        for (int i = 0; i < sb.length(); i++) {
+            ch = sb.charAt(i);
+            if (ch == '\\') {
+                if (i + 5 < sb.length()) {
+                    boolean unicode = sb.charAt(i + 1) == 'u';
+                    if (unicode) {
+                        try {
+                            int c = Integer.parseInt(sb.substring(i + 2, i + 6), 16);
+                            sb.delete(i, i + 6);
+                            sb.insert(i, (char) c);
+                        } catch (Exception e) {
+
+                        }
+                    }
+                }
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Decode string contains <code>uxxxx</code>\ to unicode, used for view json string friendly.
+     * @param src source string
+     *
+     * @return decoded string
+     * @since 3.0.1
+     */
+    public static String decodeUnicode(String src) {
+        if (src == null) {
+            return null;
+        }
+        return decodeUnicodeInternal1(src);
+    }
 }

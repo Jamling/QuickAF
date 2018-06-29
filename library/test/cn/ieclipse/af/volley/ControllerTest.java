@@ -10,6 +10,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static cn.ieclipse.af.util.EncodeUtils.decodeUnicode;
 import cn.ieclipse.af.volley.mock.BaseInfo;
 import cn.ieclipse.af.volley.mock.BaseResponse;
 import cn.ieclipse.af.volley.mock.MockContext;
@@ -91,5 +92,13 @@ public class ControllerTest {
 
         json = "{\"code\":0,\"data\":[{\"id\":\"1\",\"name\":111,\"weight\":2,\"age\":0}]}";
         controller.mockRequestList(null, json);
+    }
+
+    @Test
+    public void testJson() throws Exception {
+        String json = "{\"status\":0,\"message\":\"\\u6210\\u529f\",\"data\":null}\\u6210";
+        System.out.println(json);
+        String decoded = decodeUnicode(json);
+        Assert.assertEquals(decoded, "{\"status\":0,\"message\":\"成功\",\"data\":null}成");
     }
 }

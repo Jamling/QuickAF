@@ -35,6 +35,8 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.ieclipse.af.util.EncodeUtils;
+
 public class GsonRequest extends JsonRequest<IBaseResponse> {
     protected Type mClazz;
     protected Gson mGson = new Gson();
@@ -105,7 +107,7 @@ public class GsonRequest extends JsonRequest<IBaseResponse> {
     
     protected IBaseResponse getData(String json, NetworkResponse response) {
         if (Controller.DEBUG) {
-            Controller.log("response json:" + json);
+            Controller.log("response json:" + EncodeUtils.decodeUnicode(json));
         }
         return (IBaseResponse) mGson.fromJson(json, mClazz);
     }
