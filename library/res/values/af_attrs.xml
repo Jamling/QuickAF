@@ -123,6 +123,7 @@
         <attr name="af_borderColor"/>
         <attr name="af_borderWidth"/>
         <attr name="af_corners" />
+        <attr name="af_useSystemBackground" format="boolean"/>
         <!--<attr name="pressedBgColor" format="reference|color"/>-->
         <!--<attr name="checkedBgColor" format="reference|color"/>-->
         <!--<attr name="selectedBgColor" format="reference|color"/>-->

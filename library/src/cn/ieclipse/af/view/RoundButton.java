@@ -84,6 +84,7 @@ public class RoundButton extends Button {
     private int borderWidth;
     private int borderColor;
     private int corners;
+    private boolean useSystemBackground = false;
     
     private void init(Context context, AttributeSet attrs) {
         Drawable bg = getBackground();
@@ -117,6 +118,7 @@ public class RoundButton extends Button {
             borderWidth = a.getDimensionPixelOffset(
                     R.styleable.RoundButton_af_borderWidth, borderWidth);
             corners = a.getInt(R.styleable.RoundButton_af_corners, 0);
+            useSystemBackground = a.getBoolean(R.styleable.RoundButton_af_useSystemBackground, false);
             if (corners > 0) {
                 setRadius(mRadius, corners);
             }
@@ -138,7 +140,7 @@ public class RoundButton extends Button {
 //            }
             a.recycle();
         }
-        if (mRoundBg != null) {
+        if (!useSystemBackground) {
             ViewUtils.setBackground(this, mRoundBg);
         }
     }
