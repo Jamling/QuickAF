@@ -104,39 +104,49 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#cecece"
-                android:text="Yellow"/>
+                android:text="Yellow"
+                android:tag="Yellow"/>
 
             <CheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#cecece"
-                android:text="Orange"/>
+                android:text="Orange"
+                android:tag="Orange"/>
 
             <CheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#cecece"
-                android:text="Blue_Light"/>
+                android:text="Blue_Light"
+                android:tag="Blue_Light"/>
 
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#cecece"
-                android:text="Gray"/>
+                android:text="Gray"
+                android:tag="Gray"/>
 
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#cecece"
-                android:text="Pink"/>
+                android:text="Pink"
+                android:tag="Pink"/>
 
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#cecece"
-                android:text="Green"/>
+                android:text="Green"
+                android:tag="Green"/>
         </cn.ieclipse.af.view.FlowLayout>
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv1"
+            android:text=""/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -843,6 +843,7 @@ public class FlowLayout extends ViewGroup {
     // when true, mOnCheckedChangeListener discards events
     private boolean mProtectFromCheckedChange = false;
     private FlowLayout.OnCheckedChangeListener mOnCheckedChangeListener;
+    private FlowLayout.OnCheckedChangeListener2 mOnCheckedChangeListener2;
     private PassThroughHierarchyChangeListener mPassThroughListener = new PassThroughHierarchyChangeListener();
     private int mSelectionMode = ListView.CHOICE_MODE_NONE;
     
@@ -918,6 +919,12 @@ public class FlowLayout extends ViewGroup {
         }
         else {
             setCheckedStateForView(id, true);
+            if (mOnCheckedChangeListener2 != null) {
+                View child = findViewById(id);
+                if (child instanceof CompoundButton) {
+                    mOnCheckedChangeListener2.onCheckedChanged(FlowLayout.this, (CompoundButton)child, id);
+                }
+            }
         }
     }
     
@@ -986,6 +993,19 @@ public class FlowLayout extends ViewGroup {
      */
     public void setOnCheckedChangeListener(OnCheckedChangeListener listener) {
         mOnCheckedChangeListener = listener;
+    }
+
+    /**
+     * <p>
+     * Register a callback to be invoked when the checked compound button changes
+     * in this group.
+     * </p>
+     *
+     * @param listener the callback to call on checked state change
+     * @since 3.0.1
+     */
+    public void setOnCheckedChangeListener2(OnCheckedChangeListener2 listener) {
+        mOnCheckedChangeListener2 = listener;
     }
     
     /**
@@ -1073,6 +1093,9 @@ public class FlowLayout extends ViewGroup {
             }
             else {
                 setCheckedStateForView(buttonView.getId(), isChecked);
+                if (mOnCheckedChangeListener2 != null) {
+                    mOnCheckedChangeListener2.onCheckedChanged(FlowLayout.this, buttonView, buttonView.getId());
+                }
             }
         }
     }
@@ -1204,6 +1227,26 @@ public class FlowLayout extends ViewGroup {
          * @param checkedId the unique identifier of the newly checked radio button
          */
         void onCheckedChanged(FlowLayout group, int checkedId);
+    }
+
+    /**
+     * <p>
+     * Interface definition for a callback to be invoked when the checked compound
+     * button changed in this group.
+     * </p>
+     * @since 3.0.1
+     */
+    public interface OnCheckedChangeListener2 {
+        /**
+         * <p>
+         * Called when the checked compound button has changed. When the selection
+         * is cleared, checkedId is -1.
+         * </p>
+         * @param group         the group in which the checked compound button has changed
+         * @param buttonView    the compound button which has changed
+         * @param checkedId     the unique identifier of the newly checked compound button
+         */
+        void onCheckedChanged(FlowLayout group, CompoundButton buttonView, int checkedId);
     }
     
     // ----> adapter support

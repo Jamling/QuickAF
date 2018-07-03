@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -29,6 +30,7 @@ import cn.ieclipse.af.adapter.AfBaseAdapter;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.sample.SampleBaseActivity;
 import cn.ieclipse.af.util.RandomUtils;
+import cn.ieclipse.af.view.FlowLayout;
 
 /**
  * 类/接口描述
@@ -71,6 +73,18 @@ public class FlowLayoutActivity extends SampleBaseActivity {
     @Override
     protected void initContentView(View view) {
         super.initContentView(view);
+        fl2.setOnCheckedChangeListener(new FlowLayout.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(FlowLayout group, int checkedId) {
+                tv1.setText("OnCheckedChangeListener: " + fl2.getCheckedValues());
+            }
+        });
+        fl2.setOnCheckedChangeListener2(new FlowLayout.OnCheckedChangeListener2() {
+            @Override
+            public void onCheckedChanged(FlowLayout group, CompoundButton buttonView, int checkedId) {
+                tv1.setText("OnCheckedChangeListener2: " + fl2.getCheckedValues());
+            }
+        });
     }
 
     @Override
@@ -121,7 +135,7 @@ public class FlowLayoutActivity extends SampleBaseActivity {
         }
         
         else if (spn3 == parent) {
-            int f = divs[pos];
+            int f = cs[pos];
             fl1.setChoiceMode(f);
             fl2.setChoiceMode(f);
         }
