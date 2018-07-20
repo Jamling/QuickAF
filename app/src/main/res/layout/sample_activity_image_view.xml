@@ -2,9 +2,9 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -59,15 +60,15 @@
                     android:id="@+id/iv1"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
+                    android:background="@color/bg_main"
+                    android:padding="0dp"
                     android:radius="8dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/logo"
                     app:af_borderColor="@color/colorPrimary"
                     app:af_borderWidth="5dp"
                     app:af_circle="true"
-                    tools:src="@mipmap/logo"
-                    android:src="@mipmap/logo"
-                    android:padding="0dp"
-                    android:background="@color/bg_main"
-                    android:scaleType="centerCrop"/>
+                    tools:src="@mipmap/logo"/>
             </LinearLayout>
 
             <LinearLayout
@@ -92,12 +93,12 @@
                     android:id="@+id/iv2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:scaleType="fitXY"
                     android:radius="8dp"
+                    android:scaleType="fitXY"
+                    android:src="@color/colorAccent"
                     app:af_borderColor="@color/colorPrimary"
                     app:af_borderWidth="4dp"
-                    app:af_ratio="2"
-                    android:src="@color/colorAccent"/>
+                    app:af_ratio="2"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -105,6 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -122,6 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -140,8 +143,8 @@
                         android:id="@+id/iv4"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        android:src="@color/colorAccent"
-                        android:scaleType="fitXY"/>
+                        android:scaleType="fitXY"
+                        android:src="@color/colorAccent"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -157,9 +160,58 @@
                     android:layout_height="match_parent"
                     android:radius="10dp"
                     app:af_borderColor="@color/white"
-                    app:af_borderWidth="1dp"/>
+                    app:af_borderWidth="1dp"
+                    tools:visibility="gone"/>
             </FrameLayout>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="New Round mask"/>
+
+            <cn.ieclipse.af.view.RoundFrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/black_alpha_50"
+                android:elevation="10dp"
+                android:paddingBottom="0dp"
+                android:radius="8dp"
+                app:af_borderColor="@color/colorPrimary"
+                app:af_borderWidth="1dp"
+                app:af_corners="top|bottom_right">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:scaleType="fitXY"
+                        android:src="@color/colorAccent"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:padding="12dp"
+                        android:text="I am text"/>
+
+                    <cn.ieclipse.af.view.RoundButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimary"
+                        />
+                </LinearLayout>
+            </cn.ieclipse.af.view.RoundFrameLayout>
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

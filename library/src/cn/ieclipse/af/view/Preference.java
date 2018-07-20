@@ -215,6 +215,15 @@ public class Preference extends FrameLayout implements OnCheckedChangeListener {
         return mTvSummary;
     }
 
+    /**
+     * ImageView which id is <code>android:id/icon2</code>
+     * @return
+     * @since 3.0.1
+     */
+    public ImageView getArrowWidget() {
+        return mIvArrow;
+    }
+
     public CompoundButton getCheckWidget() {
         return mChk;
     }

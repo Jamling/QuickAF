@@ -129,6 +129,13 @@
         <!--<attr name="selectedBgColor" format="reference|color"/>-->
     </declare-styleable>
 
+    <declare-styleable name="RoundFrameLayout">
+        <attr name="android:radius"/>
+        <attr name="af_borderColor"/>
+        <attr name="af_borderWidth"/>
+        <attr name="af_corners" />
+    </declare-styleable>
+
     <declare-styleable name="Preference">
         <attr name="android:key"/>
         <!--<attr name="android:title"/>-->
