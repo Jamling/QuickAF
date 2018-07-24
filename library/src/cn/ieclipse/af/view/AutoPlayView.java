@@ -435,7 +435,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
     /**
      * 改变小点
      */
-    private void updateIndicatorItem(int oldPosition, int newPosition) {
+    protected void updateIndicatorItem(int oldPosition, int newPosition) {
         if (mIndicatorLayout != null) {
             View old = null;
             View current = null;
@@ -453,6 +453,18 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
                 current.setSelected(true);
                 current.setActivated(true);
             }
+        }
+    }
+
+    /**
+     * 更新当前项数字
+     * @param current current count range: [1, count], start with 1, end with total count
+     * @param count total count
+     * @since 3.0.1
+     */
+    protected void updateIndicatorText(int current, int count) {
+        if (mIndicatorTv != null) {
+            mIndicatorTv.setText(current + "/" + count);
         }
     }
 
@@ -526,7 +538,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
             }
             // 显示数字指示器
             if (mIndicatorTv != null) {
-                mIndicatorTv.setText(current + 1 + "/" + count);
+                updateIndicatorText(current + 1, count);
             }
             // 显示图片指示器
             if (mIndicatorLayout != null) {
