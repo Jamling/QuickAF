@@ -65,7 +65,9 @@ public class RoundFrameLayout extends FrameLayout {
     int mBorderColor = Color.TRANSPARENT;
     int mRadius;
     int mCorners;
-    Path mPath;
+    protected Path mPath;
+
+    protected Paint mPaint;
 
     private void init(Context context, AttributeSet attrs) {
         if (attrs != null) {
@@ -78,7 +80,7 @@ public class RoundFrameLayout extends FrameLayout {
         }
     }
 
-    private void buildPath() {
+    protected void buildPath() {
         mPath = new Path();
         mPath.setFillType(Path.FillType.EVEN_ODD);
         int corners = mCorners > 0 ? mCorners : 0x0f;
@@ -108,9 +110,7 @@ public class RoundFrameLayout extends FrameLayout {
         return radii;
     }
 
-    Paint mPaint;
-
-    private void buildPaint() {
+    protected void buildPaint() {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(mBorderWidth);
