@@ -19,6 +19,7 @@ import cn.ieclipse.af.R;
 public class ViewPagerV4 extends ViewPager {
 
     private boolean disableWipe = false;
+    private float mRatio;
 
     public ViewPagerV4(Context context) {
         super(context);
@@ -33,7 +34,7 @@ public class ViewPagerV4 extends ViewPager {
         if (attrs != null) {
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ViewPagerV4);
             disableWipe = a.getBoolean(R.styleable.ViewPagerV4_af_disableWipe, false);
-
+            mRatio = a.getFloat(R.styleable.ViewPagerV4_af_ratio, 0);
             a.recycle();
         }
     }
@@ -94,5 +95,28 @@ public class ViewPagerV4 extends ViewPager {
             }
         }
         return null;
+    }
+
+    public void setRatio(float ratio) {
+        this.mRatio = ratio;
+    }
+
+    public float getRatio() {
+        return mRatio;
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        int width = widthSize;
+        if (mRatio > 0 && widthMode != MeasureSpec.UNSPECIFIED) {
+            int h = (int) (width / mRatio + 0.5f);
+            int hSpec = MeasureSpec.makeMeasureSpec(h, MeasureSpec.EXACTLY);
+            super.onMeasure(widthMeasureSpec, hSpec);
+        }
+        else {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        }
     }
 }

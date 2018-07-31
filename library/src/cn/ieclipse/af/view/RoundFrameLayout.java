@@ -66,8 +66,8 @@ public class RoundFrameLayout extends FrameLayout {
     int mRadius;
     int mCorners;
     protected Path mPath;
-
     protected Paint mPaint;
+    private boolean mFixable;
 
     private void init(Context context, AttributeSet attrs) {
         if (attrs != null) {
@@ -76,13 +76,26 @@ public class RoundFrameLayout extends FrameLayout {
             mBorderWidth = a.getDimensionPixelOffset(R.styleable.RoundFrameLayout_af_borderWidth, (int) mBorderWidth);
             mRadius = a.getDimensionPixelOffset(R.styleable.RoundFrameLayout_android_radius, mRadius);
             mCorners = a.getInt(R.styleable.RoundFrameLayout_af_corners, 0);
+            mFixable = a.getBoolean(R.styleable.RoundFrameLayout_af_fixable, false);
             a.recycle();
         }
     }
 
+    public void setFixable(boolean fixable) {
+        if (this.mFixable != fixable) {
+            this.mFixable = fixable;
+            buildPath();
+        }
+    }
+
     protected void buildPath() {
-        mPath = new Path();
-        mPath.setFillType(Path.FillType.EVEN_ODD);
+        if (mPath == null) {
+            mPath = new Path();
+            mPath.setFillType(Path.FillType.EVEN_ODD);
+        }
+        else {
+            mPath.reset();
+        }
         int corners = mCorners > 0 ? mCorners : 0x0f;
         mPath.addRoundRect(new RectF(0, 0, getWidth(), getHeight()), getRadiis(mRadius, corners), Path.Direction.CW);
     }
@@ -119,7 +132,7 @@ public class RoundFrameLayout extends FrameLayout {
 
     @Override
     public void draw(Canvas canvas) {
-        if (mPath == null) {
+        if (mPath == null || !mFixable) {
             buildPath();
         }
         canvas.save();

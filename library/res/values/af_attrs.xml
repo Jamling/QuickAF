@@ -42,6 +42,7 @@
 
     <attr name="af_borderColor" format="reference|color"/>
     <attr name="af_borderWidth" format="reference|dimension"/>
+    <attr name="af_ratio" format="float"/>
     <!--<attr name="af_radius" format="reference|dimension"/>-->
     <!-- is circle -->
     <attr name="af_circle" format="boolean"/>
@@ -134,6 +135,7 @@
         <attr name="af_borderColor"/>
         <attr name="af_borderWidth"/>
         <attr name="af_corners" />
+        <attr name="af_fixable" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="Preference">
@@ -158,6 +160,7 @@
     </declare-styleable>
     <declare-styleable name="ViewPagerV4">
         <attr name="af_disableWipe" format="boolean"/>
+        <attr name="af_ratio"/>
     </declare-styleable>
 
     <!-- see https://github.com/TUBB/SwipeMenuRecyclerView -->
@@ -191,13 +194,17 @@
         <attr name="af_tabLayout" format="reference"/>
     </declare-styleable>
 
+    <declare-styleable name="AutoPlayView">
+        <attr name="af_ratio" />
+    </declare-styleable>
+
     <!-- from old library -->
     <declare-styleable name="RotateTextView">
         <attr name="af_degree" format="float"/>
     </declare-styleable>
 
     <declare-styleable name="RatioImageView">
-        <attr name="af_ratio" format="float"/>
+        <attr name="af_ratio"/>
     </declare-styleable>
     <declare-styleable name="RoundImageView">
         <attr name="af_borderWidth"/>
