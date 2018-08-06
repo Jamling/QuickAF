@@ -135,8 +135,8 @@ public class EmptyView extends FrameLayout implements View.OnClickListener {
             }
         }
         else if (layer == LAYER_EMPTY) {
-            if (mIvError != null) {
-                mIvError.setImageResource(resId);
+            if (mIvEmpty != null) {
+                mIvEmpty.setImageResource(resId);
             }
         }
     }
