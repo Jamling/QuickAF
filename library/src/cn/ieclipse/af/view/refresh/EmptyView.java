@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import cn.ieclipse.af.R;
+import cn.ieclipse.af.util.ViewUtils;
 import cn.ieclipse.af.volley.RestError;
 
 /**
@@ -130,14 +131,10 @@ public class EmptyView extends FrameLayout implements View.OnClickListener {
 
         }
         else if (layer == LAYER_ERROR) {
-            if (mIvError != null) {
-                mIvError.setImageResource(resId);
-            }
+            ViewUtils.setImageResource(mIvError, resId);
         }
         else if (layer == LAYER_EMPTY) {
-            if (mIvEmpty != null) {
-                mIvEmpty.setImageResource(resId);
-            }
+            ViewUtils.setImageResource(mIvEmpty, resId);
         }
     }
 

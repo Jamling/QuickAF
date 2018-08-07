@@ -22,6 +22,7 @@ import android.text.Selection;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -43,6 +44,7 @@ public final class ViewUtils {
      *
      * @param view view
      * @param d    background drawable
+     *
      * @see View#setBackground(Drawable)
      */
     //--> for android sdk compatibility
@@ -52,6 +54,22 @@ public final class ViewUtils {
         }
         else {
             view.setBackgroundDrawable(d);
+        }
+    }
+
+    /**
+     * Instead {@link android.widget.ImageView#setImageResource(int)}
+     *
+     * @param iv    ImageView
+     * @param resId resourceId
+     *
+     * @since 3.0.1
+     */
+    // don't use ImageView#setImageResource
+    public static void setImageResource(ImageView iv, int resId) {
+        if (iv != null) {
+            Drawable d = AppUtils.getDrawable(iv.getContext(), resId);
+            iv.setImageDrawable(d);
         }
     }
 
