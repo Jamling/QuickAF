@@ -104,10 +104,11 @@ public class AutoPlayViewSample extends SampleBaseFragment{
         super.initData();
 
         hLoopAdapter.setDataList(hlist);
-        hLoopAdapter.notifyDataSetChanged();
+        hLoopAdapter.notifyDataSetChanged(true);
         hAutoPlayView.initIndicatorLayout();
         hAutoPlayView.setInterval(3000);
-        //hAutoPlayView.start();
+        hAutoPlayView.getViewPager().setCurrentItem(1);
+        // hAutoPlayView.start();
 
 
         vLoopAdapter = new LoopVerticalAdapter();
@@ -136,6 +137,25 @@ public class AutoPlayViewSample extends SampleBaseFragment{
         else if (chk2 == buttonView) {
             vAutoPlayView.setAdapter(isChecked ? vLoopAdapter : vPlainAdapter);
         }
+        else if (chk4 == buttonView) {
+            hAutoPlayView.setAutoStart(isChecked);
+            if (isChecked){
+                hAutoPlayView.start();
+            }
+        }
+        else if (chk5 == buttonView) {
+            vAutoPlayView.setAutoStart(isChecked);
+            if (isChecked){
+                vAutoPlayView.start();
+            }
+        }
+        else if (chk6 == buttonView) {
+            aAutoPlayView.setAutoStart(isChecked);
+            if (isChecked){
+                aAutoPlayView.start();
+            }
+        }
+
     }
 
     @Override
@@ -143,6 +163,7 @@ public class AutoPlayViewSample extends SampleBaseFragment{
         if (v == rightView) {
             hAutoPlayView.stop();
             vAutoPlayView.stop();
+            aAutoPlayView.stop();
         }
         else if (v == loopTv) {
             loop = !loop;

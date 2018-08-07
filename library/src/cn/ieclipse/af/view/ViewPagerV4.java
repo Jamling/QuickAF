@@ -51,7 +51,9 @@ public class ViewPagerV4 extends ViewPager {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (ev.getAction() == MotionEvent.ACTION_UP) {
+        boolean f = getParent() instanceof AutoPlayView;
+        f = f && getAdapter() instanceof AutoPlayView.LoopPagerAdapter;
+        if (ev.getAction() == MotionEvent.ACTION_UP && !f) {
             View view = viewOfClickOnScreen(ev);
             if (view != null) {
                 int index = indexOfChild(view);

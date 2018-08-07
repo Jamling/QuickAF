@@ -4,104 +4,134 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-
-    <CheckBox
-        android:id="@+id/chk1"
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="use LoopPagerAdapter"/>
+        android:orientation="vertical">
 
-    <cn.ieclipse.af.view.AutoPlayView
-        android:id="@+id/auto_play"
-        android:layout_width="match_parent"
-        android:layout_height="100dp">
-
-        <cn.ieclipse.af.view.ViewPagerV4
+        <cn.ieclipse.af.view.FlowLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/indicator_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="20dp"
-            android:background="#ffeeeeaa"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="6dp">
-        </LinearLayout>
+            <CheckBox
+                android:id="@+id/chk1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Use LoopPagerAdapter"/>
+
+            <CheckBox
+                android:id="@+id/chk4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Auto Start"/>
+        </cn.ieclipse.af.view.FlowLayout>
+
+        <cn.ieclipse.af.view.AutoPlayView
+            android:id="@+id/auto_play"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+            <cn.ieclipse.af.view.ViewPagerV4
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <LinearLayout
+                android:id="@+id/indicator_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:background="#ffeeeeaa"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="6dp">
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/indicator_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:background="@color/colorPrimary"
+                android:padding="10dp"
+                android:textColor="@color/white"/>
+
+        </cn.ieclipse.af.view.AutoPlayView>
 
         <TextView
-            android:id="@+id/indicator_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|bottom"
-            android:background="@color/colorPrimary"
-            android:padding="10dp"/>
+            android:text="Use Vertical ViewPager"/>
 
-    </cn.ieclipse.af.view.AutoPlayView>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Use Vertical ViewPager"/>
-    <CheckBox
-        android:id="@+id/chk2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="use LoopPagerAdapter"/>
-    <cn.ieclipse.af.view.AutoPlayView
-        android:id="@+id/auto_play2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@color/black_alpha_50">
-
-        <cn.ieclipse.af.view.VerticalViewPager
+        <cn.ieclipse.af.view.FlowLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"/>
-    </cn.ieclipse.af.view.AutoPlayView>
+            android:layout_height="wrap_content">
 
+            <CheckBox
+                android:id="@+id/chk2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Use LoopPagerAdapter"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Another infinite loop ViewPager"/>
+            <CheckBox
+                android:id="@+id/chk5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Auto Start"/>
+        </cn.ieclipse.af.view.FlowLayout>
 
-    <cn.ieclipse.af.view.AutoPlayView
-        android:id="@+id/auto_play3"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:clipChildren="false">
-        <android.support.v4.view.ViewPager
+        <cn.ieclipse.af.view.AutoPlayView
+            android:id="@+id/auto_play2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:clipChildren="false"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"/>
-    </cn.ieclipse.af.view.AutoPlayView>
-    <!--<cn.ieclipse.af.demo.sample.third.PercentLinearLayout-->
-        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="100dp"-->
-        <!--android:layout_marginTop="20dp"-->
-        <!--android:clipChildren="false"-->
-        <!--android:gravity="center">-->
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/black_alpha_50">
 
-        <!--<android.support.v4.view.ViewPager-->
-            <!--android:id="@+id/view_pager"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:clipChildren="false"-->
-            <!--app:layout_widthPercent="70%"/>-->
-    <!--</cn.ieclipse.af.demo.sample.third.PercentLinearLayout>-->
-</LinearLayout>
+            <cn.ieclipse.af.view.VerticalViewPager
+                android:layout_width="match_parent"
+                android:layout_height="48dp"/>
+        </cn.ieclipse.af.view.AutoPlayView>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Another infinite loop ViewPager"/>
+
+        <cn.ieclipse.af.view.FlowLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/chk3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="Use LoopPagerAdapter"/>
+
+            <CheckBox
+                android:id="@+id/chk6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Auto Start"
+                android:checked="true"/>
+        </cn.ieclipse.af.view.FlowLayout>
+
+        <cn.ieclipse.af.view.AutoPlayView
+            android:id="@+id/auto_play3"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:clipChildren="false">
+
+            <android.support.v4.view.ViewPager
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:clipChildren="false"/>
+        </cn.ieclipse.af.view.AutoPlayView>
+    </LinearLayout>
 
 </cn.ieclipse.af.view.VScrollView>
