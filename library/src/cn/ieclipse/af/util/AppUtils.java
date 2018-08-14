@@ -259,12 +259,12 @@ public final class AppUtils {
     /**
      * Get app version info.
      *
-     * @param context
+     * @param context Context
      *
-     * @return
+     * @return app current version name
      */
     public static String getAppVersion(Context context) {
-        PackageInfo packInfo = getPackageInfo(context);
+        PackageInfo packInfo = AppUtils.getPackageInfo(context);
         if (packInfo != null) {
             return packInfo.versionName;
         }
@@ -272,12 +272,25 @@ public final class AppUtils {
     }
 
     public static PackageInfo getPackageInfo(Context context) {
+        return AppUtils.getPackageInfo(context, context.getPackageName());
+    }
+
+    /**
+     * Get PackageInfo of assigned package
+     *
+     * @param context     {@link android.content.Context}
+     * @param packageName package name
+     *
+     * @return PackageInfo
+     * @since 3.0.1
+     */
+    public static PackageInfo getPackageInfo(Context context, String packageName) {
         // Get packagemanager
         PackageManager packageManager = context.getPackageManager();
         // 0 means get version info
         PackageInfo packInfo = null;
         try {
-            packInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
+            packInfo = packageManager.getPackageInfo(packageName, 0);
         } catch (NameNotFoundException e) {
             // mLogger.w("get version failed");
         }
@@ -400,7 +413,8 @@ public final class AppUtils {
                 js = "javascript:" + js;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     webView.evaluateJavascript(js, callback);
-                } else {
+                }
+                else {
                     webView.loadUrl(js);
                 }
             }

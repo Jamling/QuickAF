@@ -20,6 +20,7 @@ public class ViewPagerV4 extends ViewPager {
 
     private boolean disableWipe = false;
     private float mRatio;
+    private boolean enableClickToCurrent;
 
     public ViewPagerV4(Context context) {
         super(context);
@@ -51,14 +52,18 @@ public class ViewPagerV4 extends ViewPager {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        boolean f = getParent() instanceof AutoPlayView;
-        f = f && getAdapter() instanceof AutoPlayView.LoopPagerAdapter;
-        if (ev.getAction() == MotionEvent.ACTION_UP && !f) {
-            View view = viewOfClickOnScreen(ev);
-            if (view != null) {
-                int index = indexOfChild(view);
-                if (getCurrentItem() != index) {
-                    setCurrentItem(indexOfChild(view));
+        if (enableClickToCurrent) {
+            boolean f = getParent() instanceof AutoPlayView;
+            f = f && getAdapter() instanceof AutoPlayView.LoopPagerAdapter;
+            if (ev.getAction() == MotionEvent.ACTION_UP && !f) {
+                View view = viewOfClickOnScreen(ev);
+                if (view != null) {
+                    int count = getChildCount();
+                    int index = indexOfChild(view);
+                    int current = getCurrentItem();
+                    if (current != index) {
+                        setCurrentItem(current);
+                    }
                 }
             }
         }
@@ -105,6 +110,21 @@ public class ViewPagerV4 extends ViewPager {
 
     public float getRatio() {
         return mRatio;
+    }
+
+    /**
+     * Enable click non-current item to set to current item.
+     * <p>
+     * Note: If parent is {@link cn.ieclipse.af.view.AutoPlayView} and the adapter is
+     * {@link cn.ieclipse.af.view.AutoPlayView.LoopPagerAdapter}, ignore this feature.
+     * </p>
+     *
+     * @param enableClickToCurrent whether enable or not
+     *
+     * @since 3.0.1
+     */
+    public void setEnableClickToCurrent(boolean enableClickToCurrent) {
+        this.enableClickToCurrent = enableClickToCurrent;
     }
 
     @Override

@@ -2,7 +2,8 @@
 <cn.ieclipse.af.view.VScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -30,11 +31,12 @@
         <cn.ieclipse.af.view.AutoPlayView
             android:id="@+id/auto_play"
             android:layout_width="match_parent"
-            android:layout_height="100dp">
+            android:layout_height="wrap_content">
 
             <cn.ieclipse.af.view.ViewPagerV4
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                app:af_ratio="3"/>
 
             <LinearLayout
                 android:id="@+id/indicator_layout"

@@ -21,6 +21,7 @@ import android.text.Editable;
 import android.text.Selection;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -71,6 +72,39 @@ public final class ViewUtils {
             Drawable d = AppUtils.getDrawable(iv.getContext(), resId);
             iv.setImageDrawable(d);
         }
+    }
+
+    /**
+     * Set WebView wrap_content under ScrollView.
+     * <p class="note">Must called in UI Thread after
+     * {@link android.webkit.WebViewClient#onPageFinished(android.webkit.WebView, String)}</p>
+     *
+     * @param webView     WebView
+     * @param minHeightDp min height, dp unit
+     *
+     * @since 3.0.1
+     */
+    public static void autoHeightWebView(WebView webView, int minHeightDp) {
+        int w = View.MeasureSpec.makeMeasureSpec(AppUtils.getScreenWidth(webView.getContext()),
+            View.MeasureSpec.EXACTLY);
+        int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        if (h <= 0 && minHeightDp > 0) {
+            h = AppUtils.dp2px(webView.getContext(), minHeightDp);
+        }
+        webView.measure(w, h);
+    }
+
+    /**
+     * Set WebView background color
+     *
+     * @param webView WebView
+     * @param color   color
+     *
+     * @since 3.0.1
+     */
+    public static void setWebViewBackgroundColor(WebView webView, int color) {
+        webView.setBackgroundColor(color);
+        webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
     }
 
     public static void setMargins(View v, int l, int t, int r, int b) {

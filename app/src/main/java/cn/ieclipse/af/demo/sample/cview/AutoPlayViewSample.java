@@ -91,7 +91,6 @@ public class AutoPlayViewSample extends SampleBaseFragment{
         // hAutoPlayView.setIndicatorTextView(tv);
 
         hLoopAdapter = new LoopHorizontalAdapter();
-        hAutoPlayView.setAdapter(hLoopAdapter);
 
         aAutoPlayView = (AutoPlayView) view.findViewById(R.id.auto_play3);
         aLoopAdapter = new AnotherLoopAdapter();
@@ -113,7 +112,6 @@ public class AutoPlayViewSample extends SampleBaseFragment{
 
         vLoopAdapter = new LoopVerticalAdapter();
         vLoopAdapter.setDataList(vlist);
-        vAutoPlayView.setAdapter(vLoopAdapter);
         vAutoPlayView.setInterval(3000);
         //vAutoPlayView.start();
 
@@ -121,6 +119,8 @@ public class AutoPlayViewSample extends SampleBaseFragment{
         hPlainAdapter.setDataList(hlist);
         vPlainAdapter = new PlainVerticalAdapter();
         vPlainAdapter.setDataList(vlist);
+        hAutoPlayView.setAdapter(hPlainAdapter);
+        vAutoPlayView.setAdapter(vPlainAdapter);
 
         aAutoPlayView.getViewPager().setCurrentItem(1000, false);
         aAutoPlayView.getViewPager().setOffscreenPageLimit(2);
