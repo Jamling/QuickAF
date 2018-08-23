@@ -16,20 +16,18 @@
 package cn.ieclipse.af.demo.common.view;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.widget.ToggleButton;
+
+import cn.ieclipse.af.view.FilterTabItem;
 
 /**
  * Description
  *
  * @author Jamling
  */
-public class SimpleFilterTab extends ToggleButton {
+public class SimpleFilterTab extends FilterTabItem {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public SimpleFilterTab(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -45,32 +43,5 @@ public class SimpleFilterTab extends ToggleButton {
 
     public SimpleFilterTab(Context context) {
         super(context);
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        Drawable[] drawables = getCompoundDrawables();
-        if (drawables != null) {
-            Drawable drawableLeft = drawables[2]; // right drawable
-            if (drawableLeft != null) {
-                CharSequence text = getText();
-                if (TextUtils.isEmpty(text)) {
-                    text = getHint();
-                }
-                float textWidth = 0;
-                if (!TextUtils.isEmpty(text)) {
-                    textWidth = getPaint().measureText(text.toString());
-                }
-                int drawablePadding = getCompoundDrawablePadding();
-                int drawableWidth = 0;
-                drawableWidth = drawableLeft.getIntrinsicWidth();
-                float bodyWidth = textWidth + drawableWidth + drawablePadding;
-                float middle = (getMeasuredWidth() - bodyWidth) / 2;
-                if (middle > 0) {
-                    canvas.translate(-middle, 0);
-                }
-            }
-        }
-        super.onDraw(canvas);
     }
 }

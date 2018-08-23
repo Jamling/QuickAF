@@ -1200,7 +1200,7 @@ public class FlowLayout extends ViewGroup {
                 if (c instanceof Checkable) {
                     if (c.getTag() != null) {
                         for (Object t : tag) {
-                            if (c.getTag() == t) {
+                            if (c.getTag().equals(t)) {
                                 ((Checkable) c).setChecked(true);
                             }
                         }
