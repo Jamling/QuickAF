@@ -18,14 +18,20 @@ package cn.ieclipse.af.demo.sample.cview;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.text.Editable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.sample.SampleBaseActivity;
 import cn.ieclipse.af.graphics.RoundedColorDrawable;
+import cn.ieclipse.af.graphics.RoundedColorSpan;
 import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.view.CountDownButton;
 import cn.ieclipse.af.view.RoundButton;
@@ -76,6 +82,7 @@ public class RoundButtonActivity extends SampleBaseActivity {
         ColorStateList csl3xml = AppUtils.getColorStateList(this, R.color.fg_main_titlebar_selector);
         btn3.setTextColor(csl3xml);
         //btn3.setHintTextColor(csl3);
+        changeRoundSpan();
     }
 
     void changeBorder() {
@@ -86,6 +93,24 @@ public class RoundButtonActivity extends SampleBaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static Pattern pNum = Pattern.compile("\\d*\\.?\\d*");
+
+    void changeRoundSpan() {
+        int bg = AppUtils.getColor(getApplicationContext(), R.color.colorPrimary);
+        int fg = -1;
+        int r = Integer.parseInt(getResources().getStringArray(R.array.sample_round_radius)[spn2.getSelectedItemPosition()]);
+        int radius = AppUtils.dp2px(this, r);
+
+        String text = tv1.getText().toString();
+        SpannableStringBuilder ssb = new SpannableStringBuilder(text);
+        Matcher m = pNum.matcher(text);
+        while (m.find()) {
+            RoundedColorSpan span = new RoundedColorSpan(bg, fg, radius);
+            ssb.setSpan(span, m.start(), m.end(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        tv1.setText(ssb);
     }
     
     @Override
@@ -100,6 +125,7 @@ public class RoundButtonActivity extends SampleBaseActivity {
             int r = Integer.parseInt(getResources().getStringArray(R.array.sample_round_radius)[pos]);
             int radius = AppUtils.dp2px(this, r);
             myBtn1.setRadius(radius);
+            changeRoundSpan();
         }
     }
 
