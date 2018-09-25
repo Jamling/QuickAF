@@ -180,7 +180,8 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
             if (mPosition == getCount() - 1) {
                 mLogger.v(String.format("onTouch from %d to %d", mPosition, 1));
                 mViewPager.setCurrentItem(1, false);
-            } else if (mPosition == -1 ) {
+            }
+            else if (mPosition == -1) {
                 mLogger.v(String.format("onTouch from %d to %d", mPosition, getCount() - 2));
                 mViewPager.setCurrentItem(getCount() - 2, false);
             }
@@ -519,13 +520,19 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
             if (newPosition < mIndicatorLayout.getChildCount()) {
                 current = mIndicatorLayout.getChildAt(newPosition);
             }
-            if (old != null) {
-                old.setSelected(false);
-                old.setActivated(false);
+            int count = mIndicatorLayout.getChildCount();
+            for (int i = 0; i < count; i++) {
+                old = mIndicatorLayout.getChildAt(i);
+                if (old.isSelected() || old.isActivated()) {
+                    old.setSelected(false);
+                    old.setActivated(false);
+                    old.requestLayout();
+                }
             }
             if (current != null) {
                 current.setSelected(true);
                 current.setActivated(true);
+                current.requestLayout();
             }
         }
     }

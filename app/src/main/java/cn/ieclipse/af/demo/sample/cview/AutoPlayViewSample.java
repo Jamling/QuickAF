@@ -96,6 +96,8 @@ public class AutoPlayViewSample extends SampleBaseFragment{
         aLoopAdapter = new AnotherLoopAdapter();
         aLoopAdapter.setDataList(hlist);
         aAutoPlayView.setAdapter(aLoopAdapter);
+
+        hAutoPlayView.setIndicatorItemLayout(R.layout.sample_activity_auto_play_indicator_item);
     }
 
     @Override
