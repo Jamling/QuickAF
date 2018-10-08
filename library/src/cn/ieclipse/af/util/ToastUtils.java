@@ -27,6 +27,11 @@ import android.widget.Toast;
 public class ToastUtils {
 
     private static Toast mToast;
+    private static int mDuration = Toast.LENGTH_SHORT;
+
+    public static void setGlobalDuration(int length) {
+        mDuration = length;
+    }
 
     public static void showToast(Context context, CharSequence desc) {
         if (context == null) {
@@ -34,7 +39,7 @@ public class ToastUtils {
         }
         // 防止多次点击出现多个toast
         if (mToast == null) {
-            mToast = Toast.makeText(context, desc, Toast.LENGTH_LONG);
+            mToast = Toast.makeText(context, desc, mDuration);
         }
         else {
             mToast.setText(desc);

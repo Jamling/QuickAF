@@ -19,7 +19,9 @@ import android.content.Context;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.View;
+import android.widget.AdapterView;
 
 import java.lang.reflect.Field;
 
@@ -30,7 +32,8 @@ import java.lang.reflect.Field;
  *
  * @author Jamling
  */
-public class AfViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+public class AfViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener,
+    View.OnCreateContextMenuListener {
     private AfRecyclerAdapter adapter;
     private AfRecyclerAdapter.OnItemClickListener mOnClickListener;
     private AfRecyclerAdapter.OnItemLongClickListener mOnLongClickListener;
@@ -46,6 +49,7 @@ public class AfViewHolder extends RecyclerView.ViewHolder implements View.OnClic
 //        if (itemView.getBackground() == null) {
 //            itemView.setBackgroundResource(android.R.drawable.list_selector_background);
 //        }
+        itemView.setOnCreateContextMenuListener(this);
     }
 
     public Context getContext() {
@@ -80,9 +84,19 @@ public class AfViewHolder extends RecyclerView.ViewHolder implements View.OnClic
     @Override
     public boolean onLongClick(View v) {
         if (mOnLongClickListener != null) {
-            mOnLongClickListener.onItemLongClick(getAdapter(), v, getLayoutPosition());
+            return mOnLongClickListener.onItemLongClick(getAdapter(), v, getLayoutPosition());
         }
-        return true;
+        return false;
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        if (menuInfo != null && menuInfo instanceof AdapterView.AdapterContextMenuInfo) {
+            AdapterView.AdapterContextMenuInfo cmi = (AdapterView.AdapterContextMenuInfo) menuInfo;
+            cmi.position = getAdapterPosition();
+            cmi.targetView = v;
+            cmi.id = getItemId();
+        }
     }
 
     private boolean hasOnClickListener(View view) {

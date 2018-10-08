@@ -21,6 +21,7 @@ import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -31,6 +32,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
@@ -254,6 +256,37 @@ public final class AppUtils {
 
     public static String getSDKVersion() {
         return Build.VERSION.RELEASE;
+    }
+
+    /**
+     * Get string type meta-data for application node in AndroidManifest.xml
+     *
+     * @param context      context
+     * @param name         meta-data name attribute
+     * @param defaultValue default value
+     *
+     * @return meta-data value
+     * @since 3.0.1
+     */
+    public static String getAppMetaData(Context context, String name, @Nullable String defaultValue) {
+        try {
+            ApplicationInfo info = context.getPackageManager().getApplicationInfo(context.getPackageName(),
+                PackageManager.GET_META_DATA);
+            return info.metaData.getString(name, defaultValue);
+        } catch (Exception e) {
+            return defaultValue;
+        }
+    }
+
+    public static ApplicationInfo getAppInfo(Context context, @Nullable String packageName) {
+        try {
+            ApplicationInfo info = context.getPackageManager().getApplicationInfo(
+                packageName == null ? context.getPackageName() : packageName,
+                PackageManager.MATCH_UNINSTALLED_PACKAGES);
+            return info;
+        } catch (NameNotFoundException e) {
+            return null;
+        }
     }
 
     /**

@@ -16,6 +16,7 @@
 package cn.ieclipse.af.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -388,6 +389,12 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
     public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
         super.onDetachedFromRecyclerView(recyclerView);
         mRecyclerView = null;
+    }
+
+    @Override
+    public void onViewRecycled(@NonNull RecyclerView.ViewHolder holder) {
+        super.onViewRecycled(holder);
+        holder.itemView.setOnCreateContextMenuListener(null);
     }
 
     @Override

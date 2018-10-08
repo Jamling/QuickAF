@@ -54,12 +54,12 @@ public final class DialogUtils {
 
     public static void showToast(Fragment fragment, CharSequence msg) {
         if (fragment != null) {
-            showToast(fragment.getActivity(), msg);
+            DialogUtils.showToast(fragment.getActivity(), msg);
         }
     }
 
     public static void showToast(Context context, int res) {
-        showToast(context, context.getResources().getString(res));
+        DialogUtils.showToast(context, context.getResources().getString(res));
     }
 
     private static void attachDialog(Activity context, DialogFragment fragment) {
