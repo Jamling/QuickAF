@@ -81,6 +81,19 @@
             android:hint="hour label"
             android:imeOptions="actionNone"
             android:maxLength="2"/>
+        <CheckBox
+            android:id="@+id/chk5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Minute"/>
+
+        <EditText
+            android:id="@+id/et5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="minute label"
+            android:imeOptions="actionNone"
+            android:maxLength="2"/>
     </cn.ieclipse.af.view.FlowLayout>
 
     <View

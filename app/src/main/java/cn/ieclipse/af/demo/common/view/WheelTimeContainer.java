@@ -76,7 +76,7 @@ public class WheelTimeContainer extends LinearLayout implements OnWheelChangedLi
     private TimeRange tr;
     private int textColor = 0xFF585858;
     private int textSize = 16;
-    private String[] labels = {"年", "月", "日", ""};
+    private String[] labels = {"年", "月", "日", "时", "分"};
 
     @Override
     protected void onFinishInflate() {
@@ -100,12 +100,14 @@ public class WheelTimeContainer extends LinearLayout implements OnWheelChangedLi
             initMonth();
             initDay();
             initHour();
-        } else if (wheel == mMonth) {
+        }
+        else if (wheel == mMonth) {
             int m = tr.getMonthRange()[0] + mMonth.getCurrentItem();
             tr.setCurrentTime(Calendar.MONTH, m);
             initDay();
             initHour();
-        } else if (wheel == mDay) {
+        }
+        else if (wheel == mDay) {
             int m = tr.getDayRange()[0] + mDay.getCurrentItem();
             tr.setCurrentTime(Calendar.DAY_OF_MONTH, m);
             initHour();
@@ -113,6 +115,7 @@ public class WheelTimeContainer extends LinearLayout implements OnWheelChangedLi
         else if (wheel == mHour) {
             int h = tr.getHourRange()[0] + mHour.getCurrentItem();
             tr.setCurrentTime(Calendar.HOUR_OF_DAY, h);
+            initMinute();
         }
         else if (wheel == mMinute) {
             int m = 0 + mMinute.getCurrentItem();
@@ -175,8 +178,9 @@ public class WheelTimeContainer extends LinearLayout implements OnWheelChangedLi
     }
 
     private void initHour() {
+        boolean showMinute = (show & SHOW_MINUTE) != 0;
         int[] mr = tr.getHourRange();
-        mHourAdapter = new NumericWheelAdapter(getContext(), mr[0], mr[1], "%02d:00");
+        mHourAdapter = new NumericWheelAdapter(getContext(), mr[0], mr[1], showMinute ? "%02d" : "%02d:00");
         mHourAdapter.setLabel(labels[3]);
         mHourAdapter.setTextColor(textColor);
         mHourAdapter.setTextSize(textSize);
@@ -185,9 +189,9 @@ public class WheelTimeContainer extends LinearLayout implements OnWheelChangedLi
     }
 
     private void initMinute() {
-        int[] mr = {0, 59, 0};
+        int[] mr = {0, 59, tr.getCurrentTime().get(Calendar.MINUTE)};
         mMinuteAdapter = new NumericWheelAdapter(getContext(), mr[0], mr[1], "%02d");
-        if (labels.length >4 ) {
+        if (labels.length > 4) {
             mMinuteAdapter.setLabel(labels[4]);
         }
         mMinuteAdapter.setTextColor(textColor);
@@ -202,6 +206,7 @@ public class WheelTimeContainer extends LinearLayout implements OnWheelChangedLi
         mMonth.setVisibility((show & SHOW_MONTH) != 0 ? View.VISIBLE : View.GONE);
         mDay.setVisibility((show & SHOW_DAY) != 0 ? View.VISIBLE : View.GONE);
         mHour.setVisibility((show & SHOW_HOUR) != 0 ? View.VISIBLE : View.GONE);
+        mMinute.setVisibility((show & SHOW_MINUTE) != 0 ? View.VISIBLE : View.GONE);
 
         initYear();
         initMonth();
@@ -255,26 +260,38 @@ public class WheelTimeContainer extends LinearLayout implements OnWheelChangedLi
         }
     }
 
-    public void setLabels(String[] labels){
+    public void setMinuteLabel(String label) {
+        if (mMinuteAdapter != null && label != null) {
+            mMinuteAdapter.setLabel(label);
+            labels[4] = label;
+        }
+    }
+
+    public void setLabels(String[] labels) {
         if (labels != null) {
             if (labels.length > 0) {
-                if (labels[0] != null){
+                if (labels[0] != null) {
                     setYearLabel(labels[0]);
                 }
             }
             if (labels.length > 1) {
-                if (labels[1] != null){
+                if (labels[1] != null) {
                     setMonthLabel(labels[1]);
                 }
             }
             if (labels.length > 2) {
-                if (labels[2] != null){
+                if (labels[2] != null) {
                     setDayLabel(labels[2]);
                 }
             }
             if (labels.length > 3) {
-                if (labels[3] != null){
+                if (labels[3] != null) {
                     setHourLabel(labels[3]);
+                }
+            }
+            if (labels.length > 4) {
+                if (labels[4] != null) {
+                    setMinuteLabel(labels[4]);
                 }
             }
         }
@@ -290,7 +307,7 @@ public class WheelTimeContainer extends LinearLayout implements OnWheelChangedLi
 
     public AbstractWheelAdapter getAdapter(int show) {
         AbstractWheelAdapter adapter = null;
-        switch (show){
+        switch (show) {
             case SHOW_MINUTE:
                 adapter = mMinuteAdapter;
                 break;
@@ -310,9 +327,9 @@ public class WheelTimeContainer extends LinearLayout implements OnWheelChangedLi
         return adapter;
     }
 
-    public WheelView getWheelView(int show){
+    public WheelView getWheelView(int show) {
         WheelView adapter = null;
-        switch (show){
+        switch (show) {
             case SHOW_MINUTE:
                 adapter = mMinute;
                 break;

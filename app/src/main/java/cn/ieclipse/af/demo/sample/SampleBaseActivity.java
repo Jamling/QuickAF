@@ -47,16 +47,21 @@ public abstract class SampleBaseActivity extends BaseActivity implements Adapter
     protected FlowLayout fl1;
     protected FlowLayout fl2;
     protected FlowLayout fl3;
+    protected FlowLayout fl4;
 
     protected EditText et1;
     protected EditText et2;
     protected EditText et3;
     protected EditText et4;
+    protected EditText et5;
+    protected EditText et6;
 
     protected TextView tv1;
     protected TextView tv2;
     protected TextView tv3;
     protected TextView tv4;
+    protected TextView tv5;
+    protected TextView tv6;
 
     protected Button btn1;
     protected Button btn2;
@@ -92,6 +97,7 @@ public abstract class SampleBaseActivity extends BaseActivity implements Adapter
         fl1 = (FlowLayout) view.findViewById(R.id.fl1);
         fl2 = (FlowLayout) view.findViewById(R.id.fl2);
         fl3 = (FlowLayout) view.findViewById(R.id.fl3);
+        fl4 = view.findViewById(R.id.fl4);
 
         btn1 = (Button) view.findViewById(R.id.btn1);
         btn2 = (Button) view.findViewById(R.id.btn2);
@@ -102,22 +108,27 @@ public abstract class SampleBaseActivity extends BaseActivity implements Adapter
         setOnClickListener(btn1, btn2, btn3, btn4, btn5, btn6);
 
         tv1 = (TextView) view.findViewById(R.id.tv1);
-//        tv2 = (TextView) view.findViewById(R.id.tv2);
-//        tv3 = (TextView) view.findViewById(R.id.tv3);
-//        tv4 = (TextView) view.findViewById(R.id.tv4);
+        tv2 = (TextView) view.findViewById(R.id.tv2);
+        tv3 = (TextView) view.findViewById(R.id.tv3);
+        tv4 = (TextView) view.findViewById(R.id.tv4);
+        tv5 = (TextView) view.findViewById(R.id.tv5);
+        tv6 = (TextView) view.findViewById(R.id.tv6);
 
         et1 = (EditText) view.findViewById(R.id.et1);
         et2 = (EditText) view.findViewById(R.id.et2);
         et3 = (EditText) view.findViewById(R.id.et3);
         et4 = (EditText) view.findViewById(R.id.et4);
-        addTextChangedListener(et1, et2, et3, et4);
+        et5 = (EditText) view.findViewById(R.id.et5);
+        et6 = (EditText) view.findViewById(R.id.et6);
+
+        addTextChangedListener(et1, et2, et3, et4, et5, et6);
 
         chk1 = (CompoundButton) view.findViewById(R.id.chk1);
         chk2 = (CompoundButton) view.findViewById(R.id.chk2);
         chk3 = (CompoundButton) view.findViewById(R.id.chk3);
         chk4 = (CompoundButton) view.findViewById(R.id.chk4);
-        //chk5 = (CompoundButton) view.findViewById(R.id.chk5);
-        //chk6 = (CompoundButton) view.findViewById(R.id.chk6);
+        chk5 = (CompoundButton) view.findViewById(R.id.chk5);
+        chk6 = (CompoundButton) view.findViewById(R.id.chk6);
         setOnCheckedChangeListener(chk1, chk2, chk3, chk4, chk5, chk6);
     }
 

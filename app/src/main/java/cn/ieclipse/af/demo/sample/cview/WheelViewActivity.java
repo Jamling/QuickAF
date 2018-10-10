@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import cn.ieclipse.af.demo.R;
+import static cn.ieclipse.af.demo.R.id.et5;
 import cn.ieclipse.af.demo.common.view.WheelTimeContainer;
 import cn.ieclipse.af.demo.sample.SampleBaseActivity;
 import cn.ieclipse.af.view.wheelview.WheelView;
@@ -107,6 +108,9 @@ public class WheelViewActivity extends SampleBaseActivity {
         else if (buttonView == chk4) {
             show ^= WheelTimeContainer.SHOW_HOUR;
         }
+        else if (buttonView == chk5) {
+            show ^= WheelTimeContainer.SHOW_MINUTE;
+        }
         container.show(show);
 
         mOk.performClick();
@@ -124,6 +128,9 @@ public class WheelViewActivity extends SampleBaseActivity {
             container.setDayLabel(s.toString());
         }
         else if (s == et4.getText()) {
+            container.setHourLabel(s.toString());
+        }
+        else if (s == et5.getText()) {
             container.setHourLabel(s.toString());
         }
         mOk.performClick();

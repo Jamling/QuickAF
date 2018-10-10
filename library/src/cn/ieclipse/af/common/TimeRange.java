@@ -41,6 +41,10 @@ public class TimeRange {
     private int hourMax;
     private int hourIdx;
 
+    private int minuteMin;
+    private int minuteMax;
+    private int minuteIdx;
+
     public void setStartTime(int field, int value) {
         start.set(field, value);
         init();
@@ -153,6 +157,20 @@ public class TimeRange {
             current.set(Calendar.HOUR_OF_DAY, h);
         }
 
+        int M = current.get(Calendar.MINUTE);
+        int M1 = 0;
+        int M2 = 59;
+        if (y1 == y && m1 == m && d1 == d && h1 == h) {
+            M1 = start.get(Calendar.MINUTE);
+        }
+        if (y2 == y && m2 == m && d2 == d && h2 == h) {
+            M2 = end.get(Calendar.MINUTE);
+        }
+        if (M < M1 || M > M2) {
+            M = M1;
+            current.set(Calendar.MINUTE, M);
+        }
+
         yearMax = y2;
         yearMin = y1;
         yearIdx = y - y1;
@@ -168,6 +186,10 @@ public class TimeRange {
         hourMax = h2;
         hourMin = h1;
         hourIdx = h - h1;
+
+        minuteMax = M2;
+        minuteMin = M1;
+        minuteIdx = M - M1;
     }
 
     public Calendar getCurrentTime() {
