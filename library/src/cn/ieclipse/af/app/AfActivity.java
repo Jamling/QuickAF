@@ -61,6 +61,7 @@ public abstract class AfActivity extends Activity implements OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initSavedInstanceState(savedInstanceState);
         windowBgColor = AppUtils.getColor(this, android.R.color.transparent);
         // 1, init intent
         Bundle bundle = getIntent().getExtras();
@@ -105,6 +106,15 @@ public abstract class AfActivity extends Activity implements OnClickListener {
     
     @Override
     public void onClick(View v) {
+
+    }
+
+    /**
+     * Call after {@link #onSaveInstanceState(android.os.Bundle)} and before other initXXX
+     * @param savedInstanceState
+     * @since 3.0.1
+     */
+    protected void initSavedInstanceState(Bundle savedInstanceState) {
 
     }
 

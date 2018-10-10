@@ -53,10 +53,7 @@ public abstract class AfFragment extends Fragment implements View.OnClickListene
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        if (Build.VERSION.SDK_INT >= 15 && container != null && container instanceof ViewPager) {
-//            isInViewPager = true;
-//        }
-        // init argument
+        initSavedInstanceState(savedInstanceState);
         Bundle bundle = getArguments();
         if (savedInstanceState != null) {
             bundle = savedInstanceState;
@@ -98,6 +95,17 @@ public abstract class AfFragment extends Fragment implements View.OnClickListene
                 }
             }
         }
+    }
+
+    /**
+     * Call after {@link #onSaveInstanceState(android.os.Bundle)} and before other initXXX
+     *
+     * @param savedInstanceState
+     *
+     * @since 3.0.1
+     */
+    protected void initSavedInstanceState(Bundle savedInstanceState) {
+
     }
 
     protected void initIntent(Bundle bundle) {
