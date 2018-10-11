@@ -14,6 +14,9 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
 import cn.ieclipse.af.R;
 
 public class ViewPagerV4 extends ViewPager {
@@ -139,6 +142,33 @@ public class ViewPagerV4 extends ViewPager {
         }
         else {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        }
+    }
+
+    /**
+     * Enable set {@link #setOffscreenPageLimit(int)} param to 0
+     * <p>
+     * Note: If param less than 0, the {@link android.support.v4.view.ViewPager} will set limit to default 1.
+     * Use reflection to make set limit 0
+     * </p>
+     *
+     * @since 3.0.1
+     */
+    private void setNoCache() {
+        // TODO
+        if (getOffscreenPageLimit() == 0) {
+            return;
+        }
+        try {
+            Field[] fs = getClass().getSuperclass().getDeclaredFields();
+            Field f = getClass().getSuperclass().getDeclaredField("mOffscreenPageLimit");
+            f.setAccessible(true);
+            f.set(this, 0);
+            Method m = ViewPager.class.getDeclaredMethod("populate");
+            m.setAccessible(true);
+            m.invoke(this);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

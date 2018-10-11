@@ -17,15 +17,18 @@ package cn.ieclipse.af.demo.sample.recycler;
 
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
 
+import java.util.Collections;
 import java.util.List;
 
 import cn.ieclipse.af.adapter.AfRecyclerAdapter;
@@ -65,13 +68,14 @@ public class RecyclerHelperSample extends SampleBaseFragment implements NewsCont
         helper = new RecyclerHelper();
         helper.setRecyclerView(listView);
 
-        adapter = new AfRecyclerAdapter<>();
+        adapter = new AfRecyclerAdapter();
+        adapter.setHasStableIds(false);
         mDefaultDivider = new DividerItemDecoration(listView.getContext(), getOrientation()){
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
-                outRect.left = AppUtils.dp2px(listView.getContext(), 20);
-                outRect.right = AppUtils.dp2px(listView.getContext(), 20);
+//                outRect.left = AppUtils.dp2px(listView.getContext(), 20);
+//                outRect.right = AppUtils.dp2px(listView.getContext(), 20);
             }
         };
         mAfDivider = new ListDividerItemDecoration(listView.getContext(), getOrientation());
@@ -88,7 +92,8 @@ public class RecyclerHelperSample extends SampleBaseFragment implements NewsCont
 
     private int getColor() {
         String c = getResources().getStringArray(R.array.sample_colors)[spn3.getSelectedItemPosition()];
-        return Color.parseColor(c);
+        //return Color.parseColor(c);
+        return 0;
     }
 
     private void setLayout() {
@@ -132,6 +137,7 @@ public class RecyclerHelperSample extends SampleBaseFragment implements NewsCont
         else if (parent == spn3) {
             String c = getResources().getStringArray(R.array.sample_colors)[pos];
             mAfDivider.setDividerColor(Color.parseColor(c));
+            mDefaultDivider.setDrawable(new ColorDrawable(Color.parseColor(c)));
             helper.setDividerColor(Color.parseColor(c));
             int layout = spn1.getSelectedItemPosition();
             if (layout > 0) {
@@ -177,6 +183,11 @@ public class RecyclerHelperSample extends SampleBaseFragment implements NewsCont
                 helper.setItemDecoration(mAfDivider);
             }
         }
+        else if (buttonView == chk2) {
+            if (isChecked) {
+
+            }
+        }
         super.onCheckedChanged(buttonView, isChecked);
     }
 
@@ -184,6 +195,17 @@ public class RecyclerHelperSample extends SampleBaseFragment implements NewsCont
     protected void initData() {
         super.initData();
         load(false);
+        mItemTouchHelper = new ItemTouchHelper(mTouchCallback);
+        mItemTouchHelper.attachToRecyclerView(helper.getRecyclerView());
+        adapter.setOnItemLongClickListener(new AfRecyclerAdapter.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AfRecyclerAdapter adapter, View view, int position) {
+                RecyclerView.ViewHolder vh = helper.getRecyclerView().getChildViewHolder(view);
+                //view.getTag(AfViewHolder.TAG_VIEW_HOLDER);
+                mItemTouchHelper.startDrag(vh);
+                return true;
+            }
+        });
     }
 
     private void load(boolean needCache) {
@@ -215,6 +237,17 @@ public class RecyclerHelperSample extends SampleBaseFragment implements NewsCont
         public int getLayout() {
             return R.layout.sample_stagger_item_news;
         }
+
+        @Override
+        public Class<? extends RecyclerView.ViewHolder> getViewHolderClass() {
+            return MyViewHolder.class;
+        }
+    }
+    private static class MyViewHolder extends NewsHolder {
+
+        public MyViewHolder(View view) {
+            super(view);
+        }
     }
     
     public static class NewsAdapter extends RecyclerView.Adapter<NewsHolder> {
@@ -239,4 +272,60 @@ public class RecyclerHelperSample extends SampleBaseFragment implements NewsCont
             return out == null ? 0 : out.size();
         }
     }
+
+    private ItemTouchHelper mItemTouchHelper;
+    private ItemTouchHelper.Callback mTouchCallback = new ItemTouchHelper.Callback() {
+
+        @Override
+        public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+            final int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+            final int swipeFlags = 0;
+            return RecyclerHelper.getMovementFlags(recyclerView, viewHolder);
+        }
+
+        @Override
+        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+                              RecyclerView.ViewHolder target) {
+            //得到当拖拽的viewHolder的Position
+            int fromPosition = viewHolder.getAdapterPosition();
+            //拿到当前拖拽到的item的viewHolder
+            int toPosition = target.getAdapterPosition();
+            if (fromPosition != toPosition) {
+                Collections.swap(adapter.getDataList(), fromPosition, toPosition);
+                adapter.notifyItemMoved(fromPosition, toPosition);
+            }
+            return false;
+        }
+
+        @Override
+        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+            //mAdapter.notifyDataSetChanged();
+            System.out.println("onSwiped " + viewHolder);
+        }
+
+        /**
+         * 长按选中Item的时候开始调用
+         *
+         * @param viewHolder
+         * @param actionState
+         */
+        @Override
+        public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
+            if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
+                viewHolder.itemView.setBackgroundColor(Color.LTGRAY);
+            }
+            super.onSelectedChanged(viewHolder, actionState);
+        }
+
+        /**
+         * 手指松开的时候还原
+         * @param recyclerView
+         * @param viewHolder
+         */
+        @Override
+        public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+            super.clearView(recyclerView, viewHolder);
+            viewHolder.itemView.setBackgroundColor(-1);
+        }
+    };
 }

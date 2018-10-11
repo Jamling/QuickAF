@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg_main">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,7 +13,102 @@
         android:divider="?android:listDivider"
         android:orientation="vertical"
         android:showDividers="middle">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="New Round mask"/>
+
+            <cn.ieclipse.af.view.RoundFrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:elevation="10dp"
+                android:paddingBottom="0dp"
+                android:radius="8dp"
+                app:af_borderColor="@color/colorPrimary"
+                app:af_borderWidth="1dp"
+                app:af_corners="top|bottom_right">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:scaleType="fitXY"
+                        android:src="@color/colorAccent"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:padding="12dp"
+                        android:text="I am text"/>
+
+                    <cn.ieclipse.af.view.RoundButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimary"
+                        android:text="Button"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+            </cn.ieclipse.af.view.RoundFrameLayout>
+        </LinearLayout><LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="New Round mask"/>
+
+        <cn.ieclipse.af.view.RoundFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black_alpha_50"
+            android:elevation="10dp"
+            android:paddingBottom="0dp"
+            android:radius="8dp"
+            app:af_borderColor="@color/colorPrimary"
+            app:af_borderWidth="1dp"
+            app:af_corners="top|bottom_right">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:scaleType="fitXY"
+                    android:src="@color/colorAccent"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:padding="12dp"
+                    android:text="I am text"/>
+
+                <cn.ieclipse.af.view.RoundButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    />
+            </LinearLayout>
+        </cn.ieclipse.af.view.RoundFrameLayout>
+    </LinearLayout>
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -164,6 +260,11 @@
                     tools:visibility="gone"/>
             </FrameLayout>
         </LinearLayout>
+
+        <WebView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/webview"></WebView>
 
         <LinearLayout
             android:layout_width="match_parent"

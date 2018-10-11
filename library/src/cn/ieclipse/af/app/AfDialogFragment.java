@@ -152,6 +152,9 @@ public abstract class AfDialogFragment<DialogListener> extends DialogFragment im
     }
 
     public void show(FragmentManager manager, boolean shouldAdd) {
+        if (Build.VERSION.SDK_INT >= 17 && manager.isDestroyed()) {
+            return;
+        }
         String tag = getClass().getName();
         FragmentTransaction ft = manager.beginTransaction();
         Fragment prev = manager.findFragmentByTag(tag);

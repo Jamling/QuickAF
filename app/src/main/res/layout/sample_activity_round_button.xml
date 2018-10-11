@@ -2,85 +2,87 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <cn.ieclipse.af.view.FlowLayout
             android:id="@+id/f1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:numColumns="4" >
+            android:numColumns="4">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="bg color:" />
+                android:text="bg color:"/>
 
             <Spinner
                 android:id="@+id/spn1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:entries="@array/sample_colors" />
+                android:entries="@array/sample_colors"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="radius:" />
+                android:text="radius:"/>
 
             <Spinner
                 android:id="@+id/spn2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:entries="@array/sample_round_radius" />
-            
+                android:entries="@array/sample_round_radius"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="border color:" />
+                android:text="border color:"/>
 
             <EditText
                 android:id="@+id/et1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="#cccccccc"
                 android:hint="请输入#ARGB颜色值"
-                android:textColorHint="#f00"
-                android:textColor="@color/black"/>
+                android:text="#cccccccc"
+                android:textColor="@color/black"
+                android:textColorHint="#f00"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="border width:" />
+                android:text="border width:"/>
 
             <EditText
                 android:id="@+id/et2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:ems="2"
                 android:maxLength="2"
-                android:ems="2"/>
+                android:text=""/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="corners:" />
+                android:text="corners:"/>
+
             <CheckBox
                 android:id="@+id/chk1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="left"/>
+
             <CheckBox
                 android:id="@+id/chk2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="right"/>
+
             <CheckBox
                 android:id="@+id/chk3"
                 android:layout_width="wrap_content"
@@ -104,12 +106,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
+            android:background="#f00"
             android:padding="8dp"
             android:radius="8dp"
+            android:text="RoundButton"
             app:af_borderColor="@color/black_alpha_60"
-            app:af_borderWidth="0dp"
-            android:background="#f00"
-            android:text="RoundButton"/>
+            app:af_borderWidth="0dp"/>
 
 
         <cn.ieclipse.af.view.CountDownButton
@@ -117,36 +119,44 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="20dp"
             android:background="@color/colorPrimary"
             android:hint="点击发送验证码"
             android:padding="8dp"
             android:radius="8dp"
-            android:textSize="14sp"
-            app:af_borderColor="@color/black_alpha_60"
-            app:af_borderWidth="0dp"
-            android:layout_marginTop="20dp"
             android:text=""
             android:textColor="@color/fg_title_bar_press"
             android:textColorHint="@color/fg_title_bar_normal"
-        />
+            android:textSize="14sp"
+            app:af_borderColor="@color/black_alpha_60"
+            app:af_borderWidth="0dp"
+            />
 
         <cn.ieclipse.af.view.RoundButton
             android:id="@+id/btn3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="20dp"
             android:background="@color/colorPrimary"
-            android:text=""
+            android:hint="Hint"
             android:padding="8dp"
             android:radius="8dp"
+            android:text=""
             android:textColor="@color/white"
+            android:textColorHint="@color/fg_title_bar_normal"
             android:textSize="14sp"
             app:af_borderColor="@color/black_alpha_60"
-            app:af_borderWidth="1dp"
-            android:layout_marginTop="20dp"
-            android:hint="Hint"
-            android:textColorHint="@color/fg_title_bar_normal"/>
+            app:af_borderWidth="1dp"/>
 
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="我一是会自动高亮数字的文字，我是1名开发者，我今年020岁了"
+            android:textColor="@color/black_999999"
+            android:textSize="16sp"/>
     </LinearLayout>
 
 </ScrollView>

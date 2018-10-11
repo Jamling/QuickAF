@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:text="Default divider"/>
 
-        <LinearLayout
+        <cn.ieclipse.af.view.FlowLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -63,7 +63,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Af divider:"/>
+                android:text="bgcolor:"/>
 
             <Spinner
                 android:id="@+id/spn3"
@@ -71,18 +71,25 @@
                 android:layout_height="wrap_content"
                 android:entries="@array/sample_colors"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="afdivider height:"/>
             <Spinner
                 android:id="@+id/spn4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:entries="@array/sample_round_radius"/>
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="af divider padding:"/>
             <Spinner
                 android:id="@+id/spn5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:entries="@array/sample_round_radius"/>
-        </LinearLayout>
+        </cn.ieclipse.af.view.FlowLayout>
 
     </cn.ieclipse.af.view.FlowLayout>
 

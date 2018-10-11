@@ -218,6 +218,7 @@ public class WheelTimeContainer extends LinearLayout implements OnWheelChangedLi
         mMonth.addChangingListener(this);
         mDay.addChangingListener(this);
         mHour.addChangingListener(this);
+        mMinute.addChangingListener(this);
     }
 
     public Calendar getCurrentTime() {
