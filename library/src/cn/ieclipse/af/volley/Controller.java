@@ -262,22 +262,34 @@ public abstract class Controller<Listener> {
                 out = convertData(response, mDataClazz, mDataItemClass);
             } catch (InterceptorError e) {
                 if (Controller.DEBUG) {
-                    Controller.log("interceptor the response", e);
+                    Controller.log(getClass() + " interceptor the response", e);
                 }
                 return;
             } catch (VolleyError e) {
+                if (Controller.DEBUG) {
+                    Controller.log(getClass() + " convertData meet VolleyError", e);
+                }
                 onError(new RestError(e));
                 return;
             } catch (RestError e) {
+                if (Controller.DEBUG) {
+                    Controller.log(getClass() + " convertData meet RestError", e);
+                }
                 onError(e);
                 return;
             } catch (Exception e) {
+                if (Controller.DEBUG) {
+                    Controller.log(getClass() + " convertData meet Exception", e);
+                }
                 onError(new RestError(new ParseError(e)));
                 return;
             }
             try {
                 onSuccess(out, request.intermediate);
             } catch (Exception e) {
+                if (Controller.DEBUG) {
+                    Controller.log(getClass() + " onSuccess meet Exception", e);
+                }
                 onError((e instanceof RestError) ? (RestError) e : new RestError(new ClientError(e)));
             }
         }

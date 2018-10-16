@@ -969,7 +969,7 @@ public class FlowLayout extends ViewGroup {
     public int getCheckedRadioButtonId() {
         return mCheckedId;
     }
-
+    private boolean mClear;
     /**
      * <p>
      * Clears the selection. When the selection is cleared, no radio button in
@@ -981,7 +981,9 @@ public class FlowLayout extends ViewGroup {
      * @see #getCheckedRadioButtonId()
      */
     public void clearCheck() {
+        mClear = true;
         check(-1);
+        mClear = false;
     }
 
     /**
@@ -1082,7 +1084,7 @@ public class FlowLayout extends ViewGroup {
                 mProtectFromCheckedChange = true;
                 if (mCheckedId != -1) {
                     // fix checkbox can't unchecked
-                    if (id == mCheckedId) {
+                    if (id == mCheckedId && !mClear) {
                         buttonView.setChecked(true);
                     }
                     else {
