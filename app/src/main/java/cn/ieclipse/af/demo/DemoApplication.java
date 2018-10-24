@@ -16,6 +16,7 @@
 package cn.ieclipse.af.demo;
 
 import android.app.Application;
+import android.support.v7.app.AppCompatDelegate;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -45,5 +46,7 @@ public class DemoApplication extends Application {
             .setRetryPolicy(new DefaultRetryPolicy(AppConfig.VOLLEY_TIMEOUT, DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)).setDebug(AppConfig.isDebug()).build();
         VolleyManager.init(getApplicationContext(), vc);
+        // use vector drawable
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 }

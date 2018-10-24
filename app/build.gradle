@@ -18,7 +18,8 @@ android {
         versionName VER_NAME
         versionCode Integer.parseInt(VER_CODE)
         signingConfig signingConfigs.config
-        //vectorDrawables.useSupportLibrary = true
+        vectorDrawables.useSupportLibrary = true
+        vectorDrawables.generatedDensities = ['xxhdpi']
     }
     buildTypes {
         release {
@@ -34,16 +35,16 @@ android {
     }
     //useLibrary('org.apache.http.legacy')
     applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            def oldFile = output.outputFile
+        variant.outputs.all { output ->
+            //def oldFile = output.outputFile
             def releaseApkName = APP_NAME + VER_NAME + '(' + VER_CODE + ')-' +
                     variant.buildType.name + '.apk'
-            output.outputFile = new File(oldFile.parent, releaseApkName)
+            output.outputFileName = releaseApkName
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     lintOptions {
         abortOnError false
@@ -56,35 +57,37 @@ android {
     }
     // Flag to tell aapt to keep the attribute ids around
     aaptOptions {
-        //additionalParameters "--no-version-vectors"
+        additionalParameters "--no-version-vectors"
     }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
     // compile 'com.android.support:appcompat-v7:23.3.0'
-    compile project(':common')
-    compile("com.timehop.stickyheadersrecyclerview:library:0.4.3") {
+    api project(':common')
+    implementation('com.timehop.stickyheadersrecyclerview:library:0.4.3') {
         exclude group: 'com.android.support'//, module: 'support-v4'
     }
-    compile('com.google.android:flexbox:0.1.2') {
+    implementation('com.google.android:flexbox:0.1.2') {
         exclude group: 'com.android.support'
     }
-    compile "com.android.support:design:${supportLibVersion}"
-    compile "com.android.support:percent:${supportLibVersion}"
+    implementation "com.android.support:support-vector-drawable:${supportLibVersion}"
+    implementation "com.android.support:appcompat-v7:${supportLibVersion}"
+    implementation "com.android.support:design:${supportLibVersion}"
+    implementation "com.android.support:percent:${supportLibVersion}"
     // import ORM for SQLite database
-    compile 'cn.ieclipse.aorm:aorm-core:1.1.5'
+    implementation 'cn.ieclipse.aorm:aorm-core:1.1.5'
     // import ImageLoader for display image
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     // import EventBus for event notify
-    compile 'org.greenrobot:eventbus:3.0.0'
+    implementation 'org.greenrobot:eventbus:3.0.0'
     // target sdk >= 23
-    compile 'com.yanzhenjie:permission:1.0.5'
+    implementation 'com.yanzhenjie:permission:1.0.5'
     // af-pay
-    compile('com.github.Jamling:af-pay:master-SNAPSHOT')
+    implementation 'com.github.Jamling:af-pay:master-SNAPSHOT'
     // photo view
-    compile 'com.github.chrisbanes:PhotoView:2.0.0'
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
     // ok http
     // compile 'com.squareup.okhttp3:okhttp:3.8.0'
 }

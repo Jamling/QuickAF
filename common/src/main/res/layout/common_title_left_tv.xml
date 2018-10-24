@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
+<android.support.v7.widget.AppCompatTextView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:drawableLeft="@drawable/common_ic_back"
+    android:drawableLeft="@drawable/common_selector_ic_back"
     android:gravity="center"
     android:minHeight="40dp"
     android:minWidth="40dp"
@@ -11,4 +11,4 @@
     android:text="@string/common_back"
     android:textColor="@color/fg_main_titlebar_selector"
     android:textSize="16sp">
-</TextView>
+</android.support.v7.widget.AppCompatTextView>

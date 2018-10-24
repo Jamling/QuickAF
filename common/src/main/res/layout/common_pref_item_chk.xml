@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     style="@style/preference">
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         style="@style/preference_title"
         android:id="@android:id/title"
         android:layout_width="wrap_content"

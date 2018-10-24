@@ -18,8 +18,10 @@ package cn.ieclipse.af.demo;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v4.view.ViewPager;
+import android.support.v7.content.res.AppCompatResources;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -171,6 +173,9 @@ public class MainActivity extends BaseActivity implements CheckUpdateController.
     private boolean confirmExit;
     @Override
     public void onBackPressed() {
+        Drawable d1 = AppCompatResources.getDrawable(this, R.drawable.common_selector_ic_back);
+        Drawable d = AppUtils.getDrawable(this, R.drawable.common_selector_ic_back);
+        d = AppUtils.getDrawable(this, R.drawable.preference_arrow);
         if (confirmExit){
             finish();
         } else {

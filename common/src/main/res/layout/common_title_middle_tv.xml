@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:ellipsize="middle"
     android:gravity="center"
-    android:maxLines="1"
+    android:singleLine="true"
     android:minHeight="@dimen/title_bar_icon_size"
     android:paddingLeft="0dp"
     android:textColor="@color/fg_title_bar_normal"

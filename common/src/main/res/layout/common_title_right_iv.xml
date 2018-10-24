@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ImageView
+<android.support.v7.widget.AppCompatImageView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/title_bar_icon_size"
     android:layout_height="@dimen/title_bar_icon_size"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:scaleType="centerInside"
-    android:src="@android:drawable/ic_menu_more">
+    app:srcCompat="@android:drawable/ic_menu_more">
 
-</ImageView>
+</android.support.v7.widget.AppCompatImageView>

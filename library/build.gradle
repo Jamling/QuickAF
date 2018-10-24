@@ -1,31 +1,80 @@
 plugins {
-    id "com.github.dcendents.android-maven" version "1.5"
-    id "com.jfrog.bintray" version "1.7.3"
+    id "com.github.dcendents.android-maven" version "2.1"
+    id "com.jfrog.bintray" version "1.8.4"
 }
 
 apply plugin: 'com.android.library'
-
-
-
-apply from : './android.gradle'
-
 apply from : './android-maven.gradle'
 
 apply from : './bintray.gradle'
 
+android {
+    compileSdkVersion Integer.parseInt(SDK_COMPILE)
+    buildToolsVersion SDK_BUILD
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+        test {
+            java.srcDirs = ['test']
+        }
+    }
+
+    defaultConfig {
+        minSdkVersion Integer.parseInt(SDK_MIN)
+        targetSdkVersion Integer.parseInt(SDK_TARGET)
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+    // used for test
+    // useLibrary('org.apache.http.legacy')
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation 'junit:junit:4.12'
+    //    testCompile 'com.squareup.okhttp3:okhttp:3.8.0'
+    implementation "com.android.support:appcompat-v7:${supportLibVersion}"
+    implementation "com.android.support:recyclerview-v7:${supportLibVersion}"
+    implementation "com.android.support:support-core-ui:${supportLibVersion}"
+    api 'com.google.code.gson:gson:2.3.1'
+    api 'com.android.volley:volley:1.1.0'
+}
+
 task hello << {
     println(rootProject.name)
     println(android.libraryVariants)
-    def release;
+    def release
     android.libraryVariants.all { variant ->
         println(variant)
         if (variant.name == 'release'){
-            release = variant;
+            release = variant
         }
     }
     println("found:" + release.javaCompile.classpath.files)
     def android_sdk = "${android.sdkDirectory}";
     def android_platform = "${android.compileSdkVersion}"
-    println(android_sdk);
-    println(android_platform);
+    println(android_sdk)
+    println(android_platform)
 }

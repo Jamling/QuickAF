@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v7.content.res.AppCompatResources;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import cn.ieclipse.af.R;
+import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.util.SharedPrefsUtils;
 
 /**
@@ -110,10 +112,13 @@ public class Preference extends FrameLayout implements OnCheckedChangeListener {
         // load attribute
         a = context.obtainStyledAttributes(attrs, R.styleable.Preference, defStyleAttr, defStyleRes);
         if (a.hasValue(R.styleable.Preference_android_icon)) {
-            icon = a.getDrawable(R.styleable.Preference_android_icon);
+            int id = a.getResourceId(R.styleable.Preference_android_icon, 0);
+            icon = AppUtils.getDrawable(context, id);
         }
         if (a.hasValue(R.styleable.Preference_android_drawableRight)) {
-            icon2 = a.getDrawable(R.styleable.Preference_android_drawableRight);
+            // icon2 = a.getDrawable(R.styleable.Preference_android_drawableRight);
+            int id = a.getResourceId(R.styleable.Preference_android_drawableRight, 0);
+            icon2 = AppCompatResources.getDrawable(context, id);
         }
         if (a.hasValue(R.styleable.Preference_android_key)) {
             key = a.getString(R.styleable.Preference_android_key);

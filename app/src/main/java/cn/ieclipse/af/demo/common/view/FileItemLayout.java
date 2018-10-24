@@ -17,6 +17,7 @@ package cn.ieclipse.af.demo.common.view;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.CheckBox;
@@ -130,10 +131,14 @@ public class FileItemLayout extends CheckableLinearLayout implements View.OnClic
         File[] fs = f.listFiles(fileFilter);
         Drawable d = null;
         if (fs == null || fs.length == 0) {
-            d = AppUtils.getDrawable(getContext(), R.drawable.ic_folder_empty);
+            // d = AppUtils.getDrawable(getContext(), R.drawable.ic_folder_empty);
+            d = VectorDrawableCompat.create(getResources(), R.drawable.ic_folder_empty,
+                getContext().getTheme());
         }
         else {
-            d = AppUtils.getDrawable(getContext(), R.drawable.ic_folder);
+            // d = AppUtils.getDrawable(getContext(), R.drawable.ic_folder);
+            d = VectorDrawableCompat.create(getResources(), R.drawable.ic_folder,
+                getContext().getTheme());
         }
         d = AppUtils.tintDrawable(d, AppUtils.getColor(getContext(), R.color.colorPrimary));
         return d;
@@ -141,7 +146,11 @@ public class FileItemLayout extends CheckableLinearLayout implements View.OnClic
 
     private Drawable getFileDrawable(File file) {
         String ext = FileUtils.getExtension(file.getName());
-        return AppUtils.tintDrawable(getContext(), R.drawable.ic_file, R.color.colorAccent);
+        VectorDrawableCompat d = VectorDrawableCompat.create(getResources(), R.drawable.ic_folder_empty,
+            getContext().getTheme());
+        d.setTint(AppUtils.getColor(getContext(), R.color.colorAccent));
+        return d;
+        // return AppUtils.tintDrawable(getContext(), R.drawable.ic_file, R.color.colorAccent);
         // return AppUtils.getDrawable(getContext(), R.drawable.ic_file);
     }
 }

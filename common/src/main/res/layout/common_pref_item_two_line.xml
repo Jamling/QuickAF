@@ -15,14 +15,14 @@
         android:orientation="vertical"
         android:paddingRight="?android:attr/listPreferredItemPaddingRight">
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@android:id/title"
             style="@style/preference_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="标题"/>
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@android:id/summary"
             style="@style/preference_summary"
             android:layout_width="match_parent"
@@ -32,9 +32,8 @@
             tools:text="Summary"/>
     </LinearLayout>
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@android:id/icon2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:src="@drawable/common_ic_arrow_right"/>
+        android:layout_height="wrap_content"/>
 </LinearLayout>

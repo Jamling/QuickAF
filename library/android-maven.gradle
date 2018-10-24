@@ -27,38 +27,38 @@ task sourcesJar(type: Jar) {
     classifier = 'sources'
 }
 
-android.libraryVariants.all { variant ->
-    // println variant.javaCompile.classpath.files
-    if(variant.name == 'release') {
-        task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
-            failOnError false
-            title "${PRJ_NAME}  ${ART_VER}  API"
-            // description = ''
-            source = variant.javaCompile.source
-            classpath = files(variant.javaCompile.classpath.files, project.android.getBootClasspath(), project.file
-                    ("gen"))
-            options {
-                links "http://docs.oracle.com/javase/7/docs/api/"
-                linksOffline "http://d.android.com/reference", "${android.sdkDirectory}/docs/reference"
-                encoding 'utf-8'
-                charSet 'utf-8'
-                tags 'date:t:Date:'
-                tags 'sample:t:Sample:'
-                tags 'attr:a:Attribute:'
-            }
-            exclude 'android/**/*'
-            exclude 'com/**/*'
-            exclude '**/*'
-        }
-        task("javadocJar", type: Jar, dependsOn: "generate${variant.name.capitalize()}Javadoc") {
-            classifier = 'javadoc'
-            from tasks.getByName("generate${variant.name.capitalize()}Javadoc").destinationDir
-        }
-        artifacts {
-            archives tasks.getByName("javadocJar")
-        }
-    }
-}
+//android.libraryVariants.all { variant ->
+//    // println variant.javaCompile.classpath.files
+//    if(variant.name == 'release') {
+//        task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
+//            failOnError false
+//            title "${PRJ_NAME}  ${ART_VER}  API"
+//            // description = ''
+//            source = variant.javaCompile.source
+//            classpath = files(variant.javaCompile.classpath.files, project.android.getBootClasspath(), project.file
+//                    ("gen"))
+//            options {
+//                links "http://docs.oracle.com/javase/7/docs/api/"
+//                linksOffline "http://d.android.com/reference", "${android.sdkDirectory}/docs/reference"
+//                encoding 'utf-8'
+//                charSet 'utf-8'
+//                tags 'date:t:Date:'
+//                tags 'sample:t:Sample:'
+//                tags 'attr:a:Attribute:'
+//            }
+//            exclude 'android/**/*'
+//            exclude 'com/**/*'
+//            exclude '**/*'
+//        }
+//        task("javadocJar", type: Jar, dependsOn: "generate${variant.name.capitalize()}Javadoc") {
+//            classifier = 'javadoc'
+//            from tasks.getByName("generate${variant.name.capitalize()}Javadoc").destinationDir
+//        }
+//        artifacts {
+//            archives tasks.getByName("javadocJar")
+//        }
+//    }
+//}
 artifacts {
     // archives javadocJar
     archives sourcesJar

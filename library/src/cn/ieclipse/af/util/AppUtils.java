@@ -15,6 +15,7 @@
  */
 package cn.ieclipse.af.util;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -33,7 +34,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -135,7 +138,13 @@ public final class AppUtils {
             return context.getDrawable(drawableId);
         }
         else {
-            return context.getResources().getDrawable(drawableId);
+            try {
+                Drawable d = AppCompatResources.getDrawable(context, drawableId);
+                return d;
+            } catch (Resources.NotFoundException e) {
+                return VectorDrawableCompat.create(context.getResources(), drawableId, context.getTheme());
+            }
+            // return context.getResources().getDrawable(drawableId);
         }
     }
 
@@ -362,6 +371,7 @@ public final class AppUtils {
      *
      * @return imei
      */
+    @SuppressLint("MissingPermission")
     public static String getImei(Context context, String imei) {
         try {
             TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);

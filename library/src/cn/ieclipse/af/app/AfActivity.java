@@ -16,9 +16,9 @@
 package cn.ieclipse.af.app;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -41,7 +41,7 @@ import cn.ieclipse.af.view.TitleBar;
  *
  * @author Jamling
  */
-public abstract class AfActivity extends Activity implements OnClickListener {
+public abstract class AfActivity extends AppCompatActivity implements OnClickListener {
     public static final String EXTRA_DATA = "af.data";
     public static final String EXTRA_ID = "af.id";
 
