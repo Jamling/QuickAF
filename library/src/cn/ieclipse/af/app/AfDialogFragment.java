@@ -18,14 +18,15 @@ package cn.ieclipse.af.app;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -223,7 +224,12 @@ public abstract class AfDialogFragment<DialogListener> extends DialogFragment im
      * @since 2.1.1
      */
     public void show(Activity activity, boolean showAdd) {
-        show(activity.getFragmentManager(), showAdd);
+        if (activity instanceof AppCompatActivity) {
+            show(((AppCompatActivity) activity).getSupportFragmentManager(), showAdd);
+        } else {
+            // TODO
+            // show(activity.getFragmentManager(), showAdd);
+        }
     }
 
     protected void setOnClickListener(View... views) {

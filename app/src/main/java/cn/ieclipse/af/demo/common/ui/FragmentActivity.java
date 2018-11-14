@@ -15,7 +15,7 @@
  */
 package cn.ieclipse.af.demo.common.ui;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -45,7 +45,7 @@ public class FragmentActivity extends BaseActivity {
                 return;
             }
             fragment = Fragment.instantiate(this, fragmentName, getIntent().getExtras());
-            getFragmentManager().beginTransaction().add(R.id.content, fragment).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.content, fragment).commit();
             if (fragment instanceof BaseFragment && isShowTitleBar()) {
                 setTitle(((BaseFragment) fragment).getTitle());
             }

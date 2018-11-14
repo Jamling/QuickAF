@@ -16,13 +16,14 @@
 package cn.ieclipse.af.util;
 
 import android.app.Activity;
-import android.app.DialogFragment;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import cn.ieclipse.af.app.AfDialogFragment;
@@ -63,8 +64,12 @@ public final class DialogUtils {
     }
 
     private static void attachDialog(Activity context, DialogFragment fragment) {
-        FragmentTransaction ft = context.getFragmentManager().beginTransaction();
-        Fragment prev = context.getFragmentManager().findFragmentByTag("dialog");
+        if (!(context instanceof AppCompatActivity)) {
+            throw new IllegalArgumentException("can't attach android.support.v4.DialogFragment to non-AppCompatActivity");
+        }
+        FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        Fragment prev = fm.findFragmentByTag("dialog");
         if (prev != null) {
             ft.remove(prev);
         }
@@ -72,7 +77,9 @@ public final class DialogUtils {
 
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         try {
-            fragment.show(ft, "dialog");
+            if (!fm.isStateSaved() && !fm.isDestroyed()) {
+                fragment.show(ft, "dialog");
+            }
         } catch (Exception e) {
             // TODO java.lang.IllegalStateException: Can not perform this action after onSaveInstanceState
         }
@@ -97,7 +104,8 @@ public final class DialogUtils {
         return fragment;
     }
 
-    public static AlertDialogFragment showAlert(Activity context, int style, int icon, CharSequence title, CharSequence message,
+    public static AlertDialogFragment showAlert(Activity context, int style, int icon, CharSequence title, CharSequence
+        message,
                                                 AlertDialogFragment.AlertInterceptor interceptor,
                                                 DialogInterface.OnClickListener... listeners) {
         AlertDialogFragment fragment = AlertDialogFragment.newInstance(icon, title, message, interceptor, listeners);
@@ -174,7 +182,8 @@ public final class DialogUtils {
      * @param fm   {@link android.app.FragmentManager}
      * @param view dialog content view
      *
-     * @see cn.ieclipse.af.util.DialogUtils#showDialog(android.app.FragmentManager, android.view.View, int, int)
+     * @see cn.ieclipse.af.util.DialogUtils#showDialog(android.support.v4.app.FragmentManager, android.view.View, int,
+     * int)
      * @since 2.1.1
      */
     public static void showDialog(FragmentManager fm, View view) {

@@ -15,8 +15,8 @@
  */
 package cn.ieclipse.af.demo.sample;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,7 +94,7 @@ public class ButtonListFragment extends BaseFragment {
         
         Class cls = activitys[position];
         if (isFragment(cls)) {
-            FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
             try {
                 Fragment f = (Fragment) cls.newInstance();
                 if (getActivity() instanceof SampleBaseActivity){

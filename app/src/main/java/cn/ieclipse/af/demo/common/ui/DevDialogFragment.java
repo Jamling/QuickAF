@@ -16,8 +16,7 @@
 package cn.ieclipse.af.demo.common.ui;
 
 import android.app.AlertDialog;
-import android.app.DialogFragment;
-import android.app.FragmentManager;
+import android.support.v4.app.FragmentManager;
 import android.content.DialogInterface;
 import android.view.View;
 import android.widget.AdapterView;
@@ -74,7 +73,7 @@ public class DevDialogFragment extends AfDialogFragment implements CompoundButto
 
     public static void show(FragmentManager fm) {
         DevDialogFragment dialog = new DevDialogFragment();
-        dialog.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+        dialog.setStyle(STYLE_NO_TITLE, 0);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setAlert(true);
         dialog.show(fm, false);

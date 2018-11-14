@@ -15,7 +15,7 @@
  */
 package cn.ieclipse.af.demo.common.ui;
 
-import android.app.FragmentManager;
+import android.support.v4.app.FragmentManager;
 import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.view.View;

@@ -17,9 +17,9 @@ package cn.ieclipse.af.app;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 
 /**
  * Fragment used to show alert dialog, it's suggested to use {@link android.app.DialogFragment} to show dialogs
@@ -28,11 +28,12 @@ import android.os.Bundle;
  * @see cn.ieclipse.af.util.DialogUtils
  */
 public class AlertDialogFragment extends DialogFragment {
-    
+
     private DialogInterface.OnClickListener[] mListeners;
     private AlertInterceptor mInterceptor;
-    
-    public static AlertDialogFragment newInstance(int icon, CharSequence title, CharSequence msg, AlertInterceptor interceptor,
+
+    public static AlertDialogFragment newInstance(int icon, CharSequence title, CharSequence msg,
+                                                  AlertInterceptor interceptor,
                                                   DialogInterface.OnClickListener... listeners) {
         AlertDialogFragment frag = new AlertDialogFragment();
         Bundle args = new Bundle();
@@ -44,16 +45,16 @@ public class AlertDialogFragment extends DialogFragment {
         frag.setInterceptor(interceptor);
         return frag;
     }
-    
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle args = getArguments();
         CharSequence title = args.getCharSequence("title");
         int icon = args.getInt("icon");
         CharSequence msg = args.getCharSequence("msg");
-        
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), getTheme());
-        
+
         if (icon > 0) {
             builder.setIcon(icon);
         }
@@ -63,7 +64,7 @@ public class AlertDialogFragment extends DialogFragment {
         if (msg != null) {
             builder.setMessage(msg);
         }
-        
+
         if (mListeners != null) {
             DialogInterface.OnClickListener l;
             int index = 0;
@@ -74,7 +75,7 @@ public class AlertDialogFragment extends DialogFragment {
                 }
             }
             index++;
-            
+
             if (mListeners.length > index) {
                 l = mListeners[index];
                 if (l != null) {
@@ -82,21 +83,21 @@ public class AlertDialogFragment extends DialogFragment {
                 }
             }
         }
-        
+
         if (mInterceptor != null) {
             mInterceptor.onCreated(builder);
         }
         return builder.create();
     }
-    
+
     public void setListeners(DialogInterface.OnClickListener... listeners) {
         this.mListeners = listeners;
     }
-    
+
     public void setInterceptor(AlertInterceptor interceptor) {
         this.mInterceptor = interceptor;
     }
-    
+
     public interface AlertInterceptor {
         void onCreated(AlertDialog.Builder builder);
     }

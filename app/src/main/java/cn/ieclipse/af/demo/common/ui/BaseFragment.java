@@ -15,7 +15,7 @@
  */
 package cn.ieclipse.af.demo.common.ui;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 
 import cn.ieclipse.af.common.ui.CommonBaseFragment;
 import cn.ieclipse.af.demo.common.api.VolleyUtils;

@@ -16,7 +16,7 @@
 package cn.ieclipse.af.demo.common.ui;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;

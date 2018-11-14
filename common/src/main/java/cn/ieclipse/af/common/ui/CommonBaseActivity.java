@@ -15,12 +15,12 @@
  */
 package cn.ieclipse.af.common.ui;
 
-import android.app.DialogFragment;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -92,9 +92,7 @@ public abstract class CommonBaseActivity extends AfActivity implements View.OnCl
     @Deprecated
     protected ImageView createRightIcon(@DrawableRes int icon) {
         ImageView iv = (ImageView) mTitleBar.createItem(R.layout.common_title_right_iv);
-        if (icon > 0) {
-            iv.setImageResource(icon);
-        }
+        iv.setImageResource(icon);
         return iv;
     }
 
@@ -175,7 +173,7 @@ public abstract class CommonBaseActivity extends AfActivity implements View.OnCl
 
     public void showLoadingDialog(final String message) {
         hideLoadingDialog();
-        mLoadingDialog = DialogUtils.showProgress(this, android.R.style.Widget_Holo_Light_ProgressBar_Large, message,
+        mLoadingDialog = DialogUtils.showProgress(this, android.support.v7.appcompat.R.style.Widget_AppCompat_ProgressBar, message,
             null);
     }
 
@@ -196,7 +194,7 @@ public abstract class CommonBaseActivity extends AfActivity implements View.OnCl
      * true, null);
      */
     public void pushFragments(Fragment fragment, boolean shouldAnimate, boolean shouldAdd, String tag) {
-        FragmentManager manager = getFragmentManager();// getFragmentManager();
+        FragmentManager manager = getSupportFragmentManager();// getFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
         if (shouldAnimate) {
             // ft.setCustomAnimations(R.animator.fragment_slide_left_enter,

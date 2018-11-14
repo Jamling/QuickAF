@@ -15,7 +15,7 @@
  */
 package cn.ieclipse.af.demo.common;
 
-import android.app.FragmentManager;
+import android.support.v4.app.FragmentManager;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -74,7 +74,7 @@ public class MainActivity extends BaseActivity implements CheckUpdateController.
         super.initContentView(view);
         mViewPager = (ViewPager) view.findViewById(R.id.view_pager);
         mViewPager.setOffscreenPageLimit(2);
-        mAdapter = new BaseFragmentAdapter(getFragmentManager());
+        mAdapter = new BaseFragmentAdapter(getSupportFragmentManager());
         mAdapter.setFragments(new AppUIFragment(), new VolleyFragment(), new OthersFragment(), new MyFragment());
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -118,7 +118,7 @@ public class MainActivity extends BaseActivity implements CheckUpdateController.
     @Override
     public void onClick(View v) {
         if (v == mTitleTextView) {
-            DevDialogFragment.detect(getFragmentManager());
+            DevDialogFragment.detect(getSupportFragmentManager());
         }
         super.onClick(v);
     }
