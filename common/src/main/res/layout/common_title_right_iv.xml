@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.AppCompatImageView
+<androidx.appcompat.widget.AppCompatImageView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/title_bar_icon_size"
     android:layout_height="@dimen/title_bar_icon_size"
@@ -7,4 +7,4 @@
     android:scaleType="centerInside"
     app:srcCompat="@android:drawable/ic_menu_more">
 
-</android.support.v7.widget.AppCompatImageView>
+</androidx.appcompat.widget.AppCompatImageView>

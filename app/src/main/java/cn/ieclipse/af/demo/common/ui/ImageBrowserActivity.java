@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.text.method.ScrollingMovementMethod;
 import android.view.MotionEvent;
 import android.view.View;
@@ -36,6 +35,7 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import java.io.Serializable;
 import java.util.List;
 
+import androidx.viewpager.widget.ViewPager;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.ImagePagerAdapter;
 import cn.ieclipse.af.util.AppUtils;

@@ -19,8 +19,9 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface.OnCancelListener;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
+
+import androidx.fragment.app.DialogFragment;
 
 /**
  * /**

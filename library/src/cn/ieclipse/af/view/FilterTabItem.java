@@ -19,10 +19,11 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.ToggleButton;
+
+import androidx.annotation.RequiresApi;
 
 /**
  * Tab item which is the child view of {@link cn.ieclipse.af.view.FilterTabHost}, it can place an image such as arrow

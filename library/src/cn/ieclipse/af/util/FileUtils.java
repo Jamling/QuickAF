@@ -1,7 +1,6 @@
 package cn.ieclipse.af.util;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import java.io.File;
@@ -13,6 +12,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.channels.FileChannel;
 
+import androidx.annotation.NonNull;
 import cn.ieclipse.af.common.Logger;
 
 /**

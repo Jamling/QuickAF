@@ -16,7 +16,6 @@
 package cn.ieclipse.af.demo.common.ui;
 
 import android.app.AlertDialog;
-import android.support.v4.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -34,6 +33,7 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import androidx.fragment.app.Fragment;
 import cn.ieclipse.af.demo.R;
 
 /**

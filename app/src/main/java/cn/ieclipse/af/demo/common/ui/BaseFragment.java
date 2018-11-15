@@ -15,8 +15,7 @@
  */
 package cn.ieclipse.af.demo.common.ui;
 
-import android.support.v4.app.Fragment;
-
+import androidx.fragment.app.Fragment;
 import cn.ieclipse.af.common.ui.CommonBaseFragment;
 import cn.ieclipse.af.demo.common.api.VolleyUtils;
 import cn.ieclipse.af.volley.RestError;

@@ -20,6 +20,8 @@ import android.os.Build;
 import java.lang.reflect.Field;
 import java.util.Map;
 
+import androidx.collection.ArrayMap;
+
 /**
  * Description
  *
@@ -36,7 +38,7 @@ public class BaseRequest implements java.io.Serializable {
             return new android.util.ArrayMap<>();
         }
         else {
-            return new android.support.v4.util.ArrayMap<>();
+            return new ArrayMap<>();
         }
     }
 

@@ -6,13 +6,13 @@
     android:orientation="horizontal"
     style="@style/preference">
 
-    <android.support.v7.widget.AppCompatTextView
+    <androidx.appcompat.widget.AppCompatTextView
         style="@style/preference_title"
         android:id="@android:id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <android.support.v7.widget.AppCompatTextView
+    <androidx.appcompat.widget.AppCompatTextView
         style="@style/preference_summary"
         android:id="@android:id/summary"
         android:layout_width="match_parent"

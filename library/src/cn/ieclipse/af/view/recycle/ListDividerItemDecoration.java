@@ -23,14 +23,15 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
- * Enhanced {@link android.support.v7.widget.DividerItemDecoration} support padding, color, height
+ * Enhanced {@link androidx.recyclerview.widget.DividerItemDecoration} support padding, color, height
  *
  * @author Jamling
  */
@@ -55,8 +56,8 @@ public class ListDividerItemDecoration extends RecyclerView.ItemDecoration {
     private final Rect mBounds = new Rect();
 
     /**
-     * Creates a divider {@link android.support.v7.widget.RecyclerView.ItemDecoration} that can be used with a
-     * {@link android.support.v7.widget.LinearLayoutManager}.
+     * Creates a divider {@link androidx.recyclerview.widget.RecyclerView.ItemDecoration} that can be used with a
+     * {@link androidx.recyclerview.widget.LinearLayoutManager}.
      *
      * @param context     Current context, it will be used to access resources.
      * @param orientation Divider orientation. Should be {@link #HORIZONTAL} or {@link #VERTICAL}.
@@ -72,7 +73,7 @@ public class ListDividerItemDecoration extends RecyclerView.ItemDecoration {
 
     /**
      * Sets the orientation for this divider. This should be called if
-     * {@link android.support.v7.widget.RecyclerView.LayoutManager} changes orientation.
+     * {@link androidx.recyclerview.widget.LinearLayoutManager} changes orientation.
      *
      * @param orientation {@link #HORIZONTAL} or {@link #VERTICAL}
      */

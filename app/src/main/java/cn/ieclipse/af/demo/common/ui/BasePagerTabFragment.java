@@ -15,11 +15,11 @@
  */
 package cn.ieclipse.af.demo.common.ui;
 
-import android.support.v4.app.FragmentManager;
 import android.os.Build;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.viewpager.widget.ViewPager;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.BaseFragmentAdapter;
 import cn.ieclipse.af.view.PagerSlidingTabStrip;

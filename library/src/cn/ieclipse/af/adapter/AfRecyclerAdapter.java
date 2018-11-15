@@ -16,9 +16,6 @@
 package cn.ieclipse.af.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,12 +23,15 @@ import android.widget.LinearLayout;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import cn.ieclipse.af.adapter.delegate.AdapterDelegate;
 import cn.ieclipse.af.adapter.delegate.DelegateManager;
 import cn.ieclipse.af.common.Logger;
 
 /**
- * AFRecyclerAdapter for {@link android.support.v7.widget.RecyclerView}
+ * AFRecyclerAdapter for {@link androidx.recyclerview.widget.RecyclerView}
  *
  * @author Jamling
  */
@@ -144,7 +144,7 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
     /**
      * Same as <code>deleteItem(position, true);</code>
      *
-     * @param position item position see {@link android.support.v7.widget.RecyclerView.ViewHolder#getAdapterPosition()}
+     * @param position item position see {@link androidx.recyclerview.widget.RecyclerView.ViewHolder#getAdapterPosition()}
      *
      * @see cn.ieclipse.af.adapter.AfRecyclerAdapter#deleteItem(int, boolean)
      */

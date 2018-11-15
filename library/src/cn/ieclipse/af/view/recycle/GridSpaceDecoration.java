@@ -17,11 +17,12 @@ package cn.ieclipse.af.view.recycle;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 /**
  * 基于设置RecyclerView背景色的另类分隔线方式。
@@ -41,8 +42,8 @@ public class GridSpaceDecoration extends RecyclerView.ItemDecoration {
     protected int mOrientation;
 
     /**
-     * Creates a divider {@link android.support.v7.widget.RecyclerView.ItemDecoration} that can be used with a
-     * {@link android.support.v7.widget.LinearLayoutManager}.
+     * Creates a divider {@link androidx.recyclerview.widget.RecyclerView.ItemDecoration} that can be used with a
+     * {@link androidx.recyclerview.widget.LinearLayoutManager}.
      *
      * @param orientation Divider orientation. Should be {@link #HORIZONTAL} or {@link #VERTICAL}.
      */
@@ -59,7 +60,7 @@ public class GridSpaceDecoration extends RecyclerView.ItemDecoration {
 
     /**
      * Sets the orientation for this divider. This should be called if
-     * {@link android.support.v7.widget.RecyclerView.LayoutManager} changes orientation.
+     * {@link androidx.recyclerview.widget.LinearLayoutManager} changes orientation.
      *
      * @param orientation {@link #HORIZONTAL} or {@link #VERTICAL}
      */

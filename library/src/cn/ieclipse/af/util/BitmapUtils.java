@@ -46,7 +46,6 @@ import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
@@ -58,6 +57,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
+import androidx.annotation.Nullable;
 
 /**
  * 类/接口描述
@@ -665,7 +666,7 @@ public class BitmapUtils {
         // draw watermark into
         cv.drawBitmap(watermark, w - ww + 5, h - wh + 5, null);// 在src的右下角画入水印
         // save all clip
-        cv.save(Canvas.ALL_SAVE_FLAG);// 保存
+        cv.save();// 保存
         // store
         cv.restore();// 存储
         return newb;

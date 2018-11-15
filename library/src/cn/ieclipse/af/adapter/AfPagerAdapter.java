@@ -3,7 +3,6 @@
  */
 package cn.ieclipse.af.adapter;
 
-import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.viewpager.widget.PagerAdapter;
 import cn.ieclipse.af.common.Logger;
 
 /**

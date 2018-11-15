@@ -17,7 +17,6 @@ package cn.ieclipse.af.demo.common.view;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.graphics.drawable.VectorDrawableCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.CheckBox;
@@ -28,6 +27,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.text.SimpleDateFormat;
 
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.util.FileUtils;

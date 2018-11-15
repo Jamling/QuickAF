@@ -9,7 +9,6 @@ package cn.ieclipse.af.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -18,6 +17,8 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Scroller;
+
+import androidx.viewpager.widget.ViewPager;
 import cn.ieclipse.af.R;
 
 /**

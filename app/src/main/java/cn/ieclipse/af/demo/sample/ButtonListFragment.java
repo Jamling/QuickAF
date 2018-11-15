@@ -15,8 +15,6 @@
  */
 package cn.ieclipse.af.demo.sample;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +23,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.ui.BaseFragment;
 import cn.ieclipse.af.util.DialogUtils;

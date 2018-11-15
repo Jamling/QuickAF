@@ -1,11 +1,11 @@
 package cn.ieclipse.af.demo.sample.appui;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.ImagePagerAdapter;
 import cn.ieclipse.af.demo.common.ui.ImageBrowserActivity;

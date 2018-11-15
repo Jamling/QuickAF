@@ -16,13 +16,13 @@
 package cn.ieclipse.af.demo;
 
 import android.app.Application;
-import android.support.v7.app.AppCompatDelegate;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import cn.ieclipse.af.volley.VolleyConfig;
 import cn.ieclipse.af.volley.VolleyManager;
 

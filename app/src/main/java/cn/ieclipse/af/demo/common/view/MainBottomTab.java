@@ -18,10 +18,10 @@ package cn.ieclipse.af.demo.common.view;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.widget.RadioGroup;
 
+import androidx.viewpager.widget.ViewPager;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.view.RadioBadgeView;

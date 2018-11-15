@@ -16,7 +16,6 @@
 package cn.ieclipse.af.demo.sample.recycler;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +26,7 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.List;
 
+import androidx.recyclerview.widget.RecyclerView;
 import cn.ieclipse.af.adapter.AfRecyclerAdapter;
 import cn.ieclipse.af.adapter.delegate.AdapterDelegate;
 import cn.ieclipse.af.demo.R;

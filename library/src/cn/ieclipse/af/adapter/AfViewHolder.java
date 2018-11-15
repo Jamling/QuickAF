@@ -17,13 +17,14 @@ package cn.ieclipse.af.adapter;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.View;
 import android.widget.AdapterView;
 
 import java.lang.reflect.Field;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * // Provide a reference to the views for each data item

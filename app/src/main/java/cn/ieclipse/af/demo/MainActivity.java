@@ -20,13 +20,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.support.v4.view.ViewPager;
-import android.support.v7.content.res.AppCompatResources;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.viewpager.widget.ViewPager;
 import cn.ieclipse.af.demo.common.BaseFragmentAdapter;
 import cn.ieclipse.af.demo.common.ui.BaseActivity;
 import cn.ieclipse.af.demo.common.ui.DevDialogFragment;

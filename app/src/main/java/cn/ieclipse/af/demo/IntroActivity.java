@@ -17,13 +17,13 @@ package cn.ieclipse.af.demo;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.WindowManager;
 
 import java.util.Arrays;
 import java.util.List;
 
+import androidx.viewpager.widget.ViewPager;
 import cn.ieclipse.af.demo.common.ImagePagerAdapter;
 import cn.ieclipse.af.demo.common.ui.BaseActivity;
 import cn.ieclipse.af.demo.common.view.IntroViewPager;

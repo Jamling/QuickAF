@@ -17,10 +17,11 @@ package cn.ieclipse.af.demo.sample.third;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.percent.PercentLayoutHelper;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import androidx.percentlayout.widget.PercentLayoutHelper;
 
 /**
  * 类/接口描述

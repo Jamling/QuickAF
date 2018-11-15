@@ -21,8 +21,6 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -35,6 +33,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import cn.ieclipse.af.R;
 import cn.ieclipse.af.adapter.AfPagerAdapter;
 import cn.ieclipse.af.common.Logger;
@@ -47,7 +47,7 @@ import cn.ieclipse.af.util.AppUtils;
  * AutoPlayView default child views
  * </p>
  * <ol>
- * <li>{@linkplain android.support.v4.view.ViewPager ViewPager}</li>
+ * <li>{@linkplain androidx.core.view.ViewPager ViewPager}</li>
  * <li>Indicator layout (if has), it's a horizontal {@linkplain android.widget.LinearLayout LinearLayout}</li>
  * <li>Indicator text widget (if has) to show "current/total" text</li>
  * </ol>
@@ -261,7 +261,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
      *
      * @param adapter adapter to use
      *
-     * @see android.support.v4.view.ViewPager#setAdapter(android.support.v4.view.PagerAdapter)
+     * @see androidx.core.view.ViewPager#setAdapter(androidx.core.view.PagerAdapter)
      */
     public void setAdapter(PagerAdapter adapter) {
         if (mViewPager != null) {
@@ -272,7 +272,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
     }
 
     /**
-     * Set adapter data, use {@link android.support.v4.view.PagerAdapter#notifyDataSetChanged()}
+     * Set adapter data, use {@link androidx.core.view.PagerAdapter#notifyDataSetChanged()}
      * If you want to update UI force, please use <code>
      * setAdapterData(list, true);
      * </code>
@@ -288,7 +288,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
 
     /**
      * Set adapter data and force refresh UI.
-     * <p>Note {@link android.support.v4.view.PagerAdapter#notifyDataSetChanged()} will not update UI, please use
+     * <p>Note {@link androidx.core.view.PagerAdapter#notifyDataSetChanged()} will not update UI, please use
      * {@link cn.ieclipse.af.adapter.AfPagerAdapter#notifyDataSetChanged(boolean)} to update UI</p>
      *
      * @param list  data
@@ -697,7 +697,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
     }
 
     /**
-     * Loop {@link android.support.v4.view.PagerAdapter}
+     * Loop {@link androidx.core.view.PagerAdapter}
      *
      * @param <T> data parameter type
      *

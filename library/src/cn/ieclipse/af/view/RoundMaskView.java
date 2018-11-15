@@ -25,11 +25,11 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.os.Build;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import cn.ieclipse.af.R;
 
 /**
@@ -132,8 +132,7 @@ public class RoundMaskView extends View {
         if (src != null && dst != null) {
             int w = getMeasuredWidth(), h = getMeasuredHeight();
             int sc = canvas.saveLayer(0, 0, w, h, null,
-                Canvas.MATRIX_SAVE_FLAG | Canvas.CLIP_SAVE_FLAG | Canvas.HAS_ALPHA_LAYER_SAVE_FLAG
-                    | Canvas.FULL_COLOR_LAYER_SAVE_FLAG | Canvas.CLIP_TO_LAYER_SAVE_FLAG);
+                Canvas.ALL_SAVE_FLAG);
             canvas.drawBitmap(dst, 0, 0, paint);
             paint.setXfermode(mode);
             canvas.drawBitmap(src, 0, 0, paint);

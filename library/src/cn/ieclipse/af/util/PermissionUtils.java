@@ -5,12 +5,13 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.core.app.ActivityCompat;
 
 /**
  * Android 6.0 Runtime permission utils
@@ -102,14 +103,14 @@ public class PermissionUtils {
                                                    String... permissions) {
         if (Build.VERSION.SDK_INT >= 23) {
             Fragment fragment = null;
-            android.support.v4.app.Fragment fragmentv4 = null;
+            androidx.fragment.app.Fragment fragmentv4 = null;
             Activity activity = null;
             if (context instanceof Fragment) {
                 fragment = (Fragment) context;
                 activity = fragment.getActivity();
             }
-            else if (context instanceof android.support.v4.app.Fragment) {
-                fragmentv4 = (android.support.v4.app.Fragment) context;
+            else if (context instanceof androidx.fragment.app.Fragment) {
+                fragmentv4 = (androidx.fragment.app.Fragment) context;
                 activity = fragmentv4.getActivity();
             }
             else if (context instanceof Activity) {
@@ -164,7 +165,7 @@ public class PermissionUtils {
         PermissionUtils.requestPermissionsInternal(fragment, requestCode, null, permissions);
     }
 
-    public static void requestPermissions(final android.support.v4.app.Fragment fragment, final int requestCode,
+    public static void requestPermissions(final androidx.fragment.app.Fragment fragment, final int requestCode,
                                           final String... permissions) {
         PermissionUtils.requestPermissionsInternal(fragment, requestCode, null, permissions);
     }
@@ -174,7 +175,7 @@ public class PermissionUtils {
         PermissionUtils.requestPermissionsInternal(fragment, requestCode, callback, permissions);
     }
 
-    public static void requestPermissions(final android.support.v4.app.Fragment fragment, final int requestCode,
+    public static void requestPermissions(final androidx.fragment.app.Fragment fragment, final int requestCode,
                                           final PermissionExplainCallback callback, final String... permissions) {
         PermissionUtils.requestPermissionsInternal(fragment, requestCode, callback, permissions);
     }
@@ -201,7 +202,7 @@ public class PermissionUtils {
     }
 
     /**
-     * If {@link android.support.v4.app.ActivityCompat}#shouldShowRequestPermissionRationale(android.app.Activity,
+     * If {@link androidx.core.app.ActivityCompat}#shouldShowRequestPermissionRationale(android.app.Activity,
      * String) , show an explain of request permission to user.
      *
      * @see ActivityCompat#shouldShowRequestPermissionRationale(android.app.Activity, String)

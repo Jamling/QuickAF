@@ -16,10 +16,10 @@
 package cn.ieclipse.af.view.refresh;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 
 import java.util.List;
 
+import androidx.recyclerview.widget.RecyclerView;
 import cn.ieclipse.af.adapter.AfRecyclerAdapter;
 import cn.ieclipse.af.view.recycle.ListDividerItemDecoration;
 import cn.ieclipse.af.view.recycle.RecyclerHelper;

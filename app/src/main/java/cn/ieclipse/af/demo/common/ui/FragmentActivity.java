@@ -15,12 +15,12 @@
  */
 package cn.ieclipse.af.demo.common.ui;
 
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import cn.ieclipse.af.demo.R;
 
 /**

@@ -17,7 +17,6 @@ package cn.ieclipse.af.view.ah;
 
 import android.content.Context;
 import android.graphics.Point;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,9 +27,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.viewpager.widget.ViewPager;
+
 /**
  * 自动计算高度的ViewPager No implements
- * 
+ *
  * @author Jamling
  * @date 2015/9/30.
  */
@@ -38,16 +39,15 @@ public class AutoHeightViewPager extends ViewPager {
     public AutoHeightViewPager(Context context) {
         super(context);
     }
-    
+
     public AutoHeightViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-    
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int size = getChildCount();
-        if (size > 0
-                && getLayoutParams().height == ViewGroup.LayoutParams.WRAP_CONTENT) {
+        if (size > 0 && getLayoutParams().height == ViewGroup.LayoutParams.WRAP_CONTENT) {
             Point p = mHeights.get(getCurrentItem());
             if (p == null) {
                 try {
@@ -55,14 +55,11 @@ public class AutoHeightViewPager extends ViewPager {
                     View child = getChildAt(i);
                     if (child != null) {
                         child.measure(widthMeasureSpec,
-                                MeasureSpec.makeMeasureSpec(
-                                        MeasureSpec.UNSPECIFIED,
-                                        MeasureSpec.UNSPECIFIED));
+                            MeasureSpec.makeMeasureSpec(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED));
                         int w = child.getMeasuredWidth();
                         int h = child.getMeasuredHeight();
                         mHeights.put(getCurrentItem(), new Point(w, h));
-                        heightMeasureSpec = MeasureSpec.makeMeasureSpec(h,
-                                MeasureSpec.EXACTLY);
+                        heightMeasureSpec = MeasureSpec.makeMeasureSpec(h, MeasureSpec.EXACTLY);
                         // widthMeasureSpec = MeasureSpec.makeMeasureSpec(w,
                         // MeasureSpec.EXACTLY);
                     }
@@ -71,20 +68,19 @@ public class AutoHeightViewPager extends ViewPager {
                 }
             }
             else {
-                heightMeasureSpec = MeasureSpec.makeMeasureSpec(p.y,
-                        MeasureSpec.EXACTLY);
+                heightMeasureSpec = MeasureSpec.makeMeasureSpec(p.y, MeasureSpec.EXACTLY);
                 // widthMeasureSpec = MeasureSpec.makeMeasureSpec(p.x,
                 // MeasureSpec.EXACTLY);
             }
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
-    
+
     private Map<Integer, Point> mHeights = new HashMap<>();
-    
+
     /**
      * Get ViewPager display page
-     * 
+     *
      * @return the display page index of ViewPager.
      */
     // TODO need to improve
@@ -95,7 +91,7 @@ public class AutoHeightViewPager extends ViewPager {
             total = getAdapter().getCount();
         }
         int s = getChildCount();
-        
+
         List<Integer> p = new ArrayList<>();
         List<Integer> n = new ArrayList<>();
         List<Integer> f = new ArrayList<>();
@@ -112,10 +108,10 @@ public class AutoHeightViewPager extends ViewPager {
         f.add(idx);
         f.addAll(n);
         System.out.println("except:" + f);
-        
+
         int t = f.get(0);
         int off = idx - t;
-        
+
         int ret = 0;
         if (p.size() < f.size()) {
             if (f.size() < s) {

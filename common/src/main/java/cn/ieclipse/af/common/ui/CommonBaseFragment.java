@@ -15,8 +15,6 @@
  */
 package cn.ieclipse.af.common.ui;
 
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -24,6 +22,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import cn.ieclipse.af.app.AfFragment;
 import cn.ieclipse.af.common.R;
 import cn.ieclipse.af.util.AppUtils;
@@ -109,7 +109,7 @@ public abstract class CommonBaseFragment extends AfFragment implements View.OnCl
 
     public void showLoadingDialog(final String message) {
         hideLoadingDialog();
-        mLoadingDialog = DialogUtils.showProgress(getActivity(), android.support.v7.appcompat.R.style.Widget_AppCompat_ProgressBar,
+        mLoadingDialog = DialogUtils.showProgress(getActivity(), R.style.Widget_AppCompat_ProgressBar,
             message, null);
     }
 

@@ -19,9 +19,9 @@
 -keepattributes Signature
 -keepattributes *Annotation*
 
--keep class * implements android.app.Fragment
+-keep class * implements androidx.fragment.app.Fragment
 -keep class android.support.** {*;}
--keepnames class * extends android.support.v7.widget.RecyclerView.ViewHolder {
+-keepnames class * extends androidx.recyclerview.widget.RecyclerView.ViewHolder {
     <init>(android.view.View);
 }
 

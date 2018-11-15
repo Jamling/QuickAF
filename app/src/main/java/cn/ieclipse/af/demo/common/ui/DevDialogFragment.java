@@ -16,7 +16,6 @@
 package cn.ieclipse.af.demo.common.ui;
 
 import android.app.AlertDialog;
-import android.support.v4.app.FragmentManager;
 import android.content.DialogInterface;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,6 +26,7 @@ import android.widget.CompoundButton;
 
 import java.io.File;
 
+import androidx.fragment.app.FragmentManager;
 import cn.ieclipse.af.app.AfDialogFragment;
 import cn.ieclipse.af.demo.AppConfig;
 import cn.ieclipse.af.demo.R;

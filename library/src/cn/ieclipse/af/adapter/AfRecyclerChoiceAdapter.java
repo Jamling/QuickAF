@@ -16,7 +16,6 @@
 package cn.ieclipse.af.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.util.SparseBooleanArray;
 import android.widget.Checkable;
 
@@ -24,6 +23,8 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Description

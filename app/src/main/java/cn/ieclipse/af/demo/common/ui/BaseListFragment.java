@@ -15,9 +15,9 @@
  */
 package cn.ieclipse.af.demo.common.ui;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import androidx.recyclerview.widget.RecyclerView;
 import cn.ieclipse.af.adapter.AfRecyclerAdapter;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.AppRefreshRecyclerHelper;

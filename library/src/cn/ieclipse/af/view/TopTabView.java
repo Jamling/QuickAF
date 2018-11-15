@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -17,6 +15,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.viewpager.widget.ViewPager;
 import cn.ieclipse.af.util.AppUtils;
 
 public class TopTabView extends HorizontalScrollView {
@@ -313,7 +312,7 @@ public class TopTabView extends HorizontalScrollView {
 //        }
     }
     
-    private class PageListener implements OnPageChangeListener {
+    private class PageListener implements ViewPager.OnPageChangeListener {
         
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

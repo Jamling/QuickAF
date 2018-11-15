@@ -2,9 +2,9 @@ package cn.ieclipse.af.demo.sample.utils;
 
 import android.Manifest;
 import android.content.DialogInterface;
-import android.support.annotation.NonNull;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.sample.SampleBaseFragment;
 import cn.ieclipse.af.util.DialogUtils;

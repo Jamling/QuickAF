@@ -15,7 +15,6 @@
  */
 package cn.ieclipse.af.demo.sample.cview;
 
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -24,6 +23,7 @@ import android.widget.TextView;
 import java.util.Arrays;
 import java.util.List;
 
+import androidx.viewpager.widget.ViewPager;
 import cn.ieclipse.af.adapter.AfPagerAdapter;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.sample.SampleBaseFragment;

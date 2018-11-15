@@ -15,7 +15,6 @@
  */
 package cn.ieclipse.af.demo.sample.recycler;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,6 +28,7 @@ import android.widget.ListView;
 import java.util.Arrays;
 import java.util.List;
 
+import androidx.recyclerview.widget.RecyclerView;
 import cn.ieclipse.af.adapter.AfRecyclerAdapter;
 import cn.ieclipse.af.adapter.AfRecyclerChoiceAdapter;
 import cn.ieclipse.af.adapter.delegate.AdapterDelegate;

@@ -15,16 +15,15 @@
  */
 package cn.ieclipse.af.view.recycle;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.OrientationHelper;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SimpleItemAnimator;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.support.v7.widget.helper.ItemTouchHelper;
-
-import static android.support.v7.widget.helper.ItemTouchHelper.Callback.makeMovementFlags;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import static androidx.recyclerview.widget.ItemTouchHelper.Callback.makeMovementFlags;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.OrientationHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import cn.ieclipse.af.adapter.AfRecyclerAdapter;
 
 /**
@@ -35,11 +34,11 @@ import cn.ieclipse.af.adapter.AfRecyclerAdapter;
 public final class RecyclerHelper {
     
     /**
-     * Same to {@link android.support.v7.widget.OrientationHelper#HORIZONTAL}
+     * Same to {@link OrientationHelper#HORIZONTAL}
      */
     public static final int HORIZONTAL = OrientationHelper.HORIZONTAL;
     /**
-     * Same to {@link android.support.v7.widget.OrientationHelper#VERTICAL}
+     * Same to {@link OrientationHelper#VERTICAL}
      */
     public static final int VERTICAL = OrientationHelper.VERTICAL;
     
@@ -63,7 +62,7 @@ public final class RecyclerHelper {
     }
     
     /**
-     * @see android.support.v7.widget.SimpleItemAnimator#setSupportsChangeAnimations(boolean)
+     * @see SimpleItemAnimator#setSupportsChangeAnimations(boolean)
      */
     public void setSupportsChangeAnimations(boolean supportsChangeAnimations) {
         RecyclerView.ItemAnimator animator = getRecyclerView().getItemAnimator();
@@ -75,7 +74,7 @@ public final class RecyclerHelper {
     // layout
     
     /**
-     * Set the RecyclerView using {@link android.support.v7.widget.LinearLayoutManager}.
+     * Set the RecyclerView using {@link LinearLayoutManager}.
      *
      * @param orientation orientation value of {@link #HORIZONTAL} or {@link #VERTICAL}
      */
@@ -86,7 +85,7 @@ public final class RecyclerHelper {
     }
     
     /**
-     * Set the RecyclerView using {@link android.support.v7.widget.GridLayoutManager}.
+     * Set the RecyclerView using {@link GridLayoutManager}.
      *
      * @param column grid column
      */
@@ -96,7 +95,7 @@ public final class RecyclerHelper {
     }
     
     /**
-     * Set the RecyclerView using {@link android.support.v7.widget.StaggeredGridLayoutManager}
+     * Set the RecyclerView using {@link StaggeredGridLayoutManager}
      *
      * @param column      grid column
      * @param orientation orientation value of {@link #HORIZONTAL} or {@link #VERTICAL}
@@ -107,9 +106,9 @@ public final class RecyclerHelper {
     }
     
     /**
-     * Set the {@link android.support.v7.widget.RecyclerView} item decoration
+     * Set the {@link RecyclerView} item decoration
      *
-     * @param itemDecoration {@link android.support.v7.widget.RecyclerView.ItemDecoration}
+     * @param itemDecoration {@link RecyclerView.ItemDecoration}
      */
     public void setItemDecoration(RecyclerView.ItemDecoration itemDecoration) {
         if (mItemDecoration != null) {
@@ -230,9 +229,9 @@ public final class RecyclerHelper {
     }
 
     /**
-     * Common implements of ItemTouchHelper.Callback{@link #getMovementFlags(android.support.v7.widget.RecyclerView, android.support.v7.widget.RecyclerView.ViewHolder)}
-     * @param recyclerView {@link android.support.v7.widget.RecyclerView}
-     * @param viewHolder {@link android.support.v7.widget.RecyclerView.ViewHolder}
+     * Common implements of ItemTouchHelper.Callback{@link #getMovementFlags(RecyclerView, RecyclerView.ViewHolder)}
+     * @param recyclerView {@link RecyclerView}
+     * @param viewHolder {@link RecyclerView.ViewHolder}
      *
      * @return movement flags
      * @since 3.0.1

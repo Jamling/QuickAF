@@ -17,8 +17,6 @@ package cn.ieclipse.af.view.refresh;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,12 +28,14 @@ import android.widget.FrameLayout;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import cn.ieclipse.af.R;
 import cn.ieclipse.af.common.Logger;
 import cn.ieclipse.af.view.VScrollView;
 
 /**
- * RefreshLayout is the parent view of {@link android.support.v4.widget.SwipeRefreshLayout SwipeRefreshLayout}.
+ * RefreshLayout is the parent view of {@link androidx.core.widget.SwipeRefreshLayout SwipeRefreshLayout}.
  * <p>
  * The struct is:
  * <pre>

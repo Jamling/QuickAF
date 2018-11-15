@@ -19,13 +19,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import cn.ieclipse.af.app.AfDialogFragment;
 import cn.ieclipse.af.app.AlertDialogFragment;
 import cn.ieclipse.af.app.ProgressDialogFragment;
@@ -182,7 +182,7 @@ public final class DialogUtils {
      * @param fm   {@link android.app.FragmentManager}
      * @param view dialog content view
      *
-     * @see cn.ieclipse.af.util.DialogUtils#showDialog(android.support.v4.app.FragmentManager, android.view.View, int,
+     * @see cn.ieclipse.af.util.DialogUtils#showDialog(androidx.fragment.app.FragmentManager, android.view.View, int,
      * int)
      * @since 2.1.1
      */

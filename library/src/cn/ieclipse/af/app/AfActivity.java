@@ -18,7 +18,6 @@ package cn.ieclipse.af.app;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,6 +29,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
+import androidx.appcompat.app.AppCompatActivity;
 import cn.ieclipse.af.R;
 import cn.ieclipse.af.common.Logger;
 import cn.ieclipse.af.util.AppUtils;

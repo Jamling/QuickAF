@@ -40,7 +40,6 @@
 
 package cn.ieclipse.af.demo.sample.recycler.sort;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +54,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+import androidx.recyclerview.widget.RecyclerView;
 import cn.ieclipse.af.adapter.AfRecyclerAdapter;
 import cn.ieclipse.af.adapter.AfViewHolder;
 import cn.ieclipse.af.adapter.delegate.AdapterDelegate;

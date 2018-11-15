@@ -15,10 +15,10 @@
  */
 package cn.ieclipse.af.demo.sample.recycler;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 
+import androidx.recyclerview.widget.RecyclerView;
 import cn.ieclipse.af.adapter.delegate.AdapterDelegate;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.view.recycle.SwipeMenuRecyclerView;
