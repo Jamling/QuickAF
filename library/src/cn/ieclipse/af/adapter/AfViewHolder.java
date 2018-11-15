@@ -100,6 +100,10 @@ public class AfViewHolder extends RecyclerView.ViewHolder implements View.OnClic
         }
     }
 
+    public void setVisibility(int visibility) {
+        itemView.setVisibility(visibility);
+    }
+
     private boolean hasOnClickListener(View view) {
         if (Build.VERSION.SDK_INT >= 15) {
             return view.hasOnClickListeners();

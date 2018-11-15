@@ -156,7 +156,7 @@ public final class RecyclerHelper {
     
     public void setDividerPaddingEnd(int end) {
         if (mItemDecoration instanceof ListDividerItemDecoration) {
-            ((ListDividerItemDecoration) mItemDecoration).setPaddingStart(end);
+            ((ListDividerItemDecoration) mItemDecoration).setPaddingEnd(end);
             getRecyclerView().invalidateItemDecorations();
         }
     }

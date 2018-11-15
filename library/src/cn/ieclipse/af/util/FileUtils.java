@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
 
 import androidx.annotation.NonNull;
 import cn.ieclipse.af.common.Logger;
@@ -344,5 +345,15 @@ public final class FileUtils {
         IOUtils.closeStream(fos);
         IOUtils.closeStream(fis);
         destFile.setLastModified(srcFile.lastModified());
+    }
+
+    public static String readAll2String(File file, String encoding) {
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            byte[] bytes = IOUtils.read2Byte(fis);
+            return new String(bytes, TextUtils.isEmpty(encoding) ? Charset.defaultCharset() : Charset.forName(encoding));
+        } catch (Exception e) {
+            return "";
+        }
     }
 }
