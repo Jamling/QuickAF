@@ -88,7 +88,6 @@ public abstract class AfActivity extends AppCompatActivity implements OnClickLis
         }
         // 5, init content layout
         initContentView(mContentView);
-        initContentView();
         
         // 6, init bottom bar
         initBottomView();
@@ -127,11 +126,6 @@ public abstract class AfActivity extends AppCompatActivity implements OnClickLis
     }
     
     protected void initIntent(Bundle bundle) {
-
-    }
-    
-    @Deprecated
-    protected void initContentView() {
 
     }
     

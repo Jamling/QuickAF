@@ -15,7 +15,6 @@
  */
 package cn.ieclipse.af.demo.sample.recycler;
 
-import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -231,24 +230,6 @@ public class RefreshRecyclerSample extends SampleBaseFragment implements NewsCon
         public void onUpdateView(RecyclerView.ViewHolder holder, NewsController.NewsInfo info, int position) {
             TextView tv = (TextView) holder.itemView;
             tv.setText("Mock Header!");
-        }
-    }
-
-    private class StringAdapter extends AfRecyclerAdapter<NewsController.NewsInfo> {
-
-        public StringAdapter(Context context) {
-            super(context);
-        }
-
-        @Override
-        public int getLayout() {
-            return android.R.layout.simple_list_item_1;
-        }
-
-        @Override
-        public void onUpdateView(RecyclerView.ViewHolder holder, NewsController.NewsInfo data, int position) {
-            TextView tv = (TextView) holder.itemView;
-            tv.setText(String.valueOf(position) + data.title);
         }
     }
 }

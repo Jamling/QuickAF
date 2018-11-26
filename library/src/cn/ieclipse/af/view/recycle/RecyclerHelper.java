@@ -32,7 +32,7 @@ import cn.ieclipse.af.adapter.AfRecyclerAdapter;
  * @author Jamling
  */
 public final class RecyclerHelper {
-    
+
     /**
      * Same to {@link OrientationHelper#HORIZONTAL}
      */
@@ -41,26 +41,26 @@ public final class RecyclerHelper {
      * Same to {@link OrientationHelper#VERTICAL}
      */
     public static final int VERTICAL = OrientationHelper.VERTICAL;
-    
+
     private RecyclerView recyclerView;
     private RecyclerView.ItemDecoration mItemDecoration;
-    
+
     public RecyclerHelper() {
-        
+
     }
-    
+
     public RecyclerHelper(RecyclerView recyclerView) {
         setRecyclerView(recyclerView);
     }
-    
+
     public void setRecyclerView(@NonNull RecyclerView recyclerView) {
         this.recyclerView = recyclerView;
     }
-    
+
     public RecyclerView getRecyclerView() {
         return recyclerView;
     }
-    
+
     /**
      * @see SimpleItemAnimator#setSupportsChangeAnimations(boolean)
      */
@@ -70,9 +70,9 @@ public final class RecyclerHelper {
             ((SimpleItemAnimator) animator).setSupportsChangeAnimations(false);
         }
     }
-    
+
     // layout
-    
+
     /**
      * Set the RecyclerView using {@link LinearLayoutManager}.
      *
@@ -83,7 +83,7 @@ public final class RecyclerHelper {
         manager.setOrientation(orientation);
         getRecyclerView().setLayoutManager(manager);
     }
-    
+
     /**
      * Set the RecyclerView using {@link GridLayoutManager}.
      *
@@ -93,7 +93,7 @@ public final class RecyclerHelper {
         final GridLayoutManager gridManager = new GridLayoutManager(getRecyclerView().getContext(), column);
         getRecyclerView().setLayoutManager(gridManager);
     }
-    
+
     /**
      * Set the RecyclerView using {@link StaggeredGridLayoutManager}
      *
@@ -104,7 +104,7 @@ public final class RecyclerHelper {
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(column, orientation);
         getRecyclerView().setLayoutManager(manager);
     }
-    
+
     /**
      * Set the {@link RecyclerView} item decoration
      *
@@ -118,11 +118,11 @@ public final class RecyclerHelper {
         getRecyclerView().addItemDecoration(mItemDecoration);
         getRecyclerView().invalidateItemDecorations();
     }
-    
+
     public RecyclerView.ItemDecoration getItemDecoration() {
         return mItemDecoration;
     }
-    
+
     /**
      * Set {@link cn.ieclipse.af.view.recycle.ListDividerItemDecoration} height
      *
@@ -134,7 +134,7 @@ public final class RecyclerHelper {
             getRecyclerView().invalidateItemDecorations();
         }
     }
-    
+
     /**
      * Set {@link cn.ieclipse.af.view.recycle.ListDividerItemDecoration} color
      *
@@ -146,21 +146,21 @@ public final class RecyclerHelper {
             getRecyclerView().invalidateItemDecorations();
         }
     }
-    
+
     public void setDividerPaddingStart(int start) {
         if (mItemDecoration instanceof ListDividerItemDecoration) {
             ((ListDividerItemDecoration) mItemDecoration).setPaddingStart(start);
             getRecyclerView().invalidateItemDecorations();
         }
     }
-    
+
     public void setDividerPaddingEnd(int end) {
         if (mItemDecoration instanceof ListDividerItemDecoration) {
             ((ListDividerItemDecoration) mItemDecoration).setPaddingEnd(end);
             getRecyclerView().invalidateItemDecorations();
         }
     }
-    
+
     /**
      * For #GridLayoutManager set header/footer full row
      */
@@ -182,7 +182,7 @@ public final class RecyclerHelper {
             });
         }
     }
-    
+
     /**
      * Scroll to recycler position and set the position to top
      *
@@ -230,8 +230,9 @@ public final class RecyclerHelper {
 
     /**
      * Common implements of ItemTouchHelper.Callback{@link #getMovementFlags(RecyclerView, RecyclerView.ViewHolder)}
+     *
      * @param recyclerView {@link RecyclerView}
-     * @param viewHolder {@link RecyclerView.ViewHolder}
+     * @param viewHolder   {@link RecyclerView.ViewHolder}
      *
      * @return movement flags
      * @since 3.0.1
@@ -266,5 +267,34 @@ public final class RecyclerHelper {
             return makeMovementFlags(dragFlag, swipeFlag);
         }
         return 0;
+    }
+
+    public static int getSpanCount(RecyclerView parent) {
+        int spanCount = 0;
+        if (parent.getLayoutManager() instanceof GridLayoutManager) {
+            GridLayoutManager glm = (GridLayoutManager) parent.getLayoutManager();
+            spanCount = glm.getSpanCount();
+        }
+        else if (parent.getLayoutManager() instanceof StaggeredGridLayoutManager) {
+            StaggeredGridLayoutManager sglm = (StaggeredGridLayoutManager) parent.getLayoutManager();
+            spanCount = sglm.getSpanCount();
+        }
+        return spanCount;
+    }
+
+    public static int[] getColumnIndex(RecyclerView parent, int position) {
+        int spanSize = 0;
+        int spanIndex = 0;
+        if (parent.getLayoutManager() instanceof GridLayoutManager) {
+            GridLayoutManager glm = (GridLayoutManager) parent.getLayoutManager();
+            spanSize = glm.getSpanSizeLookup().getSpanSize(position);
+            spanIndex = glm.getSpanSizeLookup().getSpanIndex(position, spanSize);
+        }
+        else if (parent.getLayoutManager() instanceof StaggeredGridLayoutManager) {
+            StaggeredGridLayoutManager sglm = (StaggeredGridLayoutManager) parent.getLayoutManager();
+            spanSize = sglm.getSpanCount();
+            spanIndex = position % spanSize;
+        }
+        return new int[]{spanIndex, spanSize};
     }
 }

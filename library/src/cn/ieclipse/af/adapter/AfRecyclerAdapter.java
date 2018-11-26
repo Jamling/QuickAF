@@ -15,11 +15,9 @@
  */
 package cn.ieclipse.af.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import java.util.List;
 
@@ -50,23 +48,6 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
     private View mFooterView;
 
     private DelegateManager<T> mDelegatesManager;
-
-    /**
-     * If old version (no delegate), use this constructor.
-     *
-     * @param context Context
-     *
-     * @deprecated from 2.0.0 Use {@link #AfRecyclerAdapter()} instead
-     */
-    @Deprecated
-    public AfRecyclerAdapter(Context context) {
-        mInflater = LayoutInflater.from(context);
-        setDataCheck(AfDataHolder.CHECK_BOTH);
-
-        mDelegatesManager = new DelegateManager<>(this);
-        // 绑定footer view
-        bindFooterView();
-    }
 
     /**
      * Use delegate
@@ -144,7 +125,8 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
     /**
      * Same as <code>deleteItem(position, true);</code>
      *
-     * @param position item position see {@link androidx.recyclerview.widget.RecyclerView.ViewHolder#getAdapterPosition()}
+     * @param position item position see
+     * {@link androidx.recyclerview.widget.RecyclerView.ViewHolder#getAdapterPosition()}
      *
      * @see cn.ieclipse.af.adapter.AfRecyclerAdapter#deleteItem(int, boolean)
      */
@@ -258,27 +240,6 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
             mDelegatesManager.onBindViewHolder(getItem(position), position, holder);
             return;
         }
-        // 此处不对头部和尾部item做处理
-        if (getItemViewType(position) == ITEM_VIEW_TYPE_NORMAL) {
-            // 绑定数据
-            try {
-                // 判断是否有headview，更新position
-                // int pos = getHeaderCount() > 0 ? position - getHeaderCount() : position;
-                onUpdateView(holder, getItem(position), position);
-            } catch (Exception e) {
-                mLogger.e("exception onUpdateView", e);
-            }
-            if (holder instanceof AfViewHolder) {
-                // 设置监听
-                if (mOnItemClickListener != null) {
-                    ((AfViewHolder) holder).setOnClickListener(mOnItemClickListener);
-                }
-
-                if (mOnItemLongClickListener != null) {
-                    ((AfViewHolder) holder).setOnLongClickListener(mOnItemLongClickListener);
-                }
-            }
-        }
     }
 
     @Override
@@ -314,67 +275,7 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
         if (mDelegatesManager.getCount() > 0) {
             return mDelegatesManager.getItemViewType(getItem(position), position);
         }
-        // head默认0位置
-        if (getHeaderCount() > 0 && position == 0) {
-            return ITEM_VIEW_TYPE_HEADER;
-        }
-        // footer位置list末尾
-        if (getFooterCount() > 0 && position == getItemCount() - 1) {
-            return ITEM_VIEW_TYPE_FOOTER;
-        }
-        return ITEM_VIEW_TYPE_NORMAL;
-    }
-
-    @Deprecated
-    public View getHeaderView() {
-        return mHeaderView;
-    }
-
-    @Deprecated
-    public void setHeaderView(View headerView) {
-        this.mHeaderView = headerView;
-        if (mHeaderView != null) {
-            mHeaderView.setLayoutParams(getHeaderLayoutParams());
-        }
-    }
-
-    @Deprecated
-    public View getFooterView() {
-        return mFooterView;
-    }
-
-    @Deprecated
-    public void setFooterView(View footerView) {
-        this.mFooterView = footerView;
-        if (mFooterView != null) {
-            mFooterView.setLayoutParams(getFooterLayoutParams());
-        }
-        notifyItemChanged(getItemCount());
-    }
-
-    /**
-     * set footer view
-     */
-    private void bindFooterView() {
-        int footLayout = getFootLayout();
-        if (footLayout > 0) {
-            View layout = mInflater.inflate(footLayout, null);
-            setFooterView(layout);
-        }
-    }
-
-    @Deprecated
-    protected ViewGroup.LayoutParams getHeaderLayoutParams() {
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT);
-        return params;
-    }
-
-    @Deprecated
-    protected ViewGroup.LayoutParams getFooterLayoutParams() {
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT);
-        return params;
+        return 0;
     }
 
     @Override

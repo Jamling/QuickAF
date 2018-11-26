@@ -16,8 +16,8 @@
 package cn.ieclipse.af.demo.sample.recycler;
 
 import android.graphics.Color;
-import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,11 +31,15 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import cn.ieclipse.af.adapter.AfRecyclerAdapter;
 import cn.ieclipse.af.demo.R;
+import cn.ieclipse.af.demo.common.api.VolleyUtils;
 import cn.ieclipse.af.demo.sample.SampleBaseFragment;
 import cn.ieclipse.af.util.AppUtils;
-import cn.ieclipse.af.view.recycle.GridSpaceDecoration;
+import cn.ieclipse.af.util.DialogUtils;
+import cn.ieclipse.af.util.KeyboardUtils;
+import cn.ieclipse.af.view.recycle.GridDividerItemDecoration;
 import cn.ieclipse.af.view.recycle.ListDividerItemDecoration;
 import cn.ieclipse.af.view.recycle.RecyclerHelper;
 import cn.ieclipse.af.volley.RestError;
@@ -45,7 +49,7 @@ import cn.ieclipse.af.volley.RestError;
  *
  * @author Jamling
  */
-public class RecyclerHelperSample extends SampleBaseFragment implements NewsController.NewsListener {
+public class RecyclerSample extends SampleBaseFragment implements NewsController.NewsListener {
     @Override
     protected int getContentLayout() {
         return R.layout.sample_recycler_layout;
@@ -53,47 +57,90 @@ public class RecyclerHelperSample extends SampleBaseFragment implements NewsCont
 
     RecyclerView listView;
     RecyclerHelper helper;
+
     AfRecyclerAdapter<NewsController.NewsInfo> adapter;
     NewsController controller = new NewsController(this);
 
     DividerItemDecoration mDefaultDivider;
     ListDividerItemDecoration mAfDivider;
+    Drawable listDivider;
 
     private static final int[] ORIENTATION = {LinearLayoutManager.VERTICAL, LinearLayoutManager.HORIZONTAL};
 
     @Override
     protected void initContentView(View view) {
         super.initContentView(view);
-        listView = (RecyclerView) view.findViewById(R.id.rv);
+        listView = view.findViewById(R.id.rv);
         helper = new RecyclerHelper();
         helper.setRecyclerView(listView);
 
         adapter = new AfRecyclerAdapter();
         adapter.setHasStableIds(false);
-        mDefaultDivider = new DividerItemDecoration(listView.getContext(), getOrientation()){
-            @Override
-            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                super.getItemOffsets(outRect, view, parent, state);
-//                outRect.left = AppUtils.dp2px(listView.getContext(), 20);
-//                outRect.right = AppUtils.dp2px(listView.getContext(), 20);
-            }
-        };
+        mDefaultDivider = new DividerItemDecoration(listView.getContext(), getOrientation());
         mAfDivider = new ListDividerItemDecoration(listView.getContext(), getOrientation());
+        listDivider = mAfDivider.getDivider();
+
+        spn5.setSelection(getResources().getStringArray(R.array.sample_round_radius).length - 1);
+        spn5.setSelection(2);
+
         onItemSelected(spn3, null, 0, 0);
 
         setLayout();
-        chk1.setChecked(true);
-        spn5.setSelection(getResources().getStringArray(R.array.sample_round_radius).length - 1);
+
+        et1.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!v.hasFocus()) {
+                load(false);
+            }
+        });
+        et1.addTextChangedListener(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        KeyboardUtils.hideSoftInput(et1);
     }
 
     private int getOrientation() {
         return ORIENTATION[spn2.getSelectedItemPosition()];
     }
 
-    private int getColor() {
+    private int getDColor() {
         String c = getResources().getStringArray(R.array.sample_colors)[spn3.getSelectedItemPosition()];
-        //return Color.parseColor(c);
-        return 0;
+        return Color.parseColor(c);
+    }
+
+    private int getDHeight() {
+        int r = Integer.parseInt(
+            getResources().getStringArray(R.array.sample_round_radius)[spn4.getSelectedItemPosition()]);
+        int h = AppUtils.dp2px(getActivity(), r);
+        return h;
+    }
+
+    private int getDPadding() {
+        int r = Integer.parseInt(
+            getResources().getStringArray(R.array.sample_round_radius)[spn5.getSelectedItemPosition()]);
+        int h = AppUtils.dp2px(getActivity(), r);
+        return h;
+    }
+
+    private int getDShow() {
+        int i = spn6.getSelectedItemPosition();
+        return new int[]{0, ListDividerItemDecoration.BEGINNING, ListDividerItemDecoration.MIDDLE,
+            ListDividerItemDecoration.END}[i];
+    }
+
+    private void updateD() {
+        mAfDivider.setDividerShow(getDShow());
+        if (chk1.isChecked()) {
+            helper.setDividerColor(getDColor());
+        }
+        helper.setDividerPaddingStart(getDPadding());
+        helper.setDividerPaddingEnd(getDPadding());
+        helper.setDividerHeight(getDHeight());
+        if (adapter.getItemCount() > 0) {
+            helper.getRecyclerView().invalidateItemDecorations();
+        }
     }
 
     private void setLayout() {
@@ -101,31 +148,27 @@ public class RecyclerHelperSample extends SampleBaseFragment implements NewsCont
         adapter.removeDelegate(1);
         if (i == 0) {
             adapter.registerDelegate(1, new RefreshRecyclerSample.NewsDelegate());
-            helper.setItemDecoration(chk1.isChecked() ? mDefaultDivider : mAfDivider);
             helper.setLinearLayoutManager(getOrientation());
+
+            helper.setItemDecoration(mAfDivider);
             helper.getRecyclerView().setBackgroundResource(R.color.white);
         }
         else if (i == 1) {
             adapter.registerDelegate(1, new NewsGridDelegate());
-            GridSpaceDecoration decoration = new GridSpaceDecoration(getOrientation());
-            int r = Integer.parseInt(
-                getResources().getStringArray(R.array.sample_round_radius)[spn4.getSelectedItemPosition()]);
-            decoration.setSpacing(r);
-            helper.setItemDecoration(decoration);
             helper.setGridLayoutManager(3);
-            helper.getRecyclerView().setBackgroundColor(getColor());
+            helper.setItemDecoration(new GridDividerItemDecoration(getContext(), getOrientation()));
+            helper.getRecyclerView().setBackgroundResource(R.color.black_alpha_50);
         }
         else if (i == 2) {
             adapter.registerDelegate(1, new NewsStaggerDelegate());
-            GridSpaceDecoration decoration = new GridSpaceDecoration(getOrientation());
-            int r = Integer.parseInt(
-                getResources().getStringArray(R.array.sample_round_radius)[spn4.getSelectedItemPosition()]);
-            decoration.setSpacing(r);
-            helper.setItemDecoration(decoration);
             helper.setStaggeredGridLayoutManager(3, getOrientation());
-            helper.getRecyclerView().setBackgroundColor(getColor());
+            helper.setItemDecoration(new GridDividerItemDecoration(getContext(), getOrientation()));
+            StaggeredGridLayoutManager sglm = (StaggeredGridLayoutManager) helper.getRecyclerView().getLayoutManager();
+            sglm.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
+            helper.getRecyclerView().setBackgroundResource(R.color.black_alpha_50);
         }
         listView.setAdapter(adapter);
+        updateD();
     }
 
     @Override
@@ -134,41 +177,23 @@ public class RecyclerHelperSample extends SampleBaseFragment implements NewsCont
         if (parent == spn1 || parent == spn2) {
             setLayout();
         }
-        else if (parent == spn3) {
-            String c = getResources().getStringArray(R.array.sample_colors)[pos];
-            mAfDivider.setDividerColor(Color.parseColor(c));
-            mDefaultDivider.setDrawable(new ColorDrawable(Color.parseColor(c)));
-            helper.setDividerColor(Color.parseColor(c));
-            int layout = spn1.getSelectedItemPosition();
-            if (layout > 0) {
-                helper.getRecyclerView().setBackgroundColor(getColor());
-            }
+        else if (parent == spn3) { // color
+            int c = getDColor();
+            updateD();
+//            int layout = spn1.getSelectedItemPosition();
+//            if (layout > 0) {
+//                helper.getRecyclerView().setBackgroundColor(getColor());
+//            }
         }
-        else if (parent == spn4) {
-            int r = Integer.parseInt(getResources().getStringArray(R.array.sample_round_radius)[pos]);
-            int h = AppUtils.dp2px(getActivity(), r);
-
+        else if (parent == spn4) { // height
             int layout = spn1.getSelectedItemPosition();
-            if (layout > 0) {
-                GridSpaceDecoration decoration = (GridSpaceDecoration) helper.getItemDecoration();
-                if (decoration != null) {
-                    helper.getRecyclerView().setBackgroundColor(getColor());
-                    decoration.setSpacing(r);
-                    helper.getRecyclerView().invalidateItemDecorations();
-                }
-            }
-            else {
-                mAfDivider.setDividerHeight(h);
-                helper.setDividerHeight(h);
-            }
+            updateD();
         }
-        else if (parent == spn5) {
-            int r = Integer.parseInt(getResources().getStringArray(R.array.sample_round_radius)[pos]);
-            int h = AppUtils.dp2px(getActivity(), r);
-            mAfDivider.setPaddingStart(h);
-            mAfDivider.setPaddingEnd(h);
-            helper.setDividerPaddingStart(h);
-            helper.setDividerPaddingEnd(h);
+        else if (parent == spn5) { // padding
+            updateD();
+        }
+        else if (parent == spn6) { // show
+            updateD();
         }
         super.onItemSelected(parent, view, position, id);
     }
@@ -176,19 +201,21 @@ public class RecyclerHelperSample extends SampleBaseFragment implements NewsCont
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (buttonView == chk1) {
-            if (isChecked) {
-                helper.setItemDecoration(mDefaultDivider);
+            if (!isChecked) {
+                mAfDivider.setDrawable(listDivider);
             }
-            else {
-                helper.setItemDecoration(mAfDivider);
-            }
+            updateD();
         }
         else if (buttonView == chk2) {
-            if (isChecked) {
-
-            }
+            mItemTouchHelper.attachToRecyclerView(isChecked ? helper.getRecyclerView() : null);
         }
         super.onCheckedChanged(buttonView, isChecked);
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        super.afterTextChanged(s);
+        load(false);
     }
 
     @Override
@@ -196,33 +223,29 @@ public class RecyclerHelperSample extends SampleBaseFragment implements NewsCont
         super.initData();
         load(false);
         mItemTouchHelper = new ItemTouchHelper(mTouchCallback);
-        mItemTouchHelper.attachToRecyclerView(helper.getRecyclerView());
-        adapter.setOnItemLongClickListener(new AfRecyclerAdapter.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AfRecyclerAdapter adapter, View view, int position) {
-                RecyclerView.ViewHolder vh = helper.getRecyclerView().getChildViewHolder(view);
-                //view.getTag(AfViewHolder.TAG_VIEW_HOLDER);
-                mItemTouchHelper.startDrag(vh);
-                return true;
-            }
-        });
+        // mItemTouchHelper.attachToRecyclerView(helper.getRecyclerView());
+        // adapter.setOnItemLongClickListener(mItemLongClickListener);
     }
 
     private void load(boolean needCache) {
         NewsController.NewsRequest req = new NewsController.NewsRequest();
+        try {
+            req.num = Integer.parseInt(et1.getText().toString());
+        } catch (Exception e) {
+            req.num = 3;
+        }
         controller.loadNews(req, needCache);
     }
 
     @Override
     public void onLoadNewsFailure(RestError error) {
-
+        DialogUtils.showToast(getContext(), VolleyUtils.getError(getContext(), error));
     }
 
     @Override
     public void onLoadNewsSuccess(List<NewsController.NewsInfo> out, boolean fromCache) {
         adapter.setDataList(out);
         adapter.notifyDataSetChanged();
-        // listView.setAdapter(new NewsAdapter(out));
     }
 
     public static class NewsGridDelegate extends RefreshRecyclerSample.NewsDelegate {
@@ -239,40 +262,55 @@ public class RecyclerHelperSample extends SampleBaseFragment implements NewsCont
         }
 
         @Override
-        public Class<? extends RecyclerView.ViewHolder> getViewHolderClass() {
-            return MyViewHolder.class;
+        protected RecyclerView.ViewHolder instanceViewHolder(View itemView) {
+            return new MyViewHolder(itemView);
         }
     }
-    private static class MyViewHolder extends NewsHolder {
 
+    private static class MyViewHolder extends NewsHolder {
         public MyViewHolder(View view) {
             super(view);
         }
     }
-    
+
     public static class NewsAdapter extends RecyclerView.Adapter<NewsHolder> {
         List<NewsController.NewsInfo> out;
-        public NewsAdapter(List<NewsController.NewsInfo> out){
+
+        public NewsAdapter(List<NewsController.NewsInfo> out) {
             this.out = out;
         }
+
         @Override
         public NewsHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sample_list_item_news, parent, false);
             NewsHolder holder = new NewsHolder(view);
             return holder;
         }
-    
+
         @Override
         public void onBindViewHolder(NewsHolder holder, int position) {
             holder.setInfo(out.get(position));
         }
-    
+
         @Override
         public int getItemCount() {
             return out == null ? 0 : out.size();
         }
     }
 
+    private AfRecyclerAdapter.OnItemLongClickListener mItemLongClickListener
+        = new AfRecyclerAdapter.OnItemLongClickListener() {
+
+        @Override
+        public boolean onItemLongClick(AfRecyclerAdapter adapter, View view, int position) {
+            if (chk2.isChecked()) {
+                RecyclerView.ViewHolder vh = helper.getRecyclerView().getChildViewHolder(view);
+                mItemTouchHelper.startDrag(vh);
+                return true;
+            }
+            return false;
+        }
+    };
     private ItemTouchHelper mItemTouchHelper;
     private ItemTouchHelper.Callback mTouchCallback = new ItemTouchHelper.Callback() {
 

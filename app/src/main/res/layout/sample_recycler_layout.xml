@@ -48,11 +48,38 @@
                 android:entries="@array/sample_rv_orientation"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/activity_horizontal_margin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="item count"/>
+
+            <EditText
+                android:id="@+id/et1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:maxEms="2"
+                android:minEms="2"
+                android:text="3"/>
+        </LinearLayout>
+
         <CheckBox
             android:id="@+id/chk1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Default divider"/>
+            android:text="Color"/>
+
+        <CheckBox
+            android:id="@+id/chk2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Draggable"/>
 
         <cn.ieclipse.af.view.FlowLayout
             android:layout_width="wrap_content"
@@ -63,7 +90,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="bgcolor:"/>
+                android:text="divider color:"/>
 
             <Spinner
                 android:id="@+id/spn3"
@@ -74,21 +101,35 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="afdivider height:"/>
+                android:text="divider height:"/>
+
             <Spinner
                 android:id="@+id/spn4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:entries="@array/sample_round_radius"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="af divider padding:"/>
+                android:text="divider padding:"/>
+
             <Spinner
                 android:id="@+id/spn5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:entries="@array/sample_round_radius"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="divider show:"/>
+
+            <Spinner
+                android:id="@+id/spn6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/sample_show_divider"/>
         </cn.ieclipse.af.view.FlowLayout>
 
     </cn.ieclipse.af.view.FlowLayout>
@@ -98,7 +139,8 @@
         style="@style/sample_rv_layout"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:divider="?android:attr/listDivider">
 
     </androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>

@@ -15,7 +15,6 @@
  */
 package cn.ieclipse.af.adapter;
 
-import android.content.Context;
 import android.util.SparseBooleanArray;
 import android.widget.Checkable;
 
@@ -54,11 +53,6 @@ public class AfRecyclerChoiceAdapter<T> extends AfRecyclerAdapter<T> {
 
     protected List<T> mCheckedItems;
     protected T mCheckedItem;
-
-    @Deprecated
-    public AfRecyclerChoiceAdapter(Context context) {
-        super(context);
-    }
 
     public AfRecyclerChoiceAdapter() {
         super();

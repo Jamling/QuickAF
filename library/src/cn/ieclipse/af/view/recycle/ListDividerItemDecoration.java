@@ -22,12 +22,10 @@ import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
-import android.os.Build;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
-import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -126,7 +124,7 @@ public class ListDividerItemDecoration extends RecyclerView.ItemDecoration {
         canvas.save();
         int left;
         int right;
-        if (getClipToPadding(parent)) {
+        if (parent.getClipToPadding()) {
             left = parent.getPaddingLeft();
             right = parent.getWidth() - parent.getPaddingRight();
             canvas.clipRect(left, parent.getPaddingTop(), right, parent.getHeight() - parent.getPaddingBottom());
@@ -143,10 +141,15 @@ public class ListDividerItemDecoration extends RecyclerView.ItemDecoration {
         for (int i = 0; i < childCount; i++) {
             final View child = parent.getChildAt(i);
             parent.getDecoratedBoundsWithMargins(child, mBounds);
-            final int bottom = mBounds.bottom + Math.round(ViewCompat.getTranslationY(child));
+            final int bottom = mBounds.bottom + Math.round(child.getTranslationY());
             final int top = bottom - getDividerDrawableHeight();
             mDivider.setBounds(left, top, right, bottom);
-            mDivider.draw(canvas);
+            if (i < childCount - 1) {
+                mDivider.draw(canvas);
+            }
+            else if (showEnd()) {
+                mDivider.draw(canvas);
+            }
         }
         canvas.restore();
     }
@@ -155,7 +158,7 @@ public class ListDividerItemDecoration extends RecyclerView.ItemDecoration {
         canvas.save();
         int top;
         int bottom;
-        if (getClipToPadding(parent)) {
+        if (parent.getClipToPadding()) {
             top = parent.getPaddingTop();
             bottom = parent.getHeight() - parent.getPaddingBottom();
             canvas.clipRect(parent.getPaddingLeft(), top, parent.getWidth() - parent.getPaddingRight(), bottom);
@@ -172,15 +175,18 @@ public class ListDividerItemDecoration extends RecyclerView.ItemDecoration {
         for (int i = 0; i < childCount; i++) {
             final View child = parent.getChildAt(i);
             parent.getLayoutManager().getDecoratedBoundsWithMargins(child, mBounds);
-            final int right = mBounds.right + Math.round(ViewCompat.getTranslationX(child));
+            final int right = mBounds.right + Math.round(child.getTranslationX());
             final int left = right - getDividerDrawableWidth();
             mDivider.setBounds(left, top, right, bottom);
-            mDivider.draw(canvas);
+            if (i < childCount - 1) {
+                mDivider.draw(canvas);
+            }
+            else if (showEnd()) {
+                mDivider.draw(canvas);
+            }
         }
         canvas.restore();
     }
-
-    private boolean mNeedLeftSpacing = false;
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
@@ -201,11 +207,8 @@ public class ListDividerItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     public void setDividerColor(int color) {
-        if (mDivider == null) {
-            return;
-        }
         this.mDividerColor = color;
-        if (mDivider instanceof ColorDrawable) {
+        if (mDivider != null && mDivider instanceof ColorDrawable) {
             ((ColorDrawable) mDivider).setColor(color);
         }
         else {
@@ -230,10 +233,25 @@ public class ListDividerItemDecoration extends RecyclerView.ItemDecoration {
         return Math.max(mDivider.getIntrinsicWidth(), mDividerHeight);
     }
 
-    protected boolean getClipToPadding(RecyclerView parent) {
-        if (Build.VERSION.SDK_INT >= 21) {
-            return parent.getClipToPadding();
-        }
-        return false;
+    public static final int BEGINNING = 1;
+    public static final int MIDDLE = 2;
+    public static final int END = 4;
+
+    private int mDividerShow = MIDDLE;
+
+    public void setDividerShow(int show) {
+        this.mDividerShow = show;
+    }
+
+    protected boolean showBeginning() {
+        return (mDividerShow & BEGINNING) > 0;
+    }
+
+    protected boolean showEnd() {
+        return (mDividerShow & END) > 0;
+    }
+
+    protected boolean showMiddle() {
+        return (mDividerShow & MIDDLE) > 0;
     }
 }
