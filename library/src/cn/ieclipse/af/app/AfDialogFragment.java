@@ -49,9 +49,19 @@ public abstract class AfDialogFragment<DialogListener> extends DialogFragment im
     public static final String EXTRA_ALERT = "AlertDialog";
     public static final String EXTRA_CANCEL_OUTSIDE = "CanceledOnTouchOutside";
 
-    public void setDialogListener(DialogListener listener) {
+    public AfDialogFragment setDialogListener(DialogListener listener) {
         this.listener = listener;
+        return this;
     }
+
+    public AfDialogFragment() {
+    }
+
+    public AfDialogFragment style(int style, int theme) {
+        setStyle(style, theme);
+        return this;
+    }
+
 
     @Nullable
     @Override
@@ -124,12 +134,14 @@ public abstract class AfDialogFragment<DialogListener> extends DialogFragment im
         }
     }
 
-    public void setAlert(boolean alert) {
+    public AfDialogFragment setAlert(boolean alert) {
         isAlert = alert;
+        return this;
     }
 
-    public void setCanceledOnTouchOutside(boolean cancelable) {
+    public AfDialogFragment setCanceledOnTouchOutside(boolean cancelable) {
         canceledOnTouchOutside = cancelable;
+        return this;
     }
 
     protected void initIntent(Bundle bundle) {

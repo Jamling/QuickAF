@@ -195,6 +195,7 @@ public class SortRecyclerActivity extends BaseActivity {
             textView.setText(showValue);
         }
 
+
         public int getPositionForSection(char section) {
             for (int i = 0; i < getItemCount(); i++) {
                 String sortStr = getDataList().get(i).getSpelling();

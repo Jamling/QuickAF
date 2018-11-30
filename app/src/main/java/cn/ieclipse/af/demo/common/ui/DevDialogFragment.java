@@ -73,7 +73,7 @@ public class DevDialogFragment extends AfDialogFragment implements CompoundButto
 
     public static void show(FragmentManager fm) {
         DevDialogFragment dialog = new DevDialogFragment();
-        dialog.setStyle(STYLE_NO_TITLE, 0);
+        //dialog.setStyle(STYLE_NO_TITLE, 0);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setAlert(true);
         dialog.show(fm, false);

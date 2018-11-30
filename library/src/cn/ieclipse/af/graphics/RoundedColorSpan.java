@@ -36,6 +36,7 @@ public class RoundedColorSpan extends ReplacementSpan {
     private int mFgColor;
     private boolean mFgColorSet = false;
     private int mWidth;
+    private int padding;
 
     /**
      * Creates a RoundedColorSpan.
@@ -52,10 +53,14 @@ public class RoundedColorSpan extends ReplacementSpan {
         this.mRadii[0] = radius;
     }
 
+    public void setPadding(int padding) {
+        this.padding = padding;
+    }
+
     @Override
     public int getSize(@NonNull Paint paint, CharSequence text, @IntRange(from = 0) int start,
                        @IntRange(from = 0) int end, @Nullable Paint.FontMetricsInt fontMetricsInt) {
-        mWidth = ((int) (paint.measureText(text, start, end) + 0.5 + 2 * mRadii[0]));
+        mWidth = ((int) (paint.measureText(text, start, end) + 0.5 + 2 * padding));
         return mWidth;
     }
 
@@ -74,6 +79,6 @@ public class RoundedColorSpan extends ReplacementSpan {
         else {
             paint.setColor(old);//恢复画笔的文字颜色
         }
-        canvas.drawText(text, start, end, x + mRadii[0], y, paint);//绘制文字
+        canvas.drawText(text, start, end, x + padding, y, paint);//绘制文字
     }
 }

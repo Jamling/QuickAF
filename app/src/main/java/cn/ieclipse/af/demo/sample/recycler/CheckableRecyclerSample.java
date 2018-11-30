@@ -25,7 +25,6 @@ import android.widget.AdapterView;
 import android.widget.CheckedTextView;
 import android.widget.ListView;
 
-import java.util.Arrays;
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -127,10 +126,10 @@ public class CheckableRecyclerSample extends RefreshRecyclerSample {
 
     private void showResult() {
         int c = adapter2.getCheckedItemCount();
-        Integer[] a = adapter2.getCheckedPositions();
+        List<Integer> a = adapter2.getCheckedPositions();
         List list = adapter2.getCheckedItems();
         DialogUtils.showToast(getActivity(),
-            String.format("check: %d pos: %s, data: %s", c, Arrays.toString(a), list.toString()));
+            String.format("check: %d pos: %s, data: %s", c, a, list.toString()));
     }
 
     private void hideMode() {

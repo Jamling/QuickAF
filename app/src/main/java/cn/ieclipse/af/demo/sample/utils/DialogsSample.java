@@ -15,14 +15,14 @@
  */
 package cn.ieclipse.af.demo.sample.utils;
 
-import android.app.AlertDialog.Builder;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 import cn.ieclipse.af.app.AfDialogFragment;
 import cn.ieclipse.af.app.AlertDialogFragment.AlertInterceptor;
 import cn.ieclipse.af.demo.R;
@@ -112,7 +112,7 @@ public class DialogsSample extends SampleBaseFragment {
         DialogUtils.showAlert(getActivity(), new AlertInterceptor() {
 
             @Override
-            public void onCreated(Builder builder) {
+            public void onCreated(AlertDialog.Builder builder) {
                 TextView view = new TextView(getActivity());
                 view.setText(Html.fromHtml(
                     "I am use <font color='blue'>cn.ieclipse.af.util.DialogUtils.showAlert(Activity context, "
@@ -129,7 +129,7 @@ public class DialogsSample extends SampleBaseFragment {
         DialogUtils.showAlert(getActivity(), new AlertInterceptor() {
 
             @Override
-            public void onCreated(Builder builder) {
+            public void onCreated(AlertDialog.Builder builder) {
                 TextView view = new TextView(getActivity());
                 view.setText(Html.fromHtml(
                     "I am use <font color='blue'>cn.ieclipse.af.util.DialogUtils.showAlert(Activity context, "
@@ -187,7 +187,7 @@ public class DialogsSample extends SampleBaseFragment {
         }
 
         @Override
-        protected void onCreateAlertDialog(Builder builder) {
+        protected void onCreateAlertDialog(android.app.AlertDialog.Builder builder) {
             super.onCreateAlertDialog(builder);
             builder.setPositiveButton(android.R.string.ok, this);
         }

@@ -201,7 +201,7 @@ public class AfRecyclerChoiceAdapter<T> extends AfRecyclerAdapter<T> {
 //        return mSelections;
 //    }
 
-    public Integer[] getCheckedPositions() {
+    public List<Integer> getCheckedPositions() {
         List<Integer> checked = new ArrayList<>();
         if (mSelections != null) {
             int size = mSelections.size();
@@ -212,7 +212,7 @@ public class AfRecyclerChoiceAdapter<T> extends AfRecyclerAdapter<T> {
                 }
             }
         }
-        return checked.toArray(new Integer[checked.size()]);
+        return checked;
     }
 
     public T getCheckedItem() {

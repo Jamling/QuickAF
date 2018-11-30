@@ -45,6 +45,11 @@ import java.io.File;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import androidx.annotation.AnyRes;
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DimenRes;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -89,11 +94,11 @@ public final class AppUtils {
         return (int) (dip * dm.density + .5);
     }
 
-    public static int dimen2px(Context context, int dimenId) {
+    public static int dimen2px(Context context, @DimenRes int dimenId) {
         return context.getResources().getDimensionPixelOffset(dimenId);
     }
 
-    public static int sp2px(Context context, int sp) {
+    public static int sp2px(Context context, @DimenRes int sp) {
         DisplayMetrics dm = getDisplayMetrics(context);
         return (int) (sp * dm.scaledDensity + .5);
     }
@@ -107,7 +112,7 @@ public final class AppUtils {
      * @return color
      * @see android.content.res.Resources#getColor(int)
      */
-    public static int getColor(Context context, int colorId) {
+    public static int getColor(Context context, @ColorRes int colorId) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return context.getResources().getColor(colorId, context.getTheme());
         }
@@ -125,7 +130,7 @@ public final class AppUtils {
      * @return color state list
      * @see android.content.res.Resources#getColorStateList(int)
      */
-    public static ColorStateList getColorStateList(Context context, int colorId) {
+    public static ColorStateList getColorStateList(Context context, @ColorRes int colorId) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return context.getResources().getColorStateList(colorId, context.getTheme());
         }
@@ -134,7 +139,7 @@ public final class AppUtils {
         }
     }
 
-    public static Drawable getDrawable(Context context, int drawableId) {
+    public static Drawable getDrawable(Context context, @DrawableRes int drawableId) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             return context.getDrawable(drawableId);
         }
@@ -149,7 +154,7 @@ public final class AppUtils {
         }
     }
 
-    public static Drawable tintDrawable(Drawable drawable, int color) {
+    public static Drawable tintDrawable(Drawable drawable, @ColorInt int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             drawable.setTint(color);
             return drawable;
@@ -173,19 +178,20 @@ public final class AppUtils {
         }
     }
 
-    public static Drawable tintDrawable(Context context, int drawableId, int colorId) {
+    public static Drawable tintDrawable(Context context, @DrawableRes int drawableId, @ColorRes int colorId) {
         int color = AppUtils.getColor(context, colorId);
         Drawable d = AppUtils.getDrawable(context, drawableId);
         return AppUtils.tintDrawable(d, color);
     }
 
-    public static Drawable tintDrawableStateList(Context context, int drawableId, int colorStateListId) {
+    public static Drawable tintDrawableStateList(Context context, @DrawableRes int drawableId,
+                                                 @ColorRes int colorStateListId) {
         ColorStateList colorStateList = AppUtils.getColorStateList(context, colorStateListId);
         Drawable d = AppUtils.getDrawable(context, drawableId);
         return AppUtils.tintDrawable(d, colorStateList);
     }
 
-    public static String getRes(Context context, int resId) {
+    public static String getRes(Context context, @AnyRes int resId) {
         return String.format("android.resource://%s/%d", context.getPackageName(), resId);
     }
 
@@ -380,6 +386,25 @@ public final class AppUtils {
         } catch (Exception e) {
         }
         return imei;
+    }
+
+    /**
+     *
+     * @param context
+     * @param packageName
+     * @return
+     */
+    public static boolean isAvilible(Context context, String packageName) {
+        final PackageManager packageManager = context.getPackageManager();
+        List<ApplicationInfo> list = packageManager.getInstalledApplications(PackageManager.MATCH_UNINSTALLED_PACKAGES);
+        if (list != null) {
+            for(ApplicationInfo info : list) {
+                if (info.packageName.equals(packageName)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
