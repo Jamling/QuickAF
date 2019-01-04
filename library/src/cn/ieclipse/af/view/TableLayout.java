@@ -120,7 +120,7 @@ public class TableLayout extends FlowLayout {
                 ch += lp.topMargin + lp.bottomMargin;
                 lineHeight = Math.max(lineHeight, ch);
                 lineHeight = Math.max(lineHeight, mMaxChildHeight);
-                if (i % getNumColumns() == 0 && i > 0) {
+                if (i % getVisibleColumns() == 0 && i > 0) {
                     // y += lineHeight;
                     y += getVerticalSpacing();
 
@@ -160,7 +160,7 @@ public class TableLayout extends FlowLayout {
         int measuredHeight = Math.max(0, height);
         int measuredWidth = width;
         if (widthMode == MeasureSpec.UNSPECIFIED || widthMode == MeasureSpec.AT_MOST) {
-            measuredWidth = x + (getNumColumns() - 1) * getHorizontalSpacing() + getPaddingRight();
+            measuredWidth = x + (getVisibleColumns() - 1) * getHorizontalSpacing() + getPaddingRight();
             if (measuredWidth < 0) {
                 measuredWidth = 0;
             }
@@ -196,23 +196,7 @@ public class TableLayout extends FlowLayout {
     }
 
     public int getVisibleColumns() {
-        if (visibleColumns <= 0) {
-            visibleColumns = getNumColumns();
-        }
-        return visibleColumns;
-    }
-
-    public void setVisibleColumns(int visibleColumns) {
-        if (visibleColumns < 0 || visibleColumns > getNumColumns()) {
-            throw new IllegalArgumentException(
-                "invalid hidden columns :" + visibleColumns + ", current columns is : " + getNumColumns());
-        }
-        this.visibleColumns = visibleColumns;
-    }
-
-    @Override
-    public int getNumColumns() {
-        return super.getNumColumns() - getHiddenColumns();
+        return getNumColumns() - getHiddenColumns();
     }
 
     public void setHiddenColumns(int hiddenColumns) {
