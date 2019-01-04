@@ -218,13 +218,10 @@ public class TableContainer extends LinearLayout {
         mTl01.setNumColumns(columns);
         mTl11.setNumColumns(columns);
 
-        mTl01.setVisibleColumns(this.visibleColumns);
-        mTl11.setVisibleColumns(this.visibleColumns);
         this.columns = columns;
     }
 
     public void setFixColumns(int columns) {
-
         if (mCombineX) {
             if ((mTl00.getShowHorizontalDividers() & FlowLayout.SHOW_DIVIDER_END) != 0) {
                 mTl00.setShowHorizontalDividers(mTl00.getShowHorizontalDividers() ^ FlowLayout.SHOW_DIVIDER_END);
@@ -283,13 +280,25 @@ public class TableContainer extends LinearLayout {
         mTl01.removeAllViews();
         mTl10.removeAllViews();
         mTl11.removeAllViews();
-        mTl01.setHiddenColumns(0);
-        mTl11.setHiddenColumns(0);
+        if (mTl01.getNumColumns() > 0) {
+            mTl01.setHiddenColumns(0);
+        }
+        if (mTl11.getNumColumns() > 0) {
+            mTl11.setHiddenColumns(0);
+        }
     }
 
+
     public int getColumnWidth(int displayWidth) {
-        int width = displayWidth <= 0 ? getMeasuredWidth() : displayWidth - getPaddingLeft() - getPaddingRight()
-            - mTl11.getHorizontalSpacing() * (this.visibleColumns - 1);
+        int space = getPaddingLeft() + getPaddingRight();
+        space += mTl11.getHorizontalSpacing() * (this.visibleColumns - 1);
+        if ((mTl10.getShowHorizontalDividers() & FlowLayout.SHOW_DIVIDER_BEGINNING) > 0) {
+            space += mTl10.getHorizontalSpacing();
+        }
+        if ((mTl11.getShowHorizontalDividers() & FlowLayout.SHOW_DIVIDER_END) > 0) {
+            space += mTl11.getHorizontalSpacing();
+        }
+        int width = displayWidth <= 0 ? getMeasuredWidth() : displayWidth - space;
         if (this.visibleColumns > 0) {
             return width / visibleColumns;
         }

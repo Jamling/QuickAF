@@ -90,10 +90,8 @@ public class TableLayoutActivity extends SampleBaseActivity {
     private int visibleCols = 0;
 
     private void mockData1() {
-        cols = RandomUtils.genInt(4, 10);
-        visibleCols = RandomUtils.genInt(cols);
+        cols = RandomUtils.genInt(2, 4);
         mGrid.setNumColumns(cols);
-        mGrid.setVisibleColumns(visibleCols);
 
         // set data
         int len = (RandomUtils.genInt(1, 3));
@@ -103,7 +101,7 @@ public class TableLayoutActivity extends SampleBaseActivity {
         for (int i = 0; i < len; i++) {
             ss = new String[cols];
             for (int j = 0; j < cols; j++) {
-                ss[j] = String.format("Cell[%s,%s]", i, (j % cols));
+                ss[j] = String.format("C[%s,%s]", i, (j % cols));
             }
             list.add(ss);
         }
@@ -117,21 +115,24 @@ public class TableLayoutActivity extends SampleBaseActivity {
     }
 
     private void mockData2() {
+        mTable2.reset();
         mTable2.setColumns(cols);
+        visibleCols = RandomUtils.genInt(cols+1);
         mTable2.setVisibleColumns(visibleCols);
+        int fix = 0;
         try {
-            int fix = Integer.parseInt(et1.getText().toString());
-            fix = Math.min(fix, cols - 1);
-            fix = Math.min(1, fix);
-            mTable2.setFixColumns(fix);
+            fix = Integer.parseInt(et1.getText().toString());
         } catch (Exception e) {
 
         }
+        fix = Math.min(fix, cols - 1);
+        //fix = Math.min(1, fix);
+        mTable2.setFixColumns(fix);
 
         // set header
         String[] ss = new String[cols];
         for (int j = 0; j < cols; j++) {
-            ss[j] = ("Header " + j);
+            ss[j] = ("TH " + j);
         }
         HeaderAdapter ha = new HeaderAdapter();
         ha.setDataList(Arrays.asList(ss));
@@ -144,12 +145,12 @@ public class TableLayoutActivity extends SampleBaseActivity {
         for (int i = 0; i < len; i++) {
             ss = new String[cols];
             for (int j = 0; j < cols; j++) {
-                ss[j] = String.format("Cell[%s,%s]", i, (j % cols));
+                ss[j] = String.format("TD[%s,%s]", i, (j % cols));
             }
             list.add(ss);
         }
 
-        tv1.setText(String.format("random table columns:%d, visible columns: %d, rows: %d", cols, visibleCols, len));
+        tv1.setText(String.format("Advance TableLayout\nTotal columns:%d, Fix columns: %d, visible columns: %d, rows: %d", cols, fix, visibleCols, len));
 
         MyAdapter adapter = new MyAdapter(this);
         adapter.setDataList(list);
