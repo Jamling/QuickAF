@@ -29,6 +29,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -36,6 +37,9 @@ import android.os.Parcelable;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
+import android.view.KeyCharacterMap;
+import android.view.KeyEvent;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
 import android.webkit.ValueCallback;
@@ -206,11 +210,6 @@ public final class AppUtils {
         return info;
     }
 
-    @Deprecated
-    public static boolean hasVirtualSoftKey(Context context) {
-        return ViewConfiguration.get(context).hasPermanentMenuKey();
-    }
-
     public static boolean hasNavigationBar(Context context) {
         boolean isHave = false;
         Resources rs = context.getResources();
@@ -235,6 +234,42 @@ public final class AppUtils {
         }
 
         return isHave;
+    }
+
+    /**
+     *
+     * @param context
+     * @deprecated 如果是全面屏，则此方法无效
+     * @return
+     */
+    public static boolean isNavigationBarShow(Activity context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            Display display = context.getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            Point realSize = new Point();
+            display.getSize(size);
+            display.getRealSize(realSize);
+            return realSize.y != size.y;
+        }else {
+            boolean menu = ViewConfiguration.get(context).hasPermanentMenuKey();
+            boolean back = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+            if(menu || back) {
+                return false;
+            }else {
+                return true;
+            }
+        }
+    }
+
+    public static int getNavigationBarHeight(Context context) {
+        if (context instanceof Activity) {
+            if (!isNavigationBarShow((Activity) context)){
+                return 0;
+            }
+        }
+        int resourceId = context.getResources().getIdentifier("navigation_bar_height","dimen", "android");
+        int height = context.getResources().getDimensionPixelSize(resourceId);
+        return height;
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)

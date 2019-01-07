@@ -2,8 +2,10 @@ package cn.ieclipse.af.demo.sample.utils;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewTreeObserver;
 
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.sample.SampleBaseFragment;
@@ -36,15 +38,26 @@ public class AppUtilsSample extends SampleBaseFragment {
             FileUtils.formatFileSize(memoryInfo.totalMem), FileUtils.formatFileSize(memoryInfo.availMem),
             (memoryInfo.totalMem - memoryInfo.availMem) * 100 / memoryInfo.totalMem);
         ActivityManager am = (ActivityManager) view.getContext().getSystemService(Context.ACTIVITY_SERVICE);
-        String memClass = String.format("memoryClass=%dM, largeMemoryClass=%dM", am.getMemoryClass(), am
-            .getLargeMemoryClass());
+        String memClass = String.format("memoryClass=%dM, largeMemoryClass=%dM", am.getMemoryClass(),
+            am.getLargeMemoryClass());
         tv1.setText(String.format("%s\n%s\n%s\n%s", sys, runtime, amMem, memClass));
 
         DisplayMetrics dm = AppUtils.getDisplayMetrics(getActivity());
         String screen = String.format(
-            "width=%d,height=%d,densityDpi=%d,status bar height=%d,softKey=%s, " + "softKeyHeight=%s", dm.widthPixels,
-            dm.heightPixels, dm.densityDpi, AppUtils.getStatusBarHeight(getActivity()),
-            AppUtils.hasVirtualSoftKey(getActivity()), AppUtils.getSoftKeyBarHeight(getActivity()));
+            "width=%d,height=%d,densityDpi=%d,status bar height=%d,showNavigation=%s,"
+                + "navigationBarHeight=%s", dm.widthPixels, dm.heightPixels, dm.densityDpi,
+            AppUtils.getStatusBarHeight(getActivity()), AppUtils.isNavigationBarShow(getActivity()),
+            AppUtils.getNavigationBarHeight(getActivity()));
         tv2.setText(screen);
+        view.getViewTreeObserver().addOnGlobalLayoutListener(listener);
     }
+
+    ViewTreeObserver.OnGlobalLayoutListener listener = () -> {
+        Rect r = new Rect();
+        View root = getActivity().getWindow().getDecorView();
+        root.getWindowVisibleDisplayFrame(r);
+        int h = root.getHeight();
+        int h2 = r.bottom - r.top;
+        tv2.setText(tv2.getText() + "exact navigationBarHeight=" + h2);
+    };
 }
