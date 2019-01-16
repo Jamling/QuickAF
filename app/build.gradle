@@ -77,7 +77,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0-alpha01'
     implementation 'androidx.percentlayout:percentlayout:1.0.0'
     // import ORM for SQLite database
-    implementation 'cn.ieclipse.aorm:aorm-core:1.1.5'
+    implementation 'cn.ieclipse.aorm:aorm-core:1.2.1'
     // import ImageLoader for display image
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     // import EventBus for event notify
@@ -85,7 +85,7 @@ dependencies {
     // target sdk >= 23
     implementation 'com.yanzhenjie:permission:1.0.5'
     // af-pay
-    implementation 'com.github.Jamling:af-pay:master-SNAPSHOT'
+    implementation 'com.github.Jamling:af-pay:0.2.0'
     // photo view
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
     // ok http

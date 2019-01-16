@@ -57,6 +57,10 @@
         <flag name="top" value="3" />
         <flag name="bottom" value="12" />
     </attr>
+    <!--<attr name="af_shadowDx" format="dimension|reference"/>-->
+    <!--<attr name="af_shadowDy" format="dimension|reference"/>-->
+    <!--<attr name="af_shadowColor" format="color|reference"/>-->
+    <!--<attr name="af_shadowRadius" format="dimension|reference" />-->
 
     <!-- ============== -->
     <!-- AF Component define -->
