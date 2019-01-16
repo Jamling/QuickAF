@@ -79,29 +79,12 @@ public abstract class FilterTabView extends FrameLayout {
         this.mTitle = title;
     }
 
-//    /**
-//     * 累加子类的高度作为自身的高度
-//     */
-//    @Override
-//    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-//        int cCount = getChildCount();
-//
-//        int desireWidth = MeasureSpec.getSize(widthMeasureSpec);
-//        int desireHeight = 0;
-//        for (int i = 0; i < cCount; i++) {
-//            View child = getChildAt(i);
-//            measureChild(child, widthMeasureSpec, heightMeasureSpec);
-//            desireHeight += child.getMeasuredHeight();
-//        }
-//        setMeasuredDimension(desireWidth, desireHeight);
-//    }
-
     public void hideExpandableView() {
         mFilterTabHost.hidePopup();
     }
 
     public void clearChoice() {
-        mFilterTabHost.clearChoice(this);
+        mFilterTabHost.setTabText(this, getTitle());
     }
 
     /**

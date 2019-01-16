@@ -46,9 +46,16 @@ public class FilterTabHostSample extends SampleBaseFragment {
     private String[] mItem3 = {"Item3_0", "Item1_3", "Item3_2", "Item3_3", "Item3_4"};
     private String[] mItem4 = {};
 
+    private View mReset;
     @Override
     protected int getContentLayout() {
         return R.layout.sample_filter_tab;
+    }
+
+    @Override
+    protected void initHeaderView() {
+        super.initHeaderView();
+        mReset = createRightText("Reset", true);
     }
 
     @Override
@@ -108,5 +115,14 @@ public class FilterTabHostSample extends SampleBaseFragment {
             }
         });
         mBottomBar.addView(btn);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == mReset) {
+            mFilterLayout.clearAllChoice();
+            return;
+        }
+        super.onClick(v);
     }
 }

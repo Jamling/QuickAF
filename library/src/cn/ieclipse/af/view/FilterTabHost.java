@@ -48,19 +48,18 @@ import cn.ieclipse.af.R;
 import cn.ieclipse.af.util.PopupUtils;
 
 /**
- * The FilterTabHost include several tab corresponding to {@link cn.ieclipse.af.view.FilterTabView} used to
- * filtering or sorting list
+ * The FilterTabHost include several tab corresponding to {@link cn.ieclipse.af.view.FilterTabItem} used to
+ * filtering or sorting list ({@link cn.ieclipse.af.view.FilterTabView})
  *
  * @author Jamling
  */
 public class FilterTabHost extends FlowLayout implements View.OnClickListener, PopupWindow.OnDismissListener {
 
-    private static final String TAG_TAB = "FilterTabView.Tab";
     private static final String TAG_PW_BG = "FilterTabView.PW.BG";
     /**
      * Current selected tab item.
      */
-    private View mSelectedTab;
+    protected View mSelectedTab;
 
     /**
      * The tab item layout resource
@@ -134,6 +133,9 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
             // 设置tab
             if (mTabLayoutRes > 0) {
                 View tabItem = inflater.inflate(mTabLayoutRes, this, false);
+                if (filterTabView.getTag() != null) {
+                    tabItem.setTag(filterTabView.getTag());
+                }
                 addChild(tabItem, filterTabView.getTitle());
             }
         }
@@ -146,7 +148,6 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
     }
 
     protected void addChild(View tabItem, CharSequence title) {
-        tabItem.setTag(TAG_TAB);
         tabItem.setOnClickListener(this);
         setTabText(tabItem, title);
         addView(tabItem);
@@ -155,7 +156,7 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
     /**
      * Set the text of tab
      *
-     * @param view tab view/layout
+     * @param view tab view/layout the child of this
      * @param text text string
      */
     protected void setTabText(View view, CharSequence text) {
@@ -167,12 +168,12 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
     @Override
     public void onClick(View view) {
         Object tag = view.getTag();
-        if (TAG_TAB.equals(tag)) {
+        if (TAG_PW_BG.equals(tag)) {
+            hidePopup();
+        }
+        else {
             mSelectedTab = view;
             showPopup();
-        }
-        else if (TAG_PW_BG.equals(tag)) {
-            hidePopup();
         }
     }
 
@@ -208,25 +209,47 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
         }
     }
 
+    /**
+     * Set current child checked or not
+     *
+     * @param checked checked
+     */
+    @Deprecated
     protected void setTabChecked(boolean checked) {
         if (mSelectedTab != null && mSelectedTab instanceof Checkable) {
             ((Checkable) mSelectedTab).setChecked(checked);
         }
     }
 
+    /**
+     * Set child checked or not
+     *
+     * @param index   the child index
+     * @param checked checked
+     */
     public void setTabChecked(int index, boolean checked) {
         if (mFilterTabViews == null) {
             return;
         }
         if (index >= 0 && index < mFilterTabViews.size()) {
             View c = getChildAt(index);
-            setTabText(c, mFilterTabViews.get(index).getTitle());
+            if (!checked) {
+                setTabText(c, mFilterTabViews.get(index).getTitle());
+            }
             if (c instanceof Checkable) {
                 ((Checkable) c).setChecked(checked);
             }
         }
     }
 
+    /**
+     * Set popup tabview associated child of this layout checked or not
+     *
+     * @param tabView popup tabview
+     * @param checked checked
+     *
+     * @see #setTabChecked(int, boolean)
+     */
     public void setTabChecked(FilterTabView tabView, boolean checked) {
         if (mFilterTabViews == null) {
             return;
@@ -274,13 +297,18 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
 
     @Override
     public void onDismiss() {
-        for (int i = 0; i < getChildCount(); i++) {
-            if (mSelectedTab == getChildAt(i)) {
-                setTabChecked(mFilterTabViews.get(i).isSelected());
-                break;
+//        for (int i = 0; i < getChildCount(); i++) {
+//            if (mSelectedTab == getChildAt(i)) {
+//                setTabChecked(mFilterTabViews.get(i).isSelected());
+//                break;
+//            }
+//        }
+        if (mSelectedTab != null) {
+            int i = indexOfChild(mSelectedTab);
+            if (i >= 0) {
+                setTabChecked(i, mFilterTabViews.get(i).isSelected());
             }
         }
-        // setTabChecked(false);
         setWindowAlpha(1f);
     }
 
@@ -422,6 +450,7 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
     public void clearChoice(int index) {
         if (index >= 0 && index < mFilterTabViews.size()) {
             mFilterTabViews.get(index).clearChoice();
+            setTabChecked(index, false);
         }
     }
 
@@ -439,7 +468,7 @@ public class FilterTabHost extends FlowLayout implements View.OnClickListener, P
     public void clearAllChoice() {
         int size = mFilterTabViews.size();
         for (int i = 0; i < size; i++) {
-            mFilterTabViews.get(i).clearChoice();
+            clearChoice(i);
         }
     }
 }
