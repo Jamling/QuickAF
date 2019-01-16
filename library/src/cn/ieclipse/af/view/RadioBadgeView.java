@@ -22,6 +22,8 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.RadioButton;
 
+import androidx.appcompat.widget.AppCompatRadioButton;
+
 /**
  * 类/接口描述
  * 
@@ -29,7 +31,7 @@ import android.widget.RadioButton;
  * @date 2016年1月28日
  *       
  */
-public class RadioBadgeView extends RadioButton {
+public class RadioBadgeView extends AppCompatRadioButton {
     
     /**
      * @param context

@@ -202,11 +202,6 @@
         <attr name="af_ratio" />
     </declare-styleable>
 
-    <!-- from old library -->
-    <declare-styleable name="RotateTextView">
-        <attr name="af_degree" format="float"/>
-    </declare-styleable>
-
     <declare-styleable name="RatioImageView">
         <attr name="af_ratio"/>
     </declare-styleable>
@@ -216,10 +211,5 @@
         <attr name="af_pressColor"/>
         <attr name="af_circle"/>
         <attr name="android:radius"/>
-    </declare-styleable>
-    <declare-styleable name="RoundMaskView">
-        <attr name="android:radius"/>
-        <attr name="af_borderColor"/>
-        <attr name="af_borderWidth"/>
     </declare-styleable>
 </resources>

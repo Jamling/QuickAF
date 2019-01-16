@@ -14,7 +14,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class ClearableEditText extends EditText {
+import androidx.appcompat.widget.AppCompatEditText;
+
+public class ClearableEditText extends AppCompatEditText {
     
     private Drawable initDrawable = null;
     private boolean alwaysVisible = false;

@@ -13,6 +13,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.AppCompatTextView;
+
 /**
  * A resolution for clickable {@link android.widget.TextView} in {@link android.widget.ListView} item.
  * see <a href="http://stackoverflow.com/questions/8558732/listview-textview-with-linkmovementmethod-makes-list-item-unclickable">http://stackoverflow.com/questions/8558732/listview-textview-with-linkmovementmethod-makes-list-item-unclickable</a>
@@ -20,7 +22,7 @@ import android.widget.TextView;
  * @author Jamling
  * @date 2015/8/17.
  */
-public class TextViewFixTouchConsume extends TextView {
+public class TextViewFixTouchConsume extends AppCompatTextView {
 
     boolean dontConsumeNonUrlClicks = true;
     boolean linkHit;

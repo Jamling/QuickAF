@@ -101,7 +101,7 @@ public class RefreshRecyclerHelper<T> extends RefreshHelper<T> {
     }
 
     /**
-     * @see RecyclerHelper#setItemDecoration(android.support.v7.widget.RecyclerView.ItemDecoration)
+     * @see RecyclerHelper#setItemDecoration(androidx.recyclerview.widget.RecyclerView.ItemDecoration)
      */
     public void setItemDecoration(RecyclerView.ItemDecoration decoration) {
         mRecyclerHelper.setItemDecoration(decoration);

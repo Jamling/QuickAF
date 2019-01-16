@@ -12,11 +12,13 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.AppCompatTextView;
+
 /**
  * @author Jamling
  * 
  */
-public class MarqueeTextView extends TextView {
+public class MarqueeTextView extends AppCompatTextView {
     
     /**
      * @param context

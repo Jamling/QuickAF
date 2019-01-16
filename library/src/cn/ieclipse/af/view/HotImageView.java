@@ -25,12 +25,14 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.widget.AppCompatImageView;
+
 /**
  * Description
  *
  * @author Jamling
  */
-public class HotImageView extends ImageView implements GestureDetector.OnGestureListener {
+public class HotImageView extends AppCompatImageView implements GestureDetector.OnGestureListener {
     private GestureDetector mGestureDetector;
     
     public HotImageView(Context context) {

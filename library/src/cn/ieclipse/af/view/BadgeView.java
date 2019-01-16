@@ -34,15 +34,15 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
 import android.widget.TabWidget;
-import android.widget.TextView;
 
+import androidx.appcompat.widget.AppCompatTextView;
 import cn.ieclipse.af.util.ViewUtils;
 
 
 /**
  * From <a href="https://github.com/stefanjauker/BadgeView">https://github.com/stefanjauker/BadgeView</a>
  */
-public class BadgeView extends TextView {
+public class BadgeView extends AppCompatTextView {
 
     private boolean mHideOnNull = true;
 

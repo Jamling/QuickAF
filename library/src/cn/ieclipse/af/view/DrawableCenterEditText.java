@@ -15,13 +15,13 @@
  */
 package cn.ieclipse.af.view;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.widget.EditText;
+
+import androidx.appcompat.widget.AppCompatEditText;
 
 /**
  * Left drawable and text or hint center horizontal EditText.
@@ -37,7 +37,7 @@ import android.widget.EditText;
  * @author Jamling
  * @date 2015/7/15.
  */
-public class DrawableCenterEditText extends EditText {
+public class DrawableCenterEditText extends AppCompatEditText {
     public DrawableCenterEditText(Context context) {
         super(context);
     }
@@ -48,11 +48,6 @@ public class DrawableCenterEditText extends EditText {
     
     public DrawableCenterEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-    }
-    
-    @TargetApi(22)
-    public DrawableCenterEditText(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
     }
     
     @Override

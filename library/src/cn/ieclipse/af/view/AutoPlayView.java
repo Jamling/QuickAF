@@ -47,7 +47,7 @@ import cn.ieclipse.af.util.AppUtils;
  * AutoPlayView default child views
  * </p>
  * <ol>
- * <li>{@linkplain androidx.core.view.ViewPager ViewPager}</li>
+ * <li>{@linkplain androidx.viewpager.widget.ViewPager}</li>
  * <li>Indicator layout (if has), it's a horizontal {@linkplain android.widget.LinearLayout LinearLayout}</li>
  * <li>Indicator text widget (if has) to show "current/total" text</li>
  * </ol>
@@ -261,7 +261,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
      *
      * @param adapter adapter to use
      *
-     * @see androidx.core.view.ViewPager#setAdapter(androidx.core.view.PagerAdapter)
+     * @see androidx.viewpager.widget.ViewPager#setAdapter(androidx.viewpager.widget.PagerAdapter)
      */
     public void setAdapter(PagerAdapter adapter) {
         if (mViewPager != null) {
@@ -272,7 +272,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
     }
 
     /**
-     * Set adapter data, use {@link androidx.core.view.PagerAdapter#notifyDataSetChanged()}
+     * Set adapter data, use {@link androidx.viewpager.widget.PagerAdapter#notifyDataSetChanged()}
      * If you want to update UI force, please use <code>
      * setAdapterData(list, true);
      * </code>
@@ -288,7 +288,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
 
     /**
      * Set adapter data and force refresh UI.
-     * <p>Note {@link androidx.core.view.PagerAdapter#notifyDataSetChanged()} will not update UI, please use
+     * <p>Note {@link androidx.viewpager.widget.PagerAdapter#notifyDataSetChanged()} will not update UI, please use
      * {@link cn.ieclipse.af.adapter.AfPagerAdapter#notifyDataSetChanged(boolean)} to update UI</p>
      *
      * @param list  data
@@ -697,7 +697,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
     }
 
     /**
-     * Loop {@link androidx.core.view.PagerAdapter}
+     * Loop {@link androidx.viewpager.widget.PagerAdapter}
      *
      * @param <T> data parameter type
      *

@@ -7,7 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.TextView;
+
+import androidx.appcompat.widget.AppCompatTextView;
 
 /**
  * Description
@@ -15,7 +16,7 @@ import android.widget.TextView;
  * @author Jamling
  */
 
-public class BadgeView3 extends TextView {
+public class BadgeView3 extends AppCompatTextView {
     protected BadgeView2 badge;
 
     public BadgeView3(Context context) {

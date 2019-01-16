@@ -9,12 +9,9 @@ package cn.ieclipse.af.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Build;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.AppCompatImageView;
 import cn.ieclipse.af.R;
 
 /**
@@ -24,7 +21,7 @@ import cn.ieclipse.af.R;
  * @author Jamling
  * 
  */
-public class RatioImageView extends ImageView {
+public class RatioImageView extends AppCompatImageView {
     
     private float mRatio = 1.0f;
     
@@ -51,11 +48,6 @@ public class RatioImageView extends ImageView {
     public RatioImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public RatioImageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     private void init(Context context, AttributeSet attrs) {

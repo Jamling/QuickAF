@@ -15,14 +15,13 @@
  */
 package cn.ieclipse.af.view;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.widget.TextView;
+
+import androidx.appcompat.widget.AppCompatTextView;
 
 /**
  /**
@@ -39,7 +38,7 @@ import android.widget.TextView;
  * @author Jamling
  * @date 2015/7/18.
  */
-public class DrawableCenterTextView extends TextView {
+public class DrawableCenterTextView extends AppCompatTextView {
     
     public DrawableCenterTextView(Context context) {
         super(context);
@@ -51,11 +50,6 @@ public class DrawableCenterTextView extends TextView {
     
     public DrawableCenterTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-    }
-    
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public DrawableCenterTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
     }
     
     @Override
