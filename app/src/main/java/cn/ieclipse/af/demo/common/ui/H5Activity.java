@@ -51,7 +51,7 @@ public class H5Activity extends BaseActivity {
     public static final int MSG_REAL_PROGRESS = 1;
 
     private ProgressBar mPb;
-    private WebView mWebView;
+    protected WebView mWebView;
 
     private String mUrl = "";
     private String mTitle;
@@ -141,6 +141,7 @@ public class H5Activity extends BaseActivity {
     protected void load() {
         // WebView加载web资源
         mWebView.loadUrl(mUrl);
+        mPb.setProgress(0);
         mPbHandler.sendEmptyMessageDelayed(MSG_FAKE_PROGRESS, getFakeInternal());
     }
 

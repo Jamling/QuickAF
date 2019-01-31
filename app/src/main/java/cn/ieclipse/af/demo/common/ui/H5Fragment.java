@@ -51,7 +51,7 @@ public class H5Fragment extends BaseFragment {
     public static final int MSG_REAL_PROGRESS = 1;
 
     private ProgressBar mPb;
-    private WebView mWebView;
+    protected WebView mWebView;
 
     private String mUrl = "";
     private String mTitle;

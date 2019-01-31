@@ -15,7 +15,6 @@
  */
 package cn.ieclipse.af.demo.common.ui;
 
-import androidx.fragment.app.Fragment;
 import cn.ieclipse.af.common.ui.CommonBaseFragment;
 import cn.ieclipse.af.demo.common.api.VolleyUtils;
 import cn.ieclipse.af.volley.RestError;
@@ -39,7 +38,7 @@ public abstract class BaseFragment extends CommonBaseFragment {
         return null;
     }
 
-    public void startFragment(Class<? extends Fragment> fragmentClass) {
+    public void startFragment(Class<? extends BaseFragment> fragmentClass) {
         getBaseActivity().startFragment(fragmentClass);
     }
 }

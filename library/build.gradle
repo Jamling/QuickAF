@@ -61,18 +61,17 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
     testImplementation 'com.squareup.okhttp3:okhttp:3.8.0'
+    testImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    testImplementation 'org.mockito:android:2.20.0'
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.core:core:1.0.1'
     implementation 'androidx.fragment:fragment:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     api 'com.google.code.gson:gson:2.3.1'
     api 'com.android.volley:volley:1.1.1'
-    testImplementation 'androidx.test.espresso:espresso-core:3.1.0'
-    testImplementation 'org.mockito:android:2.20.0'
-
 }
 
-task hello << {
+task hello {
     println(rootProject.name)
     println(android.libraryVariants)
     def release
@@ -82,6 +81,7 @@ task hello << {
             release = variant
         }
     }
+    if (release)
     println("found:" + release.javaCompile.classpath.files)
     def android_sdk = "${android.sdkDirectory}";
     def android_platform = "${android.compileSdkVersion}"

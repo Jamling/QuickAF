@@ -89,5 +89,5 @@ dependencies {
     // photo view
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
     // ok http
-    // compile 'com.squareup.okhttp3:okhttp:3.8.0'
+    // implementation 'com.squareup.okhttp3:okhttp:3.8.0'
 }

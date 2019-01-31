@@ -18,7 +18,6 @@ package cn.ieclipse.af.demo.common.ui;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
 import cn.ieclipse.af.common.ui.CommonBaseActivity;
 import cn.ieclipse.af.demo.common.api.VolleyUtils;
 import cn.ieclipse.af.volley.RestError;
@@ -42,12 +41,12 @@ public abstract class BaseActivity extends CommonBaseActivity {
      *
      * @since 2.1.1
      */
-    public void startFragment(Class<? extends Fragment> fragmentClass) {
+    public void startFragment(Class<? extends BaseFragment> fragmentClass) {
         Intent intent = FragmentActivity.create(this, fragmentClass, false);
         startActivity(intent);
     }
 
-    public void startFragment(Class<? extends Fragment> fragmentClass, Bundle args, int reqCode) {
+    public void startFragment(Class<? extends BaseFragment> fragmentClass, Bundle args, int reqCode) {
         Intent intent = FragmentActivity.create(this, fragmentClass, false);
         if (args != null) {
             intent.putExtras(args);
