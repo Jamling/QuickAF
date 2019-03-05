@@ -15,14 +15,14 @@
  */
 package cn.ieclipse.af.demo.sample.appui;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.view.View;
 import android.widget.RadioGroup;
 
 import java.util.ArrayList;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.ui.BaseActivity;
 import cn.ieclipse.af.demo.common.ui.BaseFragment;
@@ -78,7 +78,7 @@ public class RadioTabSample extends BaseActivity implements RadioGroup.OnChecked
     private void switchTab(int index) {
         Fragment fragment = mFragments.get(index);
         if (fragment != null) {
-            FragmentManager manager = getFragmentManager();
+            FragmentManager manager = getSupportFragmentManager();
             FragmentTransaction ft = manager.beginTransaction();
             manager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             if (mCurrentFragment == null) {
@@ -97,7 +97,7 @@ public class RadioTabSample extends BaseActivity implements RadioGroup.OnChecked
     }
 
     private Fragment createTab(Class clazz) {
-        Fragment f = getFragmentManager().findFragmentByTag(clazz.getName());
+        Fragment f = getSupportFragmentManager().findFragmentByTag(clazz.getName());
         if (f == null) {
             f = Fragment.instantiate(this, clazz.getName(), null);
         }
