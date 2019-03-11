@@ -16,6 +16,7 @@
 package cn.ieclipse.af.demo;
 
 import android.content.Intent;
+import android.os.Debug;
 import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
@@ -113,5 +114,11 @@ public class SplashActivity extends BaseActivity {
     private void goLogin() {
         startActivity(LoginActivity.create(this));
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Debug.stopMethodTracing();
     }
 }

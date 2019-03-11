@@ -16,11 +16,13 @@
 package cn.ieclipse.af.demo;
 
 import android.app.Application;
+import android.os.Debug;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.squareup.leakcanary.LeakCanary;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import cn.ieclipse.af.volley.VolleyConfig;
@@ -35,6 +37,7 @@ public class DemoApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Debug.startMethodTracing("launcher");
         DisplayImageOptions options = new DisplayImageOptions.Builder().showImageForEmptyUri(R.mipmap.logo)
             .showImageOnFail(R.mipmap.logo).cacheOnDisk(true).build();
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).defaultDisplayImageOptions(options)
@@ -48,5 +51,11 @@ public class DemoApplication extends Application {
         VolleyManager.init(getApplicationContext(), vc);
         // use vector drawable
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+
+        if (!LeakCanary.isInAnalyzerProcess(this)) {
+            LeakCanary.install(this);
+        }
+        Debug.stopMethodTracing();
+        Debug.startMethodTracing("launcher1");
     }
 }

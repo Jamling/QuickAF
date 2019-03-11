@@ -67,4 +67,12 @@ public abstract class BasePagerTabFragment extends BaseFragment {
     }
 
     protected abstract void addFragments();
+
+    @Override
+    public void onDestroyView() {
+        if (mAdapter != null) {
+            mAdapter.destroy();
+        }
+        super.onDestroyView();
+    }
 }

@@ -1,4 +1,4 @@
-
+.DS_store
 # Built application files
 *.apk
 *.ap_
@@ -16,6 +16,7 @@ gen/
 
 # Gradle files
 .gradle/
+gradle/
 build/
 *.iml
 

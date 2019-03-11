@@ -90,4 +90,8 @@ dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
     // ok http
     // implementation 'com.squareup.okhttp3:okhttp:3.8.0'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
+    // releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
+    // Optional, if you use support library fragments:
+    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
 }

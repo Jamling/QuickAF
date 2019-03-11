@@ -69,4 +69,10 @@ public class BaseFragmentAdapter extends AfFragmentPagerAdapter {
         }
         this.fragments.add(fragment);
     }
+
+    public void destroy() {
+        if (this.fragments != null) {
+            this.fragments.clear();
+        }
+    }
 }
