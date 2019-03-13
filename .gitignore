@@ -16,7 +16,7 @@ gen/
 
 # Gradle files
 .gradle/
-gradle/
+#gradle/
 build/
 *.iml
 
