@@ -24,8 +24,8 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.widget.Button;
 
+import androidx.appcompat.widget.AppCompatButton;
 import cn.ieclipse.af.R;
 import cn.ieclipse.af.graphics.RoundedColorDrawable;
 import cn.ieclipse.af.util.ViewUtils;
@@ -37,7 +37,7 @@ import cn.ieclipse.af.util.ViewUtils;
  * @date 2015年11月19日
  *       
  */
-public class RoundButton extends Button {
+public class RoundButton extends AppCompatButton {
     
     /**
      * @param context
@@ -63,19 +63,6 @@ public class RoundButton extends Button {
      */
     public RoundButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs);
-    }
-    
-    /**
-     * @param context
-     * @param attrs
-     * @param defStyleAttr
-     * @param defStyleRes
-     */
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public RoundButton(Context context, AttributeSet attrs, int defStyleAttr,
-            int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs);
     }
     

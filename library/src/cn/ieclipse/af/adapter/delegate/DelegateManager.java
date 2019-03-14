@@ -75,7 +75,7 @@ public class DelegateManager<T> {
         if (delegate != null) {
             if (delegates.remove(delegate)) {
                 if (viewType < 0) {
-                    if (viewType > -MAX_HEADER_COUNT) {
+                    if (viewType < -MAX_HEADER_COUNT) {
                         footerCount--;
                     }
                     else {

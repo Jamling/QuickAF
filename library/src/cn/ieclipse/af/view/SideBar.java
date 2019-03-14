@@ -16,6 +16,7 @@
 
 package cn.ieclipse.af.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -78,6 +79,7 @@ public class SideBar extends View {
         this(context, null);
     }
 
+    @SuppressLint("ResourceType")
     private void init(Context context, AttributeSet attributeSet) {
         TypedArray a = context.obtainStyledAttributes(attributeSet, attrs);
         try {

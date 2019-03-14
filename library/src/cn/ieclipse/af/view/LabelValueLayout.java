@@ -15,6 +15,7 @@
  */
 package cn.ieclipse.af.view;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -86,6 +87,7 @@ public class LabelValueLayout extends View {
     private boolean isNeedOuterBorder = true;
     private boolean isNeedInnerHorBorder = true;
 
+    @SuppressLint("ResourceType")
     private void init(Context context, AttributeSet attrs) {
         paint = new Paint();
         textPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);

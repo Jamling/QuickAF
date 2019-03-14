@@ -63,7 +63,7 @@ public final class SharedPrefsUtils {
         SharedPreferences sharedPreferences = getSharedPreferences();
         Editor edit = sharedPreferences.edit();
         edit.putInt(key, value);
-        edit.commit();
+        edit.apply();
     }
     
     public static int getInt(String key) {
@@ -75,12 +75,17 @@ public final class SharedPrefsUtils {
         SharedPreferences sharedPreferences = getSharedPreferences();
         Editor edit = sharedPreferences.edit();
         edit.putString(key, value);
-        edit.commit();
+        edit.apply();
     }
     
     public static String getString(String key) {
         SharedPreferences sharedPreferences = getSharedPreferences();
         return sharedPreferences.getString(key, null);
+    }
+
+    public static String getString(String key, String value) {
+        SharedPreferences sharedPreferences = getSharedPreferences();
+        return sharedPreferences.getString(key, value);
     }
     
     public static long getLong(String key) {
@@ -92,14 +97,14 @@ public final class SharedPrefsUtils {
         SharedPreferences sharedPreferences = getSharedPreferences();
         Editor edit = sharedPreferences.edit();
         edit.putLong(key, value);
-        edit.commit();
+        edit.apply();
     }
     
     public static void putBoolean(String key, boolean value) {
         SharedPreferences sharedPreferences = getSharedPreferences();
         Editor edit = sharedPreferences.edit();
         edit.putBoolean(key, value);
-        edit.commit();
+        edit.apply();
     }
     
     public static boolean getBoolean(String key, boolean defValue) {
@@ -111,7 +116,7 @@ public final class SharedPrefsUtils {
         SharedPreferences sharedPreferences = getSharedPreferences();
         Editor edit = sharedPreferences.edit();
         edit.remove(key);
-        edit.commit();
+        edit.apply();
     }
 
     /**
@@ -136,7 +141,7 @@ public final class SharedPrefsUtils {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString(saveKey, base64String);
 
-                editor.commit();
+                editor.apply();
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;

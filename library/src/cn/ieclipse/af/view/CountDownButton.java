@@ -65,11 +65,6 @@ public class CountDownButton extends RoundButton {
         init(context, attrs);
     }
 
-    public CountDownButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(context, attrs);
-    }
-
     private void init(Context context, AttributeSet attrs) {
 
     }

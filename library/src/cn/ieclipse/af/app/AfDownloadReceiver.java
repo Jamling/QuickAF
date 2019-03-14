@@ -40,7 +40,7 @@ public class AfDownloadReceiver extends BroadcastReceiver {
             try {
                 context.startActivity(target);
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
         }
     }

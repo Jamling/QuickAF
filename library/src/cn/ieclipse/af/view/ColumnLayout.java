@@ -15,6 +15,7 @@
  */
 package cn.ieclipse.af.view;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -131,6 +132,7 @@ public class ColumnLayout extends View {
     private int mNumColumns = 1;
     private int mGravity = Gravity.NO_GRAVITY;
     
+    @SuppressLint("ResourceType")
     private void init(Context context, AttributeSet attrs) {
         paint = new Paint();
         paint.setStrokeWidth(1);
