@@ -102,7 +102,7 @@ public final class AppUtils {
         return context.getResources().getDimensionPixelOffset(dimenId);
     }
 
-    public static int sp2px(Context context, @DimenRes int sp) {
+    public static int sp2px(Context context, int sp) {
         DisplayMetrics dm = getDisplayMetrics(context);
         return (int) (sp * dm.scaledDensity + .5);
     }

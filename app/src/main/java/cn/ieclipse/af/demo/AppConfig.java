@@ -131,9 +131,6 @@ public class AppConfig {
             uuid = android.os.Build.SERIAL;
         }
         if (TextUtils.isEmpty(uuid)) {
-            uuid = tm.getSimSerialNumber();
-        }
-        if (TextUtils.isEmpty(uuid)) {
             uuid = String.valueOf(new java.util.Random().nextDouble());
         }
         return EncodeUtils.getMd5(uuid);

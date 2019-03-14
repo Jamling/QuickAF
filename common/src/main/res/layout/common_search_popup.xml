@@ -9,33 +9,44 @@
     android:orientation="vertical"
     android:showDividers="middle">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/top_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bg_main"
         android:gravity="center_vertical"
         android:minHeight="44dp"
         android:orientation="horizontal"
         android:paddingBottom="0dp"
         android:paddingTop="0dp">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/btn_cancel"
+            style="@style/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:minHeight="30dp"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:text="@string/common_cancel"
+            android:layout_alignParentRight="true"/>
+        <FrameLayout
             android:id="@+id/ll_input"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_weight="1"
             android:gravity="left|center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/btn_cancel">
 
             <EditText
                 android:id="@+id/et_text"
                 style="@style/text_title"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="0dp"
-                android:layout_weight="1"
+                android:layout_marginRight="24dp"
                 android:background="@null"
                 android:cursorVisible="true"
                 android:gravity="center_vertical"
@@ -54,23 +65,14 @@
                 android:id="@+id/iv_clear"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="center_vertical|right"
                 android:src="@android:drawable/ic_delete"
                 android:visibility="gone"
-                tools:visibility="visible"/>
-        </LinearLayout>
+                tools:visibility="visible"
+                />
+        </FrameLayout>
 
-        <TextView
-            android:id="@+id/btn_cancel"
-            style="@style/text_title"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:minHeight="30dp"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:text="@string/common_cancel"/>
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/listHeader"
@@ -91,10 +93,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="44dp"
                 android:layout_alignParentLeft="true"
-                android:layout_weight="1"
                 android:gravity="center_vertical|left"
                 android:minHeight="35dp"
-                android:text="搜索历史："/>
+                android:text="@string/common_search_history_label"/>
 
             <TextView
                 android:id="@+id/tv_clear"
@@ -104,7 +105,7 @@
                 android:layout_alignParentRight="true"
                 android:gravity="center_vertical"
                 android:minHeight="35dp"
-                android:text="清空历史记录"
+                android:text="@string/common_search_history_clear"
                 android:textColor="#82bee7"/>
         </RelativeLayout>
 

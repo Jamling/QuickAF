@@ -29,6 +29,9 @@
     <string name="common_all">全部</string>
     <string name="common_checked_num">已选%1$s</string>
 
+    <string name="common_search_history_label">搜索历史：</string>
+    <string name="common_search_history_clear">清空历史记录</string>
+
     <!--error -->
     <string name="error_type_auth">身份验证失败</string>
     <string name="error_type_no_network">网络未连接</string>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<cn.ieclipse.af.view.refresh.EmptyView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<cn.ieclipse.af.view.refresh.EmptyView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:visibility="visible">
 
     <LinearLayout
@@ -51,7 +51,7 @@
             android:id="@id/ptr_empty_iv_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/common_ptr_error"/>
+            app:srcCompat="@drawable/common_ptr_error"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@id/ptr_empty_tv_error"
@@ -92,7 +92,7 @@
             android:id="@id/ptr_empty_iv_empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/common_ptr_error"/>
+            app:srcCompat="@drawable/common_ptr_error"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@id/ptr_empty_tv_empty"

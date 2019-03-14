@@ -65,7 +65,7 @@ public class AsyncTimeoutTaskSample extends SampleBaseFragment {
 
     private void onStartLoading() {
         dialog = new ProgressFragment();
-        dialog.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+        dialog.setStyle(AfDialogFragment.STYLE_NO_TITLE, 0);
         dialog.setCanceledOnTouchOutside(false);
         Bundle bundle = new Bundle();
         bundle.putString("title", "Loading...");

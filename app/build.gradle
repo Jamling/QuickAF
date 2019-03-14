@@ -74,7 +74,7 @@ dependencies {
     }
     implementation 'androidx.vectordrawable:vectordrawable:1.0.1'
     implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'com.google.android.material:material:1.1.0-alpha01'
+    implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.percentlayout:percentlayout:1.0.0'
     // import ORM for SQLite database
     implementation 'cn.ieclipse.aorm:aorm-core:1.2.1'

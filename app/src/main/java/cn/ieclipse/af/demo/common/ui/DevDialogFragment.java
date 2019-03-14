@@ -87,7 +87,7 @@ public class DevDialogFragment extends AfDialogFragment implements CompoundButto
     @Override
     protected void initContentView(View view) {
         super.initContentView(view);
-        mEtUrl = (AutoCompleteTextView) view.findViewById(R.id.et_text);
+        mEtUrl = view.findViewById(R.id.et_text);
         mEtUrl.setText(URLConst.BASE);
         mEtUrl.setAdapter(new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, getUrls()));
         mEtUrl.setOnItemClickListener(this);

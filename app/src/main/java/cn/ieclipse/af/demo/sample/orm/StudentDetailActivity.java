@@ -80,7 +80,7 @@ public class StudentDetailActivity extends DetailActivity {
         Criteria criteria = Criteria.create(Grade.class)
                 .add(Restrictions.eq("sid", id));
         int num = session.delete(criteria);
-        String text = getString(R.string.sample_delete_grade_info, num,
+        String text = getString(R.string.sample_delete_grade_info, String.valueOf(num),
                 student.getName());
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
         return count > 0;

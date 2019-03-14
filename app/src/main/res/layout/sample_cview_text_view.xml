@@ -74,7 +74,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:ellipsize="marquee"
-            android:maxLines="1"
+            android:singleLine="true"
             android:text="I am long text,maxLines=1 and ellipsize = marquee">
 
             <requestFocus/>
