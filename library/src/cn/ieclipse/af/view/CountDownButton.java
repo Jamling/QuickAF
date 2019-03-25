@@ -108,6 +108,7 @@ public class CountDownButton extends RoundButton {
     }
     
     public void reset() {
+        this.time = 0;
         setText(null);
         setEnabled(true);
     }
