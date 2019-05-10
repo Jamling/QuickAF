@@ -15,7 +15,6 @@
  */
 package cn.ieclipse.af.adapter;
 
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -40,12 +39,9 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
     public static final int ITEM_VIEW_TYPE_FOOTER = -3;
 
     protected Logger mLogger = Logger.getLogger(getClass());
-    protected LayoutInflater mInflater;
     protected RecyclerView mRecyclerView;
 
     private AfDataHolder<T> mDataHolder = new AfDataHolder<>();
-    private View mHeaderView;
-    private View mFooterView;
 
     private DelegateManager<T> mDelegatesManager;
 
@@ -183,21 +179,6 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
         return mDataHolder.getIndexOf(t);
     }
 
-    @Deprecated
-    public int getLayout() {
-        return 0;
-    }
-
-    @Deprecated
-    public void onUpdateView(RecyclerView.ViewHolder holder, T data, int position) {
-
-    }
-
-    @Deprecated
-    public int getFootLayout() {
-        return 0;
-    }
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (mDelegatesManager.getCount() > 0) {
@@ -213,25 +194,7 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
             }
             return holder;
         }
-        if (viewType == ITEM_VIEW_TYPE_HEADER) {
-            mHeaderView.setTag(ITEM_VIEW_TYPE_HEADER);
-            return new AfViewHolder(mHeaderView);
-        }
-        else if (viewType == ITEM_VIEW_TYPE_FOOTER) {
-            mFooterView.setTag(ITEM_VIEW_TYPE_FOOTER);
-            return new AfViewHolder(mFooterView);
-        }
-        else {
-            AfViewHolder vh = new AfViewHolder(onCreateItemView(parent, viewType));
-            vh.setAdapter(this);
-            return vh;
-        }
-    }
-
-    @Deprecated
-    protected View onCreateItemView(ViewGroup parent, int viewType) {
-        View layout = mInflater.inflate(getLayout(), parent, false);
-        return layout;
+        return null;
     }
 
     @Override
@@ -252,6 +215,10 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
         return position;
     }
 
+    /**
+     * Get datalist real count;
+     * @return
+     * */
     public int getDataItemCount() {
         return mDataHolder.getCount();
     }
@@ -260,14 +227,14 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
         if (mDelegatesManager.getCount() > 0) {
             return mDelegatesManager.getHeaderCount();
         }
-        return mHeaderView == null ? 0 : 1;
+        return 0;
     }
 
     public int getFooterCount() {
         if (mDelegatesManager.getCount() > 0) {
             return mDelegatesManager.getFooterCount();
         }
-        return mFooterView == null ? 0 : 1;
+        return 0;
     }
 
     @Override
@@ -275,7 +242,7 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
         if (mDelegatesManager.getCount() > 0) {
             return mDelegatesManager.getItemViewType(getItem(position), position);
         }
-        return 0;
+        return ITEM_VIEW_TYPE_NORMAL;
     }
 
     @Override

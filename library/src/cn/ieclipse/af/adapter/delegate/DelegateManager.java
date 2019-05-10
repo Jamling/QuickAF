@@ -82,6 +82,7 @@ public class DelegateManager<T> {
                         headerCount--;
                     }
                 }
+                count--;
             }
         }
     }

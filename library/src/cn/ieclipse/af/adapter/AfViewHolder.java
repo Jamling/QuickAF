@@ -47,9 +47,6 @@ public class AfViewHolder extends RecyclerView.ViewHolder implements View.OnClic
         if (!hasOnLongClickListener(view)) {
             itemView.setOnLongClickListener(this);
         }
-//        if (itemView.getBackground() == null) {
-//            itemView.setBackgroundResource(android.R.drawable.list_selector_background);
-//        }
         itemView.setOnCreateContextMenuListener(this);
     }
 
@@ -104,7 +101,7 @@ public class AfViewHolder extends RecyclerView.ViewHolder implements View.OnClic
         itemView.setVisibility(visibility);
     }
 
-    private boolean hasOnClickListener(View view) {
+    protected boolean hasOnClickListener(View view) {
         if (Build.VERSION.SDK_INT >= 15) {
             return view.hasOnClickListeners();
         }
@@ -124,7 +121,7 @@ public class AfViewHolder extends RecyclerView.ViewHolder implements View.OnClic
         return false;
     }
 
-    private boolean hasOnLongClickListener(View view) {
+    protected boolean hasOnLongClickListener(View view) {
         try {
             Field f = View.class.getDeclaredField("mListenerInfo");
             f.setAccessible(true);
