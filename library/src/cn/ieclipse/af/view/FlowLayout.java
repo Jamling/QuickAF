@@ -26,6 +26,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Checkable;
@@ -33,6 +34,7 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -1320,6 +1322,42 @@ public class FlowLayout extends ViewGroup {
             }
             mDataSetObserver = new AdapterDataSetObserver();
             mAdapter.registerDataSetObserver(mDataSetObserver);
+        }
+    }
+
+    public void resetChild(int from, List<?> tags, int layout) {
+        FlowLayout fl = this;
+        int c = fl.getChildCount();
+        for (int i = from; i < c; i++) {
+            fl.removeViewAt(from);
+        }
+        if (tags != null) {
+            c = tags.size();
+            LayoutInflater inflater = LayoutInflater.from(fl.getContext());
+            for (int i = 0; i < c; i++) {
+                if (tags.get(i) == null) {
+                    continue;
+                }
+                TextView tv = (TextView) inflater.inflate(layout, fl, false);
+                tv.setText(tags.get(i).toString());
+                fl.addView(tv);
+            }
+        }
+    }
+
+    public void toogleChild(int from, List<?> tags) {
+        FlowLayout fl = this;
+        int size = tags == null ? 0 : tags.size();
+        int count = fl.getChildCount();
+        for (int i = from; i < count; i++) {
+            fl.getChildAt(i).setVisibility(View.GONE);
+        }
+        for (int i = 0; i < size; i++) {
+            TextView tv = (TextView) fl.getChildAt(from + i);
+            if (tv != null && tags.get(i) != null) {
+                tv.setText(tags.get(i).toString());
+                tv.setVisibility(View.VISIBLE);
+            }
         }
     }
 

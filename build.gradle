@@ -40,8 +40,8 @@ task zip(type: Zip) {
     from(".") {
         exclude("**/*.iml")
         exclude("**/*/.gradle")
-        //exclude("**/*/gradle")
+        exclude("library")
         exclude("**/*/.idea")
-        exclude("**/*/.build")
+        exclude("**/*/build")
     }
 }

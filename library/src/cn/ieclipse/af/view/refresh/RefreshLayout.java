@@ -28,6 +28,7 @@ import android.widget.FrameLayout;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import cn.ieclipse.af.R;
@@ -132,6 +133,7 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
         internalRegisterDetector(RecyclerView.class, new RefreshRecyclerDetector());
         internalRegisterDetector(AbsListView.class, new RefreshListViewDetector());
         internalRegisterDetector(WebView.class, new RefreshWebViewDetector());
+        internalRegisterDetector(NestedScrollView.class, new RefreshNScrollDetector());
         findDetector();
     }
 
