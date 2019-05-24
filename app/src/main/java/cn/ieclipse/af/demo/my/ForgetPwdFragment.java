@@ -31,6 +31,7 @@ import cn.ieclipse.af.graphics.RoundedColorDrawable;
 import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.util.DialogUtils;
 import cn.ieclipse.af.util.EncodeUtils;
+import cn.ieclipse.af.util.EncryptUtils;
 import cn.ieclipse.af.view.CountDownButton;
 import cn.ieclipse.af.volley.RestError;
 
@@ -138,7 +139,7 @@ public class ForgetPwdFragment extends BaseFragment implements RegisterControlle
                     RegisterRequest req = new RegisterRequest();
                     req.phone = mPhone;
                     req.code = mEtCode.getText().toString();
-                    req.password = EncodeUtils.getMd5(mEtPwd.getText().toString());
+                    req.password = EncryptUtils.encryptMd5(mEtPwd.getText().toString());
                     mController.register(req);
                 }
             }

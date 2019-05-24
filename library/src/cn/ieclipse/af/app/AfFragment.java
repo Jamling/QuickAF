@@ -39,6 +39,10 @@ import cn.ieclipse.af.view.TitleBar;
  */
 public abstract class AfFragment extends Fragment implements View.OnClickListener {
 
+    public static final String EXTRA_ID = AfActivity.EXTRA_ID;
+    public static final String EXTRA_DATA = AfActivity.EXTRA_DATA;
+    public static final String EXTRA_TYPE = AfActivity.EXTRA_TYPE;
+
     // protected AfActivity mActivity;
     private boolean overlay = false;
     private boolean showTitleBar = false;

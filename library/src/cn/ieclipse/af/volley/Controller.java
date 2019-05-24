@@ -30,6 +30,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.ieclipse.af.util.EncodeUtils;
 import cn.ieclipse.af.util.StringUtils;
 
 /**
@@ -180,10 +181,10 @@ public abstract class Controller<Listener> {
 
         /**
          * Perform REST request and convert response 'data' json to
-         * {@linkplain java.util.List java.util.List} object.
+         * {@linkplain List java.util.List} object.
          *
          * @param input     request object
-         * @param itemClass entity class of {@linkplain java.util.List java.util.List}
+         * @param itemClass entity class of {@linkplain List java.util.List}
          * @param needCache need load from cache or not
          */
         public void load2List(Input input, Class<?> itemClass, boolean needCache) {
@@ -245,7 +246,7 @@ public abstract class Controller<Listener> {
             // String json = gson.toJson(input);
             // json = input.toString();
             // return json;
-            String body = StringUtils.getRequestBody(input, getParamsEncoding(), true);
+            String body = EncodeUtils.encodeRequestBody(input, getParamsEncoding(), true);
             return body;
         }
 
@@ -262,24 +263,24 @@ public abstract class Controller<Listener> {
                 out = convertData(response, mDataClazz, mDataItemClass);
             } catch (InterceptorError e) {
                 if (Controller.DEBUG) {
-                    Controller.log(getClass() + " interceptor the response", e);
+                    Controller.log(this + " interceptor the response", e);
                 }
                 return;
             } catch (VolleyError e) {
                 if (Controller.DEBUG) {
-                    Controller.log(getClass() + " convertData meet VolleyError", e);
+                    Controller.log(this + " convertData meet VolleyError", e);
                 }
                 onError(new RestError(e));
                 return;
             } catch (RestError e) {
                 if (Controller.DEBUG) {
-                    Controller.log(getClass() + " convertData meet RestError", e);
+                    Controller.log(this + " convertData meet RestError", e);
                 }
                 onError(e);
                 return;
             } catch (Exception e) {
                 if (Controller.DEBUG) {
-                    Controller.log(getClass() + " convertData meet Exception", e);
+                    Controller.log(this + " convertData meet Exception", e);
                 }
                 onError(new RestError(new ParseError(e)));
                 return;

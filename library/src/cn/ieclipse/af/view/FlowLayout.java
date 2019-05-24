@@ -1388,7 +1388,7 @@ public class FlowLayout extends ViewGroup {
     // Override to allow type-checking of LayoutParams.
     @Override
     protected boolean checkLayoutParams(ViewGroup.LayoutParams p) {
-        return p instanceof LinearLayout.LayoutParams;
+        return p instanceof FlowLayout.LayoutParams;
     }
 
     /**

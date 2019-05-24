@@ -44,6 +44,7 @@ import cn.ieclipse.af.view.TitleBar;
 public abstract class AfActivity extends AppCompatActivity implements OnClickListener {
     public static final String EXTRA_DATA = "af.data";
     public static final String EXTRA_ID = "af.id";
+    public static final String EXTRA_TYPE = "af.type";
 
     protected Logger mLogger = Logger.getLogger(getClass());
     protected SystemBarTintManager mTintManager;
