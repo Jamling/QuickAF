@@ -149,7 +149,7 @@ public class DevDialogFragment extends AfDialogFragment implements CompoundButto
     public void dump() {
         String type = getActivity().getPackageName();
         try {
-            File src = FileUtils.getInternal(getActivity()).getParentFile();
+            File src = SDUtils.getInternal(getActivity()).getParentFile();
             File dest = SDUtils.getRootDirectory();
             FileUtils.copyDirectoryToDirectory(src, dest, null);
             DialogUtils.showToast(getActivity(), "已复制到" + dest.getAbsolutePath());

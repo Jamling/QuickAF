@@ -53,15 +53,15 @@ public class StringUtilsTest {
         Map<String, String> map = new TreeMap<>();
         map.put("id", "id");
         map.put("name", null);
-        String body = StringUtils.getRequestBody(map, null, false);
+        String body = EncodeUtils.encodeRequestBody(map, null, false);
         Assert.assertEquals("id=id&name=", body);
-        body = StringUtils.getRequestBody(map, null, true);
+        body = EncodeUtils.encodeRequestBody(map, null, true);
         Assert.assertEquals("id=id", body);
 
         MyInfo info = new MyInfo("1");
-        body = StringUtils.getRequestBody(info, null, false);
+        body = EncodeUtils.encodeRequestBody(info, null, false);
         Assert.assertEquals("id=1&name=", body);
-        body = StringUtils.getRequestBody(info, null, true);
+        body = EncodeUtils.encodeRequestBody(info, null, true);
         Assert.assertEquals("id=1", body);
     }
 

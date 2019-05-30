@@ -9,6 +9,7 @@ import android.net.Uri;
 import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.util.DownloadUtils;
 import cn.ieclipse.af.util.FileUtils;
+import cn.ieclipse.af.util.SDUtils;
 
 /**
  * The default download receiver for application.
@@ -55,7 +56,7 @@ public class AfDownloadReceiver extends BroadcastReceiver {
      * @return true if the download is start by your application
      */
     protected boolean match(Context context, long downloadId, Uri uri) {
-        if (uri != null && uri.getPath().startsWith(FileUtils.getExternal(context, null).getAbsolutePath())) {
+        if (uri != null && uri.getPath().startsWith(SDUtils.getExternal(context, null).getAbsolutePath())) {
             return true;
         }
         return false;

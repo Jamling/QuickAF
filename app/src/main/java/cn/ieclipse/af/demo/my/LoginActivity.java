@@ -36,6 +36,7 @@ import cn.ieclipse.af.graphics.RoundedColorDrawable;
 import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.util.DialogUtils;
 import cn.ieclipse.af.util.EncodeUtils;
+import cn.ieclipse.af.util.EncryptUtils;
 import cn.ieclipse.af.view.CountDownButton;
 import cn.ieclipse.af.view.RoundButton;
 import cn.ieclipse.af.volley.RestError;
@@ -141,7 +142,7 @@ public class LoginActivity extends BaseActivity implements LoginController.Login
             LoginRequest req = new LoginRequest();
             req.username = mEtPhone.getText().toString().trim();
             req.pwd = mEtPwd.getText().toString();
-            req.pwd = EncodeUtils.getMd5(req.pwd);
+            req.pwd = EncryptUtils.encryptMd5(req.pwd);
             mLoginController.login(req);
         }
         else if (view == mBtnForgot) {

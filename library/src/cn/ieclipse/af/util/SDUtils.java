@@ -7,6 +7,7 @@
  */
 package cn.ieclipse.af.util;
 
+import android.content.Context;
 import android.os.Environment;
 
 import java.io.File;
@@ -56,4 +57,66 @@ public class SDUtils {
     public static File getExternalStoragePublicDirectory(String type) {
         return isAvailable() ? Environment.getExternalStoragePublicDirectory(type) : null;
     }
+
+
+    /**
+     * Get internal storage files dir.
+     * <p>
+     * sample: /data/data/<var>package</var>/files/
+     * </p>
+     *
+     * @param context context
+     *
+     * @return internal data files dir
+     * @see android.content.Context#getFilesDir()
+     */
+    public static File getInternal(Context context) {
+        return context.getFilesDir();
+    }
+
+    /**
+     * Get external storage files dir.
+     * <p>
+     * sample: /sdcard/Android/data/<var>package</var>/<var>dir</var>
+     * </p>
+     *
+     * @param context context
+     * @param dir     dir name
+     *
+     * @return internal data files dir
+     * @see android.content.Context#getExternalFilesDir(String)
+     */
+    public static File getExternal(Context context, String dir) {
+        return context.getExternalFilesDir(dir);
+    }
+
+    public static long getCacheSize(Context context, boolean includeInternal, boolean includeExternal) {
+        long size = 0l;
+        File dir = null;
+        if (includeInternal) {
+            dir = context.getCacheDir();
+            size += FileUtils.getFileSize(dir);
+        }
+        if (includeExternal) {
+            dir = context.getExternalCacheDir();
+            size += FileUtils.getFileSize(dir);
+        }
+        return size;
+    }
+
+    public static void clearCache(Context context, boolean includeInternal, boolean includeExternal) {
+        if (context == null) {
+            return;
+        }
+        File dir = null;
+        if (includeInternal) {
+            dir = context.getCacheDir();
+            FileUtils.rmdir(dir, true);
+        }
+        if (includeExternal) {
+            dir = context.getExternalCacheDir();
+            FileUtils.rmdir(dir, true);
+        }
+    }
+
 }

@@ -32,6 +32,7 @@ import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.util.FileUtils;
 import cn.ieclipse.af.util.KeyboardUtils;
 import cn.ieclipse.af.util.PopupUtils;
+import cn.ieclipse.af.util.SDUtils;
 import cn.ieclipse.af.view.FlowLayout;
 
 /**
@@ -277,7 +278,7 @@ public class SearchLayout extends LinearLayout implements View.OnClickListener {
          * 加载搜索历史
          */
         protected List<T> loadSearchHistory() {
-            List<T> list = (List<T>) FileUtils.readObject(FileUtils.getInternal(context), HISTORY_FILE);
+            List<T> list = (List<T>) FileUtils.readObject(SDUtils.getInternal(context), HISTORY_FILE);
             mAdapter.clear();
             mAdapter.addAll(list);
             mAdapter.notifyDataSetChanged();
@@ -288,7 +289,7 @@ public class SearchLayout extends LinearLayout implements View.OnClickListener {
          * 将数据存储进入共享参数
          */
         protected void addSearchHistory(T info) {
-            List<T> list = (List<T>) FileUtils.readObject(FileUtils.getInternal(context), HISTORY_FILE);
+            List<T> list = (List<T>) FileUtils.readObject(SDUtils.getInternal(context), HISTORY_FILE);
             if (list == null) {
                 list = new ArrayList<>(1);
             }
@@ -299,7 +300,7 @@ public class SearchLayout extends LinearLayout implements View.OnClickListener {
         }
 
         protected void saveSearchHistory(List<T> list) {
-            FileUtils.writeObject(FileUtils.getInternal(context), HISTORY_FILE, list);
+            FileUtils.writeObject(SDUtils.getInternal(context), HISTORY_FILE, list);
         }
 
         /**

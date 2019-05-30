@@ -52,9 +52,9 @@ public class DemoApplication extends Application {
         // use vector drawable
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
-        if (!LeakCanary.isInAnalyzerProcess(this)) {
-            LeakCanary.install(this);
-        }
+//        if (!LeakCanary.isInAnalyzerProcess(this)) {
+//            LeakCanary.install(this);
+//        }
         Debug.stopMethodTracing();
         Debug.startMethodTracing("launcher1");
     }
