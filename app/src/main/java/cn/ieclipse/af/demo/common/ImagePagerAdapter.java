@@ -21,6 +21,8 @@ import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.util.List;
+
 import cn.ieclipse.af.adapter.AfPagerAdapter;
 import cn.ieclipse.af.demo.R;
 
@@ -56,7 +58,15 @@ public class ImagePagerAdapter extends AfPagerAdapter<ImagePagerAdapter.IImage> 
     public void onClick(View v) {
         
     }
-    
+
+    public void setImages(List<? extends IImage> list) {
+        super.setDataList(convert(list));
+    }
+
+    public static List<IImage> convert(List<? extends IImage> list) {
+        return (List<IImage>) list;
+    }
+
     public interface IImage extends java.io.Serializable {
         String getUrl();
     }

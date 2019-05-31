@@ -102,7 +102,7 @@ public class PinYinUtils {
      * @return ascii
      */
     private static int getChsAscii(String chs) {
-        int asc = 0;
+        int asc = -1;
         try {
             byte[] bytes = chs.getBytes("gb2312");
             if (bytes == null || bytes.length > 2 || bytes.length <= 0) {
@@ -117,7 +117,7 @@ public class PinYinUtils {
                 asc = (256 * hightByte + lowByte) - 256 * 256;
             }
         } catch (Exception e) {
-            System.out.println("ERROR:ChineseSpelling.class-getChsAscii(String chs)" + e);
+            System.out.println("ERROR:PinYinUtils.getChsAscii(String chs)" + e);
         }
         return asc;
     }
@@ -131,6 +131,9 @@ public class PinYinUtils {
      */
     public static String convert(String str) {
         String result = null;
+        if (str.toCharArray().length > 1) {
+            throw new IllegalArgumentException("Just one char string allowed");
+        }
         int ascii = getChsAscii(str);
         if (ascii > 0 && ascii < 160) {
             result = String.valueOf((char) ascii);

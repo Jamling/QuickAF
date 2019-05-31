@@ -23,6 +23,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Description
@@ -81,7 +82,7 @@ public final class EncodeUtils {
     }
     
     public static Map<String, Object> encode(Object obj, boolean excludeNull) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new TreeMap<>();
         ReflectUtils.FieldFilter filter = (field) -> {
             return (field.getModifiers() & Modifier.STATIC) == 0;
         };

@@ -14,8 +14,12 @@ public class PinYinUtilsTest {
         String actual = PinYinUtils.convert("中");
         Assert.assertEquals("zhong", actual);
 
-        actual = PinYinUtils.convert("中国");
-        Assert.assertEquals("zhong", actual);
+        try {
+            actual = PinYinUtils.convert("中国");
+            Assert.assertEquals("zhong", actual);
+        } catch (Exception e) {
+            Assert.assertTrue(e instanceof IllegalArgumentException);
+        }
     }
 
     @Test

@@ -52,7 +52,7 @@ public class ImageBrowserActivity extends BaseActivity implements ViewPager.OnPa
     protected ViewPager mViewPager;
     protected ImageAdapter mAdapter;
     protected int mCurrentIndex;
-    protected List<ImagePagerAdapter.IImage> mImages;
+    protected List<? extends ImagePagerAdapter.IImage> mImages;
     
     private View mDescLayout;
     protected TextView mDescTv;
@@ -92,7 +92,7 @@ public class ImageBrowserActivity extends BaseActivity implements ViewPager.OnPa
     protected void initIntent(Bundle bundle) {
         super.initIntent(bundle);
         mCurrentIndex = bundle.getInt(EXTRA_INDEX);
-        mImages = (List<ImagePagerAdapter.IImage>) bundle.getSerializable(EXTRA_DATA);
+        mImages = (List<? extends ImagePagerAdapter.IImage>) bundle.getSerializable(EXTRA_DATA);
     }
     
     @Override
@@ -130,7 +130,7 @@ public class ImageBrowserActivity extends BaseActivity implements ViewPager.OnPa
     @Override
     protected void initData() {
         mAdapter = new ImageAdapter();
-        mAdapter.setDataList(mImages);
+        mAdapter.setImages(mImages);
         mViewPager.setAdapter(mAdapter);
         if (mAdapter.getCount() > 0) {
             mViewPager.setCurrentItem(mCurrentIndex, false);

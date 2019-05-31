@@ -263,24 +263,24 @@ public abstract class Controller<Listener> {
                 out = convertData(response, mDataClazz, mDataItemClass);
             } catch (InterceptorError e) {
                 if (Controller.DEBUG) {
-                    Controller.log(this + " interceptor the response", e);
+                    Controller.log(this + " interceptor the response, listener is " + mListener, e);
                 }
                 return;
             } catch (VolleyError e) {
                 if (Controller.DEBUG) {
-                    Controller.log(this + " convertData meet VolleyError", e);
+                    Controller.log(this + " convertData meet VolleyError, listener is " + mListener, e);
                 }
                 onError(new RestError(e));
                 return;
             } catch (RestError e) {
                 if (Controller.DEBUG) {
-                    Controller.log(this + " convertData meet RestError", e);
+                    Controller.log(this + " convertData meet RestError, listener is " + mListener, e);
                 }
                 onError(e);
                 return;
             } catch (Exception e) {
                 if (Controller.DEBUG) {
-                    Controller.log(this + " convertData meet Exception", e);
+                    Controller.log(this + " convertData meet Exception, listener is " + mListener, e);
                 }
                 onError(new RestError(new ParseError(e)));
                 return;
