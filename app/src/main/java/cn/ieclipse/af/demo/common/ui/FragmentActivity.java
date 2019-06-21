@@ -18,6 +18,8 @@ package cn.ieclipse.af.demo.common.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -67,6 +69,44 @@ public class FragmentActivity extends BaseActivity {
                 setTitle(((BaseFragment) fragment).getTitle());
             }
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == mTitleLeftView) {
+            // 如果fragment没有处理back，则默认为finish Activity
+            if (fragment instanceof BaseFragment) {
+                if (!((BaseFragment) fragment).handleBack()) {
+                    finish();
+                    return;
+                }
+            }
+        }
+        super.onClick(v);
+    }
+
+    // onBackPressed 在某些设备上不会调用，需要自己处理Key事件
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        boolean handle = super.dispatchKeyEvent(event);
+        // TODO 加if
+//        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+//            if (event.getAction() == KeyEvent.ACTION_UP) {
+//                onBackPressed();
+//            }
+//            return true;
+//        }
+        return handle;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (fragment instanceof BaseFragment) {
+            if (((BaseFragment) fragment).handleBack()) {
+                return;
+            }
+        }
+        super.onBackPressed();
     }
 
     @Override

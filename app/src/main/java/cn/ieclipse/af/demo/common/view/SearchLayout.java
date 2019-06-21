@@ -278,7 +278,7 @@ public class SearchLayout extends LinearLayout implements View.OnClickListener {
          * 加载搜索历史
          */
         protected List<T> loadSearchHistory() {
-            List<T> list = (List<T>) FileUtils.readObject(SDUtils.getInternal(context), HISTORY_FILE);
+            List<T> list = (List<T>) FileUtils.readObject(SDUtils.getInternal(context), getHistoryFileName());
             mAdapter.clear();
             mAdapter.addAll(list);
             mAdapter.notifyDataSetChanged();
@@ -289,7 +289,7 @@ public class SearchLayout extends LinearLayout implements View.OnClickListener {
          * 将数据存储进入共享参数
          */
         protected void addSearchHistory(T info) {
-            List<T> list = (List<T>) FileUtils.readObject(SDUtils.getInternal(context), HISTORY_FILE);
+            List<T> list = (List<T>) FileUtils.readObject(SDUtils.getInternal(context), getHistoryFileName());
             if (list == null) {
                 list = new ArrayList<>(1);
             }
@@ -300,7 +300,7 @@ public class SearchLayout extends LinearLayout implements View.OnClickListener {
         }
 
         protected void saveSearchHistory(List<T> list) {
-            FileUtils.writeObject(SDUtils.getInternal(context), HISTORY_FILE, list);
+            FileUtils.writeObject(SDUtils.getInternal(context), getHistoryFileName(), list);
         }
 
         /**
@@ -309,6 +309,10 @@ public class SearchLayout extends LinearLayout implements View.OnClickListener {
         protected void clearSearchHistory() {
             saveSearchHistory(null);
             loadSearchHistory();
+        }
+
+        protected String getHistoryFileName() {
+            return HISTORY_FILE;
         }
     }
 
