@@ -17,7 +17,7 @@ package cn.ieclipse.af.demo.sample.recycler;
 
 import cn.ieclipse.af.demo.sample.ButtonListFragment;
 import cn.ieclipse.af.demo.sample.recycler.sort.SortListViewActivity;
-import cn.ieclipse.af.demo.sample.recycler.sort.SortRecyclerActivity;
+import cn.ieclipse.af.demo.sample.recycler.sort.StickyHeadersSample;
 
 /**
  * Description
@@ -34,7 +34,7 @@ public class RecyclerFragment extends ButtonListFragment {
     protected Class[] getActivities() {
         return new Class[]{RecyclerSample.class, RefreshRecyclerSample.class, RefreshSwipeRecyclerSample.class,
             RefreshScrollViewSample
-            .class, RefreshListViewSample.class, CheckableRecyclerSample.class, SortRecyclerActivity.class,
+            .class, RefreshListViewSample.class, CheckableRecyclerSample.class, StickyHeadersSample.class,
             SortListViewActivity.class, RefreshWebViewSample.class};
     }
 }

@@ -56,6 +56,13 @@ public class PinYinUtilsTest {
     }
 
     @Test
+    public void testSpecial() {
+        String actual = PinYinUtils.getPinYin("麒麟");
+
+        actual = PinYinUtils.getPinYin("琥珀");
+    }
+
+    @Test
     public void test() {
         PinYinUtils.test();
     }

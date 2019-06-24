@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
-    <uses-sdk tools:overrideLibrary="cn.ieclipse.pay,com.alipay.sdk" />
+    <uses-sdk tools:overrideLibrary="cn.ieclipse.pay,com.alipay.sdk,com.brandongogetap.stickyheaders" />
 
     <application
         android:name=".DemoApplication"
@@ -132,7 +132,6 @@
         <activity android:name=".sample.cview.SimpleMonthPickerActivity"/>
 
         <!-- list view -->
-        <activity android:name=".sample.recycler.sort.SortRecyclerActivity"/>
         <activity android:name=".sample.recycler.sort.SortListViewActivity"/>
 
         <!-- volley -->

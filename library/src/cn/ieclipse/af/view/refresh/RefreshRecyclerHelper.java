@@ -35,7 +35,7 @@ public class RefreshRecyclerHelper<T> extends RefreshHelper<T> {
      * adapter
      */
     protected RecyclerView.Adapter mAdapter;
-    private RecyclerView mRecyclerView;
+    protected RecyclerView mRecyclerView;
     protected RecyclerHelper mRecyclerHelper;
 
 
