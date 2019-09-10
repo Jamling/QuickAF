@@ -888,6 +888,9 @@ public class FlowLayout extends ViewGroup {
             }
         }
 
+        if (mChildClickListener != null) {
+            child.setOnClickListener(mChildInternalClickListener);
+        }
         super.addView(child, index, params);
     }
 
@@ -1263,6 +1266,31 @@ public class FlowLayout extends ViewGroup {
          */
         void onCheckedChanged(FlowLayout group, CompoundButton buttonView, int checkedId);
     }
+
+    /**
+     * Interface definition for a callback to be invoked when the child view performed click.
+     * @since 3.0.1
+     */
+    public interface OnChildClickListener {
+        /**
+         * <p>
+         *     Called when the child of {@link FlowLayout} clicked.
+         * </p>
+         * @param parent parent view ({@link FlowLayout})
+         * @param child  the child view of {@link FlowLayout}
+         */
+        void onChildClick(FlowLayout parent, View child);
+    }
+
+    private FlowLayout.OnChildClickListener mChildClickListener;
+
+    public void setChildClickListener(OnChildClickListener childClickListener) {
+        this.mChildClickListener = childClickListener;
+    }
+
+    private View.OnClickListener mChildInternalClickListener = (v -> {
+        mChildClickListener.onChildClick(FlowLayout.this, v);
+    });
 
     // ----> adapter support
     /**

@@ -178,4 +178,10 @@ public final class SharedPrefsUtils {
         return object;
     }
 
+    public static void clearAll() {
+        SharedPreferences sharedPreferences = getSharedPreferences();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.commit();
+    }
 }

@@ -201,7 +201,7 @@ public class H5Activity extends BaseActivity {
 
             // 优先使用缓存
             // 不是用缓存（webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);）
-            mWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
+            mWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
 
             mWebView.getSettings().setDomStorageEnabled(true);
             mWebView.setDownloadListener(

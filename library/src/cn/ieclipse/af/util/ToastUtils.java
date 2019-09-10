@@ -15,8 +15,11 @@
  */
 package cn.ieclipse.af.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.widget.Toast;
+
+import androidx.core.app.NotificationManagerCompat;
 
 /**
  * 防止多次点击出现多个toast
@@ -28,6 +31,7 @@ public class ToastUtils {
 
     private static Toast mToast;
     private static int mDuration = Toast.LENGTH_SHORT;
+    public static int mReplace = 1;
 
     public static void setGlobalDuration(int length) {
         mDuration = length;
@@ -35,6 +39,10 @@ public class ToastUtils {
 
     public static void showToast(Context context, CharSequence desc) {
         if (context == null) {
+            return;
+        }
+        if (mReplace == 1 && isOn(context) && context instanceof Activity) {
+            DialogUtils.showAlert((Activity) context, 0, null, desc);
             return;
         }
         // 防止多次点击出现多个toast
@@ -70,5 +78,8 @@ public class ToastUtils {
         return mToast;
     }
 
-
+    public static boolean isOn(Context context) {
+        boolean on = NotificationManagerCompat.from(context).areNotificationsEnabled();
+        return on;
+    }
 }
