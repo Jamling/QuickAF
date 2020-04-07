@@ -12,6 +12,8 @@ import android.os.Environment;
 
 import java.io.File;
 
+import cn.ieclipse.util.FileUtils;
+
 /**
  * 无论是使用 getExternalStoragePublicDirectory()
  * 来存储可以共享的文件，还是使用 getExternalFilesDir()

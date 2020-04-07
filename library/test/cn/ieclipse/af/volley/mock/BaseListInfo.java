@@ -4,8 +4,6 @@ import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.ieclipse.af.util.RandomUtils;
-
 /**
  * Description
  *

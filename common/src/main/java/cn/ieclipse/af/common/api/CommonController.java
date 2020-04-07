@@ -24,9 +24,9 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.ieclipse.af.util.RandomUtils;
 import cn.ieclipse.af.volley.Controller;
 import cn.ieclipse.af.volley.RestError;
+import cn.ieclipse.util.RandomUtils;
 
 /**
  * App base controller

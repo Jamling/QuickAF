@@ -32,9 +32,9 @@ import cn.ieclipse.af.demo.AppConfig;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.api.URLConst;
 import cn.ieclipse.af.util.DialogUtils;
-import cn.ieclipse.af.util.FileUtils;
 import cn.ieclipse.af.util.SDUtils;
 import cn.ieclipse.af.volley.Controller;
+import cn.ieclipse.util.FileUtils;
 
 /**
  * Description

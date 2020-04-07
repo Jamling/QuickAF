@@ -32,9 +32,9 @@ import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.sample.SampleBaseActivity;
 import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.util.DialogUtils;
-import cn.ieclipse.af.util.RandomUtils;
 import cn.ieclipse.af.view.TableContainer;
 import cn.ieclipse.af.view.TableLayout;
+import cn.ieclipse.util.RandomUtils;
 
 /**
  * Description

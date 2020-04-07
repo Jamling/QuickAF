@@ -29,11 +29,10 @@ import cn.ieclipse.af.demo.common.ui.BaseActivity;
 import cn.ieclipse.af.graphics.RoundedColorDrawable;
 import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.util.DialogUtils;
-import cn.ieclipse.af.util.EncodeUtils;
-import cn.ieclipse.af.util.EncryptUtils;
-import cn.ieclipse.af.util.StringUtils;
 import cn.ieclipse.af.view.CountDownButton;
 import cn.ieclipse.af.volley.RestError;
+import cn.ieclipse.util.EncryptUtils;
+import cn.ieclipse.util.RegexUtils;
 
 /**
  * 注册
@@ -134,7 +133,7 @@ public class RegisterActivity extends BaseActivity implements RegisterController
             return false;
         }
         mPhone = mEtPhone.getText().toString();
-        if (!StringUtils.isMobileNO(mPhone)) {
+        if (!RegexUtils.isMobilePhoneNumber(mPhone)) {
             DialogUtils.showToast(this, R.string.reg_hint_phone);
             return false;
         }

@@ -30,10 +30,9 @@ import cn.ieclipse.af.demo.common.ui.BaseFragment;
 import cn.ieclipse.af.graphics.RoundedColorDrawable;
 import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.util.DialogUtils;
-import cn.ieclipse.af.util.EncodeUtils;
-import cn.ieclipse.af.util.EncryptUtils;
 import cn.ieclipse.af.view.CountDownButton;
 import cn.ieclipse.af.volley.RestError;
+import cn.ieclipse.util.EncryptUtils;
 
 /**
  * 注册

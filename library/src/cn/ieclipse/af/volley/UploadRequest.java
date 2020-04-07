@@ -33,12 +33,12 @@ import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 
-import cn.ieclipse.af.util.IOUtils;
 import cn.ieclipse.af.volley.content.AbstractContentBody;
 import cn.ieclipse.af.volley.content.BitmapBody;
 import cn.ieclipse.af.volley.content.ByteArrayBody;
 import cn.ieclipse.af.volley.content.FileBody;
 import cn.ieclipse.af.volley.content.StringBody;
+import cn.ieclipse.util.IOUtils;
 
 public class UploadRequest extends GsonRequest {
     /**

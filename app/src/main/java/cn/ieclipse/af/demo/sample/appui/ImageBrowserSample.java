@@ -10,7 +10,7 @@ import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.ImagePagerAdapter;
 import cn.ieclipse.af.demo.common.ui.ImageBrowserActivity;
 import cn.ieclipse.af.demo.sample.SampleBaseFragment;
-import cn.ieclipse.af.util.RandomUtils;
+import cn.ieclipse.util.RandomUtils;
 
 /**
  * Description

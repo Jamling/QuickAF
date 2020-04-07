@@ -9,8 +9,8 @@ import cn.ieclipse.af.demo.common.api.BaseInfo;
 import cn.ieclipse.af.demo.common.api.SimpleController;
 import cn.ieclipse.af.demo.common.api.URLConst;
 import cn.ieclipse.af.demo.sample.SampleBaseFragment;
-import cn.ieclipse.af.util.RandomUtils;
 import cn.ieclipse.af.volley.RestError;
+import cn.ieclipse.util.RandomUtils;
 
 /**
  * Description

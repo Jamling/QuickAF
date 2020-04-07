@@ -34,8 +34,8 @@ import java.util.Locale;
 import cn.ieclipse.af.adapter.AfBaseAdapter;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.ui.BaseActivity;
-import cn.ieclipse.af.util.PinYinUtils;
 import cn.ieclipse.af.view.SideBar;
+import cn.ieclipse.util.PinYinUtils;
 
 
 /**

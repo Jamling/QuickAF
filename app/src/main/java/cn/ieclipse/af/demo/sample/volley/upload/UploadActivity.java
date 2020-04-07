@@ -42,10 +42,10 @@ import cn.ieclipse.af.demo.common.api.BaseResponse;
 import cn.ieclipse.af.demo.common.ui.BaseActivity;
 import cn.ieclipse.af.demo.common.ui.FileChooserActivity;
 import cn.ieclipse.af.util.SharedPrefsUtils;
-import cn.ieclipse.af.util.StringUtils;
 import cn.ieclipse.af.volley.RestError;
 import cn.ieclipse.af.volley.VolleyConfig;
 import cn.ieclipse.af.volley.VolleyManager;
+import cn.ieclipse.util.StringUtils;
 
 /**
  * 类/接口描述

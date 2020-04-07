@@ -21,10 +21,10 @@ import java.util.List;
 
 import cn.ieclipse.af.demo.common.api.AppUploadController;
 import cn.ieclipse.af.demo.common.api.URLConst;
-import cn.ieclipse.af.util.FileUtils;
 import cn.ieclipse.af.volley.IUrl;
 import cn.ieclipse.af.volley.RestError;
 import cn.ieclipse.af.volley.UploadRequest;
+import cn.ieclipse.util.FileUtils;
 
 /**
  * Sample upload controller

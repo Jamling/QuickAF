@@ -18,8 +18,8 @@ import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.sample.SampleBaseFragment;
 import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.util.DialogUtils;
-import cn.ieclipse.af.util.RandomUtils;
 import cn.ieclipse.af.view.TableView;
+import cn.ieclipse.util.RandomUtils;
 
 /**
  * Description

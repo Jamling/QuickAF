@@ -35,10 +35,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import cn.ieclipse.af.util.FileUtils;
-import cn.ieclipse.af.util.IOUtils;
 import cn.ieclipse.af.volley.Controller;
 import cn.ieclipse.af.volley.UploadRequest;
+import cn.ieclipse.util.FileUtils;
+import cn.ieclipse.util.IOUtils;
 
 /**
  * Binary body part backed by a file.

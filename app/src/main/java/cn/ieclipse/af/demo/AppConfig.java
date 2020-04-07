@@ -20,15 +20,16 @@ import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
+import org.slf4j.impl.StaticLoggerBinder;
+
 import cn.ieclipse.af.demo.common.api.BaseResponse;
 import cn.ieclipse.af.demo.my.UserInfo;
 import cn.ieclipse.af.util.AppUtils;
-import cn.ieclipse.af.util.EncodeUtils;
-import cn.ieclipse.af.util.EncryptUtils;
-import cn.ieclipse.af.util.FileUtils;
 import cn.ieclipse.af.util.SDUtils;
 import cn.ieclipse.af.util.SharedPrefsUtils;
 import cn.ieclipse.af.volley.IBaseResponse;
+import cn.ieclipse.util.EncryptUtils;
+import cn.ieclipse.util.FileUtils;
 
 /**
  * Description

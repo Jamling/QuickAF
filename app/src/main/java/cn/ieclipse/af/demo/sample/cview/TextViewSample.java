@@ -6,8 +6,8 @@ import android.view.View;
 
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.sample.SampleBaseFragment;
-import cn.ieclipse.af.util.RandomUtils;
 import cn.ieclipse.af.view.TextViewFixTouchConsume;
+import cn.ieclipse.util.RandomUtils;
 
 /**
  * Description

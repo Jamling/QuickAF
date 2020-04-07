@@ -23,7 +23,6 @@ import java.io.File;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.ui.BaseFragment;
 import cn.ieclipse.af.util.DialogUtils;
-import cn.ieclipse.af.util.FileUtils;
 import cn.ieclipse.af.util.SDUtils;
 import cn.ieclipse.aorm.Aorm;
 

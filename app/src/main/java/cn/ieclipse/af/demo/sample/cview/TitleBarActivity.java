@@ -28,8 +28,8 @@ import android.widget.TextView;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.sample.SampleBaseActivity;
 import cn.ieclipse.af.util.AppUtils;
-import cn.ieclipse.af.util.RandomUtils;
 import cn.ieclipse.af.view.TitleBar;
+import cn.ieclipse.util.RandomUtils;
 
 /**
  * 类/接口描述

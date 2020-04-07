@@ -8,7 +8,6 @@ import android.net.Uri;
 
 import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.util.DownloadUtils;
-import cn.ieclipse.af.util.FileUtils;
 import cn.ieclipse.af.util.SDUtils;
 
 /**

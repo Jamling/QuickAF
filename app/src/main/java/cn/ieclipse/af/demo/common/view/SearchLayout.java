@@ -29,11 +29,11 @@ import cn.ieclipse.af.adapter.AfBaseAdapter;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.graphics.RoundedColorDrawable;
 import cn.ieclipse.af.util.AppUtils;
-import cn.ieclipse.af.util.FileUtils;
 import cn.ieclipse.af.util.KeyboardUtils;
 import cn.ieclipse.af.util.PopupUtils;
 import cn.ieclipse.af.util.SDUtils;
 import cn.ieclipse.af.view.FlowLayout;
+import cn.ieclipse.util.FileUtils;
 
 /**
  * 搜索，在4.x上，如果popup windows height为match_parent，弹出时，内容会在status bar 下面。需要修正。

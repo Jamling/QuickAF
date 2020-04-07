@@ -23,10 +23,10 @@ import cn.ieclipse.af.adapter.delegate.AdapterDelegate;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.sample.SampleBaseFragment;
 import cn.ieclipse.af.util.DialogUtils;
-import cn.ieclipse.af.util.PinYinUtils;
 import cn.ieclipse.af.view.SideBar;
 import cn.ieclipse.af.view.refresh.RefreshLayout;
 import cn.ieclipse.af.view.refresh.RefreshRecyclerHelper;
+import cn.ieclipse.util.PinYinUtils;
 
 /**
  * 使用这个库 https://github.com/bgogetap/StickyHeaders/ 相对来说侵入少一些,

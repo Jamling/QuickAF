@@ -30,8 +30,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.ieclipse.af.util.EncodeUtils;
-import cn.ieclipse.af.util.StringUtils;
+import cn.ieclipse.util.EncodeUtils;
 
 /**
  * Volley controller to load data(json) from server. The delegate must be extends it.

@@ -37,6 +37,7 @@ import cn.ieclipse.af.util.BitmapUtils;
  *
  * @author Jamling
  */
+@Deprecated
 public class RoundedDrawable extends Drawable {
 
     protected Paint mBorderPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);

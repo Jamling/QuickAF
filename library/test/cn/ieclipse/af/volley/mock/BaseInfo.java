@@ -19,8 +19,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.ieclipse.af.util.RandomUtils;
-
 /**
  * The is the base response info model of network. Override or extend {@link #mock()} to mock object.
  * All the response info must override {@link #equals(Object)} to indicate the same object.

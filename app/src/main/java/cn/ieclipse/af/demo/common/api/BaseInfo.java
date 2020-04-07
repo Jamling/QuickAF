@@ -19,7 +19,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.ieclipse.af.util.RandomUtils;
+import cn.ieclipse.util.RandomUtils;
 
 /**
  * The is the base response info model of network. Override or extend {@link #mock()} to mock object.

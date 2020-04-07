@@ -25,12 +25,13 @@ import android.widget.LinearLayout;
 import java.util.Calendar;
 import java.util.Date;
 
-import cn.ieclipse.af.common.TimeRange;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.view.wheelview.OnWheelChangedListener;
 import cn.ieclipse.af.view.wheelview.WheelView;
 import cn.ieclipse.af.view.wheelview.adapter.AbstractWheelAdapter;
+import cn.ieclipse.af.view.wheelview.adapter.ArrayWheelAdapter;
 import cn.ieclipse.af.view.wheelview.adapter.NumericWheelAdapter;
+import cn.ieclipse.common.TimeRange;
 
 /**
  * Description
@@ -60,6 +61,9 @@ public class WheelTimeContainer extends LinearLayout implements OnWheelChangedLi
     public static final int SHOW_DAY = 4;
     public static final int SHOW_HOUR = 8;
     public static final int SHOW_MINUTE = 16;
+    public static final int SHOW_JIDU = 32;
+    public static final int SHOW_TENDAY = 64;
+
     private int show = 0;
 
     private WheelView mYear;
@@ -72,6 +76,10 @@ public class WheelTimeContainer extends LinearLayout implements OnWheelChangedLi
     private NumericWheelAdapter mHourAdapter;
     private WheelView mMinute;
     private NumericWheelAdapter mMinuteAdapter;
+    private WheelView mJidu;
+    private ArrayWheelAdapter<String> mJiduAdapter;
+    private WheelView mTendays;
+    private ArrayWheelAdapter<String> mTendaysAdapter;
 
     private TimeRange tr;
     private int textColor = 0xFF585858;
@@ -82,11 +90,13 @@ public class WheelTimeContainer extends LinearLayout implements OnWheelChangedLi
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        mYear = (WheelView) findViewById(R.id.year);
-        mMonth = (WheelView) findViewById(R.id.month);
-        mDay = (WheelView) findViewById(R.id.day);
-        mHour = (WheelView) findViewById(R.id.hour);
-        mMinute = (WheelView) findViewById(R.id.minute);
+        mYear = findViewById(R.id.year);
+        mMonth = findViewById(R.id.month);
+        mDay = findViewById(R.id.day);
+        mHour = findViewById(R.id.hour);
+        mMinute = findViewById(R.id.minute);
+        mTendays = findViewById(R.id.tenday);
+        mJidu = findViewById(R.id.jidu);
 
         tr = new TimeRange();
     }
@@ -97,6 +107,7 @@ public class WheelTimeContainer extends LinearLayout implements OnWheelChangedLi
             int y = tr.getYearRange()[0] + mYear.getCurrentItem();
             tr.setCurrentTime(Calendar.YEAR, y);
 
+            initJidu();
             initMonth();
             initDay();
             initHour();
@@ -104,6 +115,7 @@ public class WheelTimeContainer extends LinearLayout implements OnWheelChangedLi
         else if (wheel == mMonth) {
             int m = tr.getMonthRange()[0] + mMonth.getCurrentItem();
             tr.setCurrentTime(Calendar.MONTH, m);
+            initTenday();
             initDay();
             initHour();
         }
@@ -200,6 +212,45 @@ public class WheelTimeContainer extends LinearLayout implements OnWheelChangedLi
         mMinute.setCurrentItem(mr[2]);
     }
 
+    private void initTenday() {
+        mTendaysAdapter = new ArrayWheelAdapter<>(getContext(), new String[]{"上旬", "中旬", "下旬"});
+        mTendaysAdapter.setTextColor(textColor);
+        mTendaysAdapter.setTextSize(textSize);
+        mTendays.setViewAdapter(mTendaysAdapter);
+        mTendays.setCurrentItem(1);
+        mTendays.setCyclic(false);
+    }
+
+    private void initJidu() {
+        Calendar c = Calendar.getInstance();
+        String[] labels;
+        if (tr.getCurrentTime().get(Calendar.YEAR) < c.get(Calendar.YEAR)) {
+            labels = new String[]{"第一季度", "第二季度", "第三季度", "第四季度"};
+        }
+        else {
+            int m = c.get(Calendar.MONTH) / 3;
+            if (m <= 0) {
+                labels = new String[]{"第一季度"};
+            }
+            else if (m < 1) {
+                labels = new String[]{"第一季度", "第二季度"};
+            }
+            else if (m < 2) {
+                labels = new String[]{"第一季度", "第二季度", "第三季度"};
+            }
+            else {
+                labels = new String[]{"第一季度", "第二季度", "第三季度", "第四季度"};
+            }
+        }
+
+        mJiduAdapter = new ArrayWheelAdapter<>(getContext(), labels);
+        mJiduAdapter.setTextColor(textColor);
+        mJiduAdapter.setTextSize(textSize);
+        mJidu.setViewAdapter(mJiduAdapter);
+        mJidu.setCurrentItem(1);
+        mJidu.setCyclic(false);
+    }
+
     public void show(int show) {
         this.show = show;
         mYear.setVisibility((show & SHOW_YEAR) != 0 ? View.VISIBLE : View.GONE);
@@ -207,18 +258,23 @@ public class WheelTimeContainer extends LinearLayout implements OnWheelChangedLi
         mDay.setVisibility((show & SHOW_DAY) != 0 ? View.VISIBLE : View.GONE);
         mHour.setVisibility((show & SHOW_HOUR) != 0 ? View.VISIBLE : View.GONE);
         mMinute.setVisibility((show & SHOW_MINUTE) != 0 ? View.VISIBLE : View.GONE);
+        mTendays.setVisibility((show & SHOW_TENDAY) != 0 ? View.VISIBLE : View.GONE);
+        mJidu.setVisibility((show & SHOW_JIDU) != 0 ? View.VISIBLE : View.GONE);
 
         initYear();
         initMonth();
         initDay();
         initHour();
         initMinute();
+        initTenday();
+        initJidu();
 
         mYear.addChangingListener(this);
         mMonth.addChangingListener(this);
         mDay.addChangingListener(this);
         mHour.addChangingListener(this);
         mMinute.addChangingListener(this);
+
     }
 
     public Calendar getCurrentTime() {

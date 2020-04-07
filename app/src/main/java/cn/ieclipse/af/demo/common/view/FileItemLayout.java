@@ -30,8 +30,8 @@ import java.text.SimpleDateFormat;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.util.AppUtils;
-import cn.ieclipse.af.util.FileUtils;
 import cn.ieclipse.af.view.checkable.CheckableLinearLayout;
+import cn.ieclipse.util.FileUtils;
 
 /**
  * File chooser item layout.

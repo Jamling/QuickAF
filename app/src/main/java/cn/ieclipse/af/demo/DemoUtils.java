@@ -11,7 +11,8 @@ import android.widget.TextView;
 import cn.ieclipse.af.demo.my.CheckUpdateController;
 import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.util.DialogUtils;
-import cn.ieclipse.af.util.StringUtils;
+import cn.ieclipse.util.RegexUtils;
+import cn.ieclipse.util.StringUtils;
 
 /**
  * Description
@@ -35,7 +36,7 @@ public class DemoUtils {
             return false;
         }
         String phone = mEtPhone.getText().toString();
-        if (!StringUtils.isMobileNO(phone)) {
+        if (!RegexUtils.isMobilePhoneNumber(phone)) {
             DialogUtils.showToast(mEtPhone.getContext(), R.string.reg_hint_phone);
             return false;
         }

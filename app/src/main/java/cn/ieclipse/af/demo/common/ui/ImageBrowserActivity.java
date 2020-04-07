@@ -39,7 +39,7 @@ import androidx.viewpager.widget.ViewPager;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.ImagePagerAdapter;
 import cn.ieclipse.af.util.AppUtils;
-import cn.ieclipse.af.util.RandomUtils;
+import cn.ieclipse.util.RandomUtils;
 
 /**
  * 类/接口描述

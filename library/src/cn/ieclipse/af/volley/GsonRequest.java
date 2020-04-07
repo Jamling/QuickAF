@@ -35,7 +35,7 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
-import cn.ieclipse.af.util.EncodeUtils;
+import cn.ieclipse.util.EncodeUtils;
 
 public class GsonRequest extends JsonRequest<IBaseResponse> {
     protected Type mClazz;

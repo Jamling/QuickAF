@@ -10,7 +10,7 @@ import android.view.ViewTreeObserver;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.sample.SampleBaseFragment;
 import cn.ieclipse.af.util.AppUtils;
-import cn.ieclipse.af.util.FileUtils;
+import cn.ieclipse.util.FileUtils;
 
 /**
  * Description
@@ -52,12 +52,17 @@ public class AppUtilsSample extends SampleBaseFragment {
         view.getViewTreeObserver().addOnGlobalLayoutListener(listener);
     }
 
-    ViewTreeObserver.OnGlobalLayoutListener listener = () -> {
-        Rect r = new Rect();
-        View root = getActivity().getWindow().getDecorView();
-        root.getWindowVisibleDisplayFrame(r);
-        int h = root.getHeight();
-        int h2 = r.bottom - r.top;
-        tv2.setText(tv2.getText() + "exact navigationBarHeight=" + h2);
-    };
+    int nh = 0;
+    ViewTreeObserver.OnGlobalLayoutListener listener =
+            () -> {
+                if (nh == 0) {
+                    Rect r = new Rect();
+                    View root = getActivity().getWindow().getDecorView();
+                    root.getWindowVisibleDisplayFrame(r);
+                    int h = root.getHeight();
+                    int h2 = r.bottom - r.top;
+                    nh = h2;
+                    tv2.setText(tv2.getText() + "\nexact navigationBarHeight=" + h2);
+                }
+            };
 }

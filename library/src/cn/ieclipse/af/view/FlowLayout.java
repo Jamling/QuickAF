@@ -894,6 +894,15 @@ public class FlowLayout extends ViewGroup {
         super.addView(child, index, params);
     }
 
+    public void checkChild(int index, boolean checked) {
+        if (index < getChildCount() && index >= 0) {
+            View c = getChildAt(index);
+            if (c instanceof Checkable) {
+                ((Checkable) c).setChecked(checked);
+            }
+        }
+    }
+
     /**
      * <p>
      * Sets the selection to the radio button whose identifier is passed in
@@ -925,6 +934,7 @@ public class FlowLayout extends ViewGroup {
         }
         else {
             setCheckedStateForView(id, true);
+            // TODO
             if (mOnCheckedChangeListener2 != null) {
                 View child = findViewById(id);
                 if (child instanceof CompoundButton) {
@@ -1224,6 +1234,11 @@ public class FlowLayout extends ViewGroup {
 
     public void setCheckedViews(Object... tag) {
         setCheckedViews(false, tag);
+    }
+
+    private int mMutexIndex = -1;
+    public void setMutexIndex(int mutexIndex) {
+        this.mMutexIndex = mutexIndex;
     }
 
     /**

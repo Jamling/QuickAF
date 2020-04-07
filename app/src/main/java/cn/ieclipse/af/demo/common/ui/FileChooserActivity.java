@@ -46,8 +46,8 @@ import java.util.Map;
 import cn.ieclipse.af.adapter.AfBaseAdapter;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.view.FileItemLayout;
-import cn.ieclipse.af.util.FileUtils;
 import cn.ieclipse.af.util.SDUtils;
+import cn.ieclipse.util.FileUtils;
 
 /**
  * File chooser
