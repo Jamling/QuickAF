@@ -117,15 +117,15 @@ public class DemoUtils {
             @Override
             public void run() {
                 try {
-                    if (BuildConfig.FLAVOR.equals("baidu")) {
-                        upgrade_baidu(view, context);
-                    }
-                    else if (BuildConfig.FLAVOR.equals("_360")) {
-                        upgrade_360(view, context);
-                    }
-                    else {
-                        upgrade_self(false, context);
-                    }
+//                    if (BuildConfig.FLAVOR.equals("baidu")) {
+//                        upgrade_baidu(view, context);
+//                    }
+//                    else if (BuildConfig.FLAVOR.equals("_360")) {
+//                        upgrade_360(view, context);
+//                    }
+//                    else {
+//                        upgrade_self(false, context);
+//                    }
                 } catch (Exception e) {
                     // mLogger.e("baidu auto update sdk error : " + e);
                 }

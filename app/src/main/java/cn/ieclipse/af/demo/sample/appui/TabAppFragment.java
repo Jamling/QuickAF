@@ -31,7 +31,7 @@ public class TabAppFragment extends ButtonListFragment {
     @Override
     protected Class[] getActivities() {
         return new Class[]{
-            AfActivitySample.class, AfActivityImmersiveSample.class, LoadingActivitySample.class, FileChooserSample.class,
+            SampleAfActivityActivity.class, AfActivityImmersiveSample.class, LoadingActivitySample.class, FileChooserSample.class,
             H5Sample.class, AfFragmentSample.class, RadioTabSample.class, ImageBrowserSample.class, AfDownloadSample
             .class, SearchSample.class
         };

@@ -73,6 +73,10 @@ public class H5Activity extends BaseActivity {
         super.initContentView(view);
         mPb = view.findViewById(android.R.id.progress);
         mWebView = view.findViewById(android.R.id.content);
+        initH5Delegate();
+    }
+
+    protected void initH5Delegate() {
         mH5Delegate =
                 new H5Delegate(mWebView, mPb) {
                     @Override
@@ -268,7 +272,7 @@ public class H5Activity extends BaseActivity {
             }
         }
 
-        private class H5WebViewClient extends WebViewClient {
+        protected class H5WebViewClient extends WebViewClient {
             @Override
             public boolean shouldOverrideUrlLoading(WebView webView, String s) {
                 return H5Delegate.this.shouldOverrideUrlLoading(webView, s);

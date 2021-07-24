@@ -20,7 +20,7 @@ package cn.ieclipse.af.demo.sample.appui;
  *
  * @author Jamling
  */
-public class AfActivityImmersiveSample extends AfActivitySample {
+public class AfActivityImmersiveSample extends SampleAfActivityActivity {
     
     @Override
     protected void initWindowFeature() {

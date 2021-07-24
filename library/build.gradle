@@ -4,6 +4,8 @@ plugins {
 }
 
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 apply from : './android-maven.gradle'
 
 apply from : './bintray.gradle'
@@ -76,6 +78,8 @@ dependencies {
     api 'com.google.code.gson:gson:2.8.5'
     api 'com.android.volley:volley:1.1.1'
     api 'com.github.jamling.JavaUtils:core:933b1c6551'
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 task hello {
