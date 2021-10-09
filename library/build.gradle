@@ -4,12 +4,9 @@ plugins {
 }
 
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 apply from : './android-maven.gradle'
-
 apply from : './bintray.gradle'
-
 android {
     compileSdkVersion Integer.parseInt(SDK_COMPILE)
     buildToolsVersion SDK_BUILD
@@ -59,32 +56,28 @@ android {
 
     // Gradle automatically adds 'android.test.runner' as a dependency.
     useLibrary 'android.test.runner'
-
     useLibrary 'android.test.base'
     useLibrary 'android.test.mock'
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'com.squareup.okhttp3:okhttp:3.10.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    androidTestImplementation 'org.mockito:android:2.20.0'
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.core:core:1.0.1'
-    implementation 'androidx.fragment:fragment:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
-    implementation "org.slf4j:slf4j-api:1.7.25"
-    api 'com.google.code.gson:gson:2.8.5'
-    api 'com.android.volley:volley:1.1.1'
-    api 'com.github.jamling.JavaUtils:core:933b1c6551'
-    implementation "androidx.core:core-ktx:+"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api jetpackDepend.swiperefreshlayout
+    api jetpackDepend.appcompat
+    api jetpackDepend.fragment
+    api jetpackDepend.recyclerview
+    api commonDepend.slf4japi
+    api commonDepend.gson
+    api commonDepend.volley
+    api commonDepend.utilscore
+
+    testImplementation testDepend.junit4
+    testImplementation commonDepend.okhttp3
+    androidTestImplementation testDepend.espressocore
+    androidTestImplementation testDepend.mockitoandroid
 }
 
 task hello {
-    println(rootProject.name)
-    println(android.libraryVariants)
     def release
     android.libraryVariants.all { variant ->
         println(variant)

@@ -25,6 +25,8 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.squareup.leakcanary.LeakCanary;
 
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.multidex.MultiDexApplication;
+
 import cn.ieclipse.af.volley.VolleyConfig;
 import cn.ieclipse.af.volley.VolleyManager;
 
@@ -33,7 +35,7 @@ import cn.ieclipse.af.volley.VolleyManager;
  *
  * @author Jamling
  */
-public class DemoApplication extends Application {
+public class DemoApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();

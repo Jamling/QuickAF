@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 
 android {
@@ -14,22 +13,22 @@ android {
     compileSdkVersion Integer.parseInt(SDK_COMPILE)
     buildToolsVersion SDK_BUILD
     defaultConfig {
+        configurations.all {
+            resolutionStrategy { force 'androidx.core:core-ktx:1.6.0' }
+        }
         applicationId APP_ID
         minSdkVersion Integer.parseInt(SDK_MIN)
         targetSdkVersion Integer.parseInt(SDK_TARGET)
         versionName VER_NAME
         versionCode Integer.parseInt(VER_CODE)
         signingConfig signingConfigs.config
+        multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
         vectorDrawables.generatedDensities = ['xxhdpi']
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    if (hasProperty('android.dataBinding.enabled')) {
-        def enabled = Boolean.parseBoolean(String.valueOf(property('android.dataBinding.enabled')))
-        dataBinding.enabled = enabled
-    }
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding true
     }
     buildTypes {
         release {
@@ -43,10 +42,8 @@ android {
             signingConfig signingConfigs.config
         }
     }
-    //useLibrary('org.apache.http.legacy')
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
-            //def oldFile = output.outputFile
             def releaseApkName = APP_NAME + VER_NAME + '(' + VER_CODE + ')-' +
                     variant.buildType.name + '.apk'
             output.outputFileName = releaseApkName
@@ -73,22 +70,21 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'junit:junit:4.12'
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    // compile 'com.android.support:appcompat-v7:23.3.0'
+    testImplementation testDepend.junit4
+    androidTestImplementation testDepend.junit4
+    androidTestImplementation testDepend.espressocore
     api project(':common')
+    api project(':library')
 
-    implementation 'androidx.vectordrawable:vectordrawable:1.0.1'
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation jetpackDepend.multidex
+    implementation jetpackDepend.vectordrawable
+    implementation jetpackDepend.appcompat
+    implementation jetpackDepend.constraintlayout
+    implementation 'com.google.android.material:material:1.4.0'
     // import ImageLoader for display image
-    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    implementation commonDepend.universalimageloader
     // import EventBus for event notify
-    implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation commonDepend.eventbus
     // af-pay
     implementation 'com.github.Jamling:af-pay:0.2.0'
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:5.1.6'
@@ -119,16 +115,10 @@ dependencies {
     // Optional: import ORM for SQLite database
     implementation 'cn.ieclipse.aorm:aorm-core:1.2.1'
     // optional: sticky header recycler view
-    //    implementation('com.timehop.stickyheadersrecyclerview:library:0.4.3') {
-    //        exclude group: 'com.android.support'//, module: 'support-v4'
-    //    }
     implementation 'org.zakariya.stickyheaders:stickyheaders:0.7.11'
     implementation 'com.brandongogetap:stickyheaders:0.6.0'
     // Optional: 3rd percent layout and flex layout
     implementation 'androidx.percentlayout:percentlayout:1.0.0'
-    implementation('com.google.android:flexbox:0.1.2') {
-        exclude group: 'com.android.support'
-    }
-    implementation "androidx.core:core-ktx:+"
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
