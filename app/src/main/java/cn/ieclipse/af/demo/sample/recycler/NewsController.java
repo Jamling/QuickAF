@@ -35,7 +35,6 @@ import cn.ieclipse.af.volley.RestError;
  * @author Jamling
  */
 public class NewsController extends Controller<NewsController.NewsListener> {
-
     public NewsController(NewsListener listener) {
         setListener(listener);
     }
@@ -65,7 +64,6 @@ public class NewsController extends Controller<NewsController.NewsListener> {
         public int page = 1;
         public int rand = 1;
         public String word;
-        public String src;
     }
 
     public static class NewsResponse implements IBaseResponse<List<NewsInfo>> {
@@ -74,10 +72,6 @@ public class NewsController extends Controller<NewsController.NewsListener> {
         public String msg;
         public List<NewsInfo> newslist;
 
-        // failure
-        public int errNum;
-        public String errMsg;
-
         @Override
         public List<NewsInfo> getData() {
             return newslist;
@@ -85,7 +79,6 @@ public class NewsController extends Controller<NewsController.NewsListener> {
     }
 
     public static class NewsInfo implements Serializable {
-
         /**
          * ctime : 2016-03-31
          * title : 奇虎360宣布通过私有化决议
@@ -94,17 +87,18 @@ public class NewsController extends Controller<NewsController.NewsListener> {
          * url : http://mp.weixin.qq
          * .com/s?__biz=MjM5OTMyODA2MA==&idx=1&mid=402594468&sn=5cd644536b472a283cc1d3f5124a0cab
          */
-
+        public String id;
         public String ctime;
         public String title;
         public String description;
+        public String source;
         public String picUrl;
         public String url;
 
         @Override
         public boolean equals(Object obj) {
             if (obj instanceof NewsInfo) {
-                return title.equals(((NewsInfo) obj).title);
+                return id.equals(((NewsInfo) obj).id);
             }
             return super.equals(obj);
         }
@@ -116,10 +110,9 @@ public class NewsController extends Controller<NewsController.NewsListener> {
     }
 
     private class ListTask extends RequestObjectTask<NewsRequest, List<NewsInfo>> {
-
         @Override
         public IUrl getUrl() {
-            return new URLConst.AbsoluteUrl("http://api.tianapi.com/wxnew").get();
+            return new URLConst.AbsoluteUrl("http://api.tianapi.com/internet/index").get();
         }
 
         @Override
@@ -142,7 +135,7 @@ public class NewsController extends Controller<NewsController.NewsListener> {
             if (response instanceof NewsResponse) {
                 NewsResponse resp = (NewsResponse) response;
                 if (resp.code != 200) {
-                    throw new LogicError(null, resp.errNum, resp.errMsg);
+                    throw new LogicError(null, resp.code, resp.msg);
                 }
             }
             return false;
@@ -157,7 +150,6 @@ public class NewsController extends Controller<NewsController.NewsListener> {
     }
 
     private class MyGsonRequest extends GsonRequest {
-
         public MyGsonRequest(int method, String url, String body, Response.Listener<IBaseResponse> responseListener,
                              Response.ErrorListener listener) {
             super(method, url, body, responseListener, listener);
