@@ -67,7 +67,7 @@ public class SearchSample extends SampleBaseFragment {
     public static class SampleSearchPopupWindow extends
         SearchLayout.SearchPopupWindow<NewsController.NewsInfo> implements NewsController.NewsListener {
 
-        private NewsController mNewsController = new NewsController(this);
+        private final NewsController mNewsController = new NewsController(this);
 
         public SampleSearchPopupWindow(SearchLayout searchLayout) {
             super(searchLayout);

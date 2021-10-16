@@ -1,8 +1,8 @@
 package cn.ieclipse.af.view.recycle;
 
-import org.junit.Test;
-
 import java.util.Arrays;
+
+import org.junit.Test;
 
 /**
  * Description

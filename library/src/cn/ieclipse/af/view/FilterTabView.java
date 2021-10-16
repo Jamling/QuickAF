@@ -29,7 +29,7 @@ public abstract class FilterTabView extends FrameLayout {
     public FilterTabView(Context context) {
         super(context);
     }
-    
+
     public CharSequence mTitle;
 
     protected LayoutInflater mLayoutInflater;

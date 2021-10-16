@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.ui.BaseFragment;
 import cn.ieclipse.af.util.DialogUtils;

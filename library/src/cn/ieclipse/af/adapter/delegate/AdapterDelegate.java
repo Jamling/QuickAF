@@ -19,9 +19,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.lang.reflect.Constructor;
 
-import androidx.recyclerview.widget.RecyclerView;
 import cn.ieclipse.af.adapter.AfRecyclerAdapter;
 import cn.ieclipse.af.adapter.AfViewHolder;
 
@@ -100,7 +101,6 @@ public abstract class AdapterDelegate<T> implements Comparable<AdapterDelegate> 
      * Instance ViewHolder with reflection, you can override to new concrete ViewHolder
      *
      * @param itemView item view of ViewHolder
-     *
      * @return ViewHolder
      * @see #onCreateViewHolder(android.view.ViewGroup)
      * @see #getViewHolderClass()

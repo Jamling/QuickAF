@@ -76,8 +76,8 @@ public class LabelValueLayout extends View {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs);
     }
-    
-    private int mNumColumns = 2;
+
+    private final int mNumColumns = 2;
     private TextPaint textPaint;
     private Paint paint;
     private List<CharSequence[]> rows;
@@ -102,7 +102,7 @@ public class LabelValueLayout extends View {
             a.recycle();
         }
     }
-    
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -112,15 +112,14 @@ public class LabelValueLayout extends View {
             int h = 0;
             int size = rowLayouts.size();
             for (int i = 0; i < size; i++) {
-                
+
                 canvas.translate(0, h);
                 if (i == 0) {
                     if (isNeedOuterBorder) {
                         canvas.drawLine(0, 0, getWidth(), 0, paint);
                     }
                     canvas.translate(0, getVerticalSpacing() / 2);
-                }
-                else if (i > 0) {
+                } else if (i > 0) {
                     int y = 0 + getVerticalSpacing() / 2;
                     if (isNeedInnerHorBorder) {
                         canvas.drawLine(0, y, getWidth(), y, paint);
@@ -152,7 +151,7 @@ public class LabelValueLayout extends View {
         }
         canvas.restore();
     }
-    
+
     public void addRow(CharSequence... text) {
         if (rows == null) {
             rows = new ArrayList<>();
@@ -160,21 +159,20 @@ public class LabelValueLayout extends View {
         rows.add(text);
         requestLayout();
     }
-    
+
     public void clear() {
         if (rows != null) {
             rows.clear();
         }
     }
-    
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int parentWidth = MeasureSpec.getSize(widthMeasureSpec);
         int width = parentWidth - getPaddingLeft() + getPaddingRight() - getHorizontalSpacing() * (mNumColumns - 1);
         if (rowLayouts == null) {
             rowLayouts = new ArrayList<>();
-        }
-        else {
+        } else {
             rowLayouts.clear();
         }
         int height = 0;
@@ -202,7 +200,7 @@ public class LabelValueLayout extends View {
             int sw = (int) paint.getStrokeWidth();
             height = height + (sw > 0 ? sw : 1);
         }
-        
+
         setMeasuredDimension(parentWidth, height);
     }
 
@@ -211,25 +209,25 @@ public class LabelValueLayout extends View {
         int i = (int) w;
         return w > i ? i + 1 : i;
     }
-    
+
     public int getHorizontalSpacing() {
         // return Math.max(mHorizontalSpacing, getDividerWidth());
         return mHorizontalSpacing;
     }
-    
+
     public int getVerticalSpacing() {
         // return Math.max(mVerticalSpacing, getVerticalDividerHeight());
         return mVerticalSpacing;
     }
-    
+
     public int getNumColumns() {
         return mNumColumns;
     }
-    
+
     public void setTextColor(int color) {
         this.textPaint.setColor(color);
     }
-    
+
     public void setTextSize(int size) {
         this.textPaint.setTextSize(size);
     }

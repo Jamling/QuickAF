@@ -31,26 +31,23 @@ public class AutoHeightExpandableListView extends ExpandableListView {
     public AutoHeightExpandableListView(Context context) {
         super(context);
     }
-    
+
     public AutoHeightExpandableListView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-    
-    public AutoHeightExpandableListView(Context context, AttributeSet attrs,
-            int defStyleAttr) {
+
+    public AutoHeightExpandableListView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
-    
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public AutoHeightExpandableListView(Context context, AttributeSet attrs,
-            int defStyleAttr, int defStyleRes) {
+    public AutoHeightExpandableListView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
-    
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2,
-                MeasureSpec.AT_MOST);
+        int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST);
         super.onMeasure(widthMeasureSpec, expandSpec);
     }
 }

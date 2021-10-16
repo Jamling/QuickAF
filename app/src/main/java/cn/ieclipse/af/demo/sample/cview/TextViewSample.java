@@ -28,9 +28,9 @@ public class TextViewSample extends SampleBaseFragment {
 
         tv2.setMovementMethod(TextViewFixTouchConsume.LocalLinkMovementMethod.getInstance());
         String at = String.format(AtTagHandler.AT_FORMAT, "@" + RandomUtils.genGBK(5),
-            String.valueOf(RandomUtils.genInt(100)));
+                RandomUtils.genInt(100));
         String at2 = String.format(AtTagHandler.AT_FORMAT, "@" + RandomUtils.genGBK(15),
-            String.valueOf(RandomUtils.genInt(100)));
+                RandomUtils.genInt(100));
         String source = String.format("转发了%s的微博，//%s真搞笑", at, at2);
         tv2.setText(Html.fromHtml(source, null, new AtTagHandler(getContext())));
     }

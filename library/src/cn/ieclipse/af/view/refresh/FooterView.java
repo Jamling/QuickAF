@@ -21,6 +21,7 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 import androidx.annotation.RequiresApi;
+
 import cn.ieclipse.af.volley.RestError;
 
 /**
@@ -55,7 +56,7 @@ public class FooterView extends FrameLayout {
     }
 
     public void setEmpty(CharSequence text) {
-        
+
     }
 
     public void reset() {

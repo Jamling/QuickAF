@@ -64,6 +64,11 @@ public class WeatherController extends AppController<WeatherController.WeatherLi
         }
 
         @Override
+        protected void mock() {
+            mListener.onLoadCityListSuccess(mockOutput(5), false);
+        }
+
+        @Override
         public boolean onInterceptor(IBaseResponse response) throws Exception {
             if (response instanceof WeatherBaseResponse) {
                 WeatherBaseResponse resp = (WeatherBaseResponse) response;
@@ -77,7 +82,7 @@ public class WeatherController extends AppController<WeatherController.WeatherLi
         @Override
         protected GsonRequest buildRequest(IUrl url, String body) {
             GsonRequest request = super.buildRequest(url, body);
-            request.addHeader("apikey", "e8c043231152d9cbcf30a648382ca4c5");
+            request.addHeader("apikey", "248f2bee9b229f9adc10fc9710c962c0");
             return  request;
         }
     }
@@ -86,7 +91,7 @@ public class WeatherController extends AppController<WeatherController.WeatherLi
 
         @Override
         public IUrl getUrl() {
-            return new URLConst.AbsoluteUrl("http://apis.baidu.com/apistore/weatherservice/cityname").get();
+            return new URLConst.AbsoluteUrl("https://restapi.amap.com/v3/weather/weatherInfo").get();
         }
         
         @Override

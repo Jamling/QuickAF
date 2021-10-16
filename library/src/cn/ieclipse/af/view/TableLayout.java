@@ -89,19 +89,17 @@ public class TableLayout extends FlowLayout {
 
         if (widthMode == MeasureSpec.UNSPECIFIED) {
             mMaxChildWidth = 0;
-        }
-        else if (widthMode == MeasureSpec.AT_MOST) {
+        } else if (widthMode == MeasureSpec.AT_MOST) {
 //            if (width > 0) {
 //                mMaxChildWidth = getVisibleColumns() <= 0 ? width
 //                                                          : (width - getHorizontalSpacing() * (getVisibleColumns()
 // - 1))
 //                                     / getVisibleColumns();
 //            }
-        }
-        else if (widthMode == MeasureSpec.EXACTLY) {
+        } else if (widthMode == MeasureSpec.EXACTLY) {
             mMaxChildWidth = getVisibleColumns() <= 0 ? width
-                                                      : (width - getHorizontalSpacing() * (getVisibleColumns() - 1))
-                                 / getVisibleColumns();
+                : (width - getHorizontalSpacing() * (getVisibleColumns() - 1))
+                / getVisibleColumns();
         }
 //        int cw = getVisibleColumns() <= 0 ? width : (width - getHorizontalSpacing() * (getVisibleColumns() - 1))
 //            / getVisibleColumns();
@@ -149,8 +147,7 @@ public class TableLayout extends FlowLayout {
 
         if (MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.UNSPECIFIED) {
             height = y;
-        }
-        else if (MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.AT_MOST) {
+        } else if (MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.AT_MOST) {
             if (y < height) {
                 height = y;
             }
@@ -164,8 +161,7 @@ public class TableLayout extends FlowLayout {
             if (measuredWidth < 0) {
                 measuredWidth = 0;
             }
-        }
-        else {
+        } else {
             measuredWidth += getPaddingLeft() + getPaddingRight();
         }
         setMeasuredDimension(measuredWidth, measuredHeight);
@@ -178,18 +174,15 @@ public class TableLayout extends FlowLayout {
         int cw;
         if (mMaxChildWidth > 0) {
             cw = mMaxChildWidth - lp.leftMargin - lp.rightMargin;
-        }
-        else {
+        } else {
             cw = width - lp.leftMargin - lp.rightMargin;
         }
         //
         if (lp.width > 0) {
             childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(lp.width, MeasureSpec.EXACTLY);
-        }
-        else if (lp.width == ViewGroup.LayoutParams.MATCH_PARENT) {
+        } else if (lp.width == ViewGroup.LayoutParams.MATCH_PARENT) {
             childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(cw, MeasureSpec.AT_MOST);
-        }
-        else {
+        } else {
             childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
         }
         return childWidthMeasureSpec;

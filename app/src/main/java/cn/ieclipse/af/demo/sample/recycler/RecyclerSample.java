@@ -24,14 +24,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
 
-import java.util.Collections;
-import java.util.List;
-
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
+import java.util.Collections;
+import java.util.List;
+
 import cn.ieclipse.af.adapter.AfRecyclerAdapter;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.api.VolleyUtils;
@@ -298,7 +299,7 @@ public class RecyclerSample extends SampleBaseFragment implements NewsController
         }
     }
 
-    private AfRecyclerAdapter.OnItemLongClickListener mItemLongClickListener
+    private final AfRecyclerAdapter.OnItemLongClickListener mItemLongClickListener
         = new AfRecyclerAdapter.OnItemLongClickListener() {
 
         @Override
@@ -312,7 +313,7 @@ public class RecyclerSample extends SampleBaseFragment implements NewsController
         }
     };
     private ItemTouchHelper mItemTouchHelper;
-    private ItemTouchHelper.Callback mTouchCallback = new ItemTouchHelper.Callback() {
+    private final ItemTouchHelper.Callback mTouchCallback = new ItemTouchHelper.Callback() {
 
         @Override
         public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {

@@ -48,8 +48,7 @@ public class ToastUtils {
         // 防止多次点击出现多个toast
         if (mToast == null) {
             mToast = Toast.makeText(context, desc, mDuration);
-        }
-        else {
+        } else {
             mToast.setText(desc);
         }
         mToast.show();

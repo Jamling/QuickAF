@@ -26,6 +26,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
 import cn.ieclipse.af.app.AfActivity;
 import cn.ieclipse.af.common.R;
 import cn.ieclipse.af.util.AppUtils;
@@ -188,10 +189,9 @@ public abstract class CommonBaseActivity extends AfActivity implements View.OnCl
     }
 
     /**
-     * Example of starting nested fragment from another fragment: Fragment
-     * newFragment = ManagerTagFragment.newInstance(tag.getMac()); TagsActivity
-     * tAct = (TagsActivity)getActivity(); tAct.pushFragments(newFragment, true,
-     * true, null);
+     * Example of starting nested fragment from another fragment: Fragment newFragment =
+     * ManagerTagFragment.newInstance(tag.getMac()); TagsActivity tAct = (TagsActivity)getActivity();
+     * tAct.pushFragments(newFragment, true, true, null);
      */
     public void pushFragments(Fragment fragment, boolean shouldAnimate, boolean shouldAdd, String tag) {
         FragmentManager manager = getSupportFragmentManager();// getFragmentManager();
@@ -211,8 +211,7 @@ public abstract class CommonBaseActivity extends AfActivity implements View.OnCl
              * ft.addToBackStack("name of your backstack");
              */
             ft.addToBackStack(null);
-        }
-        else {
+        } else {
             /*
              * and remove named backstack:
              * manager.popBackStack("name of your backstack",

@@ -33,13 +33,12 @@ import android.view.View;
 
 /**
  * <p>
- * Another implements of badge view. In fact, this is not a really
- * {@link android.view.View}, but you can consider it as a
- * {@link android.widget.TextView} with a round rectangle color background.
+ * Another implements of badge view. In fact, this is not a really {@link android.view.View}, but you can consider it as
+ * a {@link android.widget.TextView} with a round rectangle color background.
  * </p>
  * <b><em>Note.</em></b>
- * If badge count less than 10 or {@link #badgeStyle} set to
- * {@link #STYLE_BACKGROUND} the background will display as circle
+ * If badge count less than 10 or {@link #badgeStyle} set to {@link #STYLE_BACKGROUND} the background will display as
+ * circle
  *
  * @author Jamling
  * @date 2016年1月28日
@@ -78,7 +77,7 @@ public class BadgeView2 {
      */
     public static final int STYLE_BOTH = STYLE_TEXT | STYLE_BACKGROUND;
 
-    private View targetView;
+    private final View targetView;
 
     /**
      * Construct badge view
@@ -121,7 +120,6 @@ public class BadgeView2 {
      * Set badge view display style
      *
      * @param badgeStyle combined value of {@link #STYLE_BACKGROUND}, {@link #STYLE_TEXT}
-     *
      * @see BadgeView2#STYLE_BOTH
      * @see BadgeView2#STYLE_BACKGROUND
      * @see BadgeView2#STYLE_TEXT
@@ -144,19 +142,17 @@ public class BadgeView2 {
 
     /**
      * <p>
-     * Set shape drawable as background. If set
-     * {@link BadgeView2#STYLE_BACKGROUND} style the background will displayed
+     * Set shape drawable as background. If set {@link BadgeView2#STYLE_BACKGROUND} style the background will displayed
      * as circle with assigned radius.
      * </p>
      * <p>
      * <b><em>Note </em></b>
-     * If badge count less than 10 or {@link #badgeStyle} set to
-     * {@link #STYLE_BACKGROUND} the background will display as circle
+     * If badge count less than 10 or {@link #badgeStyle} set to {@link #STYLE_BACKGROUND} the background will display
+     * as circle
      * </p>
      * If radius assigned, set a default horizontal padding of radius also.
      *
-     * @param radius  the radius of circle background under
-     *                {@link BadgeView2#STYLE_BACKGROUND} style, px unit
+     * @param radius the radius of circle background under {@link BadgeView2#STYLE_BACKGROUND} style, px unit
      * @param bgColor background color, ARGB format
      */
     public void setBadgeBackground(int radius, int bgColor) {
@@ -171,12 +167,10 @@ public class BadgeView2 {
     }
 
     /**
-     * Set badge background, may be a .9.png, to get well display effect, you
-     * may call {@link BadgeView2#setBadgePadding(int, int, int, int)} to set
-     * paddings
+     * Set badge background, may be a .9.png, to get well display effect, you may call {@link
+     * BadgeView2#setBadgePadding(int, int, int, int)} to set paddings
      *
      * @param d background drawable
-     *
      * @see BadgeView2#setBadgePadding(int, int, int, int)
      */
     public void setBadgeBackground(Drawable d) {
@@ -189,9 +183,9 @@ public class BadgeView2 {
     /**
      * Set badge paddings
      *
-     * @param left   left padding, px unit
-     * @param top    top padding, px unit
-     * @param right  right padding, px unit
+     * @param left left padding, px unit
+     * @param top top padding, px unit
+     * @param right right padding, px unit
      * @param bottom bottom padding, px unit
      */
     public void setBadgePadding(int left, int top, int right, int bottom) {
@@ -266,8 +260,7 @@ public class BadgeView2 {
                 if (badgeCount < 10) {
                     w = Math.max(w, 1 + Math.max(this.badgeLayout.getWidth(), this.badgeLayout.getHeight()));
                     h = w;
-                }
-                else {
+                } else {
                     w += Math.max(bw, this.badgeLayout.getWidth());
                     h += Math.max(bh, this.badgeLayout.getHeight());
                 }
@@ -277,14 +270,12 @@ public class BadgeView2 {
                 if (bw > 0 && bh > 0) {
                     w = bw;
                     h = bh;
-                }
-                else {
+                } else {
                     w = Math.max(w, h);
                     h = w;
                 }
             }
-        }
-        else if (fg) {
+        } else if (fg) {
             w += this.badgeLayout.getWidth();
             h += this.badgeLayout.getHeight();
         }
@@ -348,7 +339,7 @@ public class BadgeView2 {
     }
 
     private CharSequence genMaxText() {
-        SpannableStringBuilder ssb = new SpannableStringBuilder(String.valueOf(max) + "+");
+        SpannableStringBuilder ssb = new SpannableStringBuilder(max + "+");
         RelativeSizeSpan span = new RelativeSizeSpan(.8f);
         // ssb.setSpan(span, 2, 3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         SuperscriptSpan span2 = new SuperscriptSpan();
@@ -359,9 +350,8 @@ public class BadgeView2 {
     /**
      * Set maximum count and display text
      *
-     * @param max     the maximum count, such as 99
-     * @param maxText the display text of maximum, such as 99+ or null to use
-     *                default (max+)
+     * @param max the maximum count, such as 99
+     * @param maxText the display text of maximum, such as 99+ or null to use default (max+)
      */
     public void setMax(int max, CharSequence maxText) {
         this.max = max;

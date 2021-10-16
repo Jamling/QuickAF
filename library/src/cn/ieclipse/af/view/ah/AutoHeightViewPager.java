@@ -21,13 +21,13 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.viewpager.widget.ViewPager;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import androidx.viewpager.widget.ViewPager;
 
 /**
  * 自动计算高度的ViewPager No implements
@@ -66,8 +66,7 @@ public class AutoHeightViewPager extends ViewPager {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
-            else {
+            } else {
                 heightMeasureSpec = MeasureSpec.makeMeasureSpec(p.y, MeasureSpec.EXACTLY);
                 // widthMeasureSpec = MeasureSpec.makeMeasureSpec(p.x,
                 // MeasureSpec.EXACTLY);
@@ -76,7 +75,7 @@ public class AutoHeightViewPager extends ViewPager {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
-    private Map<Integer, Point> mHeights = new HashMap<>();
+    private final Map<Integer, Point> mHeights = new HashMap<>();
 
     /**
      * Get ViewPager display page
@@ -116,15 +115,12 @@ public class AutoHeightViewPager extends ViewPager {
         if (p.size() < f.size()) {
             if (f.size() < s) {
                 ret = off;
-            }
-            else {
+            } else {
                 ret = idx - t + (s - f.size());
             }
-        }
-        else if (p.size() == f.size()) {
+        } else if (p.size() == f.size()) {
             ret = f.indexOf(idx);
-        }
-        else {
+        } else {
             ret = p.get(p.size() - 1) - idx;
         }
         System.out.println("idx " + ret);

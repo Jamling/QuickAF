@@ -23,7 +23,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import cn.ieclipse.af.demo.R;
-import static cn.ieclipse.af.demo.R.id.et5;
 import cn.ieclipse.af.demo.common.view.WheelTimeContainer;
 import cn.ieclipse.af.demo.sample.SampleBaseActivity;
 import cn.ieclipse.af.view.wheelview.WheelView;

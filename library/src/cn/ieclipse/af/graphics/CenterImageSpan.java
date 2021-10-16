@@ -30,72 +30,72 @@ import android.text.style.ImageSpan;
  * @author Jamling
  */
 public class CenterImageSpan extends ImageSpan {
-    
+
     public CenterImageSpan(Context context, Bitmap b) {
         super(context, b);
     }
-    
+
     public CenterImageSpan(Context context, Bitmap b, int verticalAlignment) {
         super(context, b, verticalAlignment);
     }
-    
+
     public CenterImageSpan(Drawable d) {
         super(d);
     }
-    
+
     public CenterImageSpan(Drawable d, int verticalAlignment) {
         super(d, verticalAlignment);
     }
-    
+
     public CenterImageSpan(Drawable d, String source) {
         super(d, source);
     }
-    
+
     public CenterImageSpan(Drawable d, String source, int verticalAlignment) {
         super(d, source, verticalAlignment);
     }
-    
+
     public CenterImageSpan(Context context, Uri uri) {
         super(context, uri);
     }
-    
+
     public CenterImageSpan(Context context, int resourceId) {
         super(context, resourceId);
     }
-    
+
     public CenterImageSpan(Context context, Uri uri, int verticalAlignment) {
         super(context, uri, verticalAlignment);
     }
-    
+
     public CenterImageSpan(Context context, int resourceId, int verticalAlignment) {
         super(context, resourceId, verticalAlignment);
     }
-    
+
     @Override
     public void draw(Canvas canvas, CharSequence text, int start, int end, float x, int top, int y, int bottom,
-                     Paint paint) {
+        Paint paint) {
         Drawable b = getDrawable();
         canvas.save();
         int transY = 0;
         transY = ((bottom - top) - b.getBounds().bottom) / 2 + top;
-        
+
         canvas.translate(x, transY);
         b.draw(canvas);
         canvas.restore();
     }
-    
+
     @Override
     public int getSize(Paint paint, CharSequence text, int start, int end, Paint.FontMetricsInt fm) {
         Drawable d = getDrawable();
         Rect rect = d.getBounds();
         if (fm != null) {
             Paint.FontMetricsInt fmPaint = paint.getFontMetricsInt();
-            
+
             int fontHeight = fmPaint.bottom - fmPaint.top;
             int drHeight = rect.bottom - rect.top;
             int top = drHeight / 2 - fontHeight / 4;
             int bottom = drHeight / 2 + fontHeight / 4;
-            
+
             fm.ascent = -bottom;
             fm.top = -bottom;
             fm.bottom = top;

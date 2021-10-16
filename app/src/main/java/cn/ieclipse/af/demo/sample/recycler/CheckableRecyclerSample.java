@@ -25,9 +25,10 @@ import android.widget.AdapterView;
 import android.widget.CheckedTextView;
 import android.widget.ListView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 
-import androidx.recyclerview.widget.RecyclerView;
 import cn.ieclipse.af.adapter.AfRecyclerAdapter;
 import cn.ieclipse.af.adapter.AfRecyclerChoiceAdapter;
 import cn.ieclipse.af.adapter.delegate.AdapterDelegate;
@@ -41,7 +42,7 @@ import cn.ieclipse.af.util.DialogUtils;
  */
 public class CheckableRecyclerSample extends RefreshRecyclerSample {
 
-    private int[] choices
+    private final int[] choices
         = new int[]{AfRecyclerChoiceAdapter.CHOICE_MODE_NONE, AfRecyclerChoiceAdapter.CHOICE_MODE_SINGLE,
         AfRecyclerChoiceAdapter.CHOICE_MODE_MULTIPLE};
 
@@ -146,7 +147,7 @@ public class CheckableRecyclerSample extends RefreshRecyclerSample {
 
     private ActionMode mActionMode;
 
-    private ActionMode.Callback mActionCallback = new ActionMode.Callback() {
+    private final ActionMode.Callback mActionCallback = new ActionMode.Callback() {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             MenuInflater inflater = mode.getMenuInflater();

@@ -2,10 +2,11 @@ package cn.ieclipse.af.demo.sample.appui;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.Nullable;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.ImagePagerAdapter;
 import cn.ieclipse.af.demo.common.ui.ImageBrowserActivity;
@@ -31,7 +32,7 @@ public class ImageBrowserSample extends SampleBaseFragment {
         List<ImagePagerAdapter.IImage> list = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             MyImage image = new MyImage();
-            image.url = "http://pic72.nipic.com/file/20150716/21422793_144600530000_2.jpg";
+            image.url = "http://jamling.github.io/2017/03/03/Android/quickaf-refreshlayout/RefreshLayout.png";
             list.add(image);
         }
         getActivity().overridePendingTransition(R.anim.zoon_in, 0);

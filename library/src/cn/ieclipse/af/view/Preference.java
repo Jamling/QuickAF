@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.content.res.AppCompatResources;
+
 import cn.ieclipse.af.R;
 import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.util.SharedPrefsUtils;
@@ -222,6 +223,7 @@ public class Preference extends FrameLayout implements OnCheckedChangeListener {
 
     /**
      * ImageView which id is <code>android:id/icon2</code>
+     *
      * @return
      * @since 3.0.1
      */
@@ -236,8 +238,8 @@ public class Preference extends FrameLayout implements OnCheckedChangeListener {
     private OnPreferenceChangeListener mOnChangeListener;
 
     /**
-     * Sets the callback to be invoked when this Preference is changed by the
-     * user (but before the internal state has been updated).
+     * Sets the callback to be invoked when this Preference is changed by the user (but before the internal state has
+     * been updated).
      *
      * @param onPreferenceChangeListener The callback to be invoked.
      */
@@ -246,22 +248,18 @@ public class Preference extends FrameLayout implements OnCheckedChangeListener {
     }
 
     /**
-     * Interface definition for a callback to be invoked when the value of this
-     * {@link Preference} has been changed by the user and is about to be set
-     * and/or persisted. This gives the client a chance to prevent setting
-     * and/or persisting the value.
+     * Interface definition for a callback to be invoked when the value of this {@link Preference} has been changed by
+     * the user and is about to be set and/or persisted. This gives the client a chance to prevent setting and/or
+     * persisting the value.
      */
     public interface OnPreferenceChangeListener {
         /**
-         * Called when a Preference has been changed by the user. This is called
-         * before the state of the Preference is about to be updated and before
-         * the state is persisted.
+         * Called when a Preference has been changed by the user. This is called before the state of the Preference is
+         * about to be updated and before the state is persisted.
          *
          * @param preference The changed Preference.
-         * @param newValue   The new value of the Preference.
-         *
-         * @return True to update the state of the Preference with the new
-         * value.
+         * @param newValue The new value of the Preference.
+         * @return True to update the state of the Preference with the new value.
          */
         boolean onPreferenceChange(Preference preference, Object newValue);
     }

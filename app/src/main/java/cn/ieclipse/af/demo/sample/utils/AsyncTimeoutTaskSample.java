@@ -15,7 +15,6 @@
  */
 package cn.ieclipse.af.demo.sample.utils;
 
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;

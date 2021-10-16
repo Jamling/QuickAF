@@ -68,7 +68,7 @@ public class FileChooserActivity extends BaseActivity implements AbsListView.OnI
     private View mBtnOk;
     private int mChoiceMode = ListView.CHOICE_MODE_NONE;
 
-    private Map<File, State> mStates = new HashMap<>();
+    private final Map<File, State> mStates = new HashMap<>();
 
     @Override
     protected int getContentLayout() {
@@ -415,7 +415,7 @@ public class FileChooserActivity extends BaseActivity implements AbsListView.OnI
 
     public static class ExtFilter implements FileFilter {
 
-        private String[] exts;
+        private final String[] exts;
 
         public ExtFilter(String[] exts) {
             this.exts = exts;

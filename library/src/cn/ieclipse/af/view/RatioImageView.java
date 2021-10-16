@@ -1,5 +1,5 @@
 /*
- * (C) Copyright 2011-2013 li.jamling@gmail.com. 
+ * (C) Copyright 2011-2013 li.jamling@gmail.com.
  *
  * This software is the property of li.jamling@gmail.com.
  * You have to accept the terms in the license file before use.
@@ -12,26 +12,26 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 
 import androidx.appcompat.widget.AppCompatImageView;
+
 import cn.ieclipse.af.R;
 
 /**
- * RatioImageView can display image as a grid base on fix ratio. If the ratio is
- * 1 (default), so the ImageView looks like a square ImageView.
- * 
+ * RatioImageView can display image as a grid base on fix ratio. If the ratio is 1 (default), so the ImageView looks
+ * like a square ImageView.
+ *
  * @author Jamling
- * 
  */
 public class RatioImageView extends AppCompatImageView {
-    
+
     private float mRatio = 1.0f;
-    
+
     /**
      * @param context
      */
     public RatioImageView(Context context) {
         this(context, null);
     }
-    
+
     /**
      * @param context
      * @param attrs
@@ -39,7 +39,7 @@ public class RatioImageView extends AppCompatImageView {
     public RatioImageView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
-    
+
     /**
      * @param context
      * @param attrs

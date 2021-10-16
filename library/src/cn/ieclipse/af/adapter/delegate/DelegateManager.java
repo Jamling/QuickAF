@@ -17,24 +17,26 @@ package cn.ieclipse.af.adapter.delegate;
 
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import cn.ieclipse.af.adapter.AfRecyclerAdapter;
 
 /**
  * <em>Composite is superior to inherit</em>. refer to
  * <a href="https://github.com/sockeqwe/AdapterDelegates/">AdapterDelegates</a>
  * <p>
- *     Here is a minimized implementation of Adapter delegate.
+ * Here is a minimized implementation of Adapter delegate.
  * </p>
+ *
  * @author Jamling
  */
 public class DelegateManager<T> {
-    private AfRecyclerAdapter<T> adapter;
+    private final AfRecyclerAdapter<T> adapter;
     private final List<AdapterDelegate> delegates;
     private int count;
     private int headerCount;
@@ -54,8 +56,7 @@ public class DelegateManager<T> {
         if (delegate.getViewType() < 0) {
             if (delegate.getViewType() < -MAX_HEADER_COUNT) {
                 footerCount++;
-            }
-            else {
+            } else {
                 headerCount++;
                 if (headerCount > MAX_HEADER_COUNT) {
                     throw new IllegalStateException("exceed the max header count(" + MAX_HEADER_COUNT + ")");
@@ -77,8 +78,7 @@ public class DelegateManager<T> {
                 if (viewType < 0) {
                     if (viewType < -MAX_HEADER_COUNT) {
                         footerCount--;
-                    }
-                    else {
+                    } else {
                         headerCount--;
                     }
                 }

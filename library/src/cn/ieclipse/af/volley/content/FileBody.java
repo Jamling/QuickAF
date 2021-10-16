@@ -35,8 +35,8 @@ import java.io.OutputStream;
 
 /**
  * Binary body part backed by a file.
- * #@see org.apache.http.entity.mime.MultipartEntityBuilder
  *
+ * @see org.apache.http.entity.mime.MultipartEntityBuilder
  * @since 4.0
  */
 public class FileBody extends AbstractContentBody {

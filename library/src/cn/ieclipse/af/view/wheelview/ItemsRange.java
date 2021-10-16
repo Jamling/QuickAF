@@ -1,7 +1,7 @@
 /*
  *  Android Wheel Control.
  *  https://code.google.com/p/android-wheel/
- *  
+ *
  *  Copyright 2011 Yuri Kanivets
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,63 +24,60 @@ package cn.ieclipse.af.view.wheelview;
  */
 public class ItemsRange {
     // First item number
-    private int first;
-    
+    private final int first;
+
     // Items count
-    private int count;
-    
+    private final int count;
+
     /**
      * Default constructor. Creates an empty range
      */
     public ItemsRange() {
         this(0, 0);
     }
-    
+
     /**
      * Constructor
-     * 
-     * @param first
-     *            the number of first item
-     * @param count
-     *            the count of items
+     *
+     * @param first the number of first item
+     * @param count the count of items
      */
     public ItemsRange(int first, int count) {
         this.first = first;
         this.count = count;
     }
-    
+
     /**
      * Gets number of first item
-     * 
+     *
      * @return the number of the first item
      */
     public int getFirst() {
         return first;
     }
-    
+
     /**
      * Gets number of last item
-     * 
+     *
      * @return the number of last item
      */
     public int getLast() {
         return getFirst() + getCount() - 1;
     }
-    
+
     /**
      * Get items count
-     * 
+     *
      * @return the count of items
      */
     public int getCount() {
         return count;
     }
-    
+
     /**
      * Tests whether item is contained by range
-     * 
-     * @param index
-     *            the item number
+     *
+     * @param index the item number
      * @return true if item is contained
      */
     public boolean contains(int index) {

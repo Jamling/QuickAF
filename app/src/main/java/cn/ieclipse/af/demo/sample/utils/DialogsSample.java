@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
+
 import cn.ieclipse.af.app.AfDialogFragment;
 import cn.ieclipse.af.app.AlertDialogFragment.AlertInterceptor;
 import cn.ieclipse.af.demo.R;

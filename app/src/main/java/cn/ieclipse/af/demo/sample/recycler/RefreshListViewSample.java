@@ -40,7 +40,7 @@ public class RefreshListViewSample extends SampleBaseFragment implements Refresh
     protected ListView mListView;
     protected RefreshScrollViewSample.NewsAdapter mAdapter;
 
-    private NewsController controller = new NewsController(this);
+    private final NewsController controller = new NewsController(this);
 
     @Override
     protected int getContentLayout() {

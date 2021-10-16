@@ -29,41 +29,32 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.PagerAdapter;
 
 /**
- * Modify from android.support.v13.FragmentPagerAdapter.
- * Implementation of {@link androidx.viewpager.widget.PagerAdapter} that
- * represents each page as a {@link androidx.fragment.app.Fragment} that is persistently
- * kept in the fragment manager as long as the user can return to the page.
+ * Modify from android.support.v13.FragmentPagerAdapter. Implementation of {@link androidx.viewpager.widget.PagerAdapter}
+ * that represents each page as a {@link androidx.fragment.app.Fragment} that is persistently kept in the fragment
+ * manager as long as the user can return to the page.
  * <p>
- * This version of the pager is best for use when there are a handful of
- * typically more static fragments to be paged through, such as a set of tabs.
- * The fragment of each page the user visits will be kept in memory, though its
- * view hierarchy may be destroyed when not visible. This can result in using a
- * significant amount of memory since fragment instances can hold on to an
- * arbitrary amount of state. For larger sets of pages, consider
- * {@link androidx.fragment.app.FragmentPagerAdapter}.
+ * This version of the pager is best for use when there are a handful of typically more static fragments to be paged
+ * through, such as a set of tabs. The fragment of each page the user visits will be kept in memory, though its view
+ * hierarchy may be destroyed when not visible. This can result in using a significant amount of memory since fragment
+ * instances can hold on to an arbitrary amount of state. For larger sets of pages, consider {@link
+ * androidx.fragment.app.FragmentPagerAdapter}.
  * <p>
  * When using FragmentPagerAdapter the host ViewPager must have a valid ID set.
  * </p>
  * <p>
- * Subclasses only need to implement {@link #getItem(int)} and
- * {@link #getCount()} to have a working adapter.
+ * Subclasses only need to implement {@link #getItem(int)} and {@link #getCount()} to have a working adapter.
  * <p>
- * Here is an example implementation of a pager containing fragments of lists:
- * {@sample development/samples/Support13Demos/src/com/example/android/supportv13/app/FragmentPagerSupport.java
- * complete}
+ * Here is an example implementation of a pager containing fragments of lists: {@sample
+ * development/samples/Support13Demos/src/com/example/android/supportv13/app/FragmentPagerSupport.java complete}
  * <p>
- * The <code>R.layout.fragment_pager</code> resource of the top-level fragment
- * is:
- * {@sample development/samples/Support13Demos/res/layout/fragment_pager.xml
- * complete}
+ * The <code>R.layout.fragment_pager</code> resource of the top-level fragment is: {@sample
+ * development/samples/Support13Demos/res/layout/fragment_pager.xml complete}
  * <p>
- * The <code>R.layout.fragment_pager_list</code> resource containing each
- * individual fragment's layout is:
- * {@sample development/samples/Support13Demos/res/layout/fragment_pager_list.xml
- * complete}
+ * The <code>R.layout.fragment_pager_list</code> resource containing each individual fragment's layout is: {@sample
+ * development/samples/Support13Demos/res/layout/fragment_pager_list.xml complete}
  *
- * @deprecated use {@link androidx.fragment.app.FragmentPagerAdapter} or
- * {@link androidx.fragment.app.FragmentStatePagerAdapter} instead
+ * @deprecated use {@link androidx.fragment.app.FragmentPagerAdapter} or {@link androidx.fragment.app.FragmentStatePagerAdapter}
+ * instead
  */
 @Deprecated
 public abstract class AfFragmentPagerAdapter extends PagerAdapter {
@@ -103,8 +94,7 @@ public abstract class AfFragmentPagerAdapter extends PagerAdapter {
                 Log.v(TAG, "Attaching item #" + itemId + ": f=" + fragment);
             }
             mCurTransaction.attach(fragment);
-        }
-        else {
+        } else {
             fragment = getItem(position);
             if (DEBUG) {
                 Log.v(TAG, "Adding item #" + itemId + ": f=" + fragment);
@@ -179,12 +169,11 @@ public abstract class AfFragmentPagerAdapter extends PagerAdapter {
     /**
      * Return a unique identifier for the item at the given position.
      * <p>
-     * The default implementation returns the given position. Subclasses should
-     * override this method if the positions of items can change.
+     * The default implementation returns the given position. Subclasses should override this method if the positions of
+     * items can change.
      * </p>
      *
      * @param position Position within this adapter
-     *
      * @return Unique identifier for the item at position
      */
     public long getItemId(int position) {

@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import androidx.annotation.LayoutRes;
+
 import cn.ieclipse.af.R;
 import cn.ieclipse.af.util.AppUtils;
 
@@ -147,7 +148,6 @@ public class TitleBar extends LinearLayout {
      * Create title bar item, you need to add into left|middle|right then.
      *
      * @param layout item layout
-     *
      * @return created View
      * @since 3.0.0
      */
@@ -165,11 +165,9 @@ public class TitleBar extends LinearLayout {
             int padding = config.padding;
             if (parent == mLeftContainer) {
                 padding = config.leftItemPadding;
-            }
-            else if (parent == mMiddleContainer) {
+            } else if (parent == mMiddleContainer) {
                 padding = config.middleItemPadding;
-            }
-            else if (parent == mRightContainer) {
+            } else if (parent == mRightContainer) {
                 padding = config.rightItemPadding;
             }
             ((MarginLayoutParams) p).leftMargin = padding;
@@ -376,11 +374,9 @@ public class TitleBar extends LinearLayout {
 
         if (lp.width > 0) {
             childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(lp.width, MeasureSpec.EXACTLY);
-        }
-        else if (lp.width == ViewGroup.LayoutParams.MATCH_PARENT) {
+        } else if (lp.width == ViewGroup.LayoutParams.MATCH_PARENT) {
             childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(cw, MeasureSpec.EXACTLY);
-        }
-        else {
+        } else {
             childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(cw, MeasureSpec.AT_MOST);
         }
         return childWidthMeasureSpec;
@@ -392,11 +388,9 @@ public class TitleBar extends LinearLayout {
         int ch = height - lp.topMargin - lp.rightMargin;
         if (lp.height > 0) {
             childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(lp.height, MeasureSpec.EXACTLY);
-        }
-        else if (lp.height == LayoutParams.MATCH_PARENT) {
+        } else if (lp.height == LayoutParams.MATCH_PARENT) {
             childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.AT_MOST);
-        }
-        else {
+        } else {
             childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
         }
         return childHeightMeasureSpec;

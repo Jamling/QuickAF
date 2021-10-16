@@ -15,17 +15,15 @@
  */
 package cn.ieclipse.af.demo;
 
-import android.app.Application;
 import android.os.Debug;
+
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.multidex.MultiDexApplication;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.squareup.leakcanary.LeakCanary;
-
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.multidex.MultiDexApplication;
 
 import cn.ieclipse.af.volley.VolleyConfig;
 import cn.ieclipse.af.volley.VolleyManager;

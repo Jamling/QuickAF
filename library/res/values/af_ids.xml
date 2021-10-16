@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item type="id" name="bottomBar" />
-    <item type="id" name="titleBar" />
+    <item type="id" name="bottomBar"/>
+    <item type="id" name="titleBar"/>
     <!-- copy from https://github.com/TUBB/SwipeMenuRecyclerView -->
     <item name="smContentView" type="id"/>
     <item name="smMenuView" type="id"/>
-    
-    <item name="ptr_empty_layout_loading" type="id" />
-    <item name="ptr_empty_layout_error" type="id" />
-    <item name="ptr_empty_layout_empty" type="id" />
-    <item name="ptr_empty_iv_loading" type="id" />
-    <item name="ptr_empty_iv_error" type="id" />
-    <item name="ptr_empty_iv_empty" type="id" />
-    <item name="ptr_empty_tv_loading" type="id" />
-    <item name="ptr_empty_tv_error" type="id" />
-    <item name="ptr_empty_tv_empty" type="id" />
+
+    <item name="ptr_empty_layout_loading" type="id"/>
+    <item name="ptr_empty_layout_error" type="id"/>
+    <item name="ptr_empty_layout_empty" type="id"/>
+    <item name="ptr_empty_iv_loading" type="id"/>
+    <item name="ptr_empty_iv_error" type="id"/>
+    <item name="ptr_empty_iv_empty" type="id"/>
+    <item name="ptr_empty_tv_loading" type="id"/>
+    <item name="ptr_empty_tv_error" type="id"/>
+    <item name="ptr_empty_tv_empty" type="id"/>
 
 </resources>

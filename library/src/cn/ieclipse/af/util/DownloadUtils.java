@@ -59,8 +59,7 @@ public abstract class DownloadUtils {
                 callback.beforeDownload(request);
             }
             return dm.enqueue(request);
-        }
-        else {
+        } else {
 
         }
         return -1;

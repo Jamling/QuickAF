@@ -33,7 +33,7 @@ import cn.ieclipse.af.adapter.AfBaseAdapter;
 public class RefreshListViewHelper<T> extends RefreshHelper<T> {
     private AbsListView mListView;
     private ListAdapter mAdapter;
-    private DataSetObserver mDataSetObserver = new DataSetObserver() {
+    private final DataSetObserver mDataSetObserver = new DataSetObserver() {
         @Override
         public void onChanged() {
             if (getListView().getAdapter() != null && refreshLayout.getEmptyView() != null) {
@@ -109,23 +109,19 @@ public class RefreshListViewHelper<T> extends RefreshHelper<T> {
                 if (refreshLayout.isRefresh()) {
                     if (isKeepLoaded()) {
                         adapter.add2Top(list);
-                    }
-                    else {
+                    } else {
                         adapter.setDataList(list);
                     }
-                }
-                else if (refreshLayout.isLoadMore()) {
+                } else if (refreshLayout.isLoadMore()) {
                     adapter.addAll(list);
-                }
-                else {
+                } else {
                     adapter.setDataList(list);
                 }
             }
             if (mAdapter instanceof BaseAdapter) {
                 ((BaseAdapter) mAdapter).notifyDataSetChanged();
             }
-        }
-        else {
+        } else {
             refreshLayout.showEmptyView();
         }
     }

@@ -24,34 +24,33 @@ import android.util.AttributeSet;
 import androidx.appcompat.widget.AppCompatTextView;
 
 /**
- /**
- * Left drawable and text or hint center horizontal TextText.
+ * /** Left drawable and text or hint center horizontal TextText.
  * <pre>
  *     <em>Sample:</em>
  *     android:drawableLeft=""
  *     android:gravity="left"
  * </pre>
  * <p>
- *     <em>Note:</em> to align your drawable and text center, the gravity must be left horizontal
+ * <em>Note:</em> to align your drawable and text center, the gravity must be left horizontal
  * </p>
  *
  * @author Jamling
  * @date 2015/7/18.
  */
 public class DrawableCenterTextView extends AppCompatTextView {
-    
+
     public DrawableCenterTextView(Context context) {
         super(context);
     }
-    
+
     public DrawableCenterTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-    
+
     public DrawableCenterTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
-    
+
     @Override
     protected void onDraw(Canvas canvas) {
         Drawable[] drawables = getCompoundDrawables();

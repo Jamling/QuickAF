@@ -20,12 +20,11 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.widget.ImageView;
+
+import androidx.appcompat.widget.AppCompatImageView;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.appcompat.widget.AppCompatImageView;
 
 /**
  * Description
@@ -33,31 +32,31 @@ import androidx.appcompat.widget.AppCompatImageView;
  * @author Jamling
  */
 public class HotImageView extends AppCompatImageView implements GestureDetector.OnGestureListener {
-    private GestureDetector mGestureDetector;
-    
+    private final GestureDetector mGestureDetector;
+
     public HotImageView(Context context) {
         this(context, null);
     }
-    
+
     public HotImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mGestureDetector = new GestureDetector(context, this);
     }
-    
+
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         return mGestureDetector.onTouchEvent(ev);
     }
-    
+
     @Override
     public boolean onDown(MotionEvent e) {
         return true;
     }
-    
+
     @Override
     public void onShowPress(MotionEvent e) {
     }
-    
+
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
         if (regions != null && !regions.isEmpty()) {
@@ -75,25 +74,25 @@ public class HotImageView extends AppCompatImageView implements GestureDetector.
         }
         return false;
     }
-    
+
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
         return false;
     }
-    
+
     @Override
     public void onLongPress(MotionEvent e) {
-        
+
     }
-    
+
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         return false;
     }
-    
-    private List<Rect> regions = new ArrayList<>();
-    private List<OnClickListener> listeners = new ArrayList<>();
-    
+
+    private final List<Rect> regions = new ArrayList<>();
+    private final List<OnClickListener> listeners = new ArrayList<>();
+
     public void addRegion(int density, Rect rect, OnClickListener listener) {
         if (rect == null) {
             return;
@@ -106,13 +105,12 @@ public class HotImageView extends AppCompatImageView implements GestureDetector.
             r.right = (int) (rect.right * t / density);
             r.bottom = (int) (rect.bottom * t / density);
             regions.add(r);
-        }
-        else {
+        } else {
             regions.add(rect);
         }
         listeners.add(listener);
     }
-    
+
     public int getHotX(float ex) {
         int w = 0;
         if (getDrawable() != null) {
@@ -123,7 +121,7 @@ public class HotImageView extends AppCompatImageView implements GestureDetector.
         }
         return (int) (ex);
     }
-    
+
     public int getHotY(float ey) {
         int w = 0;
         if (getDrawable() != null) {

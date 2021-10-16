@@ -22,6 +22,7 @@ import android.util.AttributeSet;
 import android.widget.RadioGroup;
 
 import androidx.viewpager.widget.ViewPager;
+
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.view.RadioBadgeView;
@@ -41,7 +42,7 @@ public class MainBottomTab extends RadioGroup implements RadioGroup.OnCheckedCha
         super(context, attrs);
     }
 
-    private Paint p = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
+    private final Paint p = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
 
     @Override
     protected void onFinishInflate() {

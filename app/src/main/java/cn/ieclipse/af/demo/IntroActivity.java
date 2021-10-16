@@ -20,10 +20,11 @@ import android.content.Intent;
 import android.view.View;
 import android.view.WindowManager;
 
+import androidx.viewpager.widget.ViewPager;
+
 import java.util.Arrays;
 import java.util.List;
 
-import androidx.viewpager.widget.ViewPager;
 import cn.ieclipse.af.demo.common.ImagePagerAdapter;
 import cn.ieclipse.af.demo.common.ui.BaseActivity;
 import cn.ieclipse.af.demo.common.view.IntroViewPager;

@@ -28,13 +28,12 @@ import android.widget.EditText;
  * @date 2016/3/16.
  */
 public class SimpleSearchView {
-    private EditText mEt;
+    private final EditText mEt;
 
     public SimpleSearchView(Context context, int gravity) {
         if ((Gravity.HORIZONTAL_GRAVITY_MASK & gravity) == Gravity.CENTER_HORIZONTAL) {
             mEt = new DrawableCenterEditText(context);
-        }
-        else {
+        } else {
             mEt = new EditText(context);
         }
         mEt.setGravity(Gravity.VERTICAL_GRAVITY_MASK & gravity);
@@ -52,18 +51,18 @@ public class SimpleSearchView {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (listener != null){
+                if (listener != null) {
                     listener.afterTextChanged(s);
                 }
             }
         });
     }
 
-    public EditText getWidget(){
+    public EditText getWidget() {
         return mEt;
     }
 
-    public interface TextChangeListener{
+    public interface TextChangeListener {
         void afterTextChanged(Editable s);
     }
 

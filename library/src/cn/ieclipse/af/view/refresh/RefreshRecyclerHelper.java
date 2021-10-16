@@ -17,9 +17,10 @@ package cn.ieclipse.af.view.refresh;
 
 import android.content.Context;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 
-import androidx.recyclerview.widget.RecyclerView;
 import cn.ieclipse.af.adapter.AfRecyclerAdapter;
 import cn.ieclipse.af.view.recycle.ListDividerItemDecoration;
 import cn.ieclipse.af.view.recycle.RecyclerHelper;
@@ -69,7 +70,7 @@ public class RefreshRecyclerHelper<T> extends RefreshHelper<T> {
     }
 
     /**
-     *  Set RecyclerView adapter ({@link cn.ieclipse.af.adapter.AfRecyclerAdapter})
+     * Set RecyclerView adapter ({@link cn.ieclipse.af.adapter.AfRecyclerAdapter})
      *
      * @param adapter {@link cn.ieclipse.af.adapter.AfRecyclerAdapter}
      */
@@ -127,7 +128,7 @@ public class RefreshRecyclerHelper<T> extends RefreshHelper<T> {
     public void setStaggeredGridLayoutManager(int column, int orientation) {
         mRecyclerHelper.setStaggeredGridLayoutManager(column, orientation);
     }
-    
+
     /**
      * @see cn.ieclipse.af.view.recycle.RecyclerHelper#scrollToPosition(int)
      */
@@ -136,9 +137,9 @@ public class RefreshRecyclerHelper<T> extends RefreshHelper<T> {
     }
 
     /**
-     * RecyclerView can perform several optimizations if it can know in advance that changes in
-     * adapter content cannot change the size of the RecyclerView itself.
-     * If your use of RecyclerView falls into this category, set this to true.
+     * RecyclerView can perform several optimizations if it can know in advance that changes in adapter content cannot
+     * change the size of the RecyclerView itself. If your use of RecyclerView falls into this category, set this to
+     * true.
      *
      * @param hasFixedSize true if adapter changes cannot affect the size of the RecyclerView.
      */
@@ -173,21 +174,17 @@ public class RefreshRecyclerHelper<T> extends RefreshHelper<T> {
                 if (refreshLayout.isRefresh()) {
                     if (isKeepLoaded()) {
                         adapter.add2Top(list);
-                    }
-                    else {
+                    } else {
                         adapter.setDataList(list);
                     }
-                }
-                else if (refreshLayout.isLoadMore()) {
+                } else if (refreshLayout.isLoadMore()) {
                     adapter.addAll(list);
-                }
-                else {
+                } else {
                     adapter.setDataList(list);
                 }
             }
             mAdapter.notifyDataSetChanged();
-        }
-        else {
+        } else {
             refreshLayout.showEmptyView();
         }
     }
@@ -195,7 +192,7 @@ public class RefreshRecyclerHelper<T> extends RefreshHelper<T> {
     /**
      * 监听adapter中数据的变化
      */
-    private RecyclerView.AdapterDataObserver mEmptyObserver = new RecyclerView.AdapterDataObserver() {
+    private final RecyclerView.AdapterDataObserver mEmptyObserver = new RecyclerView.AdapterDataObserver() {
 
         @Override
         public void onChanged() {

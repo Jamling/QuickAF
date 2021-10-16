@@ -38,4 +38,9 @@ public class CityInfo implements Serializable {
     public String name_cn;
     public String name_en;
     public String area_id;
+
+    public void mock() {
+        name_cn = "南京";
+        area_id = "320100";
+    }
 }

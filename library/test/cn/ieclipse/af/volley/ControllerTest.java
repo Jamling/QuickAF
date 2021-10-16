@@ -1,20 +1,20 @@
 package cn.ieclipse.af.volley;
 
-import com.android.volley.toolbox.HurlStack;
-import com.google.gson.Gson;
-
-import junit.framework.Assert;
-
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import static cn.ieclipse.af.util.EncodeUtils.decodeUnicode;
+import org.junit.Test;
+
+import com.android.volley.toolbox.HurlStack;
+import com.google.gson.Gson;
+
 import cn.ieclipse.af.volley.mock.BaseInfo;
 import cn.ieclipse.af.volley.mock.BaseResponse;
 import cn.ieclipse.af.volley.mock.MockContext;
 import cn.ieclipse.af.volley.mock.MockController;
+import cn.ieclipse.util.EncodeUtils;
+
+import junit.framework.Assert;
 
 /**
  * Description
@@ -98,7 +98,7 @@ public class ControllerTest {
     public void testJson() throws Exception {
         String json = "{\"status\":0,\"message\":\"\\u6210\\u529f\",\"data\":null}\\u6210";
         System.out.println(json);
-        String decoded = decodeUnicode(json);
+        String decoded = EncodeUtils.decodeUnicode(json);
         Assert.assertEquals(decoded, "{\"status\":0,\"message\":\"成功\",\"data\":null}成");
     }
 }

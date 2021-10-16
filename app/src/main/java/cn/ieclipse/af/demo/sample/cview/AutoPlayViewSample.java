@@ -20,10 +20,11 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.viewpager.widget.ViewPager;
+
 import java.util.Arrays;
 import java.util.List;
 
-import androidx.viewpager.widget.ViewPager;
 import cn.ieclipse.af.adapter.AfPagerAdapter;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.sample.SampleBaseFragment;
@@ -207,7 +208,7 @@ public class AutoPlayViewSample extends SampleBaseFragment{
         }
     }
 
-    private ViewPager.SimpleOnPageChangeListener anotherPageListener = new ViewPager.SimpleOnPageChangeListener() {
+    private final ViewPager.SimpleOnPageChangeListener anotherPageListener = new ViewPager.SimpleOnPageChangeListener() {
         @Override
         public void onPageSelected(int position) {
             AnotherLoopAdapter adapter = (AnotherLoopAdapter) aAutoPlayView.getViewPager().getAdapter();

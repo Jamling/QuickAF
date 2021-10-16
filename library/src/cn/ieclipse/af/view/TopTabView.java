@@ -16,37 +16,38 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.viewpager.widget.ViewPager;
+
 import cn.ieclipse.af.util.AppUtils;
 
 public class TopTabView extends HorizontalScrollView {
     private final PageListener pageListener = new PageListener();
     private ViewPager pager;
-    private LinearLayout tabsContainer;
+    private final LinearLayout tabsContainer;
     private int tabCount;
     private int currentPosition = 0;
     private float currentPositionOffset = 0f;
-    private Rect indicatorRect;
+    private final Rect indicatorRect;
     private LinearLayout.LayoutParams defaultTabLayoutParams;
-    
+
     private int scrollOffset = 10;
     private int lastScrollX = 0;
     private int tabSelectColor = android.R.color.white;
     private int tabNormalColor = android.R.color.black;
     private int tabTextSize = 14;
-    
+
     private Drawable indicator;
-    private TextDrawable[] drawables;
+    private final TextDrawable[] drawables;
     private Drawable left_edge;
     private Drawable right_edge;
-    
+
     public TopTabView(Context context) {
         this(context, null);
     }
-    
+
     public TopTabView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
-    
+
     public TopTabView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         drawables = new TextDrawable[3];
@@ -55,9 +56,9 @@ public class TopTabView extends HorizontalScrollView {
             drawables[i] = new TextDrawable(getContext());
             i++;
         }
-        
+
         indicatorRect = new Rect();
-        
+
         setFillViewport(true);
         setWillNotDraw(false);
 
@@ -68,7 +69,7 @@ public class TopTabView extends HorizontalScrollView {
         tabsContainer.setOrientation(LinearLayout.HORIZONTAL);
         tabsContainer.setLayoutParams(params);
         addView(tabsContainer);
-        
+
         DisplayMetrics dm = getResources().getDisplayMetrics();
         scrollOffset = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, scrollOffset, dm);
 
@@ -85,8 +86,7 @@ public class TopTabView extends HorizontalScrollView {
         int width = 0;
         if (isFixed) {
             width = AppUtils.getScreenWidth(getContext()) / 4;
-        }
-        else {
+        } else {
             width = LayoutParams.WRAP_CONTENT;
         }
         defaultTabLayoutParams = new LinearLayout.LayoutParams(width, LayoutParams.MATCH_PARENT);
@@ -112,15 +112,15 @@ public class TopTabView extends HorizontalScrollView {
         pager.addOnPageChangeListener(pageListener);
         notifyDataSetChanged();
     }
-    
+
     /**
      * 当附加在ViewPager适配器上的数据发生变化时,应该调用该方法通知CategoryTabStrip刷新数据
      */
     public void notifyDataSetChanged() {
         tabsContainer.removeAllViews();
-        
+
         tabCount = pager.getAdapter().getCount();
-        
+
         for (int i = 0; i < tabCount; i++) {
             addTab(i, pager.getAdapter().getPageTitle(i).toString());
         }
@@ -162,7 +162,7 @@ public class TopTabView extends HorizontalScrollView {
                 pager.setCurrentItem(position, false);
             }
         });
-        
+
         tabsContainer.addView(tab, position, defaultTabLayoutParams);
     }
 
@@ -211,25 +211,24 @@ public class TopTabView extends HorizontalScrollView {
                 currentTab.getTop() + getPaddingTop() + category_text.getTop() + category_text.getHeight());
         }
     }
-    
+
     // 计算滚动范围
     private int getScrollRange() {
         return getChildCount() > 0 ? Math.max(0, getChildAt(0).getWidth() - getWidth() + getPaddingLeft()
             + getPaddingRight()) : 0;
     }
-    
+
     private void scrollToChild(int position, int offset) {
         if (tabCount == 0) {
             return;
         }
-        
+
         calculateIndicatorRect(indicatorRect);
-        
+
         int newScrollX = lastScrollX;
         if (indicatorRect.left < getScrollX() + scrollOffset) {
             newScrollX = indicatorRect.left - scrollOffset;
-        }
-        else if (indicatorRect.right > getScrollX() + getWidth() - scrollOffset) {
+        } else if (indicatorRect.right > getScrollX() + getWidth() - scrollOffset) {
             newScrollX = indicatorRect.right - getWidth() + scrollOffset;
         }
         if (newScrollX != lastScrollX) {
@@ -237,24 +236,23 @@ public class TopTabView extends HorizontalScrollView {
             scrollTo(newScrollX, 0);
         }
     }
-    
+
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-        
+
         calculateIndicatorRect(indicatorRect);
-        
+
         if (indicator != null) {
             indicator.setBounds(indicatorRect);
             indicator.draw(canvas);
         }
-        
+
         int i = 0;
         while (i < tabsContainer.getChildCount()) {
             if (i < currentPosition - 1 || i > currentPosition + 1) {
                 i++;
-            }
-            else {
+            } else {
                 ViewGroup tab = (ViewGroup) tabsContainer.getChildAt(i);
                 TextView category_text = (TextView) tab.getChildAt(0);
                 if (category_text != null) {
@@ -281,7 +279,7 @@ public class TopTabView extends HorizontalScrollView {
                 i++;
             }
         }
-        
+
         i = canvas.save();
         int top = getScrollX();
         int height = getHeight();
@@ -311,36 +309,34 @@ public class TopTabView extends HorizontalScrollView {
 //            canvas.restoreToCount(i);
 //        }
     }
-    
+
     private class PageListener implements ViewPager.OnPageChangeListener {
-        
+
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             currentPosition = position;
             currentPositionOffset = positionOffset;
-            
+
             scrollToChild(position, (int) (positionOffset * tabsContainer.getChildAt(position).getWidth()));
-            
+
             invalidate();
         }
-        
+
         @Override
         public void onPageScrollStateChanged(int state) {
             if (state == ViewPager.SCROLL_STATE_IDLE) {
                 if (pager.getCurrentItem() == 0) {
                     // 滑动到最左边
                     scrollTo(0, 0);
-                }
-                else if (pager.getCurrentItem() == tabCount - 1) {
+                } else if (pager.getCurrentItem() == tabCount - 1) {
                     // 滑动到最右边
                     scrollTo(getScrollRange(), 0);
-                }
-                else {
+                } else {
                     scrollToChild(pager.getCurrentItem(), 0);
                 }
             }
         }
-        
+
         @Override
         public void onPageSelected(int position) {
 

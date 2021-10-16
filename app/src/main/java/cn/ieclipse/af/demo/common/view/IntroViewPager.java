@@ -28,7 +28,7 @@ import androidx.viewpager.widget.ViewPager;
  * @author Jamling
  */
 public class IntroViewPager extends ViewPager implements GestureDetector.OnGestureListener {
-    private GestureDetector mGestureDetector;
+    private final GestureDetector mGestureDetector;
 
     public IntroViewPager(Context context) {
         this(context, null);

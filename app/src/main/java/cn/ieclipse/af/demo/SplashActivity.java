@@ -36,8 +36,8 @@ import cn.ieclipse.af.util.AppUtils;
  * @author Jamling
  */
 public class SplashActivity extends BaseActivity {
-    private Handler mHandler = new Handler();
-    private long mDelay = 800;
+    private final Handler mHandler = new Handler();
+    private final long mDelay = 800;
 
     @Override
     protected int getContentLayout() {

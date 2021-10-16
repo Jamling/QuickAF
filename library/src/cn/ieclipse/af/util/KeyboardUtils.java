@@ -39,7 +39,7 @@ public final class KeyboardUtils {
      * 点击edit text之外的区域，自动隐藏keyboard
      *
      * @param context Activity context
-     * @param ev      MotionEvent
+     * @param ev MotionEvent
      * @see android.app.Activity#dispatchTouchEvent(android.view.MotionEvent)
      * @see View#dispatchTouchEvent(android.view.MotionEvent)
      */
@@ -57,6 +57,7 @@ public final class KeyboardUtils {
 
     /**
      * Auto hide keyboard when tap a view anywhere except EditText
+     *
      * @param rootView root view
      */
     public static void autoHideSoftInput(View rootView) {

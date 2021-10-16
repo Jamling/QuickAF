@@ -27,8 +27,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 /**
  * 基于设置RecyclerView背景色的另类分隔线方式。
  *
- * @deprecated
  * @author Jamling
+ * @deprecated
  */
 public class GridSpaceDecoration extends RecyclerView.ItemDecoration {
     public static final int HORIZONTAL = LinearLayout.HORIZONTAL;
@@ -42,8 +42,8 @@ public class GridSpaceDecoration extends RecyclerView.ItemDecoration {
     protected int mOrientation;
 
     /**
-     * Creates a divider {@link androidx.recyclerview.widget.RecyclerView.ItemDecoration} that can be used with a
-     * {@link androidx.recyclerview.widget.LinearLayoutManager}.
+     * Creates a divider {@link androidx.recyclerview.widget.RecyclerView.ItemDecoration} that can be used with a {@link
+     * androidx.recyclerview.widget.LinearLayoutManager}.
      *
      * @param orientation Divider orientation. Should be {@link #HORIZONTAL} or {@link #VERTICAL}.
      */
@@ -59,8 +59,8 @@ public class GridSpaceDecoration extends RecyclerView.ItemDecoration {
     }
 
     /**
-     * Sets the orientation for this divider. This should be called if
-     * {@link androidx.recyclerview.widget.LinearLayoutManager} changes orientation.
+     * Sets the orientation for this divider. This should be called if {@link androidx.recyclerview.widget.LinearLayoutManager}
+     * changes orientation.
      *
      * @param orientation {@link #HORIZONTAL} or {@link #VERTICAL}
      */
@@ -79,8 +79,7 @@ public class GridSpaceDecoration extends RecyclerView.ItemDecoration {
         if (parent.getLayoutManager() instanceof GridLayoutManager) {
             GridLayoutManager glm = (GridLayoutManager) parent.getLayoutManager();
             spanCount = glm.getSpanCount();
-        }
-        else if (parent.getLayoutManager() instanceof StaggeredGridLayoutManager) {
+        } else if (parent.getLayoutManager() instanceof StaggeredGridLayoutManager) {
             StaggeredGridLayoutManager sglm = (StaggeredGridLayoutManager) parent.getLayoutManager();
             spanCount = sglm.getSpanCount();
             int position = parent.getChildAdapterPosition(view); // item position
@@ -108,28 +107,23 @@ public class GridSpaceDecoration extends RecyclerView.ItemDecoration {
             outRect.left = 0;
             outRect.right = padding;
             mNeedLeftSpacing = true;
-        }
-        else if ((position + 1) % spanCount == 0) {
+        } else if ((position + 1) % spanCount == 0) {
             mNeedLeftSpacing = false;
             outRect.right = 0;
             outRect.left = padding;
-        }
-        else if (mNeedLeftSpacing) {
+        } else if (mNeedLeftSpacing) {
             mNeedLeftSpacing = false;
             outRect.left = hspacing - padding;
             if ((position + 2) % spanCount == 0) {
                 outRect.right = hspacing - padding;
-            }
-            else {
+            } else {
                 outRect.right = hspacing / 2;
             }
-        }
-        else if ((position + 2) % spanCount == 0) {
+        } else if ((position + 2) % spanCount == 0) {
             mNeedLeftSpacing = false;
             outRect.left = hspacing / 2;
             outRect.right = hspacing - padding;
-        }
-        else {
+        } else {
             mNeedLeftSpacing = false;
             outRect.left = hspacing / 2;
             outRect.right = hspacing / 2;

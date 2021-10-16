@@ -22,14 +22,13 @@ import android.view.ContextMenu;
 import android.view.View;
 import android.widget.AdapterView;
 
-import java.lang.reflect.Field;
-
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.reflect.Field;
+
 /**
- * // Provide a reference to the views for each data item
- * // Complex data items may need more than one view per item, and
- * // you provide access to all the views for a data item in a view holder
+ * Provide a reference to the views for each data item. Complex data items may need more than one view per item,
+ * and you provide access to all the views for a data item in a view holder
  *
  * @author Jamling
  */

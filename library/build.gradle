@@ -87,7 +87,7 @@ task hello {
     }
     if (release)
     println("found:" + release.javaCompile.classpath.files)
-    def android_sdk = "${android.sdkDirectory}";
+    def android_sdk = "${android.sdkDirectory}"
     def android_platform = "${android.compileSdkVersion}"
     println(android_sdk)
     println(android_platform)

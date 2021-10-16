@@ -18,12 +18,12 @@ package cn.ieclipse.af.view.recycle;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
-import static androidx.recyclerview.widget.ItemTouchHelper.Callback.makeMovementFlags;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.OrientationHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
 import cn.ieclipse.af.adapter.AfRecyclerAdapter;
 
 /**
@@ -97,7 +97,7 @@ public final class RecyclerHelper {
     /**
      * Set the RecyclerView using {@link StaggeredGridLayoutManager}
      *
-     * @param column      grid column
+     * @param column grid column
      * @param orientation orientation value of {@link #HORIZONTAL} or {@link #VERTICAL}
      */
     public void setStaggeredGridLayoutManager(int column, int orientation) {
@@ -232,8 +232,7 @@ public final class RecyclerHelper {
      * Common implements of ItemTouchHelper.Callback{@link #getMovementFlags(RecyclerView, RecyclerView.ViewHolder)}
      *
      * @param recyclerView {@link RecyclerView}
-     * @param viewHolder   {@link RecyclerView.ViewHolder}
-     *
+     * @param viewHolder {@link RecyclerView.ViewHolder}
      * @return movement flags
      * @since 3.0.1
      */
@@ -251,12 +250,11 @@ public final class RecyclerHelper {
             if (orientation == LinearLayoutManager.HORIZONTAL) {// 如果是横向的布局
                 swipeFlag = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
                 dragFlag = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
-            }
-            else if (orientation == LinearLayoutManager.VERTICAL) {// 如果是竖向的布局，相当于ListView
+            } else if (orientation == LinearLayoutManager.VERTICAL) {// 如果是竖向的布局，相当于ListView
                 dragFlag = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
                 swipeFlag = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
             }
-            return makeMovementFlags(dragFlag, swipeFlag);
+            return ItemTouchHelper.Callback.makeMovementFlags(dragFlag, swipeFlag);
         }
         // GridLayoutManager
         else if (layoutManager instanceof GridLayoutManager || layoutManager instanceof StaggeredGridLayoutManager) {
@@ -264,7 +262,7 @@ public final class RecyclerHelper {
             int dragFlag = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.UP | ItemTouchHelper.DOWN;
             int swipeFlag = 0;
             // create make
-            return makeMovementFlags(dragFlag, swipeFlag);
+            return ItemTouchHelper.Callback.makeMovementFlags(dragFlag, swipeFlag);
         }
         return 0;
     }
@@ -274,8 +272,7 @@ public final class RecyclerHelper {
         if (parent.getLayoutManager() instanceof GridLayoutManager) {
             GridLayoutManager glm = (GridLayoutManager) parent.getLayoutManager();
             spanCount = glm.getSpanCount();
-        }
-        else if (parent.getLayoutManager() instanceof StaggeredGridLayoutManager) {
+        } else if (parent.getLayoutManager() instanceof StaggeredGridLayoutManager) {
             StaggeredGridLayoutManager sglm = (StaggeredGridLayoutManager) parent.getLayoutManager();
             spanCount = sglm.getSpanCount();
         }
@@ -289,8 +286,7 @@ public final class RecyclerHelper {
             GridLayoutManager glm = (GridLayoutManager) parent.getLayoutManager();
             spanSize = glm.getSpanSizeLookup().getSpanSize(position);
             spanIndex = glm.getSpanSizeLookup().getSpanIndex(position, spanSize);
-        }
-        else if (parent.getLayoutManager() instanceof StaggeredGridLayoutManager) {
+        } else if (parent.getLayoutManager() instanceof StaggeredGridLayoutManager) {
             StaggeredGridLayoutManager sglm = (StaggeredGridLayoutManager) parent.getLayoutManager();
             spanSize = sglm.getSpanCount();
             spanIndex = position % spanSize;

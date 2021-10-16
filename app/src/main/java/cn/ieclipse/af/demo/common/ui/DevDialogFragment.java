@@ -24,9 +24,10 @@ import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
+import androidx.fragment.app.FragmentManager;
+
 import java.io.File;
 
-import androidx.fragment.app.FragmentManager;
 import cn.ieclipse.af.app.AfDialogFragment;
 import cn.ieclipse.af.demo.AppConfig;
 import cn.ieclipse.af.demo.R;
@@ -53,8 +54,8 @@ public class DevDialogFragment extends AfDialogFragment implements CompoundButto
 
     private static long time = System.currentTimeMillis();
     private static int count = 0;
-    private static int MAX_COUNT = 3;
-    private static int MAX_INTERVAL = 300;
+    private static final int MAX_COUNT = 3;
+    private static final int MAX_INTERVAL = 300;
 
     public static void detect(FragmentManager fm) {
         long t2 = System.currentTimeMillis();

@@ -27,11 +27,11 @@ import com.android.volley.toolbox.Volley;
  * @date 2015年11月10日
  */
 public final class VolleyManager {
-    private RequestQueue mQueue;
+    private final RequestQueue mQueue;
     private Context mContext;
-    private VolleyConfig mConfig;
+    private final VolleyConfig mConfig;
     private static VolleyManager mInstance;
-    
+
     private VolleyManager(Context context, VolleyConfig config) {
         if (config == null) {
             throw new NullPointerException("Null volley config, did you forget initialize the VolleyManager?");
@@ -45,27 +45,27 @@ public final class VolleyManager {
         mConfig = config;
         mQueue = Volley.newRequestQueue(context, config.getHttpStack());
     }
-    
+
     static VolleyManager getInstance() {
         return mInstance;
     }
-    
+
     public static void init(Context context, Class<? extends IBaseResponse> baseResponseClass) {
         init(context, new VolleyConfig.Builder().setBaseResponseClass(baseResponseClass).build());
     }
-    
+
     public static void init(Context context, VolleyConfig config) {
         mInstance = new VolleyManager(context, config);
     }
-    
+
     public RequestQueue getQueue() {
         return mQueue;
     }
-    
+
     public static VolleyConfig getConfig() {
-		if (getInstance() == null) {
-	        return null;
-		}
+        if (getInstance() == null) {
+            return null;
+        }
         return getInstance().mConfig;
     }
 }

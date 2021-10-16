@@ -27,6 +27,7 @@ import android.widget.RelativeLayout;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+
 import cn.ieclipse.af.R;
 import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.view.TitleBar;
@@ -105,7 +106,6 @@ public abstract class AfFragment extends Fragment implements View.OnClickListene
      * Call after {@link #onSaveInstanceState(android.os.Bundle)} and before other initXXX
      *
      * @param savedInstanceState
-     *
      * @since 3.0.1
      */
     protected void initSavedInstanceState(Bundle savedInstanceState) {
@@ -140,8 +140,7 @@ public abstract class AfFragment extends Fragment implements View.OnClickListene
     public Context getContext() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return super.getContext();
-        }
-        else {
+        } else {
             return getActivity();
         }
     }
@@ -234,8 +233,7 @@ public abstract class AfFragment extends Fragment implements View.OnClickListene
 
         if (container != null) {
             mRootView.setLayoutParams(container.getLayoutParams());
-        }
-        else {
+        } else {
             mRootView.setLayoutParams(
                 new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         }
@@ -246,8 +244,7 @@ public abstract class AfFragment extends Fragment implements View.OnClickListene
             if (overlay || !showTitleBar) {
                 lp.getRules()[RelativeLayout.BELOW] = 0;
                 lp.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
-            }
-            else {
+            } else {
                 lp.getRules()[RelativeLayout.ALIGN_PARENT_TOP] = 0;
                 lp.addRule(RelativeLayout.BELOW, mTitleBar.getId());
             }
@@ -281,8 +278,7 @@ public abstract class AfFragment extends Fragment implements View.OnClickListene
     private synchronized void init() {
         if (!isInViewPager || isUIInitialize) {
             onFirstUserVisible();
-        }
-        else {
+        } else {
             isUIInitialize = true;
         }
     }

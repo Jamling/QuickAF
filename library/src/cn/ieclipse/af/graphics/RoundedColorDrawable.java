@@ -49,34 +49,28 @@ public class RoundedColorDrawable extends Drawable {
     /**
      * Creates a RoundedColorDrawable.
      *
-     * @param color
-     *            of the drawable
+     * @param color of the drawable
      */
     public RoundedColorDrawable(int color) {
         setColor(color);
     }
 
     /**
-     * Creates a new instance of RoundedColorDrawable from the given
-     * ColorDrawable.
+     * Creates a new instance of RoundedColorDrawable from the given ColorDrawable.
      *
-     * @param colorDrawable
-     *            color drawable to extract the color from
+     * @param colorDrawable color drawable to extract the color from
      * @return a new RoundedColorDrawable
      */
-    public static RoundedColorDrawable fromColorDrawable(
-            ColorDrawable colorDrawable) {
+    public static RoundedColorDrawable fromColorDrawable(ColorDrawable colorDrawable) {
         return new RoundedColorDrawable(colorDrawable.getColor());
     }
 
     /**
      * Creates a new instance of RoundedColorDrawable.
      *
-     * @param radii
-     *            Each corner receive two radius values [X, Y]. The corners are
-     *            ordered top-left, top-right, bottom-right, bottom-left.
-     * @param color
-     *            of the drawable
+     * @param radii Each corner receive two radius values [X, Y]. The corners are ordered top-left, top-right,
+     * bottom-right, bottom-left.
+     * @param color of the drawable
      */
     public RoundedColorDrawable(float[] radii, int color) {
         this(color);
@@ -86,10 +80,8 @@ public class RoundedColorDrawable extends Drawable {
     /**
      * Creates a new instance of RoundedColorDrawable.
      *
-     * @param radius
-     *            of the corners in pixels
-     * @param color
-     *            of the drawable
+     * @param radius of the corners in pixels
+     * @param color of the drawable
      */
     public RoundedColorDrawable(float radius, int color) {
         this(color);
@@ -120,8 +112,7 @@ public class RoundedColorDrawable extends Drawable {
     /**
      * Sets whether to round as circle.
      *
-     * @param isCircle
-     *            whether or not to round as circle
+     * @param isCircle whether or not to round as circle
      */
     public void setCircle(boolean isCircle) {
         mIsCircle = isCircle;
@@ -132,16 +123,14 @@ public class RoundedColorDrawable extends Drawable {
     /**
      * Sets the rounding radii.
      *
-     * @param radii
-     *            Each corner receive two radius values [X, Y]. The corners are
-     *            ordered top-left, top-right, bottom-right, bottom-left
+     * @param radii Each corner receive two radius values [X, Y]. The corners are ordered top-left, top-right,
+     * bottom-right, bottom-left
      */
     public void setRadii(float[] radii) {
         if (radii == null) {
             Arrays.fill(mRadii, 0);
-        }
-        else {
-            assert(radii.length == 8);
+        } else {
+            assert (radii.length == 8);
             System.arraycopy(radii, 0, mRadii, 0, 8);
         }
         updatePath();
@@ -154,7 +143,7 @@ public class RoundedColorDrawable extends Drawable {
      * @param radius
      */
     public void setRadius(float radius) {
-        assert(radius >= 0);
+        assert (radius >= 0);
         Arrays.fill(mRadii, radius);
         updatePath();
         invalidateSelf();
@@ -162,26 +151,27 @@ public class RoundedColorDrawable extends Drawable {
 
     /**
      * Set the rounding conner radius
+     *
      * @param radius radius
      * @param corners corners
      */
     public void setRadius(float radius, int corners) {
-        assert(radius >= 0);
-        assert(corners >=0);
+        assert (radius >= 0);
+        assert (corners >= 0);
         float[] radii = new float[8];
-        if ((corners & 1) == 1){
+        if ((corners & 1) == 1) {
             radii[0] = radius;
             radii[1] = radius;
         }
-        if ((corners & 2) == 2){
+        if ((corners & 2) == 2) {
             radii[2] = radius;
             radii[3] = radius;
         }
-        if ((corners & 4) == 4){
+        if ((corners & 4) == 4) {
             radii[4] = radius;
             radii[5] = radius;
         }
-        if ((corners & 8) == 8){
+        if ((corners & 8) == 8) {
             radii[6] = radius;
             radii[7] = radius;
         }
@@ -212,10 +202,8 @@ public class RoundedColorDrawable extends Drawable {
     /**
      * Sets the border
      *
-     * @param color
-     *            of the border
-     * @param width
-     *            of the border
+     * @param color of the border
+     * @param width of the border
      * @return this
      */
     public RoundedColorDrawable setBorder(int color, float width) {
@@ -233,11 +221,9 @@ public class RoundedColorDrawable extends Drawable {
     }
 
     /**
-     * Setting a color filter on a ColorDrawable has no effect. This has been
-     * inspired by Android ColorDrawable.
+     * Setting a color filter on a ColorDrawable has no effect. This has been inspired by Android ColorDrawable.
      *
-     * @param colorFilter
-     *            Ignore.
+     * @param colorFilter Ignore.
      */
     @Override
     public void setColorFilter(ColorFilter colorFilter) {
@@ -249,10 +235,8 @@ public class RoundedColorDrawable extends Drawable {
         mTempRect.inset(mBorderWidth / 2, mBorderWidth / 2);
         if (mIsCircle) {
             float radius = Math.min(mTempRect.width(), mTempRect.height()) / 2;
-            mPath.addCircle(mTempRect.centerX(), mTempRect.centerY(), radius,
-                    Path.Direction.CW);
-        }
-        else {
+            mPath.addCircle(mTempRect.centerX(), mTempRect.centerY(), radius, Path.Direction.CW);
+        } else {
             mPath.addRoundRect(mTempRect, mRadii, Path.Direction.CW);
         }
         mTempRect.inset(-mBorderWidth / 2, -mBorderWidth / 2);
@@ -270,7 +254,8 @@ public class RoundedColorDrawable extends Drawable {
     }
 
     private StateListDrawable sld;
-    public RoundedColorDrawable setStateColor(int[][] stateSets, int[] colors){
+
+    public RoundedColorDrawable setStateColor(int[][] stateSets, int[] colors) {
         if (stateSets != null && colors != null) {
             sld = new StateListDrawable();
             int len = Math.min(stateSets.length, colors.length);
@@ -284,7 +269,7 @@ public class RoundedColorDrawable extends Drawable {
         return this;
     }
 
-    public RoundedColorDrawable addStateColor(int[] stateSet, int color, int borderColor){
+    public RoundedColorDrawable addStateColor(int[] stateSet, int color, int borderColor) {
         if (sld == null) {
             sld = new StateListDrawable();
         }
@@ -295,11 +280,11 @@ public class RoundedColorDrawable extends Drawable {
         return this;
     }
 
-    public RoundedColorDrawable addStateColor(int[] stateSet, int color){
+    public RoundedColorDrawable addStateColor(int[] stateSet, int color) {
         return addStateColor(stateSet, color, mBorderColor);
     }
 
-    public RoundedColorDrawable addStateColor(int state, int color){
+    public RoundedColorDrawable addStateColor(int state, int color) {
         return addStateColor(new int[]{state}, color);
     }
 

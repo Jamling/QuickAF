@@ -20,19 +20,17 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.widget.RadioButton;
 
 import androidx.appcompat.widget.AppCompatRadioButton;
 
 /**
  * 类/接口描述
- * 
+ *
  * @author Jamling
  * @date 2016年1月28日
- *       
  */
 public class RadioBadgeView extends AppCompatRadioButton {
-    
+
     /**
      * @param context
      */
@@ -40,7 +38,7 @@ public class RadioBadgeView extends AppCompatRadioButton {
         super(context);
         init(context, null);
     }
-    
+
     /**
      * @param context
      * @param attrs
@@ -49,55 +47,54 @@ public class RadioBadgeView extends AppCompatRadioButton {
         super(context, attrs);
         init(context, attrs);
     }
-    
+
     /**
      * @param context
      * @param attrs
      * @param defStyleAttr
      */
-    public RadioBadgeView(Context context, AttributeSet attrs,
-            int defStyleAttr) {
+    public RadioBadgeView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
-    
+
     private void init(Context context, AttributeSet attrs) {
         initBadge(context, attrs);
     }
-    
+
     private BadgeView2 badgeView;
-    
+
     private void initBadge(Context context, AttributeSet attrs) {
         badgeView = new BadgeView2(this);
     }
-    
+
     public BadgeView2 getBadgeView() {
         return badgeView;
     }
-    
+
     public int getBadgeCount() {
         return badgeView.getBadgeCount();
     }
-    
+
     public void setBadgeCount(int count) {
         badgeView.setBadgeCount(count);
     }
-    
+
     public void incrementBadgeCount(int increment) {
         int count = getBadgeCount();
         setBadgeCount(increment + count);
     }
-    
+
     public void decrementBadgeCount(int decrement) {
         incrementBadgeCount(-decrement);
     }
-    
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         drawBadge(canvas);
     }
-    
+
     private void drawBadge(Canvas canvas) {
         Point p = getBadgePosition();
         canvas.save();
@@ -105,12 +102,10 @@ public class RadioBadgeView extends AppCompatRadioButton {
         badgeView.draw(canvas);
         canvas.restore();
     }
-    
+
     /**
-     * Calculate the badge view position, default is the top-right of the radio
-     * button with a top drawable.
+     * Calculate the badge view position, default is the top-right of the radio button with a top drawable.
      *
-     * 
      * @return the position of badge view relative to target
      */
     protected Point getBadgePosition() {
@@ -121,7 +116,7 @@ public class RadioBadgeView extends AppCompatRadioButton {
         if (d != null) {
             offw += d.getIntrinsicWidth() >> 1;
             offh -= (getCompoundDrawablePadding() + d.getIntrinsicHeight()
-                    + (getPaint().descent() - getPaint().ascent())) / 2;
+                + (getPaint().descent() - getPaint().ascent())) / 2;
             offh -= badgeView.getMeasureHeight() / 2;
             if (offh < 0) {
                 offh = 0;

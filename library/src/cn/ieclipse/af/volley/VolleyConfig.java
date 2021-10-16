@@ -20,18 +20,17 @@ import com.android.volley.toolbox.BaseHttpStack;
 
 /**
  * 类/接口描述
- * 
+ *
  * @author Jamling
  * @date 2015年11月10日
- *       
  */
 public final class VolleyConfig {
-    private BaseHttpStack mHttpStack;
-    private int mMaxDiskCacheBytes;
-    private Class<? extends IBaseResponse> mBaseResponseClass;
-    private RetryPolicy mRetryPolicy;
-    private boolean mDebug;
-    
+    private final BaseHttpStack mHttpStack;
+    private final int mMaxDiskCacheBytes;
+    private final Class<? extends IBaseResponse> mBaseResponseClass;
+    private final RetryPolicy mRetryPolicy;
+    private final boolean mDebug;
+
     private VolleyConfig(Builder builder) {
         mHttpStack = builder.mHttpStack;
         mMaxDiskCacheBytes = builder.mMaxDiskCacheBytes;
@@ -39,51 +38,50 @@ public final class VolleyConfig {
         mRetryPolicy = builder.mRetryPolicy;
         mDebug = builder.mDebug;
     }
-    
+
     public BaseHttpStack getHttpStack() {
         return mHttpStack;
     }
-    
+
     public int getMaxDiskCacheBytes() {
         return mMaxDiskCacheBytes;
     }
-    
+
     public Class<? extends IBaseResponse> getBaseResponseClass() {
         return mBaseResponseClass;
     }
 
-    public RetryPolicy getRetryPolicy(){
+    public RetryPolicy getRetryPolicy() {
         return mRetryPolicy;
     }
 
     public boolean isDebug() {
         return mDebug;
     }
-    
+
     public static final class Builder {
         private BaseHttpStack mHttpStack;
         private int mMaxDiskCacheBytes;
         private Class<? extends IBaseResponse> mBaseResponseClass;
         private RetryPolicy mRetryPolicy;
         private boolean mDebug;
-        
+
         public Builder setHttpStack(BaseHttpStack httpStack) {
             this.mHttpStack = httpStack;
             return this;
         }
-        
+
         public Builder setMaxDiskCacheBytes(int maxDiskCacheBytes) {
             this.mMaxDiskCacheBytes = maxDiskCacheBytes;
             return this;
         }
-        
-        public Builder setBaseResponseClass(
-                Class<? extends IBaseResponse> baseResponseClass) {
+
+        public Builder setBaseResponseClass(Class<? extends IBaseResponse> baseResponseClass) {
             this.mBaseResponseClass = baseResponseClass;
             return this;
         }
 
-        public Builder setRetryPolicy(RetryPolicy retryPolicy){
+        public Builder setRetryPolicy(RetryPolicy retryPolicy) {
             this.mRetryPolicy = retryPolicy;
             return this;
         }

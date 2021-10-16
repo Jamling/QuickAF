@@ -7,15 +7,15 @@ import android.text.Spannable;
 import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
 
-import org.xml.sax.XMLReader;
-
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.xml.sax.XMLReader;
+
 public class HtmlTagHandler implements Html.TagHandler {
-    private WeakReference<Context> mContext;
+    private final WeakReference<Context> mContext;
 
     protected Map<String, String> attributes = new TreeMap<>();
 
@@ -23,7 +23,9 @@ public class HtmlTagHandler implements Html.TagHandler {
         this.mContext = new WeakReference<>(context);
     }
 
-    /** @return null if context destroyed */
+    /**
+     * @return null if context destroyed
+     */
     public Context getContext() {
         if (mContext != null) {
             return mContext.get();
@@ -47,9 +49,11 @@ public class HtmlTagHandler implements Html.TagHandler {
         return false;
     }
 
-    protected void startTag(String tag, Editable output, XMLReader xmlReader) {}
+    protected void startTag(String tag, Editable output, XMLReader xmlReader) {
+    }
 
-    protected void endTag(String tag, Editable output, XMLReader xmlReader) {}
+    protected void endTag(String tag, Editable output, XMLReader xmlReader) {
+    }
 
     private void parseAt(String tag, Editable output, XMLReader xmlReader) {
         try {

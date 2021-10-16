@@ -134,28 +134,28 @@ public class FlowLayout extends ViewGroup {
             // vertical
             setVerticalDivider(a.getDrawable(R.styleable.FlowLayout_fl_vDivider));
             mVerticalDividerHeight =
-                    a.getDimensionPixelOffset(
-                            R.styleable.FlowLayout_fl_vDividerHeight, mVerticalDividerHeight);
+                a.getDimensionPixelOffset(
+                    R.styleable.FlowLayout_fl_vDividerHeight, mVerticalDividerHeight);
             mShowVerticalDivider =
-                    a.getInt(R.styleable.FlowLayout_fl_vDividerShow, mShowVerticalDivider);
+                a.getInt(R.styleable.FlowLayout_fl_vDividerShow, mShowVerticalDivider);
             mVerticalDividerPadding =
-                    a.getDimensionPixelOffset(
-                            R.styleable.FlowLayout_fl_vDividerPadding, mVerticalDividerPadding);
+                a.getDimensionPixelOffset(
+                    R.styleable.FlowLayout_fl_vDividerPadding, mVerticalDividerPadding);
             setVerticalSpacing(
-                    a.getDimensionPixelOffset(
-                            R.styleable.FlowLayout_fl_vSpacing, mVerticalDividerPadding));
+                a.getDimensionPixelOffset(
+                    R.styleable.FlowLayout_fl_vSpacing, mVerticalDividerPadding));
             // horizontal
             setHorizontalDividerDrawable(a.getDrawable(R.styleable.FlowLayout_fl_hDivider));
             mDividerWidth =
-                    a.getDimensionPixelOffset(
-                            R.styleable.FlowLayout_fl_hDividerWidth, mDividerWidth);
+                a.getDimensionPixelOffset(
+                    R.styleable.FlowLayout_fl_hDividerWidth, mDividerWidth);
             mShowDividers = a.getInt(R.styleable.FlowLayout_fl_hDividerShow, mShowDividers);
             mDividerPadding =
-                    a.getDimensionPixelOffset(
-                            R.styleable.FlowLayout_fl_hDividerPadding, mDividerPadding);
+                a.getDimensionPixelOffset(
+                    R.styleable.FlowLayout_fl_hDividerPadding, mDividerPadding);
             setHorizontalSpacing(
-                    a.getDimensionPixelOffset(
-                            R.styleable.FlowLayout_fl_hSpacing, mHorizontalSpacing));
+                a.getDimensionPixelOffset(
+                    R.styleable.FlowLayout_fl_hSpacing, mHorizontalSpacing));
 
             setGravity(a.getInt(R.styleable.FlowLayout_android_gravity, 0));
             if (a.hasValue(R.styleable.FlowLayout_android_numColumns)) {
@@ -167,28 +167,28 @@ public class FlowLayout extends ViewGroup {
             }
             if (a.hasValue(R.styleable.FlowLayout_android_dividerHeight)) {
                 mDividerWidth =
-                        a.getDimensionPixelOffset(
-                                R.styleable.FlowLayout_android_dividerHeight, mDividerWidth);
+                    a.getDimensionPixelOffset(
+                        R.styleable.FlowLayout_android_dividerHeight, mDividerWidth);
             }
             if (a.hasValue(R.styleable.FlowLayout_android_showDividers)) {
                 mShowDividers =
-                        a.getInt(R.styleable.FlowLayout_android_showDividers, mShowDividers);
+                    a.getInt(R.styleable.FlowLayout_android_showDividers, mShowDividers);
             }
             if (a.hasValue(R.styleable.FlowLayout_android_dividerPadding)) {
                 mDividerPadding =
-                        a.getDimensionPixelOffset(
-                                R.styleable.FlowLayout_android_dividerPadding, mDividerPadding);
+                    a.getDimensionPixelOffset(
+                        R.styleable.FlowLayout_android_dividerPadding, mDividerPadding);
             }
             if (a.hasValue(R.styleable.FlowLayout_android_horizontalSpacing)) {
                 setHorizontalSpacing(
-                        a.getDimensionPixelOffset(
-                                R.styleable.FlowLayout_android_horizontalSpacing,
-                                mHorizontalSpacing));
+                    a.getDimensionPixelOffset(
+                        R.styleable.FlowLayout_android_horizontalSpacing,
+                        mHorizontalSpacing));
             }
             if (a.hasValue(R.styleable.FlowLayout_android_verticalSpacing)) {
                 setVerticalSpacing(
-                        a.getDimensionPixelOffset(
-                                R.styleable.FlowLayout_android_verticalSpacing, mVerticalSpacing));
+                    a.getDimensionPixelOffset(
+                        R.styleable.FlowLayout_android_verticalSpacing, mVerticalSpacing));
             }
         } finally {
             a.recycle();
@@ -305,9 +305,8 @@ public class FlowLayout extends ViewGroup {
     /**
      * Set how dividers should be shown between items in this layout
      *
-     * @param showDividers One or more of {@link #SHOW_DIVIDER_BEGINNING}, {@link
-     *     #SHOW_DIVIDER_MIDDLE}, or {@link #SHOW_DIVIDER_END}, or {@link #SHOW_DIVIDER_NONE} to
-     *     show no dividers.
+     * @param showDividers One or more of {@link #SHOW_DIVIDER_BEGINNING}, {@link #SHOW_DIVIDER_MIDDLE}, or {@link
+     * #SHOW_DIVIDER_END}, or {@link #SHOW_DIVIDER_NONE} to show no dividers.
      */
     public void setShowVerticalDividers(int showDividers) {
         if (showDividers != mShowVerticalDivider) {
@@ -453,9 +452,7 @@ public class FlowLayout extends ViewGroup {
     }
 
     private void onMeasureOld(int widthMeasureSpec, int heightMeasureSpec) {
-        if (mNumColumns > 0) {
-            assert (MeasureSpec.getMode(widthMeasureSpec) != MeasureSpec.UNSPECIFIED);
-        }
+        assert mNumColumns <= 0 || (MeasureSpec.getMode(widthMeasureSpec) != MeasureSpec.UNSPECIFIED);
 
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
@@ -504,8 +501,8 @@ public class FlowLayout extends ViewGroup {
             if (child != null && child.getVisibility() != GONE) {
                 LayoutParams lp = (LayoutParams) child.getLayoutParams();
                 child.measure(
-                        getChildWidthMeasureSpec(child, width, width - x + left),
-                        getChildHeightMeasureSpec(child, height));
+                    getChildWidthMeasureSpec(child, width, width - x + left),
+                    getChildHeightMeasureSpec(child, height));
 
                 int cw = child.getMeasuredWidth();
                 int ch = child.getMeasuredHeight();
@@ -568,9 +565,7 @@ public class FlowLayout extends ViewGroup {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        if (mNumColumns > 0) {
-            assert (MeasureSpec.getMode(widthMeasureSpec) != MeasureSpec.UNSPECIFIED);
-        }
+        assert mNumColumns <= 0 || (MeasureSpec.getMode(widthMeasureSpec) != MeasureSpec.UNSPECIFIED);
 
         // 当前ViewGroup的宽
         int width = MeasureSpec.getSize(widthMeasureSpec);
@@ -613,8 +608,8 @@ public class FlowLayout extends ViewGroup {
 
         if (mNumColumns > 0) {
             mMaxChildWidth =
-                    (width - widthUsedFix - getHorizontalSpacing() * (mNumColumns - 1))
-                            / mNumColumns;
+                (width - widthUsedFix - getHorizontalSpacing() * (mNumColumns - 1))
+                    / mNumColumns;
             if (mGridRatio > 0) {
                 mMaxChildHeight = (int) (mMaxChildWidth * mGridRatio + .5f);
             }
@@ -636,17 +631,17 @@ public class FlowLayout extends ViewGroup {
                 if (mMaxChildWidth > 0) {
                     // 按列布局，每个子view宽固定
                     childWidthMeasureSpec =
-                            MeasureSpec.makeMeasureSpec(mMaxChildWidth, MeasureSpec.EXACTLY);
+                        MeasureSpec.makeMeasureSpec(mMaxChildWidth, MeasureSpec.EXACTLY);
                     if (mMaxChildHeight > 0) {
                         // 设置了宽高比，每个子view高固定
                         childHeightMeasureSpec =
-                                MeasureSpec.makeMeasureSpec(mMaxChildHeight, MeasureSpec.EXACTLY);
+                            MeasureSpec.makeMeasureSpec(mMaxChildHeight, MeasureSpec.EXACTLY);
                     } else {
                         // 未设置，动态计算子view高
                         heightUsed += lp.topMargin + lp.bottomMargin;
                         childHeightMeasureSpec =
-                                ViewGroup.getChildMeasureSpec(
-                                        heightMeasureSpec, heightUsed, lp.height);
+                            ViewGroup.getChildMeasureSpec(
+                                heightMeasureSpec, heightUsed, lp.height);
                     }
                 } else {
                     // 普通流式布局，margin 并入已使用的宽度
@@ -658,21 +653,21 @@ public class FlowLayout extends ViewGroup {
                     // 当某个子view使用layout_width="match_parent"，则用此view填充剩余空间（相当于手动换行）
                     if (lp.width == ViewGroup.LayoutParams.MATCH_PARENT) {
                         childWidthMeasureSpec =
-                                MeasureSpec.makeMeasureSpec(width - widthUsed, MeasureSpec.EXACTLY);
+                            MeasureSpec.makeMeasureSpec(width - widthUsed, MeasureSpec.EXACTLY);
                     } else {
                         childWidthMeasureSpec =
-                                ViewGroup.getChildMeasureSpec(
-                                        widthMeasureSpec,
-                                        widthUsedFix + lp.leftMargin + lp.rightMargin,
-                                        lp.width);
+                            ViewGroup.getChildMeasureSpec(
+                                widthMeasureSpec,
+                                widthUsedFix + lp.leftMargin + lp.rightMargin,
+                                lp.width);
                     }
 
                     heightUsed += lp.topMargin + lp.bottomMargin;
                     childHeightMeasureSpec =
-                            ViewGroup.getChildMeasureSpec(
-                                    heightMeasureSpec,
-                                    heightUsedFix + lp.topMargin + lp.bottomMargin,
-                                    lp.height);
+                        ViewGroup.getChildMeasureSpec(
+                            heightMeasureSpec,
+                            heightUsedFix + lp.topMargin + lp.bottomMargin,
+                            lp.height);
                 }
 
                 child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
@@ -710,7 +705,7 @@ public class FlowLayout extends ViewGroup {
                         currentLines.add(child);
                         // 新行的高度
                         currentLineHeight =
-                                mMaxChildHeight > 0 ? ch : ch + lp.topMargin + lp.bottomMargin;
+                            mMaxChildHeight > 0 ? ch : ch + lp.topMargin + lp.bottomMargin;
                         // 恢复已用空间
                         widthUsed = widthUsedFix; // padding + divider width
                         // 当前view宽度+margin并入新行已占用空间
@@ -823,11 +818,11 @@ public class FlowLayout extends ViewGroup {
                 if (lineIndex > 0) {
                     if ((mShowVerticalDivider & SHOW_DIVIDER_MIDDLE) != 0) {
                         mVerticalDividerPos.add(
-                                new Rect(
-                                        left,
-                                        y - getVerticalSpacing(),
-                                        getMeasuredWidth() - right,
-                                        y));
+                            new Rect(
+                                left,
+                                y - getVerticalSpacing(),
+                                getMeasuredWidth() - right,
+                                y));
                     }
                 }
                 int count = line.size();
@@ -875,23 +870,23 @@ public class FlowLayout extends ViewGroup {
                         }
                         if (i < count - 1) {
                             if ((getShowHorizontalDividers() & LinearLayout.SHOW_DIVIDER_MIDDLE)
-                                    != 0) {
+                                != 0) {
                                 mDividersPos.add(
-                                        new Rect(
-                                                x - getHorizontalSpacing(),
-                                                y,
-                                                x,
-                                                maxLineHeight + y));
+                                    new Rect(
+                                        x - getHorizontalSpacing(),
+                                        y,
+                                        x,
+                                        maxLineHeight + y));
                             }
                         } else if (i < mNumColumns - 1) {
                             if ((getShowHorizontalDividers() & LinearLayout.SHOW_DIVIDER_END)
-                                    != 0) {
+                                != 0) {
                                 mDividersPos.add(
-                                        new Rect(
-                                                x - getHorizontalSpacing(),
-                                                y,
-                                                x,
-                                                maxLineHeight + y));
+                                    new Rect(
+                                        x - getHorizontalSpacing(),
+                                        y,
+                                        x,
+                                        maxLineHeight + y));
                             }
                         }
                     }
@@ -940,10 +935,10 @@ public class FlowLayout extends ViewGroup {
         if (mHasVisibleChild && (getShowHorizontalDividers() & SHOW_DIVIDER_BEGINNING) != 0) {
             Drawable d = getHorizontalDividerDrawable();
             d.setBounds(
-                    getPaddingLeft(),
-                    getPaddingTop(),
-                    getPaddingLeft() + getDividerWidth(),
-                    getMeasuredHeight() - getPaddingBottom());
+                getPaddingLeft(),
+                getPaddingTop(),
+                getPaddingLeft() + getDividerWidth(),
+                getMeasuredHeight() - getPaddingBottom());
             if (mDrawHorizontalOutlinePadding) {
                 int y1 = 0;
                 int y2 = 0;
@@ -955,10 +950,10 @@ public class FlowLayout extends ViewGroup {
                 }
                 Rect r = d.getBounds();
                 d.setBounds(
-                        r.left,
-                        r.top + getHorizontalDividerPadding() + y1,
-                        r.right,
-                        r.bottom - getHorizontalDividerPadding() - y2);
+                    r.left,
+                    r.top + getHorizontalDividerPadding() + y1,
+                    r.right,
+                    r.bottom - getHorizontalDividerPadding() - y2);
             }
             d.draw(canvas);
         }
@@ -969,10 +964,10 @@ public class FlowLayout extends ViewGroup {
             Drawable d = getHorizontalDividerDrawable();
             int l = getMeasuredWidth() - getPaddingRight() - getDividerWidth();
             d.setBounds(
-                    l,
-                    getPaddingTop(),
-                    l + getDividerWidth(),
-                    getMeasuredHeight() - getPaddingBottom());
+                l,
+                getPaddingTop(),
+                l + getDividerWidth(),
+                getMeasuredHeight() - getPaddingBottom());
             if (mDrawHorizontalOutlinePadding) {
                 int y1 = 0;
                 int y2 = 0;
@@ -984,10 +979,10 @@ public class FlowLayout extends ViewGroup {
                 }
                 Rect r = d.getBounds();
                 d.setBounds(
-                        r.left,
-                        r.top + getHorizontalDividerPadding() + y1,
-                        r.right,
-                        r.bottom - getHorizontalDividerPadding() - y2);
+                    r.left,
+                    r.top + getHorizontalDividerPadding() + y1,
+                    r.right,
+                    r.bottom - getHorizontalDividerPadding() - y2);
             }
             d.draw(canvas);
         }
@@ -1006,10 +1001,10 @@ public class FlowLayout extends ViewGroup {
         }
         t = r.top + t;
         d.setBounds(
-                r.left + getVerticalDividerPadding(),
-                t,
-                r.right - getVerticalDividerPadding(),
-                t + h);
+            r.left + getVerticalDividerPadding(),
+            t,
+            r.right - getVerticalDividerPadding(),
+            t + h);
         d.draw(canvas);
     }
 
@@ -1017,17 +1012,17 @@ public class FlowLayout extends ViewGroup {
         if (mHasVisibleChild && (mShowVerticalDivider & SHOW_DIVIDER_BEGINNING) != 0) {
             Drawable d = getVerticalDivider();
             d.setBounds(
-                    getPaddingLeft() /*- getVerticalDividerPadding()*/,
-                    getPaddingTop(),
-                    getMeasuredWidth() - getPaddingBottom() /*- getVerticalDividerPadding()*/,
-                    getPaddingTop() + getVerticalDividerHeight());
+                getPaddingLeft() /*- getVerticalDividerPadding()*/,
+                getPaddingTop(),
+                getMeasuredWidth() - getPaddingBottom() /*- getVerticalDividerPadding()*/,
+                getPaddingTop() + getVerticalDividerHeight());
             if (mDrawVerticalOutlinePadding) {
                 Rect r = d.getBounds();
                 d.setBounds(
-                        r.left + getVerticalDividerPadding(),
-                        r.top,
-                        r.right - getVerticalDividerPadding(),
-                        r.bottom);
+                    r.left + getVerticalDividerPadding(),
+                    r.top,
+                    r.right - getVerticalDividerPadding(),
+                    r.bottom);
             }
             d.draw(canvas);
         }
@@ -1037,17 +1032,17 @@ public class FlowLayout extends ViewGroup {
         if (mHasVisibleChild && (mShowVerticalDivider & SHOW_DIVIDER_END) != 0) {
             Drawable d = getVerticalDivider();
             d.setBounds(
-                    getPaddingLeft(),
-                    getMeasuredHeight() - getPaddingBottom() - getVerticalDividerHeight(),
-                    getMeasuredWidth() - getPaddingBottom(),
-                    getMeasuredHeight() - getPaddingBottom());
+                getPaddingLeft(),
+                getMeasuredHeight() - getPaddingBottom() - getVerticalDividerHeight(),
+                getMeasuredWidth() - getPaddingBottom(),
+                getMeasuredHeight() - getPaddingBottom());
             if (mDrawVerticalOutlinePadding) {
                 Rect r = d.getBounds();
                 d.setBounds(
-                        r.left + getVerticalDividerPadding(),
-                        r.top,
-                        r.right - getVerticalDividerPadding(),
-                        r.bottom);
+                    r.left + getVerticalDividerPadding(),
+                    r.top,
+                    r.right - getVerticalDividerPadding(),
+                    r.bottom);
             }
             d.draw(canvas);
         }
@@ -1077,14 +1072,16 @@ public class FlowLayout extends ViewGroup {
     private FlowLayout.OnCheckedChangeListener mOnCheckedChangeListener;
     private FlowLayout.OnCheckedChangeListener2 mOnCheckedChangeListener2;
     private PassThroughHierarchyChangeListener mPassThroughListener =
-            new PassThroughHierarchyChangeListener();
+        new PassThroughHierarchyChangeListener();
     private int mSelectionMode = ListView.CHOICE_MODE_NONE;
 
     private boolean isSingleChoice() {
         return mSelectionMode == ListView.CHOICE_MODE_SINGLE;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
@@ -1132,9 +1129,8 @@ public class FlowLayout extends ViewGroup {
     }
 
     /**
-     * Sets the selection to the radio button whose identifier is passed in parameter. Using -1 as
-     * the selection identifier clears the selection; such an operation is equivalent to invoking
-     * {@link #clearCheck()}.
+     * Sets the selection to the radio button whose identifier is passed in parameter. Using -1 as the selection
+     * identifier clears the selection; such an operation is equivalent to invoking {@link #clearCheck()}.
      *
      * @param id the unique id of the radio button to select in this group
      * @see #getCheckedRadioButtonId()
@@ -1163,7 +1159,7 @@ public class FlowLayout extends ViewGroup {
                 View child = findViewById(id);
                 if (child instanceof CompoundButton) {
                     mOnCheckedChangeListener2.onCheckedChanged(
-                            FlowLayout.this, (CompoundButton) child, id);
+                        FlowLayout.this, (CompoundButton) child, id);
                 }
             }
         }
@@ -1197,8 +1193,8 @@ public class FlowLayout extends ViewGroup {
     }
 
     /**
-     * Returns the identifier of the selected radio button in this group. Upon empty selection, the
-     * returned value is -1.
+     * Returns the identifier of the selected radio button in this group. Upon empty selection, the returned value is
+     * -1.
      *
      * @return the unique id of the selected radio button in this group
      * @attr ref android.R.styleable#RadioGroup_checkedButton
@@ -1210,9 +1206,10 @@ public class FlowLayout extends ViewGroup {
     }
 
     private boolean mClear;
+
     /**
-     * Clears the selection. When the selection is cleared, no radio button in this group is
-     * selected and {@link #getCheckedRadioButtonId()} returns null.
+     * Clears the selection. When the selection is cleared, no radio button in this group is selected and {@link
+     * #getCheckedRadioButtonId()} returns null.
      *
      * @see #check(int)
      * @see #getCheckedRadioButtonId()
@@ -1242,7 +1239,9 @@ public class FlowLayout extends ViewGroup {
         mOnCheckedChangeListener2 = listener;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setOnHierarchyChangeListener(OnHierarchyChangeListener listener) {
         // the user listener is delegated to our pass-through listener
@@ -1250,14 +1249,15 @@ public class FlowLayout extends ViewGroup {
     }
 
     /**
-     * A pass-through listener acts upon the events and dispatches them to another listener. This
-     * allows the table layout to set its own internal hierarchy change listener without preventing
-     * the user to setup his.
+     * A pass-through listener acts upon the events and dispatches them to another listener. This allows the table
+     * layout to set its own internal hierarchy change listener without preventing the user to setup his.
      */
     private class PassThroughHierarchyChangeListener implements OnHierarchyChangeListener {
         private OnHierarchyChangeListener mOnHierarchyChangeListener;
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
         public void onChildViewAdded(View parent, View child) {
             if (parent == FlowLayout.this) {
@@ -1271,7 +1271,7 @@ public class FlowLayout extends ViewGroup {
                 }
                 if (child instanceof CompoundButton) {
                     ((CompoundButton) child)
-                            .setOnCheckedChangeListener(mChildOnCheckedChangeListener);
+                        .setOnCheckedChangeListener(mChildOnCheckedChangeListener);
                 } else if (child instanceof Checkable) {
                     // TODO
                 }
@@ -1282,7 +1282,9 @@ public class FlowLayout extends ViewGroup {
             }
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         public void onChildViewRemoved(View parent, View child) {
             if (parent == FlowLayout.this && child instanceof CompoundButton) {
                 ((CompoundButton) child).setOnCheckedChangeListener(null);
@@ -1319,7 +1321,7 @@ public class FlowLayout extends ViewGroup {
                 setCheckedStateForView(buttonView.getId(), isChecked);
                 if (mOnCheckedChangeListener2 != null) {
                     mOnCheckedChangeListener2.onCheckedChanged(
-                            FlowLayout.this, buttonView, buttonView.getId());
+                        FlowLayout.this, buttonView, buttonView.getId());
                 }
             }
         }
@@ -1328,10 +1330,9 @@ public class FlowLayout extends ViewGroup {
     /**
      * Defines the choice behavior. By default, FlowLayout do not have any choice behavior ({@link
      * android.widget.ListView#CHOICE_MODE_NONE}). By setting the choiceMode to {@link
-     * android.widget.ListView#CHOICE_MODE_SINGLE}, the FlowLayout allows up to one item to be in a
-     * chosen state (FlowLayout regarded as RadioGroup). By setting the choiceMode to {@link
-     * android.widget.ListView#CHOICE_MODE_MULTIPLE}, the FlowLayout allows any number of items to
-     * be chosen.
+     * android.widget.ListView#CHOICE_MODE_SINGLE}, the FlowLayout allows up to one item to be in a chosen state
+     * (FlowLayout regarded as RadioGroup). By setting the choiceMode to {@link android.widget.ListView#CHOICE_MODE_MULTIPLE},
+     * the FlowLayout allows any number of items to be chosen.
      *
      * <p><b><em>Note:</em></b> The choice support only support {@link
      * android.widget.CompoundButton} child view, e .g. {@link android.widget.RadioButton}, {@link
@@ -1442,13 +1443,11 @@ public class FlowLayout extends ViewGroup {
     }
 
     /**
-     * Interface definition for a callback to be invoked when the checked radio button changed in
-     * this group.
+     * Interface definition for a callback to be invoked when the checked radio button changed in this group.
      */
     public interface OnCheckedChangeListener {
         /**
-         * Called when the checked radio button has changed. When the selection is cleared,
-         * checkedId is -1.
+         * Called when the checked radio button has changed. When the selection is cleared, checkedId is -1.
          *
          * @param group the group in which the checked radio button has changed
          * @param checkedId the unique identifier of the newly checked radio button
@@ -1457,15 +1456,13 @@ public class FlowLayout extends ViewGroup {
     }
 
     /**
-     * Interface definition for a callback to be invoked when the checked compound button changed in
-     * this group.
+     * Interface definition for a callback to be invoked when the checked compound button changed in this group.
      *
      * @since 3.0.1
      */
     public interface OnCheckedChangeListener2 {
         /**
-         * Called when the checked compound button has changed. When the selection is cleared,
-         * checkedId is -1.
+         * Called when the checked compound button has changed. When the selection is cleared, checkedId is -1.
          *
          * @param group the group in which the checked compound button has changed
          * @param buttonView the compound button which has changed
@@ -1495,16 +1492,20 @@ public class FlowLayout extends ViewGroup {
         this.mChildClickListener = childClickListener;
     }
 
-    private View.OnClickListener mChildInternalClickListener =
-            (v -> {
-                mChildClickListener.onChildClick(FlowLayout.this, v);
-            });
+    private final View.OnClickListener mChildInternalClickListener =
+        (v -> {
+            mChildClickListener.onChildClick(FlowLayout.this, v);
+        });
 
     // ----> adapter support
-    /** Should be used by subclasses to listen to changes in the dataset */
+    /**
+     * Should be used by subclasses to listen to changes in the dataset
+     */
     private AdapterDataSetObserver mDataSetObserver;
 
-    /** The adapter containing the data to be displayed by this view */
+    /**
+     * The adapter containing the data to be displayed by this view
+     */
     private ListAdapter mAdapter;
 
     class AdapterDataSetObserver extends DataSetObserver {
@@ -1526,9 +1527,9 @@ public class FlowLayout extends ViewGroup {
         for (int i = 0; i < mAdapter.getCount(); i++) {
             final View childView = mAdapter.getView(i, null, this);
             ViewGroup.LayoutParams lp =
-                    childView.getLayoutParams() == null
-                            ? new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
-                            : childView.getLayoutParams();
+                childView.getLayoutParams() == null
+                    ? new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
+                    : childView.getLayoutParams();
             addView(childView, lp);
         }
     }
@@ -1551,10 +1552,10 @@ public class FlowLayout extends ViewGroup {
             for (int i = 0; i < mAdapter.getCount(); i++) {
                 final View childView = mAdapter.getView(i, null, this);
                 ViewGroup.LayoutParams lp =
-                        childView.getLayoutParams() == null
-                                ? new LayoutParams(
-                                        LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
-                                : childView.getLayoutParams();
+                    childView.getLayoutParams() == null
+                        ? new LayoutParams(
+                        LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
+                        : childView.getLayoutParams();
                 addView(childView, lp);
             }
             mDataSetObserver = new AdapterDataSetObserver();
@@ -1604,12 +1605,10 @@ public class FlowLayout extends ViewGroup {
     }
 
     /**
-     * Returns a set of layout parameters with a width of {@link
-     * android.view.ViewGroup.LayoutParams#MATCH_PARENT} and a height of {@link
-     * android.view.ViewGroup.LayoutParams#WRAP_CONTENT} when the layout's orientation is {@link
-     * android.widget.LinearLayout#VERTICAL}. When the orientation is {@link
-     * android.widget.LinearLayout#HORIZONTAL}, the width is set to {@link
-     * LayoutParams#WRAP_CONTENT} and the height to {@link LayoutParams#WRAP_CONTENT}.
+     * Returns a set of layout parameters with a width of {@link android.view.ViewGroup.LayoutParams#MATCH_PARENT} and a
+     * height of {@link android.view.ViewGroup.LayoutParams#WRAP_CONTENT} when the layout's orientation is {@link
+     * android.widget.LinearLayout#VERTICAL}. When the orientation is {@link android.widget.LinearLayout#HORIZONTAL},
+     * the width is set to {@link LayoutParams#WRAP_CONTENT} and the height to {@link LayoutParams#WRAP_CONTENT}.
      */
     @Override
     protected LayoutParams generateDefaultLayoutParams() {
@@ -1635,12 +1634,16 @@ public class FlowLayout extends ViewGroup {
      */
     public static class LayoutParams extends ViewGroup.MarginLayoutParams {
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         public LayoutParams(Context c, AttributeSet attrs) {
             super(c, attrs);
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         public LayoutParams(int width, int height) {
             super(width, height);
         }
@@ -1648,29 +1651,30 @@ public class FlowLayout extends ViewGroup {
         /**
          * Creates a new set of layout parameters with the specified width, height and weight.
          *
-         * @param width the width, either {@link #MATCH_PARENT}, {@link #WRAP_CONTENT} or a fixed
-         *     size in pixels
-         * @param height the height, either {@link #MATCH_PARENT}, {@link #WRAP_CONTENT} or a fixed
-         *     size in pixels
+         * @param width the width, either {@link #MATCH_PARENT}, {@link #WRAP_CONTENT} or a fixed size in pixels
+         * @param height the height, either {@link #MATCH_PARENT}, {@link #WRAP_CONTENT} or a fixed size in pixels
          * @param weight the weight
          */
         public LayoutParams(int width, int height, float weight) {
             super(width, height);
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         public LayoutParams(ViewGroup.LayoutParams p) {
             super(p);
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         public LayoutParams(ViewGroup.MarginLayoutParams source) {
             super(source);
         }
 
         /**
-         * Copy constructor. Clones the width, height, margin values, weight, and gravity of the
-         * source.
+         * Copy constructor. Clones the width, height, margin values, weight, and gravity of the source.
          *
          * @param source The layout params to copy from.
          */

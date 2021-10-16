@@ -26,10 +26,10 @@
  *
  */
 package cn.ieclipse.af.volley.content;
- 
+
 import java.io.IOException;
 import java.io.OutputStream;
- 
+
 /**
  * Binary body part backed by a byte array.
  *
@@ -38,17 +38,17 @@ import java.io.OutputStream;
  * @since 4.1
  */
 public class ByteArrayBody extends AbstractContentBody {
- 
+
     /**
      * The contents of the file contained in this part.
      */
     private final byte[] data;
- 
+
     /**
      * The name of the file contained in this part.
      */
     private final String filename;
- 
+
     /**
      * @since 4.3
      */
@@ -57,7 +57,7 @@ public class ByteArrayBody extends AbstractContentBody {
         this.data = data;
         this.filename = filename;
     }
- 
+
     /**
      * Creates a new ByteArrayBody.
      *
@@ -67,26 +67,26 @@ public class ByteArrayBody extends AbstractContentBody {
     public ByteArrayBody(final byte[] data, final String filename) {
         this(data, "application/octet-stream", filename);
     }
- 
+
     public String getFilename() {
         return filename;
     }
- 
+
     public void writeTo(final OutputStream out) throws IOException {
         out.write(data);
     }
- 
+
     @Override
     public String getCharset() {
         return null;
     }
- 
+
     public String getTransferEncoding() {
         return ENC_BINARY;
     }
- 
+
     public long getContentLength() {
         return data.length;
     }
- 
+
 }

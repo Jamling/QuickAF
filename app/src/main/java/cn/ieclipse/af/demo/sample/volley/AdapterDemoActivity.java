@@ -34,7 +34,7 @@ import cn.ieclipse.af.demo.common.ui.BaseActivity;
  */
 public class AdapterDemoActivity extends BaseActivity {
 
-    private static String json = "{\n" + "\"uid\":\"280\",\n"
+    private static final String json = "{\n" + "\"uid\":\"280\",\n"
         + "    \"avater\":\"http://11.taoxiansheng.com/Uploads/Download/2016-08-30/57c4f81e0add1.jpeg\",\n"
         + "    \"nickname\":\"威威\",\n" + "    \"Ip\":null,\n" + "    \"area\":\"\",\n" + "    \"join\":1,\n"
         + "    \"time\":\"2016-08-31 10:39:36 064\",\n" + "    \"url\":null\n" + "}";

@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package cn.ieclipse.af.view.refresh;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.OrientationHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,13 +30,12 @@ public class RefreshRecyclerDetector extends RefreshLayout.RefreshDetector<Recyc
     public void setEnabled(boolean enable) {
         if (enable) {
             getView().addOnScrollListener(mInnerOnScrollListener);
-        }
-        else {
+        } else {
             getView().removeOnScrollListener(mInnerOnScrollListener);
         }
     }
 
-    private RecyclerView.OnScrollListener mInnerOnScrollListener = new RecyclerView.OnScrollListener() {
+    private final RecyclerView.OnScrollListener mInnerOnScrollListener = new RecyclerView.OnScrollListener() {
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
@@ -45,8 +45,7 @@ public class RefreshRecyclerDetector extends RefreshLayout.RefreshDetector<Recyc
                 int orientation = OrientationHelper.VERTICAL;
                 if (manager instanceof StaggeredGridLayoutManager) {
                     orientation = ((StaggeredGridLayoutManager) manager).getOrientation();
-                }
-                else if (manager instanceof LinearLayoutManager) {
+                } else if (manager instanceof LinearLayoutManager) {
                     orientation = ((LinearLayoutManager) manager).getOrientation();
                 }
 
@@ -62,8 +61,7 @@ public class RefreshRecyclerDetector extends RefreshLayout.RefreshDetector<Recyc
                             // scrolled To end
                             getRefresh().loadMore();
                         }
-                    }
-                    else {
+                    } else {
 
                         // 竖直滚动加载
                         // if (!recyclerView.canScrollVertically(-1)) {

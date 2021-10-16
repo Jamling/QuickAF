@@ -44,16 +44,14 @@ public final class ViewUtils {
      * Set background drawable to view.
      *
      * @param view view
-     * @param d    background drawable
-     *
+     * @param d background drawable
      * @see View#setBackground(Drawable)
      */
     //--> for android sdk compatibility
     public static void setBackground(View view, Drawable d) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             view.setBackground(d);
-        }
-        else {
+        } else {
             view.setBackgroundDrawable(d);
         }
     }
@@ -61,9 +59,8 @@ public final class ViewUtils {
     /**
      * Instead {@link android.widget.ImageView#setImageResource(int)}
      *
-     * @param iv    ImageView
+     * @param iv ImageView
      * @param resId resourceId
-     *
      * @since 3.0.1
      */
     // don't use ImageView#setImageResource
@@ -79,9 +76,8 @@ public final class ViewUtils {
      * <p class="note">Must called in UI Thread after
      * {@link android.webkit.WebViewClient#onPageFinished(android.webkit.WebView, String)}</p>
      *
-     * @param webView     WebView
+     * @param webView WebView
      * @param minHeightDp min height, dp unit
-     *
      * @since 3.0.1
      */
     public static void autoHeightWebView(WebView webView, int minHeightDp) {
@@ -98,8 +94,7 @@ public final class ViewUtils {
      * Set WebView background color
      *
      * @param webView WebView
-     * @param color   color
-     *
+     * @param color color
      * @since 3.0.1
      */
     public static void setWebViewBackgroundColor(WebView webView, int color) {
@@ -131,8 +126,7 @@ public final class ViewUtils {
         int childHeightSpec;
         if (lpHeight > 0) {
             childHeightSpec = View.MeasureSpec.makeMeasureSpec(lpHeight, View.MeasureSpec.EXACTLY);
-        }
-        else {
+        } else {
             childHeightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         }
         view.measure(childWidthSpec, childHeightSpec);

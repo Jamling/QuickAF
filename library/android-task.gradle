@@ -1,9 +1,9 @@
 Properties properties = new Properties()
 try {
     // local.properties 有 sdk 的绝对位置
-    properties.load(project.rootProject.file('local.properties').newDataInputStream());
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
 } catch (IOException e) {
-    println(e);
+    println(e)
 }
 
 repositories {
@@ -13,7 +13,7 @@ repositories {
     }
 }
 
-def Rdir  =  new File(buildDir, "intermediates/classes/release");
+def Rdir  =  new File(buildDir, "intermediates/classes/release")
 
 tasks.withType(Jar) {
     baseName project.property('ART_ARTIFACT')

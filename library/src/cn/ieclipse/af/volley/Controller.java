@@ -100,8 +100,8 @@ public abstract class Controller<Listener> {
         /**
          * Perform REST request and convert response 'data' json to an object.
          *
-         * @param input     request object
-         * @param clazz     response 'data' object class
+         * @param input request object
+         * @param clazz response 'data' object class
          * @param needCache need load from cache or not
          */
         public void load(Input input, Class<Output> clazz, boolean needCache) {
@@ -126,11 +126,9 @@ public abstract class Controller<Listener> {
             Type type = null;
             if (mDataClazz != null) {
                 type = type(base, mDataClazz);
-            }
-            else if (mDataItemClass != null) {
+            } else if (mDataItemClass != null) {
                 type = type(base, type(List.class, mDataItemClass));
-            }
-            else {
+            } else {
                 type = base;
             }
 
@@ -147,9 +145,8 @@ public abstract class Controller<Listener> {
         /**
          * Perform REST request and convert response 'data' json to an object or list.
          *
-         * @param input     request object
+         * @param input request object
          * @param needCache need load from cache or not
-         *
          * @see #load(Object, Class, boolean)
          * @see #load2List(Object, Class, boolean)
          * @since 2.1.0
@@ -160,18 +157,15 @@ public abstract class Controller<Listener> {
                 type = ((ParameterizedType) type).getActualTypeArguments()[1];
                 if (type instanceof Class) {
                     load(input, (Class<Output>) type, needCache);
-                }
-                else if (type instanceof ParameterizedType) {
+                } else if (type instanceof ParameterizedType) {
                     type = ((ParameterizedType) type).getActualTypeArguments()[0];
                     load2List(input, (Class<?>) type, needCache);
-                }
-                else {
+                } else {
                     Controller.log(String
                             .format("The type(%s) defined in task(%s) is not a concrete class type", type, getClass()),
                         null);
                 }
-            }
-            else {
+            } else {
                 Controller.log(
                     String.format("The type(%s) defined in task(%s) is not a concrete class type", type, getClass()),
                     null);
@@ -179,10 +173,9 @@ public abstract class Controller<Listener> {
         }
 
         /**
-         * Perform REST request and convert response 'data' json to
-         * {@linkplain List java.util.List} object.
+         * Perform REST request and convert response 'data' json to {@linkplain List java.util.List} object.
          *
-         * @param input     request object
+         * @param input request object
          * @param itemClass entity class of {@linkplain List java.util.List}
          * @param needCache need load from cache or not
          */
@@ -192,12 +185,10 @@ public abstract class Controller<Listener> {
         }
 
         /**
-         * Build full URL, for HTTP GET, we append the request body to URL
-         * typically. if your HTTP GET don't is a full URL, need to override and
-         * return {@link #getUrl()}
+         * Build full URL, for HTTP GET, we append the request body to URL typically. if your HTTP GET don't is a full
+         * URL, need to override and return {@link #getUrl()}
          *
          * @param body
-         *
          * @return full URL, maybe append query to origin {@link #getUrl()}
          */
         protected IUrl buildUrl(String body) {
@@ -211,9 +202,8 @@ public abstract class Controller<Listener> {
         /**
          * Create volley request, default is {@link GsonRequest}
          *
-         * @param url  full URL see {@link #buildUrl(String)}
+         * @param url full URL see {@link #buildUrl(String)}
          * @param body request body see {@link #getBody(Object)}
-         *
          * @return volley request instance
          */
         protected GsonRequest buildRequest(IUrl url, String body) {
@@ -236,7 +226,6 @@ public abstract class Controller<Listener> {
          * Get request body.
          *
          * @param input request entity
-         *
          * @return encoded body string
          * @see #getParamsEncoding()
          */
@@ -303,7 +292,6 @@ public abstract class Controller<Listener> {
          * Intercept 'data' json parser
          *
          * @param response the whole response object ({@link IBaseResponse} instance)
-         *
          * @return true if you want to skip convert 'data' json to object.
          * @throws Exception
          */

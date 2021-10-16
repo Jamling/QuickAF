@@ -22,10 +22,11 @@ import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.Calendar;
 import java.util.List;
 
-import androidx.recyclerview.widget.RecyclerView;
 import cn.ieclipse.af.adapter.AfRecyclerAdapter;
 import cn.ieclipse.af.adapter.delegate.AdapterDelegate;
 import cn.ieclipse.af.demo.R;

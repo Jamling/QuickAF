@@ -17,9 +17,8 @@ package cn.ieclipse.af.volley;
 
 /**
  * REST url interface
- * 
- * @author Jamling
  *
+ * @author Jamling
  */
 public interface IUrl {
     /**

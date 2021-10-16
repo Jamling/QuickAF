@@ -30,7 +30,7 @@ public class AtTagHandler implements Html.TagHandler {
     private int startIndex = 0;
     private int stopIndex = 0;
 
-    private WeakReference<Context> mContext;
+    private final WeakReference<Context> mContext;
 
     public AtTagHandler(Context context) {
         this.mContext = new WeakReference<>(context);
@@ -105,7 +105,7 @@ public class AtTagHandler implements Html.TagHandler {
     }
 
     private class AtClickSpan extends ClickableSpan {
-        private int uid;
+        private final int uid;
 
         public AtClickSpan(int uid) {
             this.uid = uid;

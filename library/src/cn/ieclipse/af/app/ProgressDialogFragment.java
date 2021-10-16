@@ -24,8 +24,7 @@ import android.text.TextUtils;
 import androidx.fragment.app.DialogFragment;
 
 /**
- * /**
- * Fragment used to show progress dialog, it's suggested to use {@link android.app.DialogFragment} to show dialogs
+ * /** Fragment used to show progress dialog, it's suggested to use {@link android.app.DialogFragment} to show dialogs
  *
  * @author Jamling
  * @see cn.ieclipse.af.util.DialogUtils
@@ -33,9 +32,9 @@ import androidx.fragment.app.DialogFragment;
 public class ProgressDialogFragment extends DialogFragment {
     private ProgressInterceptor interceptor;
     private OnCancelListener onCancelListener;
-    
+
     public static ProgressDialogFragment newInstance(int style, CharSequence msg, ProgressInterceptor interceptor,
-                                                     OnCancelListener listener) {
+        OnCancelListener listener) {
         ProgressDialogFragment frag = new ProgressDialogFragment();
         Bundle args = new Bundle();
         args.putInt("style", style);
@@ -45,7 +44,7 @@ public class ProgressDialogFragment extends DialogFragment {
         frag.setOnCancelListener(listener);
         return frag;
     }
-    
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         ProgressDialog dialog = new ProgressDialog(getActivity());
@@ -65,15 +64,15 @@ public class ProgressDialogFragment extends DialogFragment {
         }
         return dialog;
     }
-    
+
     public void setOnCancelListener(OnCancelListener onCancelListener) {
         this.onCancelListener = onCancelListener;
     }
-    
+
     public void setInterceptor(ProgressInterceptor interceptor) {
         this.interceptor = interceptor;
     }
-    
+
     public interface ProgressInterceptor {
         void onCreated(ProgressDialog dialog);
     }

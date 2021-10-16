@@ -26,7 +26,7 @@ public class PopupUtils {
      * show the popwindow on view's bottom
      *
      * @param context
-     * @param clickView   the view click to show popwidow
+     * @param clickView the view click to show popwidow
      * @param contentView the layout view be shown
      */
     public static PopupWindow showPopWindowBottom(Context context, View clickView, View contentView) {
@@ -38,7 +38,7 @@ public class PopupUtils {
      *
      * @param context
      * @param clickView the view click to show popwidow
-     * @param layoutId  the layout resid be shown
+     * @param layoutId the layout resid be shown
      */
     public static PopupWindow showPopWindowBottom(Context context, View clickView, int layoutId) {
         return showPopWindow(context, clickView, null, layoutId, 0);
@@ -48,7 +48,7 @@ public class PopupUtils {
      * show the popwindow on view's top
      *
      * @param context
-     * @param clickView   the view click to show popwidow
+     * @param clickView the view click to show popwidow
      * @param contentView the layout view be shown
      */
     public static PopupWindow showPopWindowTop(Context context, View clickView, View contentView) {
@@ -60,7 +60,7 @@ public class PopupUtils {
      *
      * @param context
      * @param clickView the view click to show popwidow
-     * @param layoutId  the layout resid be shown
+     * @param layoutId the layout resid be shown
      */
     public static PopupWindow showPopWindowTop(Context context, View clickView, int layoutId) {
         return showPopWindow(context, clickView, null, layoutId, 1);
@@ -70,7 +70,7 @@ public class PopupUtils {
      * show the popwindow on view's left
      *
      * @param context
-     * @param clickView   the view click to show popwidow
+     * @param clickView the view click to show popwidow
      * @param contentView the layout view be shown
      */
     public static PopupWindow showPopWindowLeft(Context context, View clickView, View contentView) {
@@ -82,7 +82,7 @@ public class PopupUtils {
      *
      * @param context
      * @param clickView the view click to show popwidow
-     * @param layoutId  the layout resid be shown
+     * @param layoutId the layout resid be shown
      */
     public static PopupWindow showPopWindowLeft(Context context, View clickView, int layoutId) {
         return showPopWindow(context, clickView, null, layoutId, 2);
@@ -92,7 +92,7 @@ public class PopupUtils {
      * show the popwindow on view's right
      *
      * @param context
-     * @param clickView   the view click to show popwidow
+     * @param clickView the view click to show popwidow
      * @param contentView the layout view be shown
      */
     public static PopupWindow showPopWindowRight(Context context, View clickView, View contentView) {
@@ -104,7 +104,7 @@ public class PopupUtils {
      *
      * @param context
      * @param clickView the view click to show popwidow
-     * @param layoutId  the layout resid be shown
+     * @param layoutId the layout resid be shown
      */
     public static PopupWindow showPopWindowRight(Context context, View clickView, int layoutId) {
         return showPopWindow(context, clickView, null, layoutId, 3);
@@ -114,27 +114,21 @@ public class PopupUtils {
      * show popwindow on clickview top, bottom ,right or left
      *
      * @param context
-     * @param clickView   the view click to show popwidow
+     * @param clickView the view click to show popwidow
      * @param contentView the layout view be shown
-     * @param layoutId    the layout resid be shown
-     * @param location    0.bottom
-     *                    1.top
-     *                    2.left
-     *                    3.right
-     *
+     * @param layoutId the layout resid be shown
+     * @param location 0.bottom 1.top 2.left 3.right
      * @return
      */
     private static PopupWindow showPopWindow(Context context, View clickView, View contentView, int layoutId,
-                                             int location) {
+        int location) {
         PopupWindow mPopupWindows = new PopupWindow(context);
         View layout = null;
         if (contentView != null) {
             layout = contentView;
-        }
-        else if (layoutId > 0) {
+        } else if (layoutId > 0) {
             layout = LayoutInflater.from(context).inflate(layoutId, null);
-        }
-        else {
+        } else {
             throw new RuntimeException("the contentView should not be null or the layoutId > 0 is request");
         }
         mPopupWindows.setContentView(layout);
@@ -151,22 +145,19 @@ public class PopupUtils {
         if (location == 0) {
             // bottom
             mPopupWindows.showAsDropDown(clickView);
-        }
-        else if (location == 1) {
+        } else if (location == 1) {
             // top
             int[] local = new int[2];
             clickView.getLocationOnScreen(local);
             mPopupWindows.showAtLocation(clickView, Gravity.NO_GRAVITY, local[0],
                 local[1] - mPopupWindows.getContentView().getMeasuredHeight());
-        }
-        else if (location == 2) {
+        } else if (location == 2) {
             // left
             int[] local = new int[2];
             clickView.getLocationOnScreen(local);
             mPopupWindows.showAtLocation(clickView, Gravity.NO_GRAVITY,
                 local[0] - mPopupWindows.getContentView().getMeasuredWidth(), local[1]);
-        }
-        else if (location == 3) {
+        } else if (location == 3) {
             // right
             int[] local = new int[2];
             clickView.getLocationOnScreen(local);
@@ -189,7 +180,7 @@ public class PopupUtils {
                     /*
                      * PopupWindow height for match_parent,
                      * will occupy the entire screen, it needs to do special treatment in Android 7.1
-                    */
+                     */
                     popupWindow.setHeight(screenHeight - y);
                 }
                 popupWindow.showAtLocation(decorView, Gravity.NO_GRAVITY, offsetX, y);
@@ -203,7 +194,7 @@ public class PopupUtils {
      * Set popup modal, default is true
      *
      * @param popupWindow {@link android.widget.PopupWindow}
-     * @param modal       true to set modal(default) or false
+     * @param modal true to set modal(default) or false
      */
     public static void setModal(PopupWindow popupWindow, boolean modal) {
         try {

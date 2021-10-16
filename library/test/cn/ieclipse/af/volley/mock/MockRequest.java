@@ -2,13 +2,13 @@ package cn.ieclipse.af.volley.mock;
 
 import android.text.TextUtils;
 
+import java.io.UnsupportedEncodingException;
+
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.JsonSyntaxException;
-
-import java.io.UnsupportedEncodingException;
 
 import cn.ieclipse.af.volley.GsonRequest;
 import cn.ieclipse.af.volley.IBaseResponse;

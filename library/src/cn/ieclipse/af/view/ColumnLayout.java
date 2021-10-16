@@ -70,7 +70,7 @@ import java.util.List;
  * @deprecated will deleted in future, please use {@link cn.ieclipse.af.view.TableView} instead
  */
 public class ColumnLayout extends View {
-    
+
     /**
      * @see android.view.View#View(android.content.Context)
      */
@@ -78,7 +78,7 @@ public class ColumnLayout extends View {
         super(context);
         init(context, null);
     }
-    
+
     /**
      * @see android.view.View#View(android.content.Context, android.util.AttributeSet)
      */
@@ -86,7 +86,7 @@ public class ColumnLayout extends View {
         super(context, attrs);
         init(context, attrs);
     }
-    
+
     /**
      * @see android.view.View#View(android.content.Context, android.util.AttributeSet, int)
      */
@@ -94,7 +94,7 @@ public class ColumnLayout extends View {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
-    
+
     /**
      * @see android.view.View#View(android.content.Context, android.util.AttributeSet, int, int)
      */
@@ -103,20 +103,20 @@ public class ColumnLayout extends View {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs);
     }
-    
+
     public static final int SHOW_DIVIDER_NONE = LinearLayout.SHOW_DIVIDER_NONE;
-    
+
     public static final int SHOW_DIVIDER_BEGINNING = LinearLayout.SHOW_DIVIDER_BEGINNING;
-    
+
     public static final int SHOW_DIVIDER_END = LinearLayout.SHOW_DIVIDER_END;
-    
+
     public static final int SHOW_DIVIDER_MIDDLE = LinearLayout.SHOW_DIVIDER_MIDDLE;
-    
-    private int mVerticalDividerHeight = 1;
+
+    private final int mVerticalDividerHeight = 1;
     private int mShowVerticalDivider = SHOW_DIVIDER_NONE;
-    private int mVerticalDividerPadding = 0;
-    
-    private int mDividerWidth = 1;
+    private final int mVerticalDividerPadding = 0;
+
+    private final int mDividerWidth = 1;
     private int mDividerPadding;
     private int mShowDividers = SHOW_DIVIDER_NONE;
 
@@ -131,7 +131,7 @@ public class ColumnLayout extends View {
     private int mVerticalSpacing;
     private int mNumColumns = 1;
     private int mGravity = Gravity.NO_GRAVITY;
-    
+
     @SuppressLint("ResourceType")
     private void init(Context context, AttributeSet attrs) {
         paint = new Paint();
@@ -151,7 +151,7 @@ public class ColumnLayout extends View {
             a.recycle();
         }
     }
-    
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -160,16 +160,15 @@ public class ColumnLayout extends View {
         if (rowLayouts != null) {
             int w = getPaddingLeft();
             int h = 0;
-            
+
             int size = rowLayouts.size();
             for (int i = 0; i < size; i++) {
-                
+
                 canvas.translate(0, h);
                 if (i == 0) {
                     // vertical gravity : center
                     canvas.translate(0, getVerticalSpacing() / 2);
-                }
-                else if (i > 0) {
+                } else if (i > 0) {
                     if (showVBorderMiddle()) {
                         int y = 0 + getVerticalSpacing() / 2;
                         canvas.drawLine(0, y, getWidth(), y, paint);
@@ -195,8 +194,7 @@ public class ColumnLayout extends View {
                             canvas.translate(0, offy);
                             cs[j].draw(canvas);
                             canvas.restore();
-                        }
-                        else {
+                        } else {
                             cs[j].draw(canvas);
                         }
                         canvas.translate(cs[j].getWidth(), 0);
@@ -209,7 +207,7 @@ public class ColumnLayout extends View {
         }
         canvas.restore();
     }
-    
+
     private void drawBorder(Canvas canvas) {
         float r = getMeasuredWidth() - paint.getStrokeWidth();
         float b = getMeasuredHeight() - paint.getStrokeWidth();
@@ -230,7 +228,7 @@ public class ColumnLayout extends View {
             canvas.drawLine(0, b, getMeasuredWidth(), b, paint);
         }
     }
-    
+
     /**
      * Add row data
      *
@@ -251,7 +249,7 @@ public class ColumnLayout extends View {
         rows.addAll(texts);
         requestLayout();
     }
-    
+
     /**
      * Clear all data
      */
@@ -260,7 +258,7 @@ public class ColumnLayout extends View {
             rows.clear();
         }
     }
-    
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int parentWidth = MeasureSpec.getSize(widthMeasureSpec);
@@ -271,8 +269,7 @@ public class ColumnLayout extends View {
             for (int i = 0; i < mNumColumns; i++) {
                 columnWidths[i] = getMaxColumnWidth(i);
             }
-        }
-        else {
+        } else {
             int used = 0;
             int sumWeight = 0;
             for (int i = 0; i < mNumColumns && i < getWeights().length; i++) {
@@ -298,14 +295,12 @@ public class ColumnLayout extends View {
         }
         if (rowLayouts == null) {
             rowLayouts = new ArrayList<>();
-        }
-        else {
+        } else {
             rowLayouts.clear();
         }
         if (rowHeights == null) {
             rowHeights = new ArrayList<>();
-        }
-        else {
+        } else {
             rowHeights.clear();
         }
         int height = 0;
@@ -333,7 +328,7 @@ public class ColumnLayout extends View {
                 }
             }
         }
-        
+
         setMeasuredDimension(parentWidth, height);
     }
 
@@ -347,11 +342,11 @@ public class ColumnLayout extends View {
     private boolean isVerticalCenter() {
         return ((mGravity & Gravity.VERTICAL_GRAVITY_MASK) & Gravity.CENTER_VERTICAL) != 0;
     }
-    
+
     public int[] getWeights() {
         return weights;
     }
-    
+
     private int getMaxColumnWidth(int index) {
         int ret = 0;
         if (rows != null) {
@@ -363,7 +358,7 @@ public class ColumnLayout extends View {
         }
         return ret;
     }
-    
+
     private int getLastSpanColumnWidth(int total, int i) {
         int sum = 0;
         for (int k = 0; k < i; k++) {
@@ -373,27 +368,27 @@ public class ColumnLayout extends View {
         last = Math.max(0, last);
         return last;
     }
-    
+
     private int measureTextWidth(CharSequence text) {
         float w = textPaint.measureText(text, 0, text.length());
         int i = (int) w;
         return w > i ? i + 1 : i;
     }
-    
+
     public int getHorizontalSpacing() {
         // return Math.max(mHorizontalSpacing, getDividerWidth());
         return mHorizontalSpacing;
     }
-    
+
     public int getVerticalSpacing() {
         // return Math.max(mVerticalSpacing, getVerticalDividerHeight());
         return mVerticalSpacing;
     }
-    
+
     public int getNumColumns() {
         return mNumColumns;
     }
-    
+
     public void setNumColumns(int numColumns) {
         this.mNumColumns = numColumns;
     }
@@ -405,23 +400,23 @@ public class ColumnLayout extends View {
     public void setTextColor(int color) {
         this.textPaint.setColor(color);
     }
-    
+
     public void setTextSize(int size) {
         this.textPaint.setTextSize(size);
     }
-    
+
     public void setHorizontalSpacing(int horizontalSpacing) {
         this.mHorizontalSpacing = horizontalSpacing;
     }
-    
+
     public void setVerticalSpacing(int verticalSpacing) {
         this.mVerticalSpacing = verticalSpacing;
     }
-    
+
     public void setWeights(int[] weights) {
         this.weights = weights;
     }
-    
+
     /**
      * Set border color
      *
@@ -430,7 +425,7 @@ public class ColumnLayout extends View {
     public void setBorderColor(int color) {
         this.paint.setColor(color);
     }
-    
+
     /**
      * Set border width
      *
@@ -439,19 +434,18 @@ public class ColumnLayout extends View {
     public void setBorderWidth(float width) {
         this.paint.setStrokeWidth(width);
     }
-    
+
     /**
      * Set show horizontal border
      *
      * @param flag combined value of {@link #SHOW_DIVIDER_NONE}, {@link #SHOW_DIVIDER_BEGINNING}, {@link
-     *             #SHOW_DIVIDER_MIDDLE},{@link #SHOW_DIVIDER_END}
-     *
+     * #SHOW_DIVIDER_MIDDLE},{@link #SHOW_DIVIDER_END}
      * @see android.widget.LinearLayout#setShowDividers(int)
      */
     public void setShowHorizontalBorder(int flag) {
         this.mShowDividers = flag;
     }
-    
+
     public int getShowHorizontalBorder() {
         return this.mShowDividers;
     }
@@ -464,34 +458,33 @@ public class ColumnLayout extends View {
      * Set show vertical border
      *
      * @param flag combined value of {@link #SHOW_DIVIDER_NONE}, {@link #SHOW_DIVIDER_BEGINNING}, {@link
-     *             #SHOW_DIVIDER_MIDDLE},{@link #SHOW_DIVIDER_END}
-     *
+     * #SHOW_DIVIDER_MIDDLE},{@link #SHOW_DIVIDER_END}
      * @see android.widget.LinearLayout#setShowDividers(int)
      */
     public void setShowVerticalBorder(int flag) {
         this.mShowVerticalDivider = flag;
     }
-    
+
     private boolean showHBorderBegin() {
         return (this.mShowDividers & SHOW_DIVIDER_BEGINNING) == SHOW_DIVIDER_BEGINNING;
     }
-    
+
     private boolean showHBorderMiddle() {
         return (this.mShowDividers & SHOW_DIVIDER_MIDDLE) == SHOW_DIVIDER_MIDDLE;
     }
-    
+
     private boolean showHBorderEnd() {
         return (this.mShowDividers & SHOW_DIVIDER_END) == SHOW_DIVIDER_END;
     }
-    
+
     private boolean showVBorderBegin() {
         return (this.mShowVerticalDivider & SHOW_DIVIDER_BEGINNING) == SHOW_DIVIDER_BEGINNING;
     }
-    
+
     private boolean showVBorderMiddle() {
         return (this.mShowVerticalDivider & SHOW_DIVIDER_MIDDLE) == SHOW_DIVIDER_MIDDLE;
     }
-    
+
     private boolean showVBorderEnd() {
         return (this.mShowVerticalDivider & SHOW_DIVIDER_END) == SHOW_DIVIDER_END;
     }

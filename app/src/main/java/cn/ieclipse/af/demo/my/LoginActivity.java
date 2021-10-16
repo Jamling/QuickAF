@@ -43,7 +43,7 @@ import cn.ieclipse.util.EncryptUtils;
 public class LoginActivity extends BaseActivity implements LoginController.LoginListener {
 
     private LoginController mLoginController;
-    private int REQ_REGISTER = 0x12;
+    private final int REQ_REGISTER = 0x12;
 
     private RadioGroup mRgType;
     private TextView mEtPhone;
@@ -184,7 +184,7 @@ public class LoginActivity extends BaseActivity implements LoginController.Login
         return intent;
     }
 
-    private TextWatcher textWatcher = new TextWatcher() {
+    private final TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 

@@ -97,10 +97,10 @@ public class BadgeView3 extends AppCompatTextView {
     }
 
     /*
-         * Attach the BadgeView to the target view
-         *
-         * @param target the view to attach the BadgeView
-         */
+     * Attach the BadgeView to the target view
+     *
+     * @param target the view to attach the BadgeView
+     */
     public void setTargetView(View target) {
         if (getParent() != null) {
             ((ViewGroup) getParent()).removeView(this);
@@ -112,8 +112,7 @@ public class BadgeView3 extends AppCompatTextView {
 
         if (target.getParent() instanceof FrameLayout) {
             ((FrameLayout) target.getParent()).addView(this);
-        }
-        else if (target.getParent() instanceof ViewGroup) {
+        } else if (target.getParent() instanceof ViewGroup) {
             // use a new Framelayout container for adding badge
             ViewGroup parentContainer = (ViewGroup) target.getParent();
             int groupIndex = parentContainer.indexOfChild(target);
@@ -132,8 +131,7 @@ public class BadgeView3 extends AppCompatTextView {
             badgeContainer.setId(target.getId());
             target.setId(-1);
             parentContainer.addView(badgeContainer, groupIndex, parentLayoutParams);
-        }
-        else if (target.getParent() == null) {
+        } else if (target.getParent() == null) {
             Log.e(getClass().getSimpleName(), "ParentView is needed");
         }
     }

@@ -18,11 +18,12 @@ package cn.ieclipse.af.adapter;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
+
 import cn.ieclipse.af.adapter.delegate.AdapterDelegate;
 import cn.ieclipse.af.adapter.delegate.DelegateManager;
 import cn.ieclipse.af.common.Logger;
@@ -41,9 +42,9 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
     protected Logger mLogger = Logger.getLogger(getClass());
     protected RecyclerView mRecyclerView;
 
-    private AfDataHolder<T> mDataHolder = new AfDataHolder<>();
+    private final AfDataHolder<T> mDataHolder = new AfDataHolder<>();
 
-    private DelegateManager<T> mDelegatesManager;
+    private final DelegateManager<T> mDelegatesManager;
 
     /**
      * Use delegate
@@ -121,9 +122,7 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
     /**
      * Same as <code>deleteItem(position, true);</code>
      *
-     * @param position item position see
-     * {@link androidx.recyclerview.widget.RecyclerView.ViewHolder#getAdapterPosition()}
-     *
+     * @param position item position see {@link androidx.recyclerview.widget.RecyclerView.ViewHolder#getAdapterPosition()}
      * @see cn.ieclipse.af.adapter.AfRecyclerAdapter#deleteItem(int, boolean)
      */
     public void deleteItem(int position) {
@@ -133,9 +132,8 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
     /**
      * Remove item, if isLayoutPosition is true (default) means removing the adapter item.
      *
-     * @param position         the position of adapter or data
+     * @param position the position of adapter or data
      * @param isLayoutPosition true is the layout/adapter position, false is the data position
-     *
      * @deprecated use {@link #deleteItem(int)} instead.
      */
     public void deleteItem(int position, boolean isLayoutPosition) {
@@ -148,8 +146,7 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
                 notifyItemRemoved(pos);
                 notifyItemRangeChanged(pos, getItemCount());
             }
-        }
-        else {
+        } else {
             // 删除后为空，更新显示empty view
             notifyDataSetChanged();
         }
@@ -217,8 +214,9 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
 
     /**
      * Get datalist real count;
+     *
      * @return
-     * */
+     */
     public int getDataItemCount() {
         return mDataHolder.getCount();
     }
@@ -304,8 +302,7 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
                         if (itemType == AfRecyclerAdapter.ITEM_VIEW_TYPE_FOOTER
                             || itemType == AfRecyclerAdapter.ITEM_VIEW_TYPE_HEADER) {
                             return spanCount;
-                        }
-                        else {
+                        } else {
                             return 1;
                         }
                     }
@@ -323,8 +320,8 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
         /**
          * 对item做点击监听
          *
-         * @param adapter  AfRecyclerAdapter
-         * @param view     item view
+         * @param adapter AfRecyclerAdapter
+         * @param view item view
          * @param position position
          */
         void onItemClick(AfRecyclerAdapter adapter, View view, int position);
@@ -334,8 +331,8 @@ public class AfRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.View
         /**
          * 对item做长按监听
          *
-         * @param adapter  AfRecyclerAdapter
-         * @param view     item view
+         * @param adapter AfRecyclerAdapter
+         * @param view item view
          * @param position position
          */
         boolean onItemLongClick(AfRecyclerAdapter adapter, View view, int position);

@@ -30,6 +30,7 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:text="@string/common_cancel"
             android:layout_alignParentRight="true"/>
+
         <FrameLayout
             android:id="@+id/ll_input"
             android:layout_width="match_parent"

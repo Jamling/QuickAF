@@ -15,10 +15,11 @@
  */
 package cn.ieclipse.af.demo.common;
 
+import androidx.fragment.app.FragmentManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.fragment.app.FragmentManager;
 import cn.ieclipse.af.adapter.AfFragmentPagerAdapter;
 import cn.ieclipse.af.demo.common.ui.BaseFragment;
 

@@ -145,9 +145,9 @@ public class H5Activity extends BaseActivity {
         protected WebView mWebView;
 
         private static final int PB_FAKE_MAX = 85;
-        private int mFakeInternal = 200;
+        private final int mFakeInternal = 200;
 
-        private Handler mPbHandler =
+        private final Handler mPbHandler =
                 new Handler() {
                     @Override
                     public void handleMessage(Message msg) {
@@ -311,7 +311,7 @@ public class H5Activity extends BaseActivity {
         }
 
         public static class SystemDownloadListener implements DownloadListener {
-            private Context context;
+            private final Context context;
 
             public SystemDownloadListener(Context context) {
                 this.context = context;

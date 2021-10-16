@@ -39,12 +39,12 @@ public class FilterTabHostSample extends SampleBaseFragment {
 
     private FilterTabHost mFilterLayout;
     private ArrayList<FilterTabView> mFilterViews;
-    private String[] mItem1
+    private final String[] mItem1
         = {"Item1_0", "Item1_1", "Item1_2", "Item1_3", "Item1_4", "Item1_5", "Item1_6", "Item1_7", "Item1_8",
         "Item1_9", "Item1_10", "Item1_11", "Item1_12"};
-    private String[] mItem2 = {"Item2_0", "Item2_1", "Item2_2"};
-    private String[] mItem3 = {"Item3_0", "Item1_3", "Item3_2", "Item3_3", "Item3_4"};
-    private String[] mItem4 = {};
+    private final String[] mItem2 = {"Item2_0", "Item2_1", "Item2_2"};
+    private final String[] mItem3 = {"Item3_0", "Item1_3", "Item3_2", "Item3_3", "Item3_4"};
+    private final String[] mItem4 = {};
 
     private View mReset;
     @Override

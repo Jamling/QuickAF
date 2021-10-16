@@ -26,7 +26,7 @@ import cn.ieclipse.af.view.VScrollView;
  */
 public class RefreshVScrollDetector extends RefreshLayout.RefreshDetector<VScrollView> {
 
-    private VScrollView.OnScrollChangeListener mOnScrollChangeListener = new VScrollView.OnScrollChangeListener() {
+    private final VScrollView.OnScrollChangeListener mOnScrollChangeListener = new VScrollView.OnScrollChangeListener() {
         @Override
         public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
             if (getRefresh().isEnableLoadMore() && getView().isScroll2Bottom()) {
@@ -39,8 +39,7 @@ public class RefreshVScrollDetector extends RefreshLayout.RefreshDetector<VScrol
     public void setEnabled(boolean enable) {
         if (enable) {
             getView().setOnScrollChangeListener(mOnScrollChangeListener);
-        }
-        else {
+        } else {
             getView().setOnScrollChangeListener((VScrollView.OnScrollChangeListener) null);
         }
     }

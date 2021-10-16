@@ -16,11 +16,11 @@
 package cn.ieclipse.af.volley;
 
 /**
- * There is identifier exception class. You can throw this exception to interrupt the
- * {@linkplain cn.ieclipse.af.volley.Controller.RequestObjectTask#onResponse(IBaseResponse) RequestObjectTask.onResponse}
+ * There is identifier exception class. You can throw this exception to interrupt the {@linkplain
+ * cn.ieclipse.af.volley.Controller.RequestObjectTask#onResponse(IBaseResponse) RequestObjectTask.onResponse}
  *
  * @author Jamling
  */
-public class InterceptorError extends Exception{
-    
+public class InterceptorError extends Exception {
+
 }

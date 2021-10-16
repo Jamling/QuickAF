@@ -1,5 +1,5 @@
 /*
- * (C) Copyright 2011-2013 li.jamling@gmail.com. 
+ * (C) Copyright 2011-2013 li.jamling@gmail.com.
  *
  * This software is the property of li.jamling@gmail.com.
  * You have to accept the terms in the license file before use.
@@ -10,20 +10,17 @@ package cn.ieclipse.af.common;
 import android.util.Log;
 
 import org.slf4j.LoggerFactory;
-import org.slf4j.Marker;
 import org.slf4j.helpers.FormattingTuple;
 import org.slf4j.helpers.MarkerIgnoringBase;
 import org.slf4j.helpers.MessageFormatter;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Logger for log runtime information.
- * 
+ *
  * @author melord
  * @version 1.0
- * 
  */
 public class Logger extends MarkerIgnoringBase {
     public static final int LEVEL_VERBOSE = 0;
@@ -32,7 +29,7 @@ public class Logger extends MarkerIgnoringBase {
     public static final int LEVEL_WARN = 3;
     public static final int LEVEL_ERROR = 4;
     public static final int LEVEL_FATAL = 5;
-    
+
     private static int level;
 
     @Override
@@ -196,8 +193,7 @@ public class Logger extends MarkerIgnoringBase {
     }
 
     /**
-     * @param level
-     *            the level to set
+     * @param level the level to set
      */
     public static void setLevel(int level) {
         Logger.level = level;
@@ -205,7 +201,7 @@ public class Logger extends MarkerIgnoringBase {
 
     private static Map<String, Logger> intances;
 
-    private String tag;
+    private final String tag;
 
     public Logger(String tag) {
         this.name = tag.substring(tag.lastIndexOf('.') + 1);
@@ -215,8 +211,7 @@ public class Logger extends MarkerIgnoringBase {
     /**
      * Use class simple name as log tag. See {@link #getLogger(String)}
      *
-     * @param clazz
-     *            class.
+     * @param clazz class.
      * @return Logger instance
      */
     public static Logger getLogger(Class<?> clazz) {
@@ -224,11 +219,9 @@ public class Logger extends MarkerIgnoringBase {
     }
 
     /**
-     * Get Logger by tag, if tag exists, return exists Logger, otherwise new
-     * Logger.
+     * Get Logger by tag, if tag exists, return exists Logger, otherwise new Logger.
      *
-     * @param tag
-     *            Logger tag name
+     * @param tag Logger tag name
      * @return Logger instance
      */
     public static Logger getLogger(String tag) {
@@ -239,8 +232,7 @@ public class Logger extends MarkerIgnoringBase {
         if (LEVEL_VERBOSE >= level) {
             if (throwable == null) {
                 android.util.Log.v(tag, msg);
-            }
-            else {
+            } else {
                 android.util.Log.v(tag, msg, throwable);
             }
         }
@@ -254,8 +246,7 @@ public class Logger extends MarkerIgnoringBase {
         if (LEVEL_DEBUG >= level) {
             if (throwable == null) {
                 android.util.Log.d(tag, msg);
-            }
-            else {
+            } else {
                 android.util.Log.d(tag, msg, throwable);
             }
         }
@@ -269,8 +260,7 @@ public class Logger extends MarkerIgnoringBase {
         if (LEVEL_INFO >= level) {
             if (throwable == null) {
                 android.util.Log.i(tag, msg);
-            }
-            else {
+            } else {
                 android.util.Log.i(tag, msg, throwable);
             }
         }
@@ -284,8 +274,7 @@ public class Logger extends MarkerIgnoringBase {
         if (LEVEL_WARN >= level) {
             if (throwable == null) {
                 android.util.Log.w(tag, msg);
-            }
-            else {
+            } else {
                 android.util.Log.w(tag, msg, throwable);
             }
         }
@@ -299,8 +288,7 @@ public class Logger extends MarkerIgnoringBase {
         if (LEVEL_ERROR >= level) {
             if (throwable == null) {
                 android.util.Log.e(tag, msg);
-            }
-            else {
+            } else {
                 android.util.Log.e(tag, msg, throwable);
             }
         }

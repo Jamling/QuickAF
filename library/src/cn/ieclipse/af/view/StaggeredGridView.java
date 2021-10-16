@@ -32,9 +32,6 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import androidx.collection.SparseArrayCompat;
 import androidx.core.view.MotionEventCompat;
 import androidx.core.view.VelocityTrackerCompat;
@@ -42,17 +39,18 @@ import androidx.core.view.ViewCompat;
 import androidx.core.widget.EdgeEffectCompat;
 import androidx.core.widget.ScrollerCompat;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * ListView and GridView just not complex enough? Try StaggeredGridView!
  *
  * <p>StaggeredGridView presents a multi-column grid with consistent column sizes
- * but varying row sizes between the columns. Each successive item from a
- * {@link android.widget.ListAdapter ListAdapter} will be arranged from top to bottom,
- * left to right. The largest vertical gap is always filled first.</p>
+ * but varying row sizes between the columns. Each successive item from a {@link android.widget.ListAdapter ListAdapter}
+ * will be arranged from top to bottom, left to right. The largest vertical gap is always filled first.</p>
  *
  * <p>Item views may span multiple columns as specified by their {@link LayoutParams}.
- * The attribute <code>android:layout_span</code> may be used when inflating
- * item views from xml.</p>
+ * The attribute <code>android:layout_span</code> may be used when inflating item views from xml.</p>
  *
  * <p>This class is still under development and is not fully functional yet.</p>
  */
@@ -117,9 +115,9 @@ public class StaggeredGridView extends ViewGroup {
 
     private int mFirstPosition;
 
-    private int mTouchSlop;
-    private int mMaximumVelocity;
-    private int mFlingVelocity;
+    private final int mTouchSlop;
+    private final int mMaximumVelocity;
+    private final int mFlingVelocity;
     private float mLastTouchY;
     private float mTouchRemainderY;
     private int mActivePointerId;
@@ -182,20 +180,19 @@ public class StaggeredGridView extends ViewGroup {
 
         @Override
         public String toString() {
-            String result = "LayoutRecord{c=" + column + ", id=" + id + " h=" + height +
-                    " s=" + span;
+            String result = "LayoutRecord{c=" + column + ", id=" + id + " h=" + height + " s=" + span;
             if (mMargins != null) {
                 result += " margins[above, below](";
                 for (int i = 0; i < mMargins.length; i += 2) {
-                    result += "[" + mMargins[i] + ", " + mMargins[i+1] + "]";
+                    result += "[" + mMargins[i] + ", " + mMargins[i + 1] + "]";
                 }
                 result += ")";
             }
             return result + "}";
         }
     }
-    private final SparseArrayCompat<LayoutRecord> mLayoutRecords =
-            new SparseArrayCompat<LayoutRecord>();
+
+    private final SparseArrayCompat<LayoutRecord> mLayoutRecords = new SparseArrayCompat<LayoutRecord>();
 
     public StaggeredGridView(Context context) {
         this(context, null);
@@ -221,18 +218,16 @@ public class StaggeredGridView extends ViewGroup {
     }
 
     /**
-     * Set a fixed number of columns for this grid. Space will be divided evenly
-     * among all columns, respecting the item margin between columns.
-     * The default is 2. (If it were 1, perhaps you should be using a
-     * {@link android.widget.ListView ListView}.)
+     * Set a fixed number of columns for this grid. Space will be divided evenly among all columns, respecting the item
+     * margin between columns. The default is 2. (If it were 1, perhaps you should be using a {@link
+     * android.widget.ListView ListView}.)
      *
      * @param colCount Number of columns to display.
      * @see #setMinColumnWidth(int)
      */
     public void setColumnCount(int colCount) {
         if (colCount < 1 && colCount != COLUMN_COUNT_AUTO) {
-            throw new IllegalArgumentException("Column count must be at least 1 - received " +
-                    colCount);
+            throw new IllegalArgumentException("Column count must be at least 1 - received " + colCount);
         }
         final boolean needsPopulate = colCount != mColCount;
         mColCount = mColCountSetting = colCount;
@@ -247,6 +242,7 @@ public class StaggeredGridView extends ViewGroup {
 
     /**
      * Set a minimum column width for
+     *
      * @param minColWidth
      */
     public void setMinColumnWidth(int minColWidth) {
@@ -255,8 +251,7 @@ public class StaggeredGridView extends ViewGroup {
     }
 
     /**
-     * Set the margin between items in pixels. This margin is applied
-     * both vertically and horizontally.
+     * Set the margin between items in pixels. This margin is applied both vertically and horizontally.
      *
      * @param marginPixels Spacing between items in pixels
      */
@@ -269,8 +264,7 @@ public class StaggeredGridView extends ViewGroup {
     }
 
     /**
-     * Return the first adapter position with a view currently attached as
-     * a child view of this grid.
+     * Return the first adapter position with a view currently attached as a child view of this grid.
      *
      * @return the adapter position represented by the view at getChildAt(0).
      */
@@ -300,8 +294,8 @@ public class StaggeredGridView extends ViewGroup {
                 final int index = MotionEventCompat.findPointerIndex(ev, mActivePointerId);
                 if (index < 0) {
                     Log.e(TAG, "onInterceptTouchEvent could not find pointer with id " +
-                            mActivePointerId + " - did StaggeredGridView receive an inconsistent " +
-                            "event stream?");
+                        mActivePointerId + " - did StaggeredGridView receive an inconsistent " +
+                        "event stream?");
                     return false;
                 }
                 final float y = MotionEventCompat.getY(ev, index);
@@ -336,8 +330,8 @@ public class StaggeredGridView extends ViewGroup {
                 final int index = MotionEventCompat.findPointerIndex(ev, mActivePointerId);
                 if (index < 0) {
                     Log.e(TAG, "onInterceptTouchEvent could not find pointer with id " +
-                            mActivePointerId + " - did StaggeredGridView receive an inconsistent " +
-                            "event stream?");
+                        mActivePointerId + " - did StaggeredGridView receive an inconsistent " +
+                        "event stream?");
                     return false;
                 }
                 final float y = MotionEventCompat.getY(ev, index);
@@ -357,7 +351,8 @@ public class StaggeredGridView extends ViewGroup {
                         mVelocityTracker.clear();
                     }
                 }
-            } break;
+            }
+            break;
 
             case MotionEvent.ACTION_CANCEL:
                 mTouchMode = TOUCH_MODE_IDLE;
@@ -365,25 +360,23 @@ public class StaggeredGridView extends ViewGroup {
 
             case MotionEvent.ACTION_UP: {
                 mVelocityTracker.computeCurrentVelocity(1000, mMaximumVelocity);
-                final float velocity = VelocityTrackerCompat.getYVelocity(mVelocityTracker,
-                        mActivePointerId);
+                final float velocity = VelocityTrackerCompat.getYVelocity(mVelocityTracker, mActivePointerId);
                 if (Math.abs(velocity) > mFlingVelocity) { // TODO
                     mTouchMode = TOUCH_MODE_FLINGING;
-                    mScroller.fling(0, 0, 0, (int) velocity, 0, 0,
-                            Integer.MIN_VALUE, Integer.MAX_VALUE);
+                    mScroller.fling(0, 0, 0, (int) velocity, 0, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
                     mLastTouchY = 0;
                     ViewCompat.postInvalidateOnAnimation(this);
                 } else {
                     mTouchMode = TOUCH_MODE_IDLE;
                 }
 
-            } break;
+            }
+            break;
         }
         return true;
     }
 
     /**
-     *
      * @param deltaY Pixels that content should move by
      * @return true if the movement completed, false if it was stopped prematurely.
      */
@@ -418,7 +411,7 @@ public class StaggeredGridView extends ViewGroup {
             final int overScrollMode = ViewCompat.getOverScrollMode(this);
 
             if (overScrollMode == ViewCompat.OVER_SCROLL_ALWAYS ||
-                    (overScrollMode == ViewCompat.OVER_SCROLL_IF_CONTENT_SCROLLS && !contentFits)) {
+                (overScrollMode == ViewCompat.OVER_SCROLL_IF_CONTENT_SCROLLS && !contentFits)) {
 
                 if (overScrolledBy > 0) {
                     EdgeEffectCompat edge = deltaY > 0 ? mTopEdge : mBottomEdge;
@@ -463,9 +456,8 @@ public class StaggeredGridView extends ViewGroup {
     }
 
     /**
-     * Important: this method will leave offscreen views attached if they
-     * are required to maintain the invariant that child view with index i
-     * is always the view corresponding to position mFirstPosition + i.
+     * Important: this method will leave offscreen views attached if they are required to maintain the invariant that
+     * child view with index i is always the view corresponding to position mFirstPosition + i.
      */
     private void recycleOffscreenViews() {
         final int height = getHeight();
@@ -473,7 +465,7 @@ public class StaggeredGridView extends ViewGroup {
         final int clearBelow = height + mItemMargin;
         for (int i = getChildCount() - 1; i >= 0; i--) {
             final View child = getChildAt(i);
-            if (child.getTop() <= clearBelow)  {
+            if (child.getTop() <= clearBelow) {
                 // There may be other offscreen views, but we need to maintain
                 // the invariant documented above.
                 break;
@@ -512,7 +504,7 @@ public class StaggeredGridView extends ViewGroup {
             Arrays.fill(mItemTops, Integer.MAX_VALUE);
             Arrays.fill(mItemBottoms, Integer.MIN_VALUE);
 
-            for (int i = 0; i < childCount; i++){
+            for (int i = 0; i < childCount; i++) {
                 final View child = getChildAt(i);
                 final LayoutParams lp = (LayoutParams) child.getLayoutParams();
                 final int top = child.getTop() - mItemMargin;
@@ -622,12 +614,12 @@ public class StaggeredGridView extends ViewGroup {
 
         if (widthMode != MeasureSpec.EXACTLY) {
             Log.e(TAG, "onMeasure: must have an exact width or match_parent! " +
-                    "Using fallback spec of EXACTLY " + widthSize);
+                "Using fallback spec of EXACTLY " + widthSize);
             widthMode = MeasureSpec.EXACTLY;
         }
         if (heightMode != MeasureSpec.EXACTLY) {
             Log.e(TAG, "onMeasure: must have an exact height or match_parent! " +
-                    "Using fallback spec of EXACTLY " + heightSize);
+                "Using fallback spec of EXACTLY " + heightSize);
             heightMode = MeasureSpec.EXACTLY;
         }
 
@@ -729,8 +721,7 @@ public class StaggeredGridView extends ViewGroup {
         final int childCount = getChildCount();
         for (int i = 0; i < childCount; i++) {
             final View child = getChildAt(i);
-            child.layout(child.getLeft(), child.getTop() + offset,
-                    child.getRight(), child.getBottom() + offset);
+            child.layout(child.getLeft(), child.getTop() + offset, child.getRight(), child.getBottom() + offset);
         }
 
         final int colCount = mColCount;
@@ -749,8 +740,7 @@ public class StaggeredGridView extends ViewGroup {
         final int paddingLeft = getPaddingLeft();
         final int paddingRight = getPaddingRight();
         final int itemMargin = mItemMargin;
-        final int colWidth =
-                (getWidth() - paddingLeft - paddingRight - itemMargin * (mColCount - 1)) / mColCount;
+        final int colWidth = (getWidth() - paddingLeft - paddingRight - itemMargin * (mColCount - 1)) / mColCount;
         int rebuildLayoutRecordsBefore = -1;
         int rebuildLayoutRecordsAfter = -1;
 
@@ -790,8 +780,7 @@ public class StaggeredGridView extends ViewGroup {
                 child.measure(widthSpec, heightSpec);
             }
 
-            int childTop = mItemBottoms[col] > Integer.MIN_VALUE ?
-                    mItemBottoms[col] + mItemMargin : child.getTop();
+            int childTop = mItemBottoms[col] > Integer.MIN_VALUE ? mItemBottoms[col] + mItemMargin : child.getTop();
             if (span > 1) {
                 int lowest = childTop;
                 for (int j = col + 1; j < col + span; j++) {
@@ -885,8 +874,7 @@ public class StaggeredGridView extends ViewGroup {
         final int paddingLeft = getPaddingLeft();
         final int paddingRight = getPaddingRight();
         final int itemMargin = mItemMargin;
-        final int colWidth =
-                (getWidth() - paddingLeft - paddingRight - itemMargin * (mColCount - 1)) / mColCount;
+        final int colWidth = (getWidth() - paddingLeft - paddingRight - itemMargin * (mColCount - 1)) / mColCount;
         final int gridTop = getPaddingTop();
         final int fillTo = gridTop - overhang;
         int nextCol = getNextColumnUp();
@@ -999,8 +987,7 @@ public class StaggeredGridView extends ViewGroup {
         final int paddingLeft = getPaddingLeft();
         final int paddingRight = getPaddingRight();
         final int itemMargin = mItemMargin;
-        final int colWidth =
-                (getWidth() - paddingLeft - paddingRight - itemMargin * (mColCount - 1)) / mColCount;
+        final int colWidth = (getWidth() - paddingLeft - paddingRight - itemMargin * (mColCount - 1)) / mColCount;
         final int gridBottom = getHeight() - getPaddingBottom();
         final int fillTo = gridBottom + overhang;
         int nextCol = getNextColumnDown();
@@ -1103,8 +1090,8 @@ public class StaggeredGridView extends ViewGroup {
     }
 
     /**
-     * @return column that the next view filling upwards should occupy. This is the bottom-most
-     *         position available for a single-column item.
+     * @return column that the next view filling upwards should occupy. This is the bottom-most position available for a
+     * single-column item.
      */
     final int getNextColumnUp() {
         int result = -1;
@@ -1123,6 +1110,7 @@ public class StaggeredGridView extends ViewGroup {
 
     /**
      * Return a LayoutRecord for the given position
+     *
      * @param position
      * @param span
      * @return
@@ -1135,7 +1123,7 @@ public class StaggeredGridView extends ViewGroup {
             mLayoutRecords.put(position, rec);
         } else if (rec.span != span) {
             throw new IllegalStateException("Invalid LayoutRecord! Record had span=" + rec.span +
-                    " but caller requested span=" + span + " for position=" + position);
+                " but caller requested span=" + span + " for position=" + position);
         }
         int targetCol = -1;
         int bottomMost = Integer.MIN_VALUE;
@@ -1165,8 +1153,7 @@ public class StaggeredGridView extends ViewGroup {
     }
 
     /**
-     * @return column that the next view filling downwards should occupy. This is the top-most
-     *         position available.
+     * @return column that the next view filling downwards should occupy. This is the top-most position available.
      */
     final int getNextColumnDown() {
         int result = -1;
@@ -1191,7 +1178,7 @@ public class StaggeredGridView extends ViewGroup {
             mLayoutRecords.put(position, rec);
         } else if (rec.span != span) {
             throw new IllegalStateException("Invalid LayoutRecord! Record had span=" + rec.span +
-                    " but caller requested span=" + span + " for position=" + position);
+                " but caller requested span=" + span + " for position=" + position);
         }
         int targetCol = -1;
         int topMost = Integer.MAX_VALUE;
@@ -1221,8 +1208,8 @@ public class StaggeredGridView extends ViewGroup {
     }
 
     /**
-     * Obtain a populated view from the adapter. If optScrap is non-null and is not
-     * reused it will be placed in the recycle bin.
+     * Obtain a populated view from the adapter. If optScrap is non-null and is not reused it will be placed in the
+     * recycle bin.
      *
      * @param position position to get view for
      * @param optScrap Optional scrap view; will be reused if possible
@@ -1235,11 +1222,9 @@ public class StaggeredGridView extends ViewGroup {
         }
 
         // Reuse optScrap if it's of the right type (and not null)
-        final int optType = optScrap != null ?
-                ((LayoutParams) optScrap.getLayoutParams()).viewType : -1;
+        final int optType = optScrap != null ? ((LayoutParams) optScrap.getLayoutParams()).viewType : -1;
         final int positionViewType = mAdapter.getItemViewType(position);
-        final View scrap = optType == positionViewType ?
-                optScrap : mRecycler.getScrapView(positionViewType);
+        final View scrap = optType == positionViewType ? optScrap : mRecycler.getScrapView(positionViewType);
 
         view = mAdapter.getView(position, scrap, this);
 
@@ -1384,9 +1369,7 @@ public class StaggeredGridView extends ViewGroup {
     }
 
     public static class LayoutParams extends ViewGroup.LayoutParams {
-        private static final int[] LAYOUT_ATTRS = new int[] {
-            android.R.attr.layout_span
-        };
+        private static final int[] LAYOUT_ATTRS = new int[]{android.R.attr.layout_span};
 
         private static final int SPAN_INDEX = 0;
 
@@ -1420,7 +1403,7 @@ public class StaggeredGridView extends ViewGroup {
 
             if (this.height == FILL_PARENT) {
                 Log.w(TAG, "Constructing LayoutParams with height FILL_PARENT - " +
-                        "impossible! Falling back to WRAP_CONTENT");
+                    "impossible! Falling back to WRAP_CONTENT");
                 this.height = WRAP_CONTENT;
             }
         }
@@ -1430,12 +1413,12 @@ public class StaggeredGridView extends ViewGroup {
 
             if (this.width != FILL_PARENT) {
                 Log.w(TAG, "Inflation setting LayoutParams width to " + this.width +
-                        " - must be MATCH_PARENT");
+                    " - must be MATCH_PARENT");
                 this.width = FILL_PARENT;
             }
             if (this.height == FILL_PARENT) {
                 Log.w(TAG, "Inflation setting LayoutParams height to MATCH_PARENT - " +
-                        "impossible! Falling back to WRAP_CONTENT");
+                    "impossible! Falling back to WRAP_CONTENT");
                 this.height = WRAP_CONTENT;
             }
 
@@ -1449,12 +1432,12 @@ public class StaggeredGridView extends ViewGroup {
 
             if (this.width != FILL_PARENT) {
                 Log.w(TAG, "Constructing LayoutParams with width " + this.width +
-                        " - must be MATCH_PARENT");
+                    " - must be MATCH_PARENT");
                 this.width = FILL_PARENT;
             }
             if (this.height == FILL_PARENT) {
                 Log.w(TAG, "Constructing LayoutParams with height MATCH_PARENT - " +
-                        "impossible! Falling back to WRAP_CONTENT");
+                    "impossible! Falling back to WRAP_CONTENT");
                 this.height = WRAP_CONTENT;
             }
         }
@@ -1470,7 +1453,7 @@ public class StaggeredGridView extends ViewGroup {
         public void setViewTypeCount(int viewTypeCount) {
             if (viewTypeCount < 1) {
                 throw new IllegalArgumentException("Must have at least one view type (" +
-                        viewTypeCount + " types reported)");
+                    viewTypeCount + " types reported)");
             }
             if (viewTypeCount == mViewTypeCount) {
                 return;
@@ -1605,13 +1588,12 @@ public class StaggeredGridView extends ViewGroup {
         @Override
         public String toString() {
             return "StaggereGridView.SavedState{"
-			+ Integer.toHexString(System.identityHashCode(this))
-			+ " firstId=" + firstId
-			+ " position=" + position + "}";
+                + Integer.toHexString(System.identityHashCode(this))
+                + " firstId=" + firstId
+                + " position=" + position + "}";
         }
 
-        public static final Parcelable.Creator<SavedState> CREATOR
-                = new Parcelable.Creator<SavedState>() {
+        public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
             public SavedState createFromParcel(Parcel in) {
                 return new SavedState(in);
             }

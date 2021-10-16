@@ -83,8 +83,7 @@ public class RoundedDrawable extends Drawable {
         }
         if (drawable instanceof BitmapDrawable) {
             bitmap = ((BitmapDrawable) drawable).getBitmap();
-        }
-        else {
+        } else {
             bitmap = BitmapUtils.getBitmapFromDrawable(drawable);
         }
         if (bitmap == null) {
@@ -121,8 +120,7 @@ public class RoundedDrawable extends Drawable {
         if (mBorderWidth > 0) {
             if (mIsCircle) {
                 canvas.drawCircle(bounds.width() / 2, bounds.height() / 2, radius, mBorderPaint);
-            }
-            else {
+            } else {
                 canvas.drawRoundRect(fillRect, radius, radius, mBorderPaint);
             }
         }
@@ -179,8 +177,7 @@ public class RoundedDrawable extends Drawable {
 //        float h = bounds.height() - mBorderWidth * 2;
         if (mIsCircle) {
             radius = Math.min(fillRect.width(), fillRect.height()) / 2;
-        }
-        else {
+        } else {
 
         }
     }

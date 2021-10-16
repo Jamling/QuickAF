@@ -44,17 +44,17 @@ public class SideBar extends View {
         = {"☆", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
         "U", "V", "W", "X", "Y", "Z", "#"};
 
-    private int[] attrs = {android.R.attr.textColor, android.R.attr.textColorHighlight, android.R.attr.textSize};
+    private final int[] attrs = {android.R.attr.textColor, android.R.attr.textColorHighlight, android.R.attr.textSize};
     private int mNormalTextColor = Color.BLACK;
     private int mFocusTextColor = Color.BLUE;
     private int mTextSize = 12;
     private int mFocusBg;
 
     private TextView mTextDialog;
-    private Context mContext;
+    private final Context mContext;
 
     private int mChooseItem = -1;// 选中
-    private Paint paint = new Paint();
+    private final Paint paint = new Paint();
 
     /**
      * 为SideBar设置显示字母的TextView
@@ -128,8 +128,7 @@ public class SideBar extends View {
             case MotionEvent.ACTION_UP:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     setBackground(new ColorDrawable(0x00000000));
-                }
-                else {
+                } else {
                     setBackgroundDrawable(new ColorDrawable(0x00000000));
                 }
                 mChooseItem = -1;//
@@ -198,7 +197,7 @@ public class SideBar extends View {
      * 字体normal颜色
      *
      * @param normalTextColor the color resources id or Color.parseColor(ARGB)
-     * @param focusTextColor  the color resources id or Color.parseColor(ARGB)
+     * @param focusTextColor the color resources id or Color.parseColor(ARGB)
      */
     public void setTextColor(int normalTextColor, int focusTextColor) {
         if (normalTextColor > 0) {

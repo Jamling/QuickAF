@@ -33,24 +33,24 @@ public final class SharedPrefsUtils {
     private SharedPrefsUtils() {
 
     }
-    
+
     private static String FILE_NAME = null;
     private static SharedPreferences sharedPreferences;
-    
+
     public static void init(Context context, String name) {
         if (!TextUtils.isEmpty(name)) {
             FILE_NAME = name;
         }
         sharedPreferences = getSharedPreferences(context);
     }
-    
+
     private static SharedPreferences getSharedPreferences(Context context) {
         if (sharedPreferences == null) {
             sharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
         }
         return sharedPreferences;
     }
-    
+
     private static SharedPreferences getSharedPreferences() {
         if (sharedPreferences == null) {
             // TODO init shared preferences again;
@@ -58,26 +58,26 @@ public final class SharedPrefsUtils {
         }
         return sharedPreferences;
     }
-    
+
     public static void putInt(String key, int value) {
         SharedPreferences sharedPreferences = getSharedPreferences();
         Editor edit = sharedPreferences.edit();
         edit.putInt(key, value);
         edit.apply();
     }
-    
+
     public static int getInt(String key) {
         SharedPreferences sharedPreferences = getSharedPreferences();
         return sharedPreferences.getInt(key, 0);
     }
-    
+
     public static void putString(String key, String value) {
         SharedPreferences sharedPreferences = getSharedPreferences();
         Editor edit = sharedPreferences.edit();
         edit.putString(key, value);
         edit.apply();
     }
-    
+
     public static String getString(String key) {
         SharedPreferences sharedPreferences = getSharedPreferences();
         return sharedPreferences.getString(key, null);
@@ -87,31 +87,31 @@ public final class SharedPrefsUtils {
         SharedPreferences sharedPreferences = getSharedPreferences();
         return sharedPreferences.getString(key, value);
     }
-    
+
     public static long getLong(String key) {
         SharedPreferences sharedPreferences = getSharedPreferences();
         return sharedPreferences.getLong(key, 0);
     }
-    
+
     public static void putLong(String key, long value) {
         SharedPreferences sharedPreferences = getSharedPreferences();
         Editor edit = sharedPreferences.edit();
         edit.putLong(key, value);
         edit.apply();
     }
-    
+
     public static void putBoolean(String key, boolean value) {
         SharedPreferences sharedPreferences = getSharedPreferences();
         Editor edit = sharedPreferences.edit();
         edit.putBoolean(key, value);
         edit.apply();
     }
-    
+
     public static boolean getBoolean(String key, boolean defValue) {
         SharedPreferences sharedPreferences = getSharedPreferences();
         return sharedPreferences.getBoolean(key, defValue);
     }
-    
+
     public static void remove(String key) {
         SharedPreferences sharedPreferences = getSharedPreferences();
         Editor edit = sharedPreferences.edit();
@@ -126,7 +126,7 @@ public final class SharedPrefsUtils {
      * @param object
      * @return
      */
-    public static boolean putObject(String saveKey ,Object object) {
+    public static boolean putObject(String saveKey, Object object) {
         if (object != null && object instanceof Serializable) {
             SharedPreferences sharedPreferences = getSharedPreferences();
             // 创建字节输出流
@@ -147,8 +147,7 @@ public final class SharedPrefsUtils {
                 return false;
             }
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }

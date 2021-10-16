@@ -31,7 +31,7 @@ import androidx.percentlayout.widget.PercentLayoutHelper;
  */
 public class PercentLinearLayout extends LinearLayout {
 
-    private PercentLayoutHelper mPercentLayoutHelper;
+    private final PercentLayoutHelper mPercentLayoutHelper;
 
     public PercentLinearLayout(Context context) {
         this(context, null);

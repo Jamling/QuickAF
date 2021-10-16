@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.viewpager.widget.ViewPager;
+
 import cn.ieclipse.af.demo.common.BaseFragmentAdapter;
 import cn.ieclipse.af.demo.common.ui.BaseActivity;
 import cn.ieclipse.af.demo.common.ui.DevDialogFragment;
@@ -46,7 +47,7 @@ import cn.ieclipse.af.util.DialogUtils;
  */
 public class MainActivity extends BaseActivity implements CheckUpdateController.UpdateListener {
 
-    private CheckUpdateController mCheckController = new CheckUpdateController(this);
+    private final CheckUpdateController mCheckController = new CheckUpdateController(this);
     private ViewPager mViewPager;
     private MainBottomTab mBottomTab;
     private BaseFragmentAdapter mAdapter;

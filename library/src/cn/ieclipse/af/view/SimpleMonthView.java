@@ -37,8 +37,8 @@ import java.util.Formatter;
 import java.util.Locale;
 
 /**
- * A calendar-like view displaying a specified month and the appropriate selectable day numbers
- * within the specified month.
+ * A calendar-like view displaying a specified month and the appropriate selectable day numbers within the specified
+ * month.
  */
 public class SimpleMonthView extends View {
     private static final String TAG = "SimpleMonthView";
@@ -70,7 +70,7 @@ public class SimpleMonthView extends View {
     private SimpleDateFormat mDayFormatter = new SimpleDateFormat("EEEEE", Locale.SIMPLIFIED_CHINESE);
 
     // affects the padding on the sides of this view
-    private int mPadding = 0;
+    private final int mPadding = 0;
 
     private Paint mDayNumberPaint;
     private Paint mDayNumberDisabledPaint;
@@ -105,7 +105,7 @@ public class SimpleMonthView extends View {
     private int mWeekStart = DEFAULT_WEEK_START;
 
     // How many days to display
-    private int mNumDays = DEFAULT_NUM_DAYS;
+    private final int mNumDays = DEFAULT_NUM_DAYS;
 
     // The number of days + a spot for week number if it is displayed
     private int mNumCells = mNumDays;
@@ -126,10 +126,10 @@ public class SimpleMonthView extends View {
     // Optional listener for handling day click actions
     private OnDayClickListener mOnDayClickListener;
 
-    private int mNormalTextColor = 0xff4a4b4c;
-    private int mDisabledTextColor = 0xff8e99b6;
-    private int mSelectedDayTxtColor = 0xffffffff;
-    private int mSelectedDayColor = 0xffd20212;
+    private final int mNormalTextColor = 0xff4a4b4c;
+    private final int mDisabledTextColor = 0xff8e99b6;
+    private final int mSelectedDayTxtColor = 0xffffffff;
+    private final int mSelectedDayColor = 0xffd20212;
 
     public SimpleMonthView(Context context) {
         this(context, null);
@@ -138,7 +138,6 @@ public class SimpleMonthView extends View {
     public SimpleMonthView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
-
 
 
     public SimpleMonthView(Context context, AttributeSet attrs, int defStyle) {
@@ -248,21 +247,19 @@ public class SimpleMonthView extends View {
     }
 
     /**
-     * Sets all the parameters for displaying this week. Parameters have a default value and
-     * will only update if a new value is included, except for focus month, which will always
-     * default to no focus month if no value is passed in. The only required parameter is the
-     * week start.
+     * Sets all the parameters for displaying this week. Parameters have a default value and will only update if a new
+     * value is included, except for focus month, which will always default to no focus month if no value is passed in.
+     * The only required parameter is the week start.
      *
-     * @param selectedDay     the selected day of the month, or -1 for no selection.
-     * @param month           the month.
-     * @param year            the year.
-     * @param weekStart       which day the week should start on. {@link Calendar#SUNDAY} through
-     *                        {@link Calendar#SATURDAY}.
+     * @param selectedDay the selected day of the month, or -1 for no selection.
+     * @param month the month.
+     * @param year the year.
+     * @param weekStart which day the week should start on. {@link Calendar#SUNDAY} through {@link Calendar#SATURDAY}.
      * @param enabledDayStart the first enabled day.
-     * @param enabledDayEnd   the last enabled day.
+     * @param enabledDayEnd the last enabled day.
      */
     public void setMonthParams(int selectedDay, int month, int year, int weekStart, int enabledDayStart,
-                        int enabledDayEnd) {
+        int enabledDayEnd) {
         if (mRowHeight < MIN_HEIGHT) {
             mRowHeight = MIN_HEIGHT;
         }
@@ -356,17 +353,17 @@ public class SimpleMonthView extends View {
         mWidth = w;
         mHeight = h;
 
-        mRowHeight = (int)(mHeight * 1.0f /(mNumRows + 1));
+        mRowHeight = (int) (mHeight * 1.0f / (mNumRows + 1));
         mMonthHeaderSize = mRowHeight;
 
-        mMiniDayNumberTextSize = (int)(mMonthHeaderSize * 0.5f);
+        mMiniDayNumberTextSize = (int) (mMonthHeaderSize * 0.5f);
         mMonthDayLabelTextSize = mMiniDayNumberTextSize;
-        mDaySelectedCircleSize = (int)(mMiniDayNumberTextSize * 0.7f);
+        mDaySelectedCircleSize = (int) (mMiniDayNumberTextSize * 0.7f);
 
         initView();
     }
 
-    public  String getMonthAndYearString() {
+    public String getMonthAndYearString() {
         int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
             | DateUtils.FORMAT_NO_MONTH_DAY;
         mStringBuilder.setLength(0);
@@ -399,12 +396,11 @@ public class SimpleMonthView extends View {
         int j = findDayOffset();
         for (int day = 1; day <= mNumCells; day++) {
             int x = (2 * j + 1) * dayWidthHalf + mPadding;
-            if (mSelectedDay == day && day >= mEnabledDayStart && day <= mEnabledDayEnd ) {
+            if (mSelectedDay == day && day >= mEnabledDayStart && day <= mEnabledDayEnd) {
                 canvas.drawCircle(x, y - (mMiniDayNumberTextSize / 3), mDaySelectedCircleSize,
                     mDayNumberSelectedPaint);
                 mDayNumberPaint.setColor(mSelectedDayTxtColor);
-            }
-            else {
+            } else {
                 mDayNumberPaint.setColor(mNormalTextColor);
             }
             final Paint paint = (day < mEnabledDayStart || day > mEnabledDayEnd) ?
@@ -419,13 +415,12 @@ public class SimpleMonthView extends View {
     }
 
     private int findDayOffset() {
-        return (mDayOfWeekStart < mWeekStart ? (mDayOfWeekStart + mNumDays) : mDayOfWeekStart)
-            - mWeekStart;
+        return (mDayOfWeekStart < mWeekStart ? (mDayOfWeekStart + mNumDays) : mDayOfWeekStart) - mWeekStart;
     }
 
     /**
-     * Calculates the day that the given x position is in, accounting for week
-     * number. Returns the day or -1 if the position wasn't in a day.
+     * Calculates the day that the given x position is in, accounting for week number. Returns the day or -1 if the
+     * position wasn't in a day.
      *
      * @param x The x position of the touch event
      * @return The day number, or -1 if the position wasn't in a day
@@ -448,13 +443,12 @@ public class SimpleMonthView extends View {
     }
 
     /**
-     * Called when the user clicks on a day. Handles callbacks to the
-     * {@link OnDayClickListener} if one is set.
+     * Called when the user clicks on a day. Handles callbacks to the {@link OnDayClickListener} if one is set.
      *
      * @param day The day that was clicked
      */
     private void onDayClick(int day) {
-        if(day >= mEnabledDayStart && day <= mEnabledDayEnd) {
+        if (day >= mEnabledDayStart && day <= mEnabledDayEnd) {
             if (mOnDayClickListener != null) {
                 Calendar date = Calendar.getInstance();
                 date.set(mYear, mMonth, day);

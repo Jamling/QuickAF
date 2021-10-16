@@ -20,6 +20,7 @@ import android.view.View;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
+
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.BaseFragmentAdapter;
 import cn.ieclipse.af.view.PagerSlidingTabStrip;

@@ -28,14 +28,14 @@ import android.util.AttributeSet;
  */
 public class CountDownButton extends RoundButton {
     private long totalTime = 60 * 1000;// 默认60秒
-    private String label = "秒后重发";
+    private final String label = "秒后重发";
     private String countDownText = "%s秒后重发";
     private long time;
     private long step = 1000;
     private int interval = 1000;
     private CountDownListener countDownListener;
 
-    private Handler mHandler = new Handler() {
+    private final Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             time -= step;
             if (countDownListener != null) {
@@ -43,18 +43,17 @@ public class CountDownButton extends RoundButton {
             }
             if (time <= 0) {
                 reset();
-            }
-            else {
+            } else {
                 refreshText();
                 mHandler.sendEmptyMessageDelayed(0, step);
             }
         }
     };
-    
+
     public CountDownButton(Context context) {
         this(context, null);
     }
-    
+
     public CountDownButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
@@ -68,7 +67,7 @@ public class CountDownButton extends RoundButton {
     private void init(Context context, AttributeSet attrs) {
 
     }
-    
+
     /**
      * Start count down counter
      *
@@ -95,19 +94,18 @@ public class CountDownButton extends RoundButton {
         if (t > 0) {
             if (!TextUtils.isEmpty(countDownText)) {
                 this.setText(String.format(countDownText, t));
-            }
-            else {
+            } else {
                 this.setText(t + label);
             }
         }
     }
-    
+
     public void reset() {
         this.time = 0;
         setText(null);
         setEnabled(true);
     }
-    
+
     /**
      * Set count down total time
      * <p>
@@ -115,7 +113,6 @@ public class CountDownButton extends RoundButton {
      * </p>
      *
      * @param totalTime
-     *
      * @return CountDownButton self
      */
     public CountDownButton setTotalTime(long totalTime) {
@@ -130,7 +127,6 @@ public class CountDownButton extends RoundButton {
      * </p>
      *
      * @param step count down step, micro seconds
-     *
      * @return CountDownButton self
      */
     public CountDownButton setStep(long step) {
@@ -147,7 +143,6 @@ public class CountDownButton extends RoundButton {
      * </p>
      *
      * @param interval count down text refresh interval, micro seconds
-     *
      * @return CountDownButton self
      */
     public CountDownButton setInterval(int interval) {

@@ -42,8 +42,7 @@ public class RefreshWebViewDetector extends RefreshLayout.RefreshDetector<WebVie
                         }
                     }
                 });
-            }
-            else {
+            } else {
                 getView().setOnScrollChangeListener(null);
             }
         }

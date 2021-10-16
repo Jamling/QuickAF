@@ -1,6 +1,13 @@
 package cn.ieclipse.af.view;
 
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.Paint;
+import android.graphics.PixelFormat;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.graphics.drawable.shapes.RectShape;
@@ -95,11 +102,9 @@ public class TextShapeDrawable extends ShapeDrawable {
 
         if (shape instanceof OvalShape) {
             canvas.drawOval(rect, borderPaint);
-        }
-        else if (shape instanceof RoundRectShape) {
+        } else if (shape instanceof RoundRectShape) {
             canvas.drawRoundRect(rect, radius, radius, borderPaint);
-        }
-        else {
+        } else {
             canvas.drawRect(rect, borderPaint);
         }
     }

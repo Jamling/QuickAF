@@ -27,6 +27,8 @@ import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.viewpager.widget.ViewPager;
+
 import com.github.chrisbanes.photoview.PhotoView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -35,7 +37,6 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import java.io.Serializable;
 import java.util.List;
 
-import androidx.viewpager.widget.ViewPager;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.ImagePagerAdapter;
 import cn.ieclipse.af.util.AppUtils;

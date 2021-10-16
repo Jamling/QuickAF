@@ -96,7 +96,7 @@
 
         <!-- Samples -->
         <activity
-            android:name=".sample.appui.AfActivitySample"
+            android:name=".sample.appui.SampleAfActivityActivity"
             android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".sample.appui.AfActivityImmersiveSample"

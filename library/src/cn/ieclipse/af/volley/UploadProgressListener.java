@@ -17,9 +17,8 @@ package cn.ieclipse.af.volley;
 
 /**
  * 类/接口描述
- * 
- * @author Jamling
  *
+ * @author Jamling
  */
 public interface UploadProgressListener {
     void updateProgress(long transferred, long total, int progress);

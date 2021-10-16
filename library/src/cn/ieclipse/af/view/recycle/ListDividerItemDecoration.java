@@ -54,10 +54,10 @@ public class ListDividerItemDecoration extends RecyclerView.ItemDecoration {
     private final Rect mBounds = new Rect();
 
     /**
-     * Creates a divider {@link androidx.recyclerview.widget.RecyclerView.ItemDecoration} that can be used with a
-     * {@link androidx.recyclerview.widget.LinearLayoutManager}.
+     * Creates a divider {@link androidx.recyclerview.widget.RecyclerView.ItemDecoration} that can be used with a {@link
+     * androidx.recyclerview.widget.LinearLayoutManager}.
      *
-     * @param context     Current context, it will be used to access resources.
+     * @param context Current context, it will be used to access resources.
      * @param orientation Divider orientation. Should be {@link #HORIZONTAL} or {@link #VERTICAL}.
      */
     public ListDividerItemDecoration(Context context, int orientation) {
@@ -70,8 +70,8 @@ public class ListDividerItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     /**
-     * Sets the orientation for this divider. This should be called if
-     * {@link androidx.recyclerview.widget.LinearLayoutManager} changes orientation.
+     * Sets the orientation for this divider. This should be called if {@link androidx.recyclerview.widget.LinearLayoutManager}
+     * changes orientation.
      *
      * @param orientation {@link #HORIZONTAL} or {@link #VERTICAL}
      */
@@ -96,8 +96,7 @@ public class ListDividerItemDecoration extends RecyclerView.ItemDecoration {
         }
         if (drawable instanceof StateListDrawable) {
             mDivider = drawable.getCurrent();
-        }
-        else {
+        } else {
             mDivider = drawable;
         }
     }
@@ -114,8 +113,7 @@ public class ListDividerItemDecoration extends RecyclerView.ItemDecoration {
 
         if (mOrientation == VERTICAL) {
             drawVertical(c, parent);
-        }
-        else {
+        } else {
             drawHorizontal(c, parent);
         }
     }
@@ -128,8 +126,7 @@ public class ListDividerItemDecoration extends RecyclerView.ItemDecoration {
             left = parent.getPaddingLeft();
             right = parent.getWidth() - parent.getPaddingRight();
             canvas.clipRect(left, parent.getPaddingTop(), right, parent.getHeight() - parent.getPaddingBottom());
-        }
-        else {
+        } else {
             left = 0;
             right = parent.getWidth();
         }
@@ -146,8 +143,7 @@ public class ListDividerItemDecoration extends RecyclerView.ItemDecoration {
             mDivider.setBounds(left, top, right, bottom);
             if (i < childCount - 1) {
                 mDivider.draw(canvas);
-            }
-            else if (showEnd()) {
+            } else if (showEnd()) {
                 mDivider.draw(canvas);
             }
         }
@@ -162,8 +158,7 @@ public class ListDividerItemDecoration extends RecyclerView.ItemDecoration {
             top = parent.getPaddingTop();
             bottom = parent.getHeight() - parent.getPaddingBottom();
             canvas.clipRect(parent.getPaddingLeft(), top, parent.getWidth() - parent.getPaddingRight(), bottom);
-        }
-        else {
+        } else {
             top = 0;
             bottom = parent.getHeight();
         }
@@ -180,8 +175,7 @@ public class ListDividerItemDecoration extends RecyclerView.ItemDecoration {
             mDivider.setBounds(left, top, right, bottom);
             if (i < childCount - 1) {
                 mDivider.draw(canvas);
-            }
-            else if (showEnd()) {
+            } else if (showEnd()) {
                 mDivider.draw(canvas);
             }
         }
@@ -192,8 +186,7 @@ public class ListDividerItemDecoration extends RecyclerView.ItemDecoration {
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         if (mOrientation == VERTICAL) {
             outRect.set(0, 0, 0, getDividerDrawableHeight());
-        }
-        else {
+        } else {
             outRect.set(0, 0, getDividerDrawableWidth(), 0);
         }
     }
@@ -210,8 +203,7 @@ public class ListDividerItemDecoration extends RecyclerView.ItemDecoration {
         this.mDividerColor = color;
         if (mDivider != null && mDivider instanceof ColorDrawable) {
             ((ColorDrawable) mDivider).setColor(color);
-        }
-        else {
+        } else {
             // setDrawable(AppUtils.tintDrawable(mDivider, color));
             setDrawable(new ColorDrawable(color));
         }

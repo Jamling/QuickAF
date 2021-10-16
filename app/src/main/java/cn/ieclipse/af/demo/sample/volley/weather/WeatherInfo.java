@@ -18,48 +18,32 @@ package cn.ieclipse.af.demo.sample.volley.weather;
 import java.io.Serializable;
 
 /**
- * 类/接口描述
+ * 高德地图天气
  *
  * @author Jamling
  * @date 2015年11月16日
  */
 public class WeatherInfo implements Serializable {
-
-    /**
-     * city : 南京
-     * pinyin : nanjing
-     * citycode : 101190101
-     * date : 15-11-16
-     * time : 08:00
-     * postCode : 210000
-     * longitude : 118.769
-     * latitude : 32.048
-     * altitude : 8
-     * weather : 阴
-     * temp : 18
-     * l_tmp : 14
-     * h_tmp : 18
-     * WD : 东北风
-     * WS : 3-4级(10~17m/h)
-     * sunrise : 06:34
-     * sunset : 17:05
+    /*
+{
+    "status": "1",
+    "count": "1",
+    "info": "OK",
+    "infocode": "10000",
+    "lives": [
+        {
+            "province": "福建",
+            "city": "仙游县",
+            "adcode": "350322",
+            "weather": "多云",
+            "temperature": "29",
+            "winddirection": "南",
+            "windpower": "≤3",
+            "humidity": "78",
+            "reporttime": "2020-09-16 09:24:13"
+        }
+    ]
+}
      */
-
-    public String city;
-    public String pinyin;
-    public String citycode;
-    public String date;
-    public String time;
-    public String postCode;
-    public double longitude;
-    public double latitude;
-    public String altitude;
-    public String weather;
-    public String temp;
-    public String l_tmp;
-    public String h_tmp;
-    public String WD;
-    public String WS;
-    public String sunrise;
-    public String sunset;
+    
 }

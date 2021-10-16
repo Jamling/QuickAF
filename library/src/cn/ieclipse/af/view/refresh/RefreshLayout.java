@@ -25,12 +25,13 @@ import android.webkit.WebView;
 import android.widget.AbsListView;
 import android.widget.FrameLayout;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import cn.ieclipse.af.R;
 import cn.ieclipse.af.common.Logger;
 import cn.ieclipse.af.view.VScrollView;
@@ -125,8 +126,7 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
 
         if (mEmptyView == null) {
             mEmptyViewWrapper.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             mContentViewWrapper.setVisibility(GONE);
         }
         internalRegisterDetector(VScrollView.class, new RefreshVScrollDetector());
@@ -184,8 +184,7 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
     public void onRefresh() {
         if (!mContentViewWrapper.isRefreshing() && mContentViewWrapper.getVisibility() == View.VISIBLE) {
             mContentViewWrapper.setRefreshing(true);
-        }
-        else if (!mEmptyViewWrapper.isRefreshing() && mEmptyViewWrapper.getVisibility() == View.VISIBLE) {
+        } else if (!mEmptyViewWrapper.isRefreshing() && mEmptyViewWrapper.getVisibility() == View.VISIBLE) {
             mEmptyViewWrapper.setRefreshing(true);
         }
         mLoading = LOADING_REFRESH;
@@ -289,16 +288,14 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
         DISABLED(0x0),
 
         /**
-         * Only allow the user to Pull from the start of the Refreshable View to
-         * refresh. The start is either the Top or Left, depending on the
-         * scrolling direction.
+         * Only allow the user to Pull from the start of the Refreshable View to refresh. The start is either the Top or
+         * Left, depending on the scrolling direction.
          */
         PULL_FROM_START(0x1),
 
         /**
-         * Only allow the user to Pull from the end of the Refreshable View to
-         * refresh. The start is either the Bottom or Right, depending on the
-         * scrolling direction.
+         * Only allow the user to Pull from the end of the Refreshable View to refresh. The start is either the Bottom
+         * or Right, depending on the scrolling direction.
          */
         PULL_FROM_END(0x2),
 
@@ -306,14 +303,14 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
          * Allow the user to both Pull from the start, from the end to refresh.
          */
         BOTH(0x3);
-        private int mIntValue;
+        private final int mIntValue;
 
         Mode(int modeInt) {
             mIntValue = modeInt;
         }
     }
 
-    private Map<Class, RefreshDetector> mDetectorMap = new HashMap<>();
+    private final Map<Class, RefreshDetector> mDetectorMap = new HashMap<>();
     private RefreshDetector mDetector;
 
     public void registerDetector(Class clazz, RefreshDetector detector) {
@@ -345,18 +342,15 @@ public class RefreshLayout extends FrameLayout implements SwipeRefreshLayout.OnR
     /**
      * set the refresh mode to control the refresh direction
      *
-     * @param refreshMode {@link #REFRESH_MODE_NONE} or
-     *                    {@link #REFRESH_MODE_TOP} or
-     *                    {@link #REFRESH_MODE_BOTTOM} or
-     *                    {@link #REFRESH_MODE_BOTH}
+     * @param refreshMode {@link #REFRESH_MODE_NONE} or {@link #REFRESH_MODE_TOP} or {@link #REFRESH_MODE_BOTTOM} or
+     * {@link #REFRESH_MODE_BOTH}
      */
     public void setMode(int refreshMode) {
         this.mRefreshMode = refreshMode;
         if (refreshMode == REFRESH_MODE_NONE) {
             mContentViewWrapper.setEnabled(false);
             mEmptyViewWrapper.setEnabled(false);
-        }
-        else {
+        } else {
             mContentViewWrapper.setEnabled(true);
             mEmptyViewWrapper.setEnabled(true);
         }

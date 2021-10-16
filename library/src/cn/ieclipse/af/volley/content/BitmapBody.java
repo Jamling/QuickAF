@@ -41,8 +41,7 @@ import cn.ieclipse.util.FileUtils;
 import cn.ieclipse.util.IOUtils;
 
 /**
- * Binary body part backed by a file.
- * #@see org.apache.http.entity.mime.MultipartEntityBuilder
+ * Binary body part backed by a file. #@see org.apache.http.entity.mime.MultipartEntityBuilder
  *
  * @since 4.0
  */
@@ -52,7 +51,7 @@ public class BitmapBody extends FileBody {
     private FileOutputStream bos;
     //private FileOutputStream fos;
     private File temp;
-    private boolean debug = Controller.DEBUG;
+    private final boolean debug = Controller.DEBUG;
 
     public BitmapBody(final File file) {
         this(file, "application/octet-stream", file != null ? file.getName() : null);
@@ -81,8 +80,7 @@ public class BitmapBody extends FileBody {
             //out.write(bos.toByteArray());
             writeTo(out, this.temp);
             deleteCache();
-        }
-        else {
+        } else {
             super.writeTo(out);
         }
     }
@@ -189,7 +187,7 @@ public class BitmapBody extends FileBody {
     }
 
     protected FileOutputStream compress(Bitmap bitmap, int quality,
-                                        UploadRequest.UploadOption option) throws IOException {
+        UploadRequest.UploadOption option) throws IOException {
         FileOutputStream fos = createCache();
         bitmap.compress(option.compressFormat, quality, fos);
         int i = 1;

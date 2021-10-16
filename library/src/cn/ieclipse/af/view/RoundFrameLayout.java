@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StyleRes;
+
 import cn.ieclipse.af.R;
 
 /**
@@ -56,7 +57,7 @@ public class RoundFrameLayout extends FrameLayout {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public RoundFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr,
-                            @StyleRes int defStyleRes) {
+        @StyleRes int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs);
     }
@@ -92,8 +93,7 @@ public class RoundFrameLayout extends FrameLayout {
         if (mPath == null) {
             mPath = new Path();
             mPath.setFillType(Path.FillType.EVEN_ODD);
-        }
-        else {
+        } else {
             mPath.reset();
         }
         int corners = mCorners > 0 ? mCorners : 0x0f;

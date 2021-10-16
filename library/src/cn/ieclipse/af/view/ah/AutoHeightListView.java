@@ -31,11 +31,11 @@ public class AutoHeightListView extends ListView {
     public AutoHeightListView(Context context) {
         super(context);
     }
-    
+
     public AutoHeightListView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-    
+
     public AutoHeightListView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }

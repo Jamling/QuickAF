@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
+
 import cn.ieclipse.af.app.AfFragment;
 import cn.ieclipse.af.common.R;
 import cn.ieclipse.af.util.AppUtils;
@@ -182,9 +183,6 @@ public abstract class CommonBaseFragment extends AfFragment implements View.OnCl
             }
         }
         fm = getFragmentManager();
-        if (fm.popBackStackImmediate()) {
-            return true;
-        }
-        return false;
+        return fm.popBackStackImmediate();
     }
 }

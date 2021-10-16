@@ -34,8 +34,7 @@ public class AlertDialogFragment extends DialogFragment {
     private AlertInterceptor mInterceptor;
 
     public static AlertDialogFragment newInstance(int icon, CharSequence title, CharSequence msg,
-                                                  AlertInterceptor interceptor,
-                                                  DialogInterface.OnClickListener... listeners) {
+        AlertInterceptor interceptor, DialogInterface.OnClickListener... listeners) {
         AlertDialogFragment frag = new AlertDialogFragment();
         Bundle args = new Bundle();
         args.putInt("icon", icon);

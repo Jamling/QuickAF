@@ -20,8 +20,8 @@ import com.android.volley.VolleyError;
 
 public class LogicError extends VolleyError {
     private static final long serialVersionUID = 7739186324576518504L;
-    private int code;
-    private String desc;
+    private final int code;
+    private final String desc;
 
     public LogicError(NetworkResponse response, int code, String desc) {
         super(response);

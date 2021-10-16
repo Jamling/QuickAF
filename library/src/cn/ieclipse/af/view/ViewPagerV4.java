@@ -1,5 +1,5 @@
 /*
- * (C) Copyright 2011-2013 li.jamling@gmail.com. 
+ * (C) Copyright 2011-2013 li.jamling@gmail.com.
  *
  * This software is the property of li.jamling@gmail.com.
  * You have to accept the terms in the license file before use.
@@ -13,10 +13,11 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.viewpager.widget.ViewPager;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import androidx.viewpager.widget.ViewPager;
 import cn.ieclipse.af.R;
 
 public class ViewPagerV4 extends ViewPager {
@@ -118,12 +119,11 @@ public class ViewPagerV4 extends ViewPager {
     /**
      * Enable click non-current item to set to current item.
      * <p>
-     * Note: If parent is {@link cn.ieclipse.af.view.AutoPlayView} and the adapter is
-     * {@link cn.ieclipse.af.view.AutoPlayView.LoopPagerAdapter}, ignore this feature.
+     * Note: If parent is {@link cn.ieclipse.af.view.AutoPlayView} and the adapter is {@link
+     * cn.ieclipse.af.view.AutoPlayView.LoopPagerAdapter}, ignore this feature.
      * </p>
      *
      * @param enableClickToCurrent whether enable or not
-     *
      * @since 3.0.1
      */
     public void setEnableClickToCurrent(boolean enableClickToCurrent) {
@@ -139,8 +139,7 @@ public class ViewPagerV4 extends ViewPager {
             int h = (int) (width / mRatio + 0.5f);
             int hSpec = MeasureSpec.makeMeasureSpec(h, MeasureSpec.EXACTLY);
             super.onMeasure(widthMeasureSpec, hSpec);
-        }
-        else {
+        } else {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
     }
@@ -148,8 +147,8 @@ public class ViewPagerV4 extends ViewPager {
     /**
      * Enable set {@link #setOffscreenPageLimit(int)} param to 0
      * <p>
-     * Note: If param less than 0, the {@link androidx.core.view.ViewPager} will set limit to default 1.
-     * Use reflection to make set limit 0
+     * Note: If param less than 0, the {@link androidx.core.view.ViewPager} will set limit to default 1. Use reflection
+     * to make set limit 0
      * </p>
      *
      * @since 3.0.1

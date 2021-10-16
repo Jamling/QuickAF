@@ -68,11 +68,11 @@ public class TableView extends View {
 
     public static final int SHOW_DIVIDER_MIDDLE = LinearLayout.SHOW_DIVIDER_MIDDLE;
 
-    private int mVerticalDividerHeight = 1;
+    private final int mVerticalDividerHeight = 1;
     private int mShowVerticalDivider = SHOW_DIVIDER_NONE;
-    private int mVerticalDividerPadding = 0;
+    private final int mVerticalDividerPadding = 0;
 
-    private int mDividerWidth = 1;
+    private final int mDividerWidth = 1;
     private int mDividerPadding;
     private int mShowDividers = SHOW_DIVIDER_NONE;
 
@@ -122,8 +122,7 @@ public class TableView extends View {
                 if (i == 0) {
                     // vertical gravity : center
                     //canvas.translate(0, getVerticalSpacing() / 2);
-                }
-                else if (i > 0) {
+                } else if (i > 0) {
                     if (showVBorderMiddle()) {
                         int y = 0 + getVerticalSpacing() / 2;
                         canvas.drawLine(0, y, getWidth(), y, paint);
@@ -157,8 +156,7 @@ public class TableView extends View {
                             canvas.translate(0, offy);
                             cs[j].draw(canvas);
                             canvas.restore();
-                        }
-                        else {
+                        } else {
                             cs[j].draw(canvas);
                         }
                         canvas.translate(cs[j].getWidth(), 0);
@@ -301,13 +299,11 @@ public class TableView extends View {
             for (int i = 0; i < mNumColumns; i++) {
                 if (wc && defaultColumnWidth > 0) {
                     columnWidths[i] = defaultColumnWidth;
-                }
-                else {
+                } else {
                     columnWidths[i] = getMaxColumnWidth(i);
                 }
             }
-        }
-        else {
+        } else {
             int used = 0;
             int sumWeight = 0;
             for (int i = 0; i < mNumColumns && i < getWeights().length; i++) {
@@ -334,14 +330,12 @@ public class TableView extends View {
 
         if (rowLayouts == null) {
             rowLayouts = new ArrayList<>();
-        }
-        else {
+        } else {
             rowLayouts.clear();
         }
         if (rowHeights == null) {
             rowHeights = new ArrayList<>();
-        }
-        else {
+        } else {
             rowHeights.clear();
         }
         int height = getPaddingTop() + getPaddingBottom();
@@ -507,8 +501,7 @@ public class TableView extends View {
      * Set show horizontal border
      *
      * @param flag combined value of {@link #SHOW_DIVIDER_NONE}, {@link #SHOW_DIVIDER_BEGINNING}, {@link
-     *             #SHOW_DIVIDER_MIDDLE},{@link #SHOW_DIVIDER_END}
-     *
+     * #SHOW_DIVIDER_MIDDLE},{@link #SHOW_DIVIDER_END}
      * @see android.widget.LinearLayout#setShowDividers(int)
      */
     public void setShowHorizontalBorder(int flag) {
@@ -527,8 +520,7 @@ public class TableView extends View {
      * Set show vertical border
      *
      * @param flag combined value of {@link #SHOW_DIVIDER_NONE}, {@link #SHOW_DIVIDER_BEGINNING}, {@link
-     *             #SHOW_DIVIDER_MIDDLE},{@link #SHOW_DIVIDER_END}
-     *
+     * #SHOW_DIVIDER_MIDDLE},{@link #SHOW_DIVIDER_END}
      * @see android.widget.LinearLayout#setShowDividers(int)
      */
     public void setShowVerticalBorder(int flag) {

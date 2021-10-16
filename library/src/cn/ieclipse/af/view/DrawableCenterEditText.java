@@ -31,7 +31,7 @@ import androidx.appcompat.widget.AppCompatEditText;
  *     android:gravity="left"
  * </pre>
  * <p>
- *     <em>Note:</em> to align your drawable and text center, the gravity must be left horizontal
+ * <em>Note:</em> to align your drawable and text center, the gravity must be left horizontal
  * </p>
  *
  * @author Jamling
@@ -41,15 +41,15 @@ public class DrawableCenterEditText extends AppCompatEditText {
     public DrawableCenterEditText(Context context) {
         super(context);
     }
-    
+
     public DrawableCenterEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-    
+
     public DrawableCenterEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
-    
+
     @Override
     protected void onDraw(Canvas canvas) {
         Drawable[] drawables = getCompoundDrawables();

@@ -91,7 +91,7 @@ public class AppUploadController<Listener> extends AppController<Listener> {
 
         public abstract void onProgress(long transferred, long total, int progress);
 
-        private Handler handler = new Handler() {
+        private final Handler handler = new Handler() {
             public void handleMessage(android.os.Message msg) {
                 long[] p = (long[]) msg.obj;
                 onProgress(p[0], p[1], (int) p[2]);

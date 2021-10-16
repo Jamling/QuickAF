@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.sample.SampleBaseFragment;
 import cn.ieclipse.af.util.DialogUtils;
@@ -35,7 +36,7 @@ public class PermissionUtilsSample extends SampleBaseFragment {
         super.onClick(v);
     }
 
-    private PermissionUtils.PermissionExplainCallback callback = new PermissionUtils.PermissionExplainCallback() {
+    private final PermissionUtils.PermissionExplainCallback callback = new PermissionUtils.PermissionExplainCallback() {
         @Override
         public void onRationale(final String permission) {
             DialogUtils.showAlert(getActivity(), 0, "Request Runtime Permission",

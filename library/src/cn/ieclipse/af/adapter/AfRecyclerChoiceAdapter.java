@@ -18,12 +18,12 @@ package cn.ieclipse.af.adapter;
 import android.util.SparseBooleanArray;
 import android.widget.Checkable;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Description
@@ -59,13 +59,13 @@ public class AfRecyclerChoiceAdapter<T> extends AfRecyclerAdapter<T> {
     }
 
     /**
-     * Defines the choice behavior for the List. By default, Lists do not have any choice behavior
-     * ({@link #CHOICE_MODE_NONE}). By setting the choiceMode to {@link #CHOICE_MODE_SINGLE}, the
-     * List allows up to one item to  be in a chosen state. By setting the choiceMode to
-     * {@link #CHOICE_MODE_MULTIPLE}, the list allows any number of items to be chosen.
+     * Defines the choice behavior for the List. By default, Lists do not have any choice behavior ({@link
+     * #CHOICE_MODE_NONE}). By setting the choiceMode to {@link #CHOICE_MODE_SINGLE}, the List allows up to one item to
+     * be in a chosen state. By setting the choiceMode to {@link #CHOICE_MODE_MULTIPLE}, the list allows any number of
+     * items to be chosen.
      *
-     * @param choiceMode One of {@link #CHOICE_MODE_NONE}, {@link #CHOICE_MODE_SINGLE}, or
-     *                   {@link #CHOICE_MODE_MULTIPLE}
+     * @param choiceMode One of {@link #CHOICE_MODE_NONE}, {@link #CHOICE_MODE_SINGLE}, or {@link
+     * #CHOICE_MODE_MULTIPLE}
      */
     public void setChoiceMode(int choiceMode) {
         mChoiceMode = choiceMode;
@@ -81,12 +81,11 @@ public class AfRecyclerChoiceAdapter<T> extends AfRecyclerAdapter<T> {
     }
 
     /**
-     * Sets the checked state of the specified position. The is only valid if
-     * the choice mode has been set to {@link #CHOICE_MODE_SINGLE} or
-     * {@link #CHOICE_MODE_MULTIPLE}.
+     * Sets the checked state of the specified position. The is only valid if the choice mode has been set to {@link
+     * #CHOICE_MODE_SINGLE} or {@link #CHOICE_MODE_MULTIPLE}.
      *
      * @param position The item whose checked state is to be checked
-     * @param value    The new checked state for the item
+     * @param value The new checked state for the item
      */
     public void setItemChecked(int position, boolean value) {
         if (mChoiceMode == CHOICE_MODE_NONE) {
@@ -109,8 +108,7 @@ public class AfRecyclerChoiceAdapter<T> extends AfRecyclerAdapter<T> {
                 mSelections.clear();
             }
             mSelections.put(position, value);
-        }
-        else if (mChoiceMode == CHOICE_MODE_MULTIPLE) {
+        } else if (mChoiceMode == CHOICE_MODE_MULTIPLE) {
             mSelections.put(position, value);
         }
         updateCheckedHolder(position, value);
@@ -145,8 +143,8 @@ public class AfRecyclerChoiceAdapter<T> extends AfRecyclerAdapter<T> {
     }
 
     /**
-     * Returns the number of items currently selected. This will only be valid
-     * if the choice mode is not {@link #CHOICE_MODE_NONE} (default).
+     * Returns the number of items currently selected. This will only be valid if the choice mode is not {@link
+     * #CHOICE_MODE_NONE} (default).
      * <p>To determine the specific items that are currently selected, use one of
      * the <code>getChecked*</code> methods.
      *
@@ -156,8 +154,7 @@ public class AfRecyclerChoiceAdapter<T> extends AfRecyclerAdapter<T> {
         mCheckedItemCount = 0;
         if (mSelections == null) {
             return mCheckedItemCount;
-        }
-        else {
+        } else {
             int size = mSelections.size();
             for (int i = 0; i < size; i++) {
                 if (mSelections.valueAt(i)) {
@@ -224,21 +221,18 @@ public class AfRecyclerChoiceAdapter<T> extends AfRecyclerAdapter<T> {
             mCheckedItems = new ArrayList<>(0);
         }
         mCheckedItems.clear();
-        for(int i : getCheckedPositions()){
+        for (int i : getCheckedPositions()) {
             mCheckedItems.add(getItem(i));
         }
         return mCheckedItems;
     }
 
     /**
-     * Returns the checked state of the specified position. The result is only
-     * valid if the choice mode has been set to {@link #CHOICE_MODE_SINGLE}
-     * or {@link #CHOICE_MODE_MULTIPLE}.
+     * Returns the checked state of the specified position. The result is only valid if the choice mode has been set to
+     * {@link #CHOICE_MODE_SINGLE} or {@link #CHOICE_MODE_MULTIPLE}.
      *
      * @param position The item whose checked state to return
-     *
-     * @return The item's checked state or <code>false</code> if choice mode
-     * is invalid
+     * @return The item's checked state or <code>false</code> if choice mode is invalid
      * @see #setChoiceMode(int)
      */
     public boolean isItemChecked(int position) {

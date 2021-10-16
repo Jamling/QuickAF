@@ -32,7 +32,7 @@ import cn.ieclipse.af.common.Logger;
  */
 public abstract class AfBaseAdapter<T> extends BaseAdapter {
     protected Logger mLogger = Logger.getLogger(getClass());
-    private AfDataHolder<T> mDataHolder = new AfDataHolder<>();
+    private final AfDataHolder<T> mDataHolder = new AfDataHolder<>();
     protected List<T> mCheckedItems;
     protected T mCheckedItem;
 
@@ -137,8 +137,7 @@ public abstract class AfBaseAdapter<T> extends BaseAdapter {
             if (!mCheckedItems.contains(obj)) {
                 mCheckedItems.add(obj);
             }
-        }
-        else {
+        } else {
             mCheckedItems.remove(obj);
         }
 

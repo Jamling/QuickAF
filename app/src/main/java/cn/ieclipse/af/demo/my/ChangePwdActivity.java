@@ -41,7 +41,7 @@ public class ChangePwdActivity extends BaseActivity implements ChangePwdControll
     private View mSubmit;
     private EditText mEtPwd;
     private EditText mEtRepeat;
-    private ChangePwdController mChangePwdController = new ChangePwdController(this);
+    private final ChangePwdController mChangePwdController = new ChangePwdController(this);
 
     @Override
     protected int getContentLayout() {

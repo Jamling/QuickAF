@@ -1,5 +1,5 @@
 /*
- * (C) Copyright 2011-2013 li.jamling@gmail.com. 
+ * (C) Copyright 2011-2013 li.jamling@gmail.com.
  *
  * This software is the property of li.jamling@gmail.com.
  * You have to accept the terms in the license file before use.
@@ -10,23 +10,21 @@ package cn.ieclipse.af.view;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatTextView;
 
 /**
  * @author Jamling
- * 
  */
 public class MarqueeTextView extends AppCompatTextView {
-    
+
     /**
      * @param context
      */
     public MarqueeTextView(Context context) {
         super(context);
     }
-    
+
     /**
      * @param context
      * @param attrs
@@ -34,7 +32,7 @@ public class MarqueeTextView extends AppCompatTextView {
     public MarqueeTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-    
+
     /**
      * @param context
      * @param attrs
@@ -43,27 +41,26 @@ public class MarqueeTextView extends AppCompatTextView {
     public MarqueeTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
-    
+
     @Override
     public boolean isInEditMode() {
         return true;
     }
-    
+
     @Override
-    protected void onFocusChanged(boolean focused, int direction,
-            Rect previouslyFocusedRect) {
+    protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
         if (focused) {
             super.onFocusChanged(focused, direction, previouslyFocusedRect);
         }
     }
-    
+
     @Override
     public void onWindowFocusChanged(boolean hasWindowFocus) {
         if (hasWindowFocus) {
             super.onWindowFocusChanged(hasWindowFocus);
         }
     }
-    
+
     @Override
     public boolean isFocused() {
         return true;

@@ -17,10 +17,10 @@ package cn.ieclipse.af.demo.common.api;
 
 import android.os.Build;
 
+import androidx.collection.ArrayMap;
+
 import java.lang.reflect.Field;
 import java.util.Map;
-
-import androidx.collection.ArrayMap;
 
 /**
  * Description

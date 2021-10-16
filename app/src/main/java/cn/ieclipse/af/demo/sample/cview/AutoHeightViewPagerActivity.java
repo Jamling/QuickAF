@@ -18,9 +18,10 @@ package cn.ieclipse.af.demo.sample.cview;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.viewpager.widget.ViewPager;
+
 import java.util.Arrays;
 
-import androidx.viewpager.widget.ViewPager;
 import cn.ieclipse.af.adapter.AfPagerAdapter;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.ui.BaseActivity;

@@ -12,7 +12,6 @@ import cn.ieclipse.af.demo.my.CheckUpdateController;
 import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.util.DialogUtils;
 import cn.ieclipse.util.RegexUtils;
-import cn.ieclipse.util.StringUtils;
 
 /**
  * Description

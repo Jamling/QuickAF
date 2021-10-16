@@ -51,12 +51,12 @@ public class UploadRequest extends GsonRequest {
     private static final String TWO_DASHES = "--";
     private final UploadProgressListener progressListener;
 
-    private Map<String, List<AbstractContentBody>> params = new TreeMap<>();
+    private final Map<String, List<AbstractContentBody>> params = new TreeMap<>();
 
     private UploadOption uploadOption;
 
     public UploadRequest(int method, String url, String body, Listener<IBaseResponse> responseListener,
-                         ErrorListener listener, UploadProgressListener progressListener) {
+        ErrorListener listener, UploadProgressListener progressListener) {
         super(method, url, body, responseListener, listener);
         this.boundary = generateBoundary();
         this.progressListener = progressListener;
@@ -217,7 +217,7 @@ public class UploadRequest extends GsonRequest {
     public static class CountingOutputStream extends FilterOutputStream {
         private final UploadProgressListener progListener;
         private long transferred;
-        private long fileLength;
+        private final long fileLength;
 
         public CountingOutputStream(final OutputStream out, long fileLength, final UploadProgressListener listener) {
             super(out);

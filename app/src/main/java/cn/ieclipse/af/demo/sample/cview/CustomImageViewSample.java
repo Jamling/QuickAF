@@ -40,7 +40,7 @@ public class CustomImageViewSample extends SampleBaseFragment {
     private ImageView iv4;
 
     private View mChange;
-    private String[] imgs = {"https://avatars3.githubusercontent.com/u/5350591?s=460&v=4", "https://raw.githubusercontent.com/Jamling/QuickAF/master/screenshot/struct.png"};
+    private final String[] imgs = {"https://avatars3.githubusercontent.com/u/5350591?s=460&v=4", "https://raw.githubusercontent.com/Jamling/QuickAF/master/screenshot/struct.png"};
     private int imgIndex = 0;
 
     @Override

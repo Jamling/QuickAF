@@ -30,6 +30,7 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import cn.ieclipse.af.R;
 import cn.ieclipse.af.common.Logger;
 import cn.ieclipse.af.util.AppUtils;
@@ -89,21 +90,21 @@ public abstract class AfActivity extends AppCompatActivity implements OnClickLis
         }
         // 5, init content layout
         initContentView(mContentView);
-        
+
         // 6, init bottom bar
         initBottomView();
-        
+
         // 7, init data
         initData();
-        
+
         // 8, init status bar
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             initStatusBar();
         }
     }
-    
+
     protected abstract int getContentLayout();
-    
+
     @Override
     public void onClick(View v) {
 
@@ -111,6 +112,7 @@ public abstract class AfActivity extends AppCompatActivity implements OnClickLis
 
     /**
      * Call after {@link #onSaveInstanceState(android.os.Bundle)} and before other initXXX
+     *
      * @param savedInstanceState
      * @since 3.0.1
      */
@@ -125,23 +127,23 @@ public abstract class AfActivity extends AppCompatActivity implements OnClickLis
     protected void initWindowFeature() {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
     }
-    
+
     protected void initIntent(Bundle bundle) {
 
     }
-    
+
     protected void initContentView(View view) {
 
     }
-    
+
     protected void initHeaderView() {
 
     }
-    
+
     protected void initData() {
 
     }
-    
+
     protected void initBottomView() {
 
     }
@@ -156,7 +158,6 @@ public abstract class AfActivity extends AppCompatActivity implements OnClickLis
      * Set translucent status (immersing mode, new feature from KatKit).
      *
      * @param immersiveMode
-     *
      * @throws IllegalStateException when window has been built.
      */
     public void setImmersiveMode(boolean immersiveMode) {
@@ -171,7 +172,7 @@ public abstract class AfActivity extends AppCompatActivity implements OnClickLis
     public boolean isOverlay() {
         return overlay;
     }
-    
+
     /**
      * Set should overlay main content with title bar (if show)
      *
@@ -187,11 +188,11 @@ public abstract class AfActivity extends AppCompatActivity implements OnClickLis
         }
         this.overlay = overlay;
     }
-    
+
     public boolean isShowTitleBar() {
         return showTitleBar || (mTitleBar != null && mTitleBar.getVisibility() != View.GONE);
     }
-    
+
     public void setShowTitleBar(boolean showTitleBar) {
         if (this.showTitleBar != showTitleBar) {
             this.showTitleBar = showTitleBar;
@@ -205,7 +206,7 @@ public abstract class AfActivity extends AppCompatActivity implements OnClickLis
             }
         }
     }
-    
+
     public void setWindowBackground(int colorId) {
         if (colorId > 0) {
             this.windowBgColor = AppUtils.getColor(this, colorId);
@@ -230,24 +231,24 @@ public abstract class AfActivity extends AppCompatActivity implements OnClickLis
             }
         }
     }
-    
+
     public int getStatusBarHeight() {
         if (mTintManager != null) {
             return mTintManager.getConfig().getStatusBarHeight();
         }
         return 0;
     }
-    
+
     protected void initStatusBar() {
         mTintManager = new SystemBarTintManager(this);
         mTintManager.setStatusBarTintEnabled(true);
         mTintManager.setStatusBarTintColor(getStatusBarColor());
     }
-    
+
     protected int getStatusBarColor() {
         return getResources().getColor(android.R.color.transparent);
     }
-    
+
     @TargetApi(19)
     private void setTranslucentStatus(boolean on) {
         WindowManager.LayoutParams winParams = getWindow().getAttributes();
@@ -258,8 +259,7 @@ public abstract class AfActivity extends AppCompatActivity implements OnClickLis
         }
         if (on) {
             winParams.flags |= bits;
-        }
-        else {
+        } else {
             winParams.flags &= ~bits;
         }
         getWindow().setAttributes(winParams);
@@ -267,7 +267,7 @@ public abstract class AfActivity extends AppCompatActivity implements OnClickLis
             //mRootView.setFitsSystemWindows(on);
         }
     }
-    
+
     private void initRootView() {
         mLayoutInflater = LayoutInflater.from(this);
         mRootView = new RelativeLayout(this) {
@@ -288,71 +288,67 @@ public abstract class AfActivity extends AppCompatActivity implements OnClickLis
         mRootView.setBackgroundColor(windowBgColor);
         mTitleBar = new TitleBar(this);
         mTitleBar.setId(R.id.titleBar);
-        
+
         mContentView = new FrameLayout(this);
         mBottomBar = new FrameLayout(this);
         mBottomBar.setId(R.id.bottomBar);
-        
-        RelativeLayout.LayoutParams lpTitle = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
-            RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+        RelativeLayout.LayoutParams lpTitle = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         lpTitle.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
         lpTitle.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
         mTitleBar.setLayoutParams(lpTitle);
         // init set title bar visibility, can't use isShowTitleBar()
         mTitleBar.setVisibility(showTitleBar ? View.VISIBLE : View.GONE);
-        
-        RelativeLayout.LayoutParams lpBottom = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
-            RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+        RelativeLayout.LayoutParams lpBottom = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         lpBottom.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
         lpBottom.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
         mBottomBar.setLayoutParams(lpBottom);
         mRootView.addView(mBottomBar);
-        
+
         RelativeLayout.LayoutParams lpContent = new RelativeLayout.LayoutParams(
             RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         lpContent.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
         lpContent.addRule(RelativeLayout.ABOVE, mBottomBar.getId());
         setContentViewLayoutParams(lpContent, isOverlay(), isShowTitleBar());
-        
+
         mRootView.addView(mContentView);
         mRootView.addView(mTitleBar);
-        
+
         int rootLayoutId = getContentLayout();
         if (rootLayoutId > 0) {
             mLayoutInflater.inflate(rootLayoutId, mContentView, true);
         }
-        
+
         setContentView(mRootView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
     }
-    
+
     private void setContentViewLayoutParams(RelativeLayout.LayoutParams lp, boolean overlay, boolean showTitleBar) {
         if (lp != null) {
             if (overlay || !showTitleBar) {
                 lp.getRules()[RelativeLayout.BELOW] = 0;
                 lp.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
-            }
-            else {
+            } else {
                 lp.getRules()[RelativeLayout.ALIGN_PARENT_TOP] = 0;
                 lp.addRule(RelativeLayout.BELOW, mTitleBar.getId());
             }
             mContentView.setLayoutParams(lp);
         }
     }
-    
+
     protected void addView(View v, boolean full) {
         final RelativeLayout.LayoutParams lp;
         if (full) {
             lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.MATCH_PARENT);
-        }
-        else {
+        } else {
             lp = (RelativeLayout.LayoutParams) mContentView.getLayoutParams();
         }
         if (v.getParent() == null) {
             mRootView.addView(v, lp);
         }
     }
-    
+
     protected boolean removeView(View v) {
         if (v.getParent() == null) {
             return false;
@@ -360,22 +356,22 @@ public abstract class AfActivity extends AppCompatActivity implements OnClickLis
         ((ViewGroup) v.getParent()).removeView(v);
         return true;
     }
-    
+
     @Override
     public void finish() {
         super.finish();
     }
-    
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         return super.onTouchEvent(event);
     }
-    
+
     @Override
     protected void onResume() {
         super.onResume();
     }
-    
+
     @Override
     protected void onPause() {
         super.onPause();

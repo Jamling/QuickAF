@@ -84,7 +84,7 @@ public class WheelTimeContainer extends LinearLayout implements OnWheelChangedLi
     private TimeRange tr;
     private int textColor = 0xFF585858;
     private int textSize = 16;
-    private String[] labels = {"年", "月", "日", "时", "分"};
+    private final String[] labels = {"年", "月", "日", "时", "分"};
 
     @Override
     protected void onFinishInflate() {

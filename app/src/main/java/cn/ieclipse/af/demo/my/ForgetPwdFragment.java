@@ -22,7 +22,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import static android.app.Activity.RESULT_OK;
 import cn.ieclipse.af.demo.DemoUtils;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.api.BaseResponse;
@@ -33,6 +32,8 @@ import cn.ieclipse.af.util.DialogUtils;
 import cn.ieclipse.af.view.CountDownButton;
 import cn.ieclipse.af.volley.RestError;
 import cn.ieclipse.util.EncryptUtils;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * 注册

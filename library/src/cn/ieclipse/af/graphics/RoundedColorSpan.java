@@ -59,14 +59,14 @@ public class RoundedColorSpan extends ReplacementSpan {
 
     @Override
     public int getSize(@NonNull Paint paint, CharSequence text, @IntRange(from = 0) int start,
-                       @IntRange(from = 0) int end, @Nullable Paint.FontMetricsInt fontMetricsInt) {
+        @IntRange(from = 0) int end, @Nullable Paint.FontMetricsInt fontMetricsInt) {
         mWidth = ((int) (paint.measureText(text, start, end) + 0.5 + 2 * padding));
         return mWidth;
     }
 
     @Override
     public void draw(@NonNull Canvas canvas, CharSequence text, @IntRange(from = 0) int start,
-                     @IntRange(from = 0) int end, float x, int top, int y, int bottom, @NonNull Paint paint) {
+        @IntRange(from = 0) int end, float x, int top, int y, int bottom, @NonNull Paint paint) {
         int old = paint.getColor();
         paint.setColor(this.mColor);
         paint.setAntiAlias(true);// 设置画笔的锯齿效果
@@ -75,8 +75,7 @@ public class RoundedColorSpan extends ReplacementSpan {
         canvas.drawRoundRect(oval, mRadii[0], mRadii[0], paint);//绘制圆角矩形，第二个参数是x半径，第三个参数是y半径
         if (mFgColorSet) {
             paint.setColor(this.mFgColor);
-        }
-        else {
+        } else {
             paint.setColor(old);//恢复画笔的文字颜色
         }
         canvas.drawText(text, start, end, x + padding, y, paint);//绘制文字

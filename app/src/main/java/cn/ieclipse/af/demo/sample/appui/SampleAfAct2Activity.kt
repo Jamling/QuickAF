@@ -16,7 +16,7 @@ class SampleAfAct2Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application)).get(SampleAfAct2ViewModel::class.java);
+        viewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application)).get(SampleAfAct2ViewModel::class.java)
     }
 }
 
@@ -25,7 +25,7 @@ class SampleAfAct2ViewModel(application: Application) : AndroidViewModel(applica
     private val status: MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
     init {
-        status.value = "";
+        status.value = ""
     }
 
     var context: Context = application

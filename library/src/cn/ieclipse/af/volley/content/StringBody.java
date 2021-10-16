@@ -25,7 +25,7 @@
  *
  */
 package cn.ieclipse.af.volley.content;
- 
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,7 +35,7 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
- 
+
 /**
  * Text body part backed by a byte array.
  *
@@ -44,9 +44,9 @@ import java.nio.charset.UnsupportedCharsetException;
  * @since 4.0
  */
 public class StringBody extends AbstractContentBody {
- 
+
     private final byte[] content;
- 
+
     /**
      * @since 4.3
      */
@@ -59,18 +59,17 @@ public class StringBody extends AbstractContentBody {
             throw new UnsupportedCharsetException(getCharset());
         }
     }
- 
+
     public Reader getReader() {
         try {
-            return new InputStreamReader(
-                    new ByteArrayInputStream(this.content), getCharset());
+            return new InputStreamReader(new ByteArrayInputStream(this.content), getCharset());
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return null;
     }
- 
+
     public void writeTo(final OutputStream out) throws IOException {
         final InputStream in = new ByteArrayInputStream(this.content);
         final byte[] tmp = new byte[4096];
@@ -80,17 +79,17 @@ public class StringBody extends AbstractContentBody {
         }
         out.flush();
     }
- 
+
     public String getTransferEncoding() {
         return ENC_8BIT;
     }
- 
+
     public long getContentLength() {
         return this.content.length;
     }
- 
+
     public String getFilename() {
         return null;
     }
- 
+
 }

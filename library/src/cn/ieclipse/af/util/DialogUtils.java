@@ -26,6 +26,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
 import cn.ieclipse.af.app.AfDialogFragment;
 import cn.ieclipse.af.app.AlertDialogFragment;
 import cn.ieclipse.af.app.ProgressDialogFragment;
@@ -45,8 +46,7 @@ public final class DialogUtils {
      * Show a toast with long time
      *
      * @param context {@link android.content.Context}
-     * @param msg     toast text
-     *
+     * @param msg toast text
      * @see android.widget.Toast#makeText(android.content.Context, CharSequence, int)
      */
     public static void showToast(Context context, CharSequence msg) {
@@ -88,26 +88,24 @@ public final class DialogUtils {
     /**
      * Custom AlertDialog with full parameters.
      *
-     * @param context     Activity context
-     * @param icon        icon res id see {@link android.R.drawable#ic_dialog_alert}
-     * @param title       dialog title
-     * @param message     dialog message
+     * @param context Activity context
+     * @param icon icon res id see {@link android.R.drawable#ic_dialog_alert}
+     * @param title dialog title
+     * @param message dialog message
      * @param interceptor dialog display interceptor see {@link AlertDialogFragment.AlertInterceptor}
-     * @param listeners   dialog button onclick listeners see {@link android.content.DialogInterface.OnClickListener}
+     * @param listeners dialog button onclick listeners see {@link android.content.DialogInterface.OnClickListener}
      */
     public static AlertDialogFragment showAlert(Activity context, int icon, CharSequence title, CharSequence message,
-                                                AlertDialogFragment.AlertInterceptor interceptor,
-                                                DialogInterface.OnClickListener... listeners) {
+        AlertDialogFragment.AlertInterceptor interceptor, DialogInterface.OnClickListener... listeners) {
         AlertDialogFragment fragment = AlertDialogFragment.newInstance(icon, title, message, interceptor, listeners);
 
         attachDialog(context, fragment);
         return fragment;
     }
 
-    public static AlertDialogFragment showAlert(Activity context, int style, int icon, CharSequence title, CharSequence
-        message,
-                                                AlertDialogFragment.AlertInterceptor interceptor,
-                                                DialogInterface.OnClickListener... listeners) {
+    public static AlertDialogFragment showAlert(Activity context, int style, int icon, CharSequence title,
+        CharSequence message, AlertDialogFragment.AlertInterceptor interceptor,
+        DialogInterface.OnClickListener... listeners) {
         AlertDialogFragment fragment = AlertDialogFragment.newInstance(icon, title, message, interceptor, listeners);
         fragment.setStyle(DialogFragment.STYLE_NORMAL, style);
         attachDialog(context, fragment);
@@ -115,14 +113,14 @@ public final class DialogUtils {
     }
 
     public static AlertDialogFragment showAlert(Activity context, int icon, CharSequence title, CharSequence message,
-                                                DialogInterface.OnClickListener... listeners) {
+        DialogInterface.OnClickListener... listeners) {
         return showAlert(context, icon, title, message, null, listeners);
     }
 
     /**
      * Custom AlertDialog with # {@link AlertDialogFragment.AlertInterceptor}.
      *
-     * @param context     Activity context
+     * @param context Activity context
      * @param interceptor dialog display interceptor see {@link AlertDialogFragment.AlertInterceptor}
      */
     public static AlertDialogFragment showAlert(Activity context, AlertDialogFragment.AlertInterceptor interceptor) {
@@ -130,8 +128,8 @@ public final class DialogUtils {
     }
 
     /**
-     * Generate a default dialog button onclick listener, it will do nothing in
-     * {@link android.content.DialogInterface.OnClickListener#onClick(DialogInterface, int)}
+     * Generate a default dialog button onclick listener, it will do nothing in {@link
+     * android.content.DialogInterface.OnClickListener#onClick(DialogInterface, int)}
      *
      * @return empty {@link android.content.DialogInterface}
      */
@@ -146,14 +144,14 @@ public final class DialogUtils {
     }
 
     public static ProgressDialogFragment showProgress(Activity context, int style, ProgressInterceptor interceptor,
-                                                      OnCancelListener listener) {
+        OnCancelListener listener) {
         ProgressDialogFragment fragment = ProgressDialogFragment.newInstance(style, null, interceptor, listener);
         attachDialog(context, fragment);
         return fragment;
     }
 
     public static ProgressDialogFragment showProgress(Activity context, int style, CharSequence msg,
-                                                      OnCancelListener listener) {
+        OnCancelListener listener) {
         ProgressDialogFragment fragment = ProgressDialogFragment.newInstance(style, msg, null, listener);
         attachDialog(context, fragment);
         return fragment;
@@ -162,11 +160,10 @@ public final class DialogUtils {
     /**
      * Show dialog ({@link android.app.DialogFragment} implementation
      *
-     * @param fm    {@link android.app.FragmentManager}
-     * @param view  dialog content view
+     * @param fm {@link android.app.FragmentManager}
+     * @param view dialog content view
      * @param style see dialog style
      * @param theme see dialog theme
-     *
      * @since 2.1.1
      */
     public static void showDialog(FragmentManager fm, View view, int style, int theme) {
@@ -179,9 +176,8 @@ public final class DialogUtils {
      * Show dialog, with {@link android.app.DialogFragment#STYLE_NO_TITLE} and android.R.style
      * .Theme_Holo_Light_Dialog_MinWidth theme
      *
-     * @param fm   {@link android.app.FragmentManager}
+     * @param fm {@link android.app.FragmentManager}
      * @param view dialog content view
-     *
      * @see cn.ieclipse.af.util.DialogUtils#showDialog(androidx.fragment.app.FragmentManager, android.view.View, int,
      * int)
      * @since 2.1.1
@@ -197,8 +193,7 @@ public final class DialogUtils {
         try {
             if (allowStateLost) {
                 fragment.dismissAllowingStateLoss();
-            }
-            else {
+            } else {
                 fragment.dismiss();
             }
         } catch (Exception e) {

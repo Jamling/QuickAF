@@ -37,7 +37,7 @@ public class RestError extends Exception {
     public static final int TYPE_PARSE = 0x10;
     public static final int TYPE_CLIENT = 0x11;
     public int mErrorType;
-    
+
     public RestError(VolleyError error) {
         super(error);
         initType();
@@ -46,7 +46,7 @@ public class RestError extends Exception {
     public RestError(String message) {
         super(message);
     }
-    
+
     private void initType() {
         Throwable error = getCause();
         if (error == null) {
@@ -54,30 +54,23 @@ public class RestError extends Exception {
         }
         if (error instanceof AuthFailureError) {
             mErrorType = TYPE_AUTH;
-        }
-        else if (error instanceof NoConnectionError) {
+        } else if (error instanceof NoConnectionError) {
             mErrorType = TYPE_NO_CONNECTION;
-        }
-        else if (error instanceof TimeoutError) {
+        } else if (error instanceof TimeoutError) {
             mErrorType = TYPE_TIMEOUT;
-        }
-        else if (error instanceof NetworkError) {
+        } else if (error instanceof NetworkError) {
             mErrorType = TYPE_NETWORK;
-        }
-        else if (error instanceof ServerError) {
+        } else if (error instanceof ServerError) {
             mErrorType = TYPE_SERVER;
-        }
-        else if (error instanceof ParseError) {
+        } else if (error instanceof ParseError) {
             mErrorType = TYPE_PARSE;
-        }
-        else if (error instanceof ClientError) {
+        } else if (error instanceof ClientError) {
             mErrorType = TYPE_CLIENT;
-        }
-        else {
+        } else {
             mErrorType = 0;
         }
     }
-    
+
     public int getType() {
         return mErrorType;
     }

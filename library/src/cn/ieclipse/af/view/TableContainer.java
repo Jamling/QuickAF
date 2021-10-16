@@ -57,15 +57,15 @@ public class TableContainer extends LinearLayout {
     private int mHorizontalSpacing;
     private int mVerticalSpacing;
     // Horizontal divider width
-    private int mDividerWidth = 0;
+    private final int mDividerWidth = 0;
     private Drawable mDivider;
     private int mDividerPadding;
     private int mShowDividers = SHOW_DIVIDER_MIDDLE;
 
     private Drawable mVerticalDivider;
-    private int mVerticalDividerHeight = 0;
+    private final int mVerticalDividerHeight = 0;
     private int mShowVerticalDivider = SHOW_DIVIDER_MIDDLE;
-    private int mVerticalDividerPadding = 0;
+    private final int mVerticalDividerPadding = 0;
 
     // edge color
     private int edgeLength = AppUtils.dp2px(getContext(), 6);
@@ -154,13 +154,11 @@ public class TableContainer extends LinearLayout {
                 lp.height = maxHeight;
                 if (i < fixColumns) {
                     mTl00.addView(childView);
-                }
-                else {
+                } else {
                     mTl01.addView(childView);
                 }
             }
-        }
-        else {
+        } else {
             mTl01.setAdapter(adapter);
         }
     }
@@ -207,8 +205,7 @@ public class TableContainer extends LinearLayout {
                     }
                     // System.out.println("row " + j + " height: " + maxHeight);
                 }
-            }
-            else {
+            } else {
                 mTl11.setAdapter(dataAdapter);
             }
         }

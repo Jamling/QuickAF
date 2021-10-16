@@ -18,11 +18,12 @@ package cn.ieclipse.af.demo.sample.appui;
 import android.view.View;
 import android.widget.RadioGroup;
 
-import java.util.ArrayList;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import java.util.ArrayList;
+
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.demo.common.ui.BaseActivity;
 import cn.ieclipse.af.demo.common.ui.BaseFragment;
@@ -59,7 +60,7 @@ public class RadioTabSample extends BaseActivity implements RadioGroup.OnChecked
     }
 
     // all tag fragments
-    private ArrayList<Fragment> mFragments = new ArrayList<>(3);
+    private final ArrayList<Fragment> mFragments = new ArrayList<>(3);
     // current tab
     private Fragment mCurrentFragment;
 

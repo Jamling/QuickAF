@@ -12,8 +12,7 @@ import cn.ieclipse.af.util.ViewUtils;
 import cn.ieclipse.af.volley.RestError;
 
 /**
- * RefreshableListView的empty view。 如果是网络原因，则显示网络加载失败层，并提供重试callback；
- * 如果返回数据为空，则显示内容为空的提示
+ * RefreshableListView的empty view。 如果是网络原因，则显示网络加载失败层，并提供重试callback； 如果返回数据为空，则显示内容为空的提示
  *
  * @author lijiaming2
  * @date 2015/6/5
@@ -73,8 +72,7 @@ public class EmptyView extends FrameLayout implements View.OnClickListener {
                 showLoadingLayout();
                 mListener.onErrorClick();
             }
-        }
-        else if (mDataEmptyLayout == v) {
+        } else if (mDataEmptyLayout == v) {
             if (mListener != null) {
                 showLoadingLayout();
                 mListener.onDataEmptyClick();
@@ -93,8 +91,7 @@ public class EmptyView extends FrameLayout implements View.OnClickListener {
         if (error != null) {
             mErrorLayout.setVisibility(View.VISIBLE);
             mDataEmptyLayout.setVisibility(View.INVISIBLE);
-        }
-        else {
+        } else {
             mDataEmptyLayout.setVisibility(View.VISIBLE);
             mErrorLayout.setVisibility(View.INVISIBLE);
         }
@@ -113,13 +110,11 @@ public class EmptyView extends FrameLayout implements View.OnClickListener {
             if (mTvLoading != null) {
                 mTvLoading.setText(desc);
             }
-        }
-        else if (layer == LAYER_ERROR) {
+        } else if (layer == LAYER_ERROR) {
             if (mTvError != null) {
                 mTvError.setText(desc);
             }
-        }
-        else if (layer == LAYER_EMPTY) {
+        } else if (layer == LAYER_EMPTY) {
             if (mTvEmpty != null) {
                 mTvEmpty.setText(desc);
             }
@@ -129,11 +124,9 @@ public class EmptyView extends FrameLayout implements View.OnClickListener {
     public void setImage(int layer, int resId) {
         if (layer == LAYER_LOADING) {
 
-        }
-        else if (layer == LAYER_ERROR) {
+        } else if (layer == LAYER_ERROR) {
             ViewUtils.setImageResource(mIvError, resId);
-        }
-        else if (layer == LAYER_EMPTY) {
+        } else if (layer == LAYER_EMPTY) {
             ViewUtils.setImageResource(mIvEmpty, resId);
         }
     }

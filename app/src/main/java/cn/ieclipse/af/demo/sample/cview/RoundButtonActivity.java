@@ -95,7 +95,7 @@ public class RoundButtonActivity extends SampleBaseActivity {
         }
     }
 
-    private static Pattern pNum = Pattern.compile("\\d*\\.?\\d*");
+    private static final Pattern pNum = Pattern.compile("\\d*\\.?\\d*");
 
     void changeRoundSpan() {
         int bg = AppUtils.getColor(getApplicationContext(), R.color.colorPrimary);

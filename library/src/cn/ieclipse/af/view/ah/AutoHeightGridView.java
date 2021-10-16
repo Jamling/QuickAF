@@ -22,7 +22,6 @@ import android.widget.GridView;
 
 /**
  * Auto height {@link android.widget.GridLayout}, can be add to ScrollView
- * 
  *
  * @author Jamling
  * @date 2015/7/10.
@@ -31,25 +30,23 @@ public class AutoHeightGridView extends GridView {
     public AutoHeightGridView(Context context) {
         super(context);
     }
-    
+
     public AutoHeightGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-    
+
     public AutoHeightGridView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
-    
+
     @TargetApi(22)
-    public AutoHeightGridView(Context context, AttributeSet attrs,
-            int defStyleAttr, int defStyleRes) {
+    public AutoHeightGridView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
-    
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2,
-                MeasureSpec.AT_MOST);
+        int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST);
         super.onMeasure(widthMeasureSpec, expandSpec);
     }
 }

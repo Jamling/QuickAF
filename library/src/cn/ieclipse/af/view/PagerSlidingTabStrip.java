@@ -37,16 +37,16 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.viewpager.widget.ViewPager;
+
 import java.util.Locale;
 
-import androidx.viewpager.widget.ViewPager;
 import cn.ieclipse.af.R;
 
 /**
  * An interactive indicator to navigate between the different pages of a ViewPager
  * <p>
- * See <a href="https://github.com/astuetz/PagerSlidingTabStrip">
- * https://github.com/astuetz/PagerSlidingTabStrip</a>
+ * See <a href="https://github.com/astuetz/PagerSlidingTabStrip"> https://github.com/astuetz/PagerSlidingTabStrip</a>
  * </p>
  */
 public class PagerSlidingTabStrip extends HorizontalScrollView {
@@ -60,13 +60,13 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
     // @formatter:on
 
     private LinearLayout.LayoutParams defaultTabLayoutParams;
-    private LinearLayout.LayoutParams expandedTabLayoutParams;
+    private final LinearLayout.LayoutParams expandedTabLayoutParams;
 
     private final PageListener pageListener = new PageListener();
     public ViewPager.OnPageChangeListener delegatePageListener;
-    private int mScreenWidth = getResources().getDisplayMetrics().widthPixels;
+    private final int mScreenWidth = getResources().getDisplayMetrics().widthPixels;
 
-    private LinearLayout tabsContainer;
+    private final LinearLayout tabsContainer;
     private ViewPager pager;
 
     private int tabCount;
@@ -74,8 +74,8 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
     private int currentPosition = 0;
     private float currentPositionOffset = 0f;
 
-    private Paint rectPaint;
-    private Paint dividerPaint;
+    private final Paint rectPaint;
+    private final Paint dividerPaint;
 
     private int indicatorColor = 0xFF666666;
     private int underlineColor = 0x1A000000;
@@ -209,8 +209,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         for (int i = 0; i < tabCount; i++) {
             if (pager.getAdapter() instanceof IconTabProvider) {
                 addIconTab(i, ((IconTabProvider) pager.getAdapter()).getPageIconResId(i));
-            }
-            else {
+            } else {
                 addTextTab(i, pager.getAdapter().getPageTitle(i).toString());
             }
         }
@@ -226,8 +225,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
                     getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                }
-                else {
+                } else {
                     getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 }
 
@@ -286,8 +284,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
                 if (textAllCaps) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                         tab.setAllCaps(true);
-                    }
-                    else {
+                    } else {
                         tab.setText(tab.getText().toString().toUpperCase(locale));
                     }
                 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<cn.ieclipse.af.demo.common.view.WheelTimeContainer xmlns:android="http://schemas.android.com/apk/res/android"
+<cn.ieclipse.af.demo.common.view.WheelTimeContainer
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
@@ -9,42 +10,42 @@
         android:id="@+id/year"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="1"/>
 
     <cn.ieclipse.af.view.wheelview.WheelView
         android:id="@+id/jidu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="1"/>
 
     <cn.ieclipse.af.view.wheelview.WheelView
         android:id="@+id/month"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="1"/>
 
     <cn.ieclipse.af.view.wheelview.WheelView
         android:id="@+id/tenday"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="1"/>
 
     <cn.ieclipse.af.view.wheelview.WheelView
         android:id="@+id/day"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="1"/>
 
     <cn.ieclipse.af.view.wheelview.WheelView
         android:id="@+id/hour"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="1"/>
 
     <cn.ieclipse.af.view.wheelview.WheelView
         android:id="@+id/minute"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 </cn.ieclipse.af.demo.common.view.WheelTimeContainer>

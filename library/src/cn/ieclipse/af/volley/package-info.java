@@ -15,6 +15,5 @@
  */
 /**
  * Volley
- *
  */
 package cn.ieclipse.af.volley;

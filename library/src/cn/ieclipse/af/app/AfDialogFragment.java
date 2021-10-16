@@ -25,14 +25,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.lang.reflect.Method;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import java.lang.reflect.Method;
 
 /**
  * Abstract dialog fragment to build complex dialog.
@@ -88,8 +88,7 @@ public abstract class AfDialogFragment<DialogListener> extends DialogFragment im
         Dialog dialog = null;
         if (isAlert) {
             dialog = createAlertBuilder().create();
-        }
-        else {
+        } else {
             dialog = super.onCreateDialog(savedInstanceState);
         }
         dialog.setCanceledOnTouchOutside(canceledOnTouchOutside);
@@ -111,7 +110,6 @@ public abstract class AfDialogFragment<DialogListener> extends DialogFragment im
      * Set content view for dialog
      *
      * @param contentView root content view
-     *
      * @since 2.1.1
      */
     public void setContentView(View contentView) {
@@ -177,8 +175,7 @@ public abstract class AfDialogFragment<DialogListener> extends DialogFragment im
         }
         if (shouldAdd) {
             ft.addToBackStack(null);
-        }
-        else {
+        } else {
             try {
                 manager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             } catch (IllegalStateException e) {
@@ -215,15 +212,13 @@ public abstract class AfDialogFragment<DialogListener> extends DialogFragment im
      * Show {@link android.app.DialogFragment} to a fragment
      *
      * @param fragment {@link android.app.Fragment}
-     * @param showAdd  add to {@link android.app.FragmentManager.BackStackEntry } or not, default false
-     *
+     * @param showAdd add to {@link android.app.FragmentManager.BackStackEntry } or not, default false
      * @since 2.1.1
      */
     public void show(Fragment fragment, boolean showAdd) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             show(fragment.getChildFragmentManager(), showAdd);
-        }
-        else {
+        } else {
             show(fragment.getFragmentManager(), showAdd);
         }
     }
@@ -232,8 +227,7 @@ public abstract class AfDialogFragment<DialogListener> extends DialogFragment im
      * Show {@link android.app.DialogFragment} to an activity
      *
      * @param activity {@link android.app.Activity}
-     * @param showAdd  add to {@link android.app.FragmentManager.BackStackEntry } or not, default false
-     *
+     * @param showAdd add to {@link android.app.FragmentManager.BackStackEntry } or not, default false
      * @since 2.1.1
      */
     public void show(Activity activity, boolean showAdd) {
@@ -259,7 +253,6 @@ public abstract class AfDialogFragment<DialogListener> extends DialogFragment im
      * New a simple dialog fragment
      *
      * @param view content view
-     *
      * @return a simple {@link cn.ieclipse.af.app.AfDialogFragment}
      * @since 2.1.1
      */

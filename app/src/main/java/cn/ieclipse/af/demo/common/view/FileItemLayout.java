@@ -23,11 +23,12 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.text.SimpleDateFormat;
 
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.util.AppUtils;
 import cn.ieclipse.af.view.checkable.CheckableLinearLayout;

@@ -24,7 +24,7 @@ import android.widget.AbsListView;
  */
 public class RefreshListViewDetector extends RefreshLayout.RefreshDetector<AbsListView> {
 
-    private AbsListView.OnScrollListener mOnScrollListener = new AbsListView.OnScrollListener() {
+    private final AbsListView.OnScrollListener mOnScrollListener = new AbsListView.OnScrollListener() {
         private boolean mLastItemVisible;
 
         @Override
@@ -46,8 +46,7 @@ public class RefreshListViewDetector extends RefreshLayout.RefreshDetector<AbsLi
     public void setEnabled(boolean enable) {
         if (enable) {
             getView().setOnScrollListener(mOnScrollListener);
-        }
-        else {
+        } else {
             getView().setOnScrollListener(null);
         }
     }

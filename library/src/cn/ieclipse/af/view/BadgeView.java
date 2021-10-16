@@ -1,16 +1,16 @@
 /*
  * BadgeView.java
  * BadgeView
- * 
+ *
  * Copyright (c) 2012 Stefan Jauker.
  * https://github.com/kodex83/BadgeView
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,6 +36,7 @@ import android.widget.FrameLayout.LayoutParams;
 import android.widget.TabWidget;
 
 import androidx.appcompat.widget.AppCompatTextView;
+
 import cn.ieclipse.af.util.ViewUtils;
 
 
@@ -63,10 +64,10 @@ public class BadgeView extends AppCompatTextView {
     private void init() {
         if (!(getLayoutParams() instanceof LayoutParams)) {
             LayoutParams layoutParams =
-                    new LayoutParams(
-                            android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
-                            android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
-                            Gravity.RIGHT | Gravity.TOP);
+                new LayoutParams(
+                    android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
+                    android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
+                    Gravity.RIGHT | Gravity.TOP);
             setLayoutParams(layoutParams);
         }
 
@@ -88,7 +89,7 @@ public class BadgeView extends AppCompatTextView {
 
     public void setBackground(int dipRadius, int badgeColor) {
         int radius = dip2Px(dipRadius);
-        float[] radiusArray = new float[] { radius, radius, radius, radius, radius, radius, radius, radius };
+        float[] radiusArray = new float[]{radius, radius, radius, radius, radius, radius, radius, radius};
 
         RoundRectShape roundRect = new RoundRectShape(radiusArray, null, null);
         ShapeDrawable bgDrawable = new ShapeDrawable(roundRect);
@@ -113,7 +114,7 @@ public class BadgeView extends AppCompatTextView {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see android.widget.TextView#setText(java.lang.CharSequence, android.widget.TextView.BufferType)
      */
     @Override
@@ -169,7 +170,7 @@ public class BadgeView extends AppCompatTextView {
 
     public int[] getBadgeMargin() {
         FrameLayout.LayoutParams params = (LayoutParams) getLayoutParams();
-        return new int[] { params.leftMargin, params.topMargin, params.rightMargin, params.bottomMargin };
+        return new int[]{params.leftMargin, params.topMargin, params.rightMargin, params.bottomMargin};
     }
 
     public void incrementBadgeCount(int increment) {
@@ -187,9 +188,9 @@ public class BadgeView extends AppCompatTextView {
 
     /*
      * Attach the BadgeView to the TabWidget
-     * 
+     *
      * @param target the TabWidget to attach the BadgeView
-     * 
+     *
      * @param tabIndex index of the tab
      */
     public void setTargetView(TabWidget target, int tabIndex) {
@@ -199,7 +200,7 @@ public class BadgeView extends AppCompatTextView {
 
     /*
      * Attach the BadgeView to the target view
-     * 
+     *
      * @param target the view to attach the BadgeView
      */
     public void setTargetView(View target) {

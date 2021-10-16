@@ -77,8 +77,8 @@ public abstract class RefreshHelper<T> {
     /**
      * 加载完成将数据添加到adapter中
      *
-     * @param list     加载的分页数据
-     * @param total    服务端数据总条目, 如果不确定，请使用{@link #TOTAL_UNKNOWN}
+     * @param list 加载的分页数据
+     * @param total 服务端数据总条目, 如果不确定，请使用{@link #TOTAL_UNKNOWN}
      * @param pageSize 分页大小
      */
     public void onLoadFinish(List<T> list, int total, int pageSize) {
@@ -94,8 +94,7 @@ public abstract class RefreshHelper<T> {
         refreshLayout.setEnableLoadMore(enable);
         if (!enable) {
             setFooterEmpty(null);
-        }
-        else {
+        } else {
             resetFooter();
         }
         refreshLayout.onRefreshComplete();
@@ -166,8 +165,7 @@ public abstract class RefreshHelper<T> {
         int p = mItemCount / mPageSize;
         if (mItemCount % mPageSize >= 0) {
             mCurrentPage = p + 1;
-        }
-        else {
+        } else {
             mCurrentPage = p;
         }
         if (mCurrentPage <= 0) {
@@ -195,19 +193,19 @@ public abstract class RefreshHelper<T> {
     protected abstract void setAdapterData(List<T> list);
 
     protected void setFooterError(RestError error) {
-        if (refreshLayout.getFooterView() != null){
+        if (refreshLayout.getFooterView() != null) {
             refreshLayout.getFooterView().setError(error);
         }
     }
 
     public void setFooterLoading() {
-        if (refreshLayout.getFooterView() != null){
+        if (refreshLayout.getFooterView() != null) {
             refreshLayout.getFooterView().setLoading(null);
         }
     }
 
     protected void setFooterEmpty(String text) {
-        if (refreshLayout.getFooterView() != null){
+        if (refreshLayout.getFooterView() != null) {
             refreshLayout.getFooterView().setEmpty(text);
         }
     }

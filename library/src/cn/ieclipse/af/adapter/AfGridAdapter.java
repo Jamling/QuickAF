@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 /**
  * GridAdapter used for similar grid layout e.g.{@link cn.ieclipse.af.view.TableLayout}
+ *
  * @param <T>
  */
 public abstract class AfGridAdapter<T, E> extends AfBaseAdapter<T> {

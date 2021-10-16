@@ -24,9 +24,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Description
+ * TODO
  *
  * @author Jamling
- * TODO
  */
 public abstract class ItemDecorationDelegate {
 

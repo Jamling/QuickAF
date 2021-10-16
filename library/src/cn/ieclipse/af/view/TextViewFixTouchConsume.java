@@ -35,8 +35,7 @@ public class TextViewFixTouchConsume extends AppCompatTextView {
         super(context, attrs);
     }
 
-    public TextViewFixTouchConsume(
-            Context context, AttributeSet attrs, int defStyle) {
+    public TextViewFixTouchConsume(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
@@ -54,7 +53,7 @@ public class TextViewFixTouchConsume extends AppCompatTextView {
     public void setTextViewHTML(String html) {
         CharSequence sequence = Html.fromHtml(html);
         SpannableStringBuilder strBuilder =
-                new SpannableStringBuilder(sequence);
+            new SpannableStringBuilder(sequence);
         setText(strBuilder);
     }
 
@@ -75,12 +74,11 @@ public class TextViewFixTouchConsume extends AppCompatTextView {
         }
 
         @Override
-        public boolean onTouchEvent(TextView widget,
-                                    Spannable buffer, MotionEvent event) {
+        public boolean onTouchEvent(TextView widget, Spannable buffer, MotionEvent event) {
             int action = event.getAction();
 
             if (action == MotionEvent.ACTION_UP ||
-                    action == MotionEvent.ACTION_DOWN) {
+                action == MotionEvent.ACTION_DOWN) {
                 int x = (int) event.getX();
                 int y = (int) event.getY();
 
@@ -95,15 +93,15 @@ public class TextViewFixTouchConsume extends AppCompatTextView {
                 int off = layout.getOffsetForHorizontal(line, x);
 
                 ClickableSpan[] link = buffer.getSpans(
-                        off, off, ClickableSpan.class);
+                    off, off, ClickableSpan.class);
 
                 if (link.length != 0) {
                     if (action == MotionEvent.ACTION_UP) {
                         link[0].onClick(widget);
                     } else if (action == MotionEvent.ACTION_DOWN) {
                         Selection.setSelection(buffer,
-                                buffer.getSpanStart(link[0]),
-                                buffer.getSpanEnd(link[0]));
+                            buffer.getSpanStart(link[0]),
+                            buffer.getSpanEnd(link[0]));
                     }
 
                     if (widget instanceof TextViewFixTouchConsume) {

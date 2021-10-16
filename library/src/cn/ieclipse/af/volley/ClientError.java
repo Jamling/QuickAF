@@ -19,10 +19,9 @@ import com.android.volley.VolleyError;
 
 /**
  * 类/接口描述
- * 
+ *
  * @author Jamling
  * @date 2015年11月9日
- *       
  */
 public class ClientError extends VolleyError {
     public ClientError(Throwable t) {

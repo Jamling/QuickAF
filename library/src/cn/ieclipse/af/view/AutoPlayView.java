@@ -30,11 +30,12 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 import cn.ieclipse.af.R;
 import cn.ieclipse.af.adapter.AfPagerAdapter;
 import cn.ieclipse.af.common.Logger;
@@ -82,7 +83,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
 
     private float mRatio;
     private boolean mLoop = true;
-    private boolean mSmoothScroll = true;
+    private final boolean mSmoothScroll = true;
     private boolean mPlaying;
     private long mInterval = 5000;
     private boolean mAutoStart;
@@ -100,7 +101,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
     private int mPosition;// real position
     public static Logger mLogger = Logger.getLogger(AutoPlayView.class);
 
-    private Handler mHandler = new Handler() {
+    private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
@@ -109,16 +110,14 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
                 if (current + 1 < size) {// can next
                     mLogger.v(String.format("from %d to %d", current, current + 1));
                     mViewPager.setCurrentItem(current + 1, mSmoothScroll);
-                }
-                else if (current + 1 == size && (mLoop && !isAdapterLoop())) {
+                } else if (current + 1 == size && (mLoop && !isAdapterLoop())) {
                     mLogger.v(String.format("from %d to %d", current, 0));
                     mViewPager.setCurrentItem(0, mSmoothScroll);
                 }
                 if (mPlaying) {
                     mHandler.sendEmptyMessageDelayed(0, mInterval);
                 }
-            }
-            else if (msg.what == 1) {
+            } else if (msg.what == 1) {
                 mViewPager.setCurrentItem(1, false);
             }
         }
@@ -180,8 +179,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
             if (mPosition == getCount() - 1) {
                 mLogger.v(String.format("onTouch from %d to %d", mPosition, 1));
                 mViewPager.setCurrentItem(1, false);
-            }
-            else if (mPosition == -1) {
+            } else if (mPosition == -1) {
                 mLogger.v(String.format("onTouch from %d to %d", mPosition, getCount() - 2));
                 mViewPager.setCurrentItem(getCount() - 2, false);
             }
@@ -196,8 +194,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
                 // add if to fix the issue of auto start after motion event
                 if (mAutoStart) {
                     start();
-                }
-                else {
+                } else {
 
                 }
                 break;
@@ -243,8 +240,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
             }
             if (mPosition > 0) {// 非初次开启从当前位置开启
                 mViewPager.setCurrentItem(mPosition, false);
-            }
-            else {// 初次开启从0位置循环
+            } else {// 初次开启从0位置循环
                 mViewPager.setCurrentItem(0, false);
             }
         }
@@ -260,7 +256,6 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
      * Set a PagerAdapter that will supply views for this pager as needed.
      *
      * @param adapter adapter to use
-     *
      * @see androidx.viewpager.widget.ViewPager#setAdapter(androidx.viewpager.widget.PagerAdapter)
      */
     public void setAdapter(PagerAdapter adapter) {
@@ -272,13 +267,11 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
     }
 
     /**
-     * Set adapter data, use {@link androidx.viewpager.widget.PagerAdapter#notifyDataSetChanged()}
-     * If you want to update UI force, please use <code>
-     * setAdapterData(list, true);
+     * Set adapter data, use {@link androidx.viewpager.widget.PagerAdapter#notifyDataSetChanged()} If you want to update
+     * UI force, please use <code> setAdapterData(list, true);
      * </code>
      *
      * @param list data
-     *
      * @see #setAdapterData(java.util.List, boolean)
      * @since 2.1.1
      */
@@ -291,9 +284,8 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
      * <p>Note {@link androidx.viewpager.widget.PagerAdapter#notifyDataSetChanged()} will not update UI, please use
      * {@link cn.ieclipse.af.adapter.AfPagerAdapter#notifyDataSetChanged(boolean)} to update UI</p>
      *
-     * @param list  data
+     * @param list data
      * @param force whether force update adapter
-     *
      * @since 3.0.1
      */
     public void setAdapterData(List list, boolean force) {
@@ -303,8 +295,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
                 if (adapter instanceof AfPagerAdapter) {
                     ((AfPagerAdapter) adapter).setDataList(list);
                     ((AfPagerAdapter) adapter).notifyDataSetChanged(force);
-                }
-                else {
+                } else {
                     adapter.notifyDataSetChanged();
                 }
                 initIndicatorLayout();
@@ -313,11 +304,9 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
     }
 
     /**
-     * 设置一屏有多个元素
-     * 推荐使用 {@link cn.ieclipse.af.view.ViewPagerV4}
+     * 设置一屏有多个元素 推荐使用 {@link cn.ieclipse.af.view.ViewPagerV4}
      *
      * @param margin 元素之间的距离
-     *
      * @since 3.0.1
      */
     public void setMultiItemsInViewPager(int margin) {
@@ -434,7 +423,6 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
      * Set whether always show indicator or not, default is false (when count is less than 2, the indicator is hidden).
      *
      * @param show show
-     *
      * @since 2.1.1
      */
     public void setIndicatorAlwaysShow(boolean show) {
@@ -477,9 +465,8 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
     /**
      * Set indicator visible or not.
      *
-     * @param visibility see [{@link android.view.View#VISIBLE}|{@link android.view.View#INVISIBLE
-     *                   }|{@link android.view.View#GONE}]
-     *
+     * @param visibility see [{@link android.view.View#VISIBLE}|{@link android.view.View#INVISIBLE }|{@link
+     * android.view.View#GONE}]
      * @since 2.1.1
      */
     public void setIndicatorVisibility(int visibility) {
@@ -541,8 +528,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
      * 更新当前项数字
      *
      * @param current current count range: [1, count], start with 1, end with total count
-     * @param count   total count
-     *
+     * @param count total count
      * @since 3.0.1
      */
     protected void updateIndicatorText(int current, int count) {
@@ -567,8 +553,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
             int h = (int) (width * mRatio);
             int hms = MeasureSpec.makeMeasureSpec(h, MeasureSpec.EXACTLY);
             super.onMeasure(widthMeasureSpec, hms);
-        }
-        else {
+        } else {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
     }
@@ -600,8 +585,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
                         mLoopListener = new LoopOnPageChangeListener(getViewPager());
                     }
                     getViewPager().addOnPageChangeListener(mLoopListener);
-                }
-                else if (mLoopListener != null) {
+                } else if (mLoopListener != null) {
                     getViewPager().removeOnPageChangeListener(mLoopListener);
                 }
             }
@@ -609,8 +593,8 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
     }
 
     /**
-     * Whether the adapter is {@link cn.ieclipse.af.view.AutoPlayView.LoopPagerAdapter} and whether
-     * {@link cn.ieclipse.af.view.AutoPlayView.LoopPagerAdapter#isLoop()}
+     * Whether the adapter is {@link cn.ieclipse.af.view.AutoPlayView.LoopPagerAdapter} and whether {@link
+     * cn.ieclipse.af.view.AutoPlayView.LoopPagerAdapter#isLoop()}
      *
      * @return true if {@link cn.ieclipse.af.view.AutoPlayView.LoopPagerAdapter} is loop.
      */
@@ -621,7 +605,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
         return false;
     }
 
-    private ViewPager.OnPageChangeListener mPageIndicatorListener = new ViewPager.SimpleOnPageChangeListener() {
+    private final ViewPager.OnPageChangeListener mPageIndicatorListener = new ViewPager.SimpleOnPageChangeListener() {
         @Override
         public void onPageSelected(int position) {
             int count = getCount();
@@ -629,8 +613,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
             if (isAdapterLoop()) {
                 if (current == count - 1) {
                     current = 0;
-                }
-                else {
+                } else {
                     current = getCurrent() - 1;
                 }
                 count = count - 2;
@@ -644,8 +627,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
                 if (getCount() > 0) {
                     // 更新小点点颜色
                     updateIndicatorItem(mPosition, current);
-                }
-                else {
+                } else {
                     mIndicatorLayout.setVisibility(View.GONE);
                 }
             }
@@ -661,7 +643,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
      * @since 2.1.1
      */
     public class LoopOnPageChangeListener extends ViewPager.SimpleOnPageChangeListener {
-        private ViewPager mViewPager;
+        private final ViewPager mViewPager;
 
         public LoopOnPageChangeListener(ViewPager viewPager) {
             this.mViewPager = viewPager;
@@ -685,8 +667,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
                     //mViewPager.removeOnPageChangeListener(this);
                     if (position == 0) {
                         mViewPager.setCurrentItem(count - 2, false);
-                    }
-                    else if (position + 1 == count) {
+                    } else if (position + 1 == count) {
                         // mViewPager.setCurrentItem(1, false);
                         mHandler.sendEmptyMessageDelayed(1, 100);
                     }
@@ -700,7 +681,6 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
      * Loop {@link androidx.viewpager.widget.PagerAdapter}
      *
      * @param <T> data parameter type
-     *
      * @since 2.1.1
      */
     public static abstract class LoopPagerAdapter<T> extends AfPagerAdapter<T> {
@@ -742,7 +722,6 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
          * Set whether the adapter is playing loop
          *
          * @param loop loop
-         *
          * @see cn.ieclipse.af.view.AutoPlayView
          * @see #getRealCount()
          * @since 2.1.1
@@ -779,8 +758,7 @@ public class AutoPlayView extends FrameLayout implements View.OnTouchListener {
                 T last = mDataList.get(mDataList.size() - 1);
                 mDataList.add(0, last);
                 mDataList.add(first);
-            }
-            else {
+            } else {
                 mDataList.remove(mDataList.size() - 1);
                 mDataList.remove(0);
             }

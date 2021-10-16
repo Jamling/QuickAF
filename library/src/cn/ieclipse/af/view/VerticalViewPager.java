@@ -8,9 +8,8 @@ import android.view.View;
 import androidx.viewpager.widget.ViewPager;
 
 /**
- * Uses a combination of a PageTransformer and swapping X & Y coordinates
- * of touch events to create the illusion of a vertically scrolling ViewPager.
- * Requires API 11+.
+ * Uses a combination of a PageTransformer and swapping X & Y coordinates of touch events to create the illusion of a
+ * vertically scrolling ViewPager. Requires API 11+.
  * <a href="https://stackoverflow.com/questions/13477820/android-vertical-viewpager">https://stackoverflow
  * .com/questions/13477820/android-vertical-viewpager</a>
  *
@@ -42,8 +41,7 @@ public class VerticalViewPager extends ViewPager {
             if (position < -1) { // [-Infinity,-1)
                 // This page is way off-screen to the left.
                 view.setAlpha(0);
-            }
-            else if (position <= 1) { // [-1,1]
+            } else if (position <= 1) { // [-1,1]
                 view.setAlpha(1);
 
                 // Counteract the default slide transition
@@ -52,8 +50,7 @@ public class VerticalViewPager extends ViewPager {
                 //set Y position to swipe in from top
                 float yPosition = position * view.getHeight();
                 view.setTranslationY(yPosition);
-            }
-            else { // (1,+Infinity]
+            } else { // (1,+Infinity]
                 // This page is way off-screen to the right.
                 view.setAlpha(0);
             }

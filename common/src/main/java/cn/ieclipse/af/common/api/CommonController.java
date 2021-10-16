@@ -49,8 +49,7 @@ public abstract class CommonController<Listener> extends Controller<Listener> {
                     Controller.log("listener is null");
                 }
                 return false;
-            }
-            else if (mListener instanceof Activity) {
+            } else if (mListener instanceof Activity) {
                 if (Build.VERSION.SDK_INT >= 17 && ((Activity) mListener).isDestroyed()) {
                     if (Controller.DEBUG) {
                         Controller.log("listener(Activity) has been destroyed");
@@ -58,8 +57,7 @@ public abstract class CommonController<Listener> extends Controller<Listener> {
                     return false;
                 }
                 context = (Context) mListener;
-            }
-            else if (mListener instanceof Fragment) {
+            } else if (mListener instanceof Fragment) {
                 if (!((Fragment) mListener).isAdded() || ((Fragment) mListener).isDetached()) {
                     if (Controller.DEBUG) {
                         Controller.log("listener(Fragment) is not added");
@@ -88,8 +86,7 @@ public abstract class CommonController<Listener> extends Controller<Listener> {
         protected Output mockOutput(int max) {
             if (mDataClazz != null) {
                 return mock(mDataClazz);
-            }
-            else if (mDataItemClass != null) {
+            } else if (mDataItemClass != null) {
                 return (Output) mockList(max, mDataItemClass);
             }
             return null;

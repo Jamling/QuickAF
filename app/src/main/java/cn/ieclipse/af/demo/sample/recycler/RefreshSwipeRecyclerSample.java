@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
 import cn.ieclipse.af.adapter.delegate.AdapterDelegate;
 import cn.ieclipse.af.demo.R;
 import cn.ieclipse.af.view.recycle.SwipeMenuRecyclerView;
@@ -30,7 +31,7 @@ import cn.ieclipse.af.view.recycle.SwipeMenuRecyclerView;
  */
 public class RefreshSwipeRecyclerSample extends RefreshRecyclerSample {
     SwipeMenuRecyclerView swipeListView;
-    private int[] swipeDirs = new int[]{SwipeMenuRecyclerView.DIRECTION_LEFT, SwipeMenuRecyclerView.DIRECTION_RIGHT};
+    private final int[] swipeDirs = new int[]{SwipeMenuRecyclerView.DIRECTION_LEFT, SwipeMenuRecyclerView.DIRECTION_RIGHT};
 
     @Override
     public CharSequence getTitle() {

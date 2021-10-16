@@ -20,8 +20,6 @@ import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
-import org.slf4j.impl.StaticLoggerBinder;
-
 import cn.ieclipse.af.demo.common.api.BaseResponse;
 import cn.ieclipse.af.demo.my.UserInfo;
 import cn.ieclipse.af.util.AppUtils;

@@ -52,8 +52,7 @@ public abstract class AfDataFilter<T> extends Filter {
         FilterResults results = new FilterResults();
         if (mResultList == null) {
             mResultList = new ArrayList<>();
-        }
-        else {
+        } else {
             mResultList.clear();
         }
         if (mSourceList != null) {
