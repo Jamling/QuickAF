@@ -133,9 +133,9 @@ public class WeatherActivity extends BaseActivity implements WeatherController.W
 
     @Override
     public void onLoadWeatherSuccess(WeatherInfo out, boolean fromCache) {
-        String msg = String.format("city:%s\ntemp:%sC (%s - %s)\nwind:%s(%s)", out.city, out.temp, out.l_tmp, out.h_tmp,
-            out.WD, out.WS);
-        tv.setText(msg);
+//        String msg = String.format("city:%s\ntemp:%sC (%s - %s)\nwind:%s(%s)", out.city, out.temp, out.l_tmp, out.h_tmp,
+//            out.WD, out.WS);
+//        tv.setText(msg);
     }
 
     @Override

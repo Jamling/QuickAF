@@ -62,10 +62,10 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    api jetpackDepend.swiperefreshlayout
+    api rootProject.ext.jetpackDepend.swiperefreshlayout
     api jetpackDepend.appcompat
     api jetpackDepend.fragment
-    api jetpackDepend.recyclerview
+    implementation jetpackDepend.recyclerview
     api commonDepend.slf4japi
     api commonDepend.gson
     api commonDepend.volley

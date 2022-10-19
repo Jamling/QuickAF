@@ -41,7 +41,7 @@ public class ToastUtils {
         if (context == null) {
             return;
         }
-        if (mReplace == 1 && isOn(context) && context instanceof Activity) {
+        if (mReplace == 1 && !isOn(context) && context instanceof Activity) {
             DialogUtils.showAlert((Activity) context, 0, null, desc);
             return;
         }

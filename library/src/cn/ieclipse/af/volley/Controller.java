@@ -17,6 +17,8 @@ package cn.ieclipse.af.volley;
 
 import android.util.Log;
 
+
+import cn.ieclipse.util.EncodeUtils;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Request.Method;
@@ -25,12 +27,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
-
-import cn.ieclipse.util.EncodeUtils;
 
 /**
  * Volley controller to load data(json) from server. The delegate must be extends it.
@@ -40,7 +38,7 @@ import cn.ieclipse.util.EncodeUtils;
  */
 public abstract class Controller<Listener> {
     protected RequestQueue mQueue;
-    protected List<String> mTaskTags;
+    protected java.util.List<String> mTaskTags;
     protected Listener mListener;
     protected static final String TAG = "QuickAF";
     public static boolean DEBUG = isDebug();
@@ -67,7 +65,7 @@ public abstract class Controller<Listener> {
         if (VolleyManager.getInstance() == null) {
             throw new NullPointerException("did you forget initialize the VolleyManager?");
         }
-        mTaskTags = new ArrayList<>();
+        mTaskTags = new java.util.ArrayList<>();
         mQueue = VolleyManager.getInstance().getQueue();
     }
 
@@ -80,8 +78,7 @@ public abstract class Controller<Listener> {
         setListener(l);
     }
 
-    protected abstract class RequestObjectTask<Input, Output> implements Response.ErrorListener,
-        Response.Listener<IBaseResponse> {
+    protected abstract class RequestObjectTask<Input, Output> implements Response.ErrorListener, Response.Listener<IBaseResponse> {
         protected Class<Output> mDataClazz;
         protected Class<?> mDataItemClass;
         protected Gson mGson = new Gson();
@@ -127,7 +124,7 @@ public abstract class Controller<Listener> {
             if (mDataClazz != null) {
                 type = type(base, mDataClazz);
             } else if (mDataItemClass != null) {
-                type = type(base, type(List.class, mDataItemClass));
+                type = type(base, type(java.util.List.class, mDataItemClass));
             } else {
                 type = base;
             }
@@ -152,23 +149,19 @@ public abstract class Controller<Listener> {
          * @since 2.1.0
          */
         public void load(Input input, boolean needCache) {
-            Type type = this.getClass().getGenericSuperclass();
-            if (type instanceof ParameterizedType) {
-                type = ((ParameterizedType) type).getActualTypeArguments()[1];
+            java.lang.reflect.Type type = this.getClass().getGenericSuperclass();
+            if (type instanceof java.lang.reflect.ParameterizedType) {
+                type = ((java.lang.reflect.ParameterizedType) type).getActualTypeArguments()[1];
                 if (type instanceof Class) {
                     load(input, (Class<Output>) type, needCache);
-                } else if (type instanceof ParameterizedType) {
-                    type = ((ParameterizedType) type).getActualTypeArguments()[0];
+                } else if (type instanceof java.lang.reflect.ParameterizedType) {
+                    type = ((java.lang.reflect.ParameterizedType) type).getActualTypeArguments()[0];
                     load2List(input, (Class<?>) type, needCache);
                 } else {
-                    Controller.log(String
-                            .format("The type(%s) defined in task(%s) is not a concrete class type", type, getClass()),
-                        null);
+                    Controller.log(String.format("The type(%s) defined in task(%s) is not a concrete class type", type, getClass()), null);
                 }
             } else {
-                Controller.log(
-                    String.format("The type(%s) defined in task(%s) is not a concrete class type", type, getClass()),
-                    null);
+                Controller.log(String.format("The type(%s) defined in task(%s) is not a concrete class type", type, getClass()), null);
             }
         }
 
@@ -338,8 +331,8 @@ public abstract class Controller<Listener> {
         public abstract void onError(RestError error);
     }
 
-    public static ParameterizedType type(final Type raw, final Type... args) {
-        return new ParameterizedType() {
+    public static java.lang.reflect.ParameterizedType type(final Type raw, final Type... args) {
+        return new java.lang.reflect.ParameterizedType() {
             public Type getRawType() {
                 return raw;
             }
@@ -354,13 +347,13 @@ public abstract class Controller<Listener> {
         };
     }
 
-    public static List<Class<?>> getSuperType(Class<?> clazz) {
-        List<Class<?>> set = new ArrayList<>();
+    public static java.util.List<Class<?>> getSuperType(Class<?> clazz) {
+        java.util.List<Class<?>> set = new java.util.ArrayList<>();
         getSuperType(clazz, set);
         return set;
     }
 
-    private static void getSuperType(Class<?> clazz, List<Class<?>> set) {
+    private static void getSuperType(Class<?> clazz, java.util.List<Class<?>> set) {
         set.add(clazz);
         if (clazz.getSuperclass() != null) {
             getSuperType(clazz.getSuperclass(), set);
@@ -372,8 +365,9 @@ public abstract class Controller<Listener> {
     }
 
     private static boolean isIBaseResponse(Class<?> clazz) {
-        List<Class<?>> list = getSuperType(clazz);
-        return list.contains(IBaseResponse.class);
+        // List<Class<?>> list = getSuperType(clazz);
+        // return list.contains(IBaseResponse.class);
+        return IBaseResponse.class.isAssignableFrom(clazz);
     }
 
     public void onDestroy() {
